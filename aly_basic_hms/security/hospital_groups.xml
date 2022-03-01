@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="0">
+
+	<record id="module_category_hospital" model="ir.module.category">
+        <field name="name">Hospital Management</field>
+        <field name="description">Hospital Management System.</field>
+    </record>
+
+	<record id="bi_group_manager" model="res.groups">
+        <field name="name">Manager - can manage insurance invoices</field>
+        <field name="category_id" ref="module_category_hospital"/>
+        <field name="comment">Hospital Management System  -  Managers.</field>
+    </record>
+
+	<record id="bi_group_doctor" model="res.groups">
+        <field name="name">Doctor</field>
+        <field name="category_id" ref="module_category_hospital"/>
+        <field name="comment">the user will have access to his own data in the Doctor.</field>
+    </record>
+
+	<record id="group_chemist" model="res.groups">
+        <field name="name">Chemist</field>
+        <field name="category_id" ref="module_category_hospital"/>
+        <field name="comment">the user will have access to his own data in the Chemist.</field>
+    </record>
+
+    <record id="group_medical_group" model="res.groups">
+        <field name="name">Medical Group</field>
+        <field name="category_id" ref="module_category_hospital"/>
+        <field name="comment">the user will have access to his own data in the Medical Group.</field>
+    </record>
+
+    <record id="group_receptionist" model="res.groups">
+        <field name="name">Receptionist</field>
+        <field name="category_id" ref="module_category_hospital"/>
+        <field name="comment">the user will have access to his own data in the Receptionist.</field>
+    </record>
+
+
+	<record id="group_change_company" model="res.groups">
+        <field name="name">Can Change Company</field>
+        <field name="comment">the user will have access to change the company of any model.</field>
+    </record>
+
+    <record id="examination_product_category" model="ir.config_parameter">
+        <field name="key">examination.product_category</field>
+        <field name="value">Examinations</field>
+    </record>
+
+    <record id="lab_investigation_product_category" model="ir.config_parameter">
+        <field name="key">lab.investigation.product_category</field>
+        <field name="value">Lab Investigations</field>
+    </record>
+
+    <record id="accommodation_product_category" model="ir.config_parameter">
+        <field name="key">accommodation.product_category</field>
+        <field name="value">Accommodation</field>
+    </record>
+
+    <record forcecreate="True" id="record_package_product_category" model="product.category">
+        <field name="name">Packages</field>
+    </record>
+
+</data>
+
+    <data noupdate="0">
+    <record id="medical_prescription_multi_company_rule" model="ir.rule">
+        <field name="name">Medical Prescription filtered by Company</field>
+        <field name="model_id" ref="model_medical_prescription_order" />
+        <field name="global" eval="True" />
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
+    </record>
+
+    <record id="medical_patient_multi_company_rule" model="ir.rule">
+        <field name="name">Medical Patient filtered by Company</field>
+        <field name="model_id" ref="model_medical_patient" />
+        <field name="global" eval="True" />
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
+    </record>
+
+    <record id="medical_appointment_multi_company_rule" model="ir.rule">
+        <field name="name">Medical Appointment filtered by Company</field>
+        <field name="model_id" ref="model_medical_appointment" />
+        <field name="global" eval="True" />
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
+    </record>
+
+    <record id="medical_appointment_line_multi_company_rule" model="ir.rule">
+        <field name="name">Medical Appointment Lines filtered by Company</field>
+        <field name="model_id" ref="model_medical_appointment_line" />
+        <field name="global" eval="True" />
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
+    </record>
+
+</data>
+
+</odoo>

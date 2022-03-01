@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="medical_inpatient_registration_form_view" model="ir.ui.view">
+            <field name="name">medical.inpatient.registration.form.view</field>
+            <field name="model">medical.inpatient.registration</field>
+            <field name="arch" type="xml">
+                <form string="Inpatient Registration Information">
+                    <header>
+                        <!--<button-->
+                                <!--name="%(action_medical_inpatient_invoice_wizard)d"-->
+                                <!--string="Create Invoice" type="action" class="oe_highlight"-->
+                                <!--attrs="{'invisible': ['|', ('validity_status','=', 'invoice'), ('no_invoice', '=', True)]}"-->
+                        <!--/>-->
+                        <button
+                                name="%(action_medical_inpatient_discharge_wizard)d"
+                                string="Discharge Patient" type="action" class="oe_highlight"
+                                attrs="{'invisible': [('is_discharged','=', True)]}"
+                        />
+                        <!--<button name="print_invoice_report" type="object"-->
+                                <!--attrs="{'invisible': ['|', ('validity_status','=', 'tobe'), ('no_invoice', '=', True)]}"-->
+                            <!--string="Print Invoice" class="oe_highlight" />-->
+                        <field name="state" widget="statusbar"
+                            statusbar_visible="requested,admitted"
+                            readonly="1" />
+                    </header>
+                    <sheet>
+                        <group string="Administrative Data">
+                            <group>
+                                <field name="name" />
+                                <field name="patient_id" options="{'always_reload': 1, 'limit':2, 'no_create_edit': True, 'no_create': True, 'no_edit': True}" />
+
+                                <field name="admission_date" attrs="{'readonly': [('is_discharged','=', True)]}"
+                                    required="1" />
+                                <field name="discharge_date" attrs="{'readonly': [('is_discharged','=', True)]}"
+                                    required="1" />
+                                <field name="admission_days"/>
+                            </group>
+                            <group>
+                                <field name="attending_physician_id" />
+                                <field name="admission_type"
+                                    required="1" />
+                            </group>
+                            <group string="Invoice Data">
+                                <field name="accommodation_id" attrs="{'readonly': [('validity_status','=', 'invoice')]}" options="{'no_create_edit': True, 'no_create': True}"/>
+                                <field name="no_invoice" attrs="{'invisible': True}"/>
+                                <field name="is_discharged" attrs="{'invisible': True}"/>
+                                <field name="validity_status" readonly="1" attrs="{'invisible': True}"/>
+                                <field name="invoice_id" readonly="1" attrs="{'invisible': True}"/>
+                            </group>
+                        </group>
+                        <group string="Bed Transfer">
+                            <field name="bed_transfers_ids" help="Will Override Accommodation Service" widget="one2many_list" />
+                        </group>
+
+                        <!--<notebook>-->
+                            <!--<page string="Services and Procedures">-->
+                                <!--<group>-->
+                                    <!--<field name="inpatient_line_ids" widget="one2many_list" />-->
+                                <!--</group>-->
+                            <!--</page>-->
+                            <!--<page string="Medications">-->
+                                <!--<group string="Medications">-->
+                                    <!--<field name="medication_ids" string="Medication" widget="one2many_list" />-->
+                                <!--</group>-->
+                            <!--</page>-->
+                            <!--<page string="Care Plan">-->
+                                <!--<group>-->
+                                    <!--<field name="nursing_plan" />-->
+                                    <!--<field name="discharge_plan" />-->
+                                <!--</group>-->
+                            <!--</page>-->
+                            <!--<page string="Notes">-->
+                                <!--<group>-->
+                                    <!--<field name="info" string="Notes" />-->
+                                <!--</group>-->
+                            <!--</page>-->
+                        <!--</notebook>-->
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+        <record id="medical_inpatient_registration_tree_view" model="ir.ui.view">
+            <field name="name">medical.inpatient.registration.tree.view</field>
+            <field name="model">medical.inpatient.registration</field>
+            <field name="arch" type="xml">
+                <tree
+                    string="Inpatient Registration Info">
+                    <field name="name" />
+                    <field name="patient_id" />
+                    <field name="admission_date" />
+                    <field name="discharge_date" />
+                    <field name="admission_type" />
+                    <field name="state" />
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="medical_inpatient_invoice_inherit_view" model="ir.ui.view">
+            <field name="name">medical.inpatient.invoice.inherit.view</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <field name="name" position="attributes" >
+                    <attribute name="readonly">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="action_medical_inpatient_registration" model="ir.actions.act_window">
+            <field name="name">Inpatient Admission</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">medical.inpatient.registration</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="menu_inpatient_administration_admission"
+            parent="menu_inpatient_administration" action="action_medical_inpatient_registration"
+            sequence="0" />
+
+</odoo>

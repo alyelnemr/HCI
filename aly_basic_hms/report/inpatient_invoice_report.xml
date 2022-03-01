@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+        <template id="aly_basic_hms.inpatient_invoice_document_report">
+			<t t-call="web.external_layout">
+				<t t-set="doc" t-value="doc.with_context({'lang':doc.patient_id.patient_id.lang})"/>
+
+					<div class="page">
+						<div class="oe_structure"/>
+
+							<div>
+								<h3 class="text-center">
+									<strong>INPATIENT INVOICE</strong>
+								</h3>
+							</div>
+
+						<br/>
+
+					<table class="table table-condensed">
+					<tr>
+
+
+						<div
+							style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; font-size:16px">
+							<b>
+								Inpatient Registration code:
+								<span t-field='doc.name' />
+							</b>
+							<br></br>
+							<b>Patient Name:</b>
+							<span t-field='doc.patient_id.name' />
+							<br></br>
+							<b>Gender :</b>
+							<span t-field='doc.patient_id.sex' />
+							<br></br>
+							<b>Date of Birth :</b>
+							<span t-field='doc.patient_id.date_of_birth' />
+							<br></br>
+							<b>Hotel:</b>
+							<span t-field='doc.patient_id.hotel' />
+							<br></br>
+							<h4>Payment Type:</h4>
+							<span t-field='doc.invoice_id.payment_reference' />
+							<br></br>
+						</div>
+					</tr>
+
+					<tr>
+
+						<th style="border: 0px ;" class="text-left">Our Reference :
+							<span style="font-weight:normal;" t-field="doc.patient_id.our_reference"/>
+						</th>
+
+						<th style="border: 0px ;" class="text-left">Insurance Reference :
+							<span style="font-weight:normal;" t-field="doc.patient_id.insurance_reference"/>
+						</th>
+
+					</tr>
+					<tr>
+
+						<th style="border: 0px ;" class="text-left">Admission Date:
+							<span style="font-weight:normal;" t-field="doc.patient_id.insurance_reference"/>
+						</th>
+
+						<th style="border: 0px ;" class="text-left">Discharge Date:
+							<span t-if="doc.discharge_datetime" style="font-weight:normal;" t-field="doc.discharge_datetime"/>
+							<span t-else="" style="font-weight:normal;" t-field="doc.discharge_date"/>
+						</th>
+
+						<th style="border: 0px ;" class="text-left">Invoice Date:
+							<span t-if="doc.invoice_id" style="font-weight:normal;" t-field="doc.invoice_id.invoice_date"/>
+						</th>
+
+						<th style="border: 0px ;" class="text-left">Invoice Number:
+							<span t-if="doc.invoice_id" style="font-weight:normal;" t-field="doc.invoice_id.name"/>
+						</th>
+		                <!--<t t-set="o" t-value="doc.invoice_id" />-->
+						<!--<t t-call="account.report_invoice_document" t-lang="doc.patient_id.patient_id.lang"/>-->
+					</tr>
+					</table>
+
+						<br/>
+					</div>
+			</t>
+
+        </template>
+
+
+        <template id="medical_invoice_report_inherit_replace" inherit_id="account.report_invoice_document">
+            <xpath expr="//t[@t-set='address']" position="replace">
+                <div id="informations_aly" class="row mt32 mb32">
+                </div>
+            </xpath>
+
+        </template>
+
+        <template id="medical_inpatient_invoice_report_document">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="aly_basic_hms.inpatient_invoice_document_report" t-lang="doc.patient_id.patient_id.lang"/>
+					<t t-set="o" t-value="doc.invoice_id" />
+					<t t-call="aly_basic_hms.medical_invoice_report_inherit_replace" t-lang="doc.patient_id.patient_id.lang"/>
+				</t>
+			</t>
+        </template>
+
+</openerp>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="imaging_sequence" model="ir.sequence">
+            <field name="name">Imaging Request Seq</field>
+            <field name="code">medical_imaging_seq</field>
+            <field name="prefix">IMG</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="inpatient_registration_code_sequence" model="ir.sequence">
+            <field name="name">Medical InPatients Registration Seq</field>
+            <field name="code">medical.inpatient.registration</field>
+            <field name="prefix">INPAT</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="inpatient_update_note_code_sequence" model="ir.sequence">
+            <field name="name">Medical InPatients Update Note Seq</field>
+            <field name="code">medical.inpatient.update.note</field>
+            <field name="prefix">IPNOTE</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_appointment_code_sequence" model="ir.sequence">
+            <field name="name">Medical Patient Appointments Seq</field>
+            <field name="code">medical.appointment.code</field>
+            <field name="prefix">APT</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_health_service_code_sequence" model="ir.sequence">
+            <field name="name">Medical Health Services Seq</field>
+            <field name="code">medical.health_service</field>
+            <field name="prefix">SERV%(year)s/</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="patient_registration_sequence" model="ir.sequence">
+            <field name="name">Medical Patient Seq</field>
+            <field name="code">medical.patient.code</field>
+            <field name="prefix">PAT</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="prescription_order_sequence" model="ir.sequence">
+            <field name="name">Medical Patient Prescriptions Seq</field>
+            <field name="code">medical.prescription.order</field>
+            <field name="prefix">PRES%(year)s/</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_lab_test_sequence" model="ir.sequence">
+            <field name="name">Medical Lab Test Seq</field>
+            <field name="code">medical.lab_test_seq</field>
+            <field name="prefix">LTEST</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_patient_lab_test_sequence" model="ir.sequence">
+            <field name="name">Medical Patient Lab Test Seq</field>
+            <field name="code">medical.patient_test_seq</field>
+            <field name="prefix">PLABT</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="new_born_sequence" model="ir.sequence">
+            <field name="name">Medical New Born Seq</field>
+            <field name="code">medical.new_born_seq</field>
+            <field name="prefix">NB</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_package_sequence" model="ir.sequence">
+            <field name="name">Medical Package</field>
+            <field name="code">medical.package.seq</field>
+            <field name="prefix">PK</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="prescription_invoice_sequence" model="ir.sequence">
+            <field name="name">Medical Prescription Invoice</field>
+            <field name="code">pres_inv_seq</field>
+            <field name="prefix">PRES/INV/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="lab_invoice_sequence" model="ir.sequence">
+            <field name="name">Medical Lab Invoice</field>
+            <field name="code">lab_inv_seq</field>
+            <field name="prefix">LAB/INV/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_patient_invoice_sequence" model="ir.sequence">
+            <field name="name">Medical Patient Invoice</field>
+            <field name="code">medical_patient_inv_seq</field>
+            <field name="prefix">PAT/INV/</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_appointments_invoice_sequence" model="ir.sequence">
+            <field name="name">Medical Appointments Invoice</field>
+            <field name="code">medical_app_inv_seq</field>
+            <field name="prefix">APP/INV/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_inpatient_invoice_sequence" model="ir.sequence">
+            <field name="name">Medical Inpatient Invoice</field>
+            <field name="code">medical_inpatient_inv_seq</field>
+            <field name="prefix">INPAT/INV/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_operation_invoice_sequence" model="ir.sequence">
+            <field name="name">Medical Operation Invoice</field>
+            <field name="code">medical_operation_inv_seq</field>
+            <field name="prefix">OP/INV/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_operation_sequence" model="ir.sequence">
+            <field name="name">Medical Operation</field>
+            <field name="code">medical_operation_seq</field>
+            <field name="prefix">OP</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_health_service_invoice_sequence" model="ir.sequence">
+            <field name="name">Medical Health Service Invoice</field>
+            <field name="code">medical_health_service_inv_seq</field>
+            <field name="prefix">MED/HS/INV/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_lab_test_invoice_sequence" model="ir.sequence">
+            <field name="name">Medical Lab Test Invoice</field>
+            <field name="code">medical_lab_test_inv_seq</field>
+            <field name="prefix">MED/LT/INV/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

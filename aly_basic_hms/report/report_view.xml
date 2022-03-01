@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- QWeb Reports -->
+
+
+        <!--<report-->
+            <!--id="aly_basic_hms.report_print_medical_record"-->
+            <!--model="medical.patient"-->
+            <!--report_type="qweb-pdf"-->
+            <!--string="Medical Record Report"-->
+            <!--name="aly_basic_hms.medical_record_report"-->
+            <!--file="aly_basic_hms.medical_record_report"-->
+            <!--/>-->
+<record id="report_print_medical_record" model="ir.actions.report">
+        <field name="name">Patient Medical Report</field>
+        <field name="model">medical.patient</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">aly_basic_hms.medical_record_report</field>
+        <field name="report_file">aly_basic_hms.medical_record_report</field>
+        <field name="binding_model_id" ref="aly_basic_hms.model_medical_patient"/>
+        <field name="binding_type">report</field>
+    </record>
+
+        <!--<report-->
+            <!--id="report_print_prescription"-->
+            <!--model="medical.prescription.order"-->
+            <!--report_type="qweb-pdf"-->
+            <!--string="Prescription"-->
+            <!--name="aly_basic_hms.prescription_demo_report"-->
+            <!--file="aly_basic_hms.prescription_demo_report"-->
+            <!--/>-->
+
+        <!--<report-->
+            <!--id="report_print_patient_card"-->
+            <!--model="medical.patient"-->
+            <!--report_type="qweb-pdf"-->
+            <!--string="Patient Card"-->
+            <!--name="aly_basic_hms.report_patient_card"-->
+            <!--file="aly_basic_hms.report_patient_card"-->
+            <!--/>-->
+
+
+
+        <!--<report-->
+            <!--id="report_print_patient_medications_document"-->
+            <!--model="medical.patient"-->
+            <!--report_type="qweb-pdf"-->
+            <!--string="Medication History New"-->
+            <!--name="aly_basic_hms.patient_medications_document"-->
+            <!--file="aly_basic_hms.patient_medications_document"-->
+            <!--/>-->
+        <!--<report-->
+            <!--id="report_print_patient_vaccinations_document"-->
+            <!--model="medical.patient"-->
+            <!--report_type="qweb-pdf"-->
+            <!--string="Vaccinations History New"-->
+            <!--name="aly_basic_hms.patient_vaccinations"-->
+            <!--file="aly_basic_hms.patient_vaccinations"-->
+            <!--/>-->
+        <!--<report-->
+            <!--id="report_print_patient_diseases_document"-->
+            <!--model="medical.patient"-->
+            <!--report_type="qweb-pdf"-->
+            <!--string="Diseases Report New"-->
+            <!--name="aly_basic_hms.patient_diseases_document"-->
+            <!--file="aly_basic_hms.patient_diseases_document"-->
+            <!--/>-->
+        <!--<report-->
+            <!--id="report_print_lab_result_demo"-->
+            <!--model="medical.lab"-->
+            <!--report_type="qweb-pdf"-->
+            <!--string="Lab Record"-->
+            <!--name="aly_basic_hms.lab_result_demo"-->
+            <!--file="aly_basic_hms.lab_result_demo"-->
+            <!--/>-->
+
+
+        <!--<report-->
+            <!--id="report_print_inpatient_invoice_report"-->
+            <!--model="medical.inpatient.registration"-->
+            <!--report_type="qweb-pdf"-->
+            <!--string="Inpatient Invoice"-->
+            <!--name="aly_basic_hms.medical_inpatient_invoice_report_document"-->
+            <!--file="aly_basic_hms.medical_inpatient_invoice_report_document"-->
+            <!--/>-->
+
+</odoo>

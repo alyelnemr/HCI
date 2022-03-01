@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+
+		<!-- Tree view -->
+		<record id="medical_operation_tree_view" model="ir.ui.view">
+			<field name="name">medical.operation.tree.view</field>
+			<field name="model">medical.operation</field>
+			<field name="priority">2</field>
+			<field name="arch" type="xml">
+				<tree string="Operations List">
+					<field name="name"/>
+					<field name="patient_id" />
+                    <field name="type_of_anesthesia"/>
+                    <field name="time_in"/>
+                    <field name="time_out"/>
+				</tree>
+			</field>
+		</record>
+
+		<!-- Form view -->
+		<record id="medical_operation_form_view" model="ir.ui.view">
+			<field name="name">medical.operation.form.view</field>
+			<field name="model">medical.operation</field>
+			<field name="arch" type="xml">
+			<form string="Operations">
+                    <header>
+                        <button
+                                name="%(action_medical_operation_invoice_wizard)d"
+                                string="Create Invoice" type="action" class="oe_highlight"
+                                attrs="{'invisible': ['|', ('validity_status','=', 'invoice'), ('no_invoice', '=', True)]}"
+                        />
+                    </header>
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="name" />
+									<field name="patient_id" options="{'always_reload': 1, 'limit':2, 'no_create_edit': True, 'no_create': True, 'no_edit': True}" />
+                                    <field name="invoice_id" readonly="1" attrs="{'invisible': ['|', ('validity_status','=', 'tobe'), ('no_invoice','=', True)]}"/>
+                                    <field name="no_invoice" attrs="{'invisible': True}"/>
+                                    <field name="validity_status" readonly="1" attrs="{'invisible': True}"/>
+                                </group>
+                            </group>
+                            <group string="Anesthesia">
+                                <group>
+                                    <field name="type_of_anesthesia"/>
+                                    <field name="monitoring"/>
+                                    <field name="induction"/>
+                    				<field name="maintenance"/>
+                                </group>
+                                <group>
+                                    <field name="hemodynamic_status"/>
+                                    <field name="blood_loss"/>
+                                    <field name="recovery"/>
+                                    <field name="further_note"/>
+                                </group>
+                            </group>
+                            <group string="Operation Time">
+                                <group>
+                                    <field name="time_in"/>
+                                    <field name="time_out"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="notes"/>
+                            </group>
+                        <notebook>
+                            <page string="Post Operative Investigations">
+                                <group>
+                                    <field name="operation_line_ids" widget="one2many_list" />
+                                </group>
+                            </page>
+                        </notebook>
+                        </sheet>
+                    </form>
+
+			</field>
+		</record>
+
+		<!-- Search View -->
+		<record id="medical_operation_search_view" model="ir.ui.view">
+			<field name="name">operations</field>
+			<field name="model">medical.operation</field>
+			<field name="type">search</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<search string="Search operations">
+					<separator orientation="vertical" />
+					<field name="name" />
+					<field name="patient_id" />
+					<newline />
+				</search>
+			</field>
+		</record>
+
+        <record id="action_medical_operation" model="ir.actions.act_window">
+            <field name="name">Operations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">medical.operation</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--<menuitem id="menu_medical_operation"-->
+            <!--parent="main_menu_operation" action="action_medical_operation"-->
+            <!--sequence="0" />-->
+
+</openerp>

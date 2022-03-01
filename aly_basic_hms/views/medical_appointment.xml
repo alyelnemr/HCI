@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="medical_appointment_form_view" model="ir.ui.view">
+        <field name="name">medical.appointment.form.view</field>
+        <field name="model">medical.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Update Note">
+                <header>
+                    <!--<button-->
+                            <!--name="%(action_medical_appointments_invoice_wizard)d"-->
+                            <!--string="Create Invoice" type="action" class="oe_highlight"-->
+                            <!--attrs="{'invisible': ['|', ('validity_status','=', 'invoice'), ('no_invoice', '=', True)]}"-->
+                    <!--/>-->
+                </header>
+                <sheet>
+                    <div class="oe_left" style="width: 500px;">
+                        <div class="oe_title" style="width: 390px;">
+                            <label class="oe_edit_only" for="name"
+                                   string="Update Note #"/>
+                            <h2>
+                                <field name="name" class="oe_inline"/>
+                            </h2>
+                            <label for="patient_id" class="oe_edit_only"/>
+                            <h1>
+                                <field style="width: 100%%" name="patient_id"
+                                    default_focus="1" placeholder="Patient Name"
+                                   options="{'always_reload': 1, 'limit':2, 'no_create_edit': True, 'no_create': True, 'no_edit': True}"
+                                    context="{'default_is_patient': 1,'default_is_person': 1}"
+                                     />
+                            </h1>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="doctor_id"  />
+                            <!--<field name="doctor_id" attrs="{'readonly': [('validity_status','=', 'invoice')]}" />-->
+                            <!--<field name="consultations_id" attrs="{'readonly': [('validity_status','=', 'invoice')]}"  options="{'no_create_edit': True, 'no_create': True}"/>-->
+                            <field name="consultations_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                            <!--<field name="appointment_date" attrs="{'readonly': [('validity_status','=', 'invoice')]}" />-->
+                            <field name="appointment_date" />
+                            <field name="no_invoice" attrs="{'invisible': True}"/>
+                            <field name="is_discharged" attrs="{'invisible': True}"/>
+                            <!--<field name="no_invoice" attrs="{'invisible': [('validity_status','=', 'invoice')]}"/>-->
+                            <!--<field name="validity_status" readonly="1" />-->
+                            <!--<field name="invoice_id" readonly="1" attrs="{'invisible': ['|', ('validity_status','=', 'tobe'), ('no_invoice','=', True)]}"/>-->
+                        </group>
+                        <group>
+                            <!--<field name="invoice_to_insurer" attrs="{'invisible': [('validity_status','=', 'invoice')]}"/>-->
+                            <!--<field name="insurer_id" attrs="{'invisible': ['|', ('invoice_to_insurer','=', False), ('validity_status','=', 'invoice')]}"/>-->
+                            <field name="is_company_id_readonly" attrs="{'invisible': 1}"/>
+                            <field name="company_id" attrs="{'invisible': True}" />
+                            <!--<field name="company_id" attrs="{'readonly': ['|', ('validity_status','=', 'invoice'), ('is_company_id_readonly', '=', True)]}" />-->
+                        </group>
+                        <group string="Vital Data">
+                                <field name="vital_bp"/>
+                                <field name="vital_pulse"/>
+                                <field name="vital_temp"/>
+                                <field name="vital_rr"/>
+                                <field name="vital_oxygen"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Physical Examination">
+                            <group>
+                                <group>
+                                    <field name="general_appearance" />
+                                    <field name="head_neck" />
+                                    <field name="chest" />
+                                    <field name="heart" />
+                                </group>
+                                <group>
+                                    <field name="extremities" />
+                                    <field name="neurological_examination" />
+                                    <field name="further_examination" />
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Investigations">
+                            <group>
+                                <field name="appointment_investigations_ids" nolabel="1" widget="one2many_list" />
+                            </group>
+                        </page>
+                        <page string="Procedures">
+                            <group>
+                                <field name="appointment_procedure_ids" nolabel="1" widget="one2many_list" />
+                            </group>
+                        </page>
+                        <page string="Management">
+                            <group string="Administrative Data">
+                                <group>
+                                    <field name="accommodation_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                                    <field name="admission_type" />
+                                    <field name="admission_date" />
+                                    <field name="discharge_date" />
+                                    <field name="admission_duration"/>
+                                </group>
+                                <group>
+                                    <!--<button name="%(action_medical_inpatient_discharge_wizard)d"-->
+                                        <!--string="Discharge Patient" type="action" class="oe_highlight"-->
+                                        <!--attrs="{'invisible': [('is_discharged','=', True)]}"-->
+                                    <!--/>-->
+                                </group>
+                            </group>
+                            <group string="Medications">
+                                <field name="medication_ids" string="Medication" widget="one2many_list" />
+                            </group>
+                        </page>
+                        <page string="Another Consultations">
+                            <group>
+                                <field name="appointment_consultation_ids" nolabel="1" widget="one2many_list" />
+                            </group>
+                        </page>
+                        <page string="Recommendations">
+                            <group>
+                                <field name="recommendation" class="oe_inline" string="Further" />
+                            </group>
+                        </page>
+                        <page string="Home Medications" attrs="{'invisible': [('is_discharged','=', False)]}">
+                            <group string="Medications">
+                                <field name="discharge_medication_ids" string="Medication" widget="one2many_list" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"
+                           groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+
+        </field>
+    </record>
+
+
+    <record id="medical_appointment_calendar_view" model="ir.ui.view">
+        <field name="name">medical.appointment.calendar.view</field>
+        <field name="model">medical.appointment</field>
+        <field name="arch" type="xml">
+            <calendar string="Update Notes" color="doctor_id"
+                      quick_add="False" date_start="appointment_date">
+                <field name="patient_id"/>
+                <field name="doctor_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="medical_appointment_tree_view" model="ir.ui.view">
+        <field name="name">medical.appointment.tree.view</field>
+        <field name="model">medical.appointment</field>
+        <field name="arch" type="xml">
+            <tree string="Update Notes">
+                <field name="name"/>
+                <field name="patient_id"/>
+                <!--<field name="urgency_level"/>-->
+                <field name="appointment_date"/>
+                <field name="doctor_id"/>
+                <!--<field name="institution_partner_id"/>-->
+                <!--<field name="validity_status"/>-->
+                <!--<field name="company_id" />-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_medical_appointment" model="ir.actions.act_window">
+        <field name="name">Update Notes</field>
+        <field name="res_model">medical.appointment</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form,calendar</field>
+    </record>
+
+
+        <!-- Search View -->
+        <record id="medical_appointment_search_view" model="ir.ui.view">
+            <field name="name">medical.appointment.search.view</field>
+            <field name="model">medical.appointment</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Search for Update Note">
+                    <separator orientation="vertical" />
+                    <field name="name" />
+                    <field name="patient_id" />
+                    <field name="doctor_id" />
+                    <field name="appointment_date" />
+                </search>
+            </field>
+        </record>
+
+
+    <act_window id="action_view_appointment_id_new" name="Appointments"
+                res_model="medical.appointment" binding_model="medical.patient"
+                view_mode="tree,form" domain="[('patient_id', '=', active_id)]"/>
+
+    <!--<menuitem id="menu_medical_appointment" action="action_medical_appointment"-->
+              <!--parent="menu_appointment"-->
+              <!--sequence="1"/>-->
+
+</odoo>
+

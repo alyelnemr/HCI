@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <record id="medical_family_disease_tree_view" model="ir.ui.view">
+            <field name="name">medical.family.disease.tree.view</field>
+            <field name="model">medical.family.disease</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="medical_pathology_id" />
+                    <field name="relative_name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="medical_family_disease_form_view" model="ir.ui.view">
+            <field name="name">medical.family.disease.form.view</field>
+            <field name="model">medical.family.disease</field>
+            <field name="arch" type="xml">
+                <form string="Family History">
+                    <group>
+                        <field name="medical_pathology_id" string="Disease"/>
+                        <field name="relative_name" string="Relative"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+</odoo>

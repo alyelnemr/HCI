@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="medical_inpatient_medication_transient_form_view" model="ir.ui.view">
+            <field name="name">medical.inpatient.medication.transient.form.view</field>
+            <field name="model">medical.inpatient.medication.transient</field>
+            <field name="arch" type="xml">
+                <form string="Medication History">
+                    <group>
+                        <group>
+                            <field name="medical_medicament_id" />
+                            <field name="dose" />
+                            <field name="medical_dose_unit_id" />
+                        </group>
+                        <group>
+                            <field name="frequency" />
+                            <field name="frequency_unit" />
+                            <field name="admin_method" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="medical_inpatient_medication_transient_tree_view" model="ir.ui.view">
+            <field name="name">medical.inpatient.medication.transient.tree.view</field>
+            <field name="model">medical.inpatient.medication.transient</field>
+            <field name="arch" type="xml">
+                <tree string="Medication">
+                    <field name="medical_medicament_id" />
+                    <field name="dose" />
+                    <field name="medical_dose_unit_id" />
+                    <field name="admin_method" />
+                    <field name="frequency" />
+                    <field name="frequency_unit" />
+                </tree>
+            </field>
+        </record>
+
+</odoo>

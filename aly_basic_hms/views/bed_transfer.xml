@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Tree view -->
+        <record id="bed_transfer_tree_view" model="ir.ui.view">
+            <field name="name">bed.transfer.tree.view</field>
+            <field name="model">bed.transfer</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <tree string="Bed Transfer">
+                    <field name="accommodation_service" />
+                    <field name="accommodation_qty" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="bed_transfer_form_view" model="ir.ui.view">
+            <field name="name">bed.transfer.form.view</field>
+            <field name="model">bed.transfer</field>
+            <field name="arch" type="xml">
+                <form string="Bed Transfer">
+                    <group colspan="2" col="2">
+                        <field name="accommodation_service" />
+                        <field name="accommodation_qty" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+</odoo>

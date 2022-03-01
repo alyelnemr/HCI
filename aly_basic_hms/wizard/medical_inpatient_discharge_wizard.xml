@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <act_window id="action_inpatient_discharge_invoice_al1" name="Discharge Patient"
+            res_model="medical.inpatient.discharge.wizard" binding_model="medical.inpatient.registration"
+            view_mode="form" target="new" />
+
+        <record id="medical_inpatient_discharge_wizard_view" model="ir.ui.view">
+            <field name="name">medical.inpatient.discharge.wizard.view</field>
+            <field name="model">medical.inpatient.discharge.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Discharge Patient">
+                    <h2>   Do you want to Discharge the Patient ?</h2>
+                    <sheet>
+                        <group string="Discharge Data">
+                            <group>
+                                <field name="name" />
+                                <field name="discharge_datetime" />
+                                <field name="discharge_basis"/>
+                                <field name="actual_admission_days"/>
+                            </group>
+                            <group>
+                                <field name="refer_to" />
+                                <field name="transportation" />
+                            </group>
+                        </group>
+                        <group string="Medications">
+                            <field name="discharge_medication_ids" widget="one2many_list" />
+                        </group>
+                        <group string="Recommendation">
+                            <field name="recommendation"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="discharge_patient" string="Discharge Patient"
+                            type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" type="object"
+                            special="cancel" class="oe_highlight" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_medical_inpatient_discharge_wizard" model="ir.actions.act_window">
+            <field name="name">Discharge Patient</field>
+            <field name="res_model">medical.inpatient.discharge.wizard</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+</odoo>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="medical_patients_form_view" model="ir.ui.view">
+            <field name="name">medical.patients.form.view</field>
+            <field name="model">medical.patient</field>
+            <field name="arch" type="xml">
+                <form string="Patient">
+                    <header>
+                        <!--<button name="print_report" type="object"-->
+                            <!--string="Print Patient Medical Record" class="oe_highlight" />-->
+                        <button
+                                name="%(action_medical_patient_invoice_wizard)d"
+                                string="Create Invoice" type="action" class="oe_highlight"
+                                groups="aly_basic_hms.bi_group_manager"
+                                attrs="{'invisible': [('is_invoiced', '=', True)]}"
+                        />
+                    </header>
+                    <sheet>
+                        <div class="oe_right">
+                            <h2>
+                                <label for="is_opened_visit" attrs="{'invisible': [('is_invoiced', '=', True)]}" />
+                                <field string="Open Visit" attrs="{'invisible': [('is_invoiced', '=', True)]}" name="is_opened_visit" widget="boolean_toggle" />
+                            </h2>
+                        </div>
+                        <br/>
+                        <div class="oe_title">
+                            <!--<div class="oe_edit_only">-->
+                            <div>
+                                <label for="patient_id" />
+                            </div>
+                            <h1>
+                                <field style="width: 100%%" name="patient_id"
+                                    default_focus="1" placeholder="Patient Name"
+                                    context="{'default_is_patient': 1,'default_is_person': 1}"
+                                     />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="sex" />
+                                <field name="date_of_birth" />
+                                <field name="age" readonly="1" />
+                                <field name='nationality_id' options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
+                                <field name="marital_status" />
+                                <field name="company_id" />
+                            </group>
+                            <group>
+                                <field name="location_of_examination" />
+                                <field name="our_reference" />
+                                <field name="referred_by" />
+                                <field name="is_insurance" />
+                                <field name="insurance_reference" attrs="{'invisible': [('is_insurance', '=', False)]}" />
+                                <field name="policy_number" attrs="{'invisible': [('is_insurance', '=', False)]}" />
+                                <field name="insurance_company_id"
+                                       attrs="{'invisible': [('is_insurance', '=', False)]}"
+                                       context="{'default_is_insurance_company': True,'default_company_type': 'company'}"
+                                />
+                                <field name="assistance_company" attrs="{'invisible': [('is_insurance', '=', False)]}" />
+                                <field name="invoice_id" attrs="{'invisible': True}" />
+                                <field name="is_invoiced" attrs="{'invisible': True}" />
+                            </group>
+                        </group>
+                        <!--<group string="Attachments">-->
+                            <!--<field name="attachment" widget="one2many_list" />-->
+                        <!--</group>-->
+                        <group string="Family - Emergency Contact">
+                            <group>
+                                <field name="emergency_contact_name" />
+                                <field name="emergency_contact_phone" />
+                            </group>
+                            <group string="_">
+                                <field name="emergency_contact_relation" />
+                                <field name="emergency_contact_address" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Medical History">
+                                <group>
+                                    <field name="patient_complaint" />
+                                    <field name="food_drug_allergy" />
+                                    <field name="history_present_illness" />
+                                    <field name="past_medical_history" />
+                                </group>
+                                <group>
+                                    <field name="past_surgical_history" />
+                                    <field name="family_history" />
+                                    <field name="social_history" />
+                                </group>
+                                <group >
+                                    <group>
+                                        <field name="primary_care_physician_id" />
+                                        <field name="blood_type" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Diagnosis">
+                                <group >
+                                    <group>
+                                        <field name="diagnosis_final" />
+                                        <field name="diagnosis_provisional" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Hotel">
+                                <group>
+                                    <group>
+                                        <field name="hotel" context="{'default_is_hotel': True,'default_company_type': 'company'}"/>
+                                        <field name="date_of_arrival" />
+                                        <field name="date_of_departure" />
+                                        <field name="room_number" />
+                                    </group>
+                                    <group>
+                                        <field name="assistance_company" />
+                                        <field name="travel_agency" context="{'default_is_travel_agency': True,'default_company_type': 'company'}"/>
+                                        <field name="tour_operator" context="{'default_is_tour_operator': True}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <!--<page string="Insurance Data">-->
+                                <!--<group string="Insurance Cards">-->
+                                    <!--<field name="current_insurance_id" nolabel="1"/>-->
+                                <!--</group>-->
+                            <!--</page>-->
+
+                            <!--<page string="Medical &amp; Social History">-->
+                                <!--<group string="Complaints">-->
+                                    <!--<field name="patient_disease_ids" nolabel="1" widget="one2many_list" />-->
+                                <!--</group>-->
+                                <!--<group string="Family History">-->
+                                    <!--<field name="family_history_ids" nolabel="1" widget="one2many_list" />-->
+                                <!--</group>-->
+                                <!--<group string="Social History">-->
+                                    <!--<field name="social_history_info" nolabel="1" />-->
+                                <!--</group>-->
+                            <!--</page>-->
+
+                            <!--<page string="Medication">-->
+                                <!--<group>-->
+                                    <!--<field name="medication_ids"-->
+                                        <!--string="Medication History"-->
+                                        <!--colspan="4" widget="one2many_list" >-->
+                                        <!--<tree>-->
+                                            <!--<field name="medical_medicament_id" />-->
+                                            <!--<field name="indication_pathology_id" />-->
+                                            <!--<field name="start_treatment" />-->
+                                            <!--<field name="end_treatment" />-->
+                                            <!--<field name="is_active" />-->
+                                            <!--<field name="doctor_physician_id" />-->
+                                        <!--</tree>-->
+                                    <!--</field>-->
+                                <!--</group>-->
+                            <!--</page>-->
+
+                        </notebook>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+        <record id="medical_patients_tree_view" model="ir.ui.view">
+            <field name="name">medical.patients.tree.view</field>
+            <field name="model">medical.patient</field>
+            <field name="arch" type="xml">
+                <tree string="Patient Information">
+                    <field name="name" />
+                    <field name="patient_id" />
+                    <field name="sex" />
+                    <field name="date_of_birth" />
+                    <!--<field name="primary_care_physician_id" />-->
+                    <field name="travel_agency" />
+                    <field name="is_opened_visit" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_medical_patient" model="ir.actions.act_window">
+            <field name="name">Patients</field>
+            <field name="res_model">medical.patient</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Search View -->
+        <record id="medical_patient_search_view" model="ir.ui.view">
+            <field name="name">medical.patient.search.view</field>
+            <field name="model">medical.patient</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8" />
+            <field name="arch" type="xml">
+                <search string="Search for Patients">
+                    <separator orientation="vertical" />
+                    <field name="name" />
+                </search>
+            </field>
+        </record>
+
+        <act_window id="action_view_priscription_id2" name="Prescription Orders"
+            res_model="medical.prescription.order" binding_model="medical.patient"
+            view_mode="tree" domain="[('patient_id', '=', active_id)]" />
+
+        <act_window id="action_view_lab_id" name="Lab Reports"
+            res_model="medical.lab" binding_model="medical.patient"
+            view_mode="tree,form" domain="[('patient_id', '=', active_id)]" />
+
+        <act_window id="action_psc_id" name="PSC"
+            res_model="medical.patient.psc" binding_model="medical.patient"
+            view_mode="tree,form" domain="[('patient_id', '=', active_id)]" />
+
+</odoo>
