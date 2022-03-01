@@ -33,25 +33,6 @@
             parent="main_menu_hospital_management"
             sequence="3" />
 
-
-
-        <menuitem id="menu_genetic" name="Genetics"
-            parent="main_menu_configuration" sequence="4" />
-
-
-        <menuitem id="menu_diseases" name="Diseases"
-            parent="main_menu_configuration" sequence="2" />
-
-
-        <menuitem id="menu_categories_categories" action="action_medical_pathology_category_form"
-            sequence="1" parent="menu_diseases" />
-
-        <menuitem id="menu_sub_diseases" action="action_medical_pathology"
-            sequence="0" parent="menu_diseases" />
-
-        <menuitem id="menu_health_centers1" name="Health Centers"
-            parent="main_menu_configuration" />
-
         <menuitem id="menu_insurance" name="Insurances"
             parent="main_menu_configuration" sequence='9' />
 
@@ -78,5 +59,11 @@
         <menuitem id="menu_inpatient_administration_update_note"
             parent="menu_inpatient_administration" action="action_medical_inpatient_update_note"
             sequence="1" />
+
+        <menuitem id="menu_physician" name='Physicians'
+            parent="main_menu_configuration" sequence="7" />
+
+        <menuitem id="menu_medical_physician" parent="menu_physician"
+            action="action_medical_physician" sequence="6" />
 
 </openerp>

@@ -61,10 +61,4 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_physician" name='Physicians'
-            parent="main_menu_configuration" sequence="7" />
-
-        <menuitem id="menu_medical_physician" parent="menu_physician"
-            action="action_medical_physician" sequence="6" />
-
 </odoo>
