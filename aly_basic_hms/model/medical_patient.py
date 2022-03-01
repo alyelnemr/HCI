@@ -119,5 +119,8 @@ class MedicalPatient(models.Model):
                     vals.update({
                         'name': patient_id,
                     })
+            if not record.invoice_id:
+                record.is_invoiced = False
+                record.is_opened_visit = True
         res = super(MedicalPatient, self).write(vals)
         return res
