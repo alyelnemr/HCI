@@ -14,34 +14,14 @@
             sequence = "4"
             />
             
-               
-    	<!--<menuitem name="Laboratory"-->
-            <!--id="main_menu_conf_laboratory"-->
-            <!--parent = "main_menu_configuration"-->
-            <!--sequence='0'-->
-           <!--/>   -->
     	<menuitem name="Operations"
             id="main_menu_conf_operation"
             parent = "main_menu_configuration"
             sequence="0"
            />
 
-
-        <!--<menuitem id="menu_packages" name="Packages" action="action_medical_patient"-->
-            <!--parent="main_menu_conf_operation" sequence="0"  />-->
-
         <menuitem id="menu_patients" name='Patients' action="action_medical_patient"
             parent="main_menu_hospital_management" sequence="0" />
-
-        <!--<menuitem id="menu_medical_patient_code" action="action_medical_patient"-->
-            <!--parent="menu_patients" sequence="0" />-->
-
-        <!--<menuitem id="dental_prescription_child" action="action_medical_prescription_order"-->
-            <!--name="Prescriptions" parent="menu_patients" sequence="1" />-->
-
-
-
-
 
         <menuitem id="menu_appointment" action="action_medical_appointment"
             name='Update Notes' parent="main_menu_hospital_management" sequence="1" />
