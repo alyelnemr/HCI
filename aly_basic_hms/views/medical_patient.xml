@@ -45,6 +45,7 @@
                                 <field name='nationality_id' options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
                                 <field name="marital_status" />
                                 <field name="company_id" />
+                                <field name="invoice_id" groups="aly_basic_hms.bi_group_manager"/>
                             </group>
                             <group>
                                 <field name="location_of_examination" />

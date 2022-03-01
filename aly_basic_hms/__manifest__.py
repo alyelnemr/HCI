@@ -3,12 +3,12 @@
 
 {
 
-    "name": "Clinics and Hospital Management System",
+    "name": "HCI Group",
     "version": "14.0.0.1",
     "currency": 'EGP',
-    "summary": "Clinics and Hospital Management system",
+    "summary": "Healthcare International Group",
     "description": """
-    'Aly El Nemr' upgraded a module developed by BrowseInfo, deployed on Odoo 14 third-party apps.
+    'Aly El Nemr' upgraded a module developed by BrowseInfo, was deployed on Odoo 14 third-party apps.
 """,
 
     "depends": ["base", "sale_management", "stock", "account"],
