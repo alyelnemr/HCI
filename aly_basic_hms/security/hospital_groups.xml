@@ -46,6 +46,7 @@
 
 	<record id="group_change_company" model="res.groups">
         <field name="name">Can Change Company</field>
+        <field name="category_id" ref="module_category_hospital"/>
         <field name="comment">the user will have access to change the company of any model.</field>
     </record>
 
