@@ -21,8 +21,4 @@
             </field>
         </record>
 
-        <act_window id="action_create_lab_result2" name="Create Lab Result"
-            res_model="medical.lab.test.create" binding_model="medical.patient.lab.test"
-            view_mode="form" target="new" />
-
 </odoo>

@@ -23,9 +23,4 @@
             </field>
         </record>
 
-        <act_window id="action_create_prescription_invoice1"
-            name="Create Prescription Invoice" res_model="create.prescription.invoice"
-            binding_model="medical.prescription.order" view_mode="form"
-            target="new" />
-
 </odoo>

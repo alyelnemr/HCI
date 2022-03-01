@@ -198,16 +198,4 @@
             </field>
         </record>
 
-        <act_window id="action_view_priscription_id2" name="Prescription Orders"
-            res_model="medical.prescription.order" binding_model="medical.patient"
-            view_mode="tree" domain="[('patient_id', '=', active_id)]" />
-
-        <act_window id="action_view_lab_id" name="Lab Reports"
-            res_model="medical.lab" binding_model="medical.patient"
-            view_mode="tree,form" domain="[('patient_id', '=', active_id)]" />
-
-        <act_window id="action_psc_id" name="PSC"
-            res_model="medical.patient.psc" binding_model="medical.patient"
-            view_mode="tree,form" domain="[('patient_id', '=', active_id)]" />
-
 </odoo>

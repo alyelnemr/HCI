@@ -24,9 +24,4 @@
             </field>
         </record>
 
-        <act_window id="action_create_prescription_shipment1"
-            name="Create Prescription Shipment" res_model="create.prescription.shipment"
-            binding_model="medical.prescription.order" view_mode="form"
-            target="new" />
-
 </odoo>
