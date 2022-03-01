@@ -43,7 +43,7 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                                                                    ('patient_id', '=', medical_patient_obj.id)])
             list_of_operation = medical_operation_env.search([('is_invoiced', '=', False),
                                                                    ('patient_id', '=', medical_patient_obj.id)])
-            if medical_patient_obj.is_invoiced:
+            if medical_patient_obj.is_invoiced or medical_patient_obj.invoice_id.state == 'posted':
                 raise UserError(_('This patient is already invoiced'))
             for inpatient in list_of_inpatient:
                 if not inpatient.is_discharged:

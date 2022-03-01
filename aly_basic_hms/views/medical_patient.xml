@@ -13,7 +13,7 @@
                                 name="%(action_medical_patient_invoice_wizard)d"
                                 string="Create Invoice" type="action" class="oe_highlight"
                                 groups="aly_basic_hms.bi_group_manager"
-                                attrs="{'invisible': ['|', ('is_invoiced', '=', True), ('invoice_id.state', '=', 'posted')]}"
+                                attrs="{'invisible': [('is_invoiced', '=', True)]}"
                         />
                     </header>
                     <sheet>
