@@ -44,7 +44,7 @@ class MedicalPatient(models.Model):
     sex = fields.Selection([('m', 'Male'), ('f', 'Female')], string="Sex")
     age = fields.Char(compute=onchange_age,string="Patient Age", store=True)
     referred_by = fields.Char(string='Referred By')
-    is_opened_visit = fields.Boolean(string='Open Visit', default=False, required=False)
+    is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
     is_invoiced = fields.Boolean(string='Is Invoiced', default=False, required=False)
     invoice_id = fields.Many2one('account.move', 'Invoice')
     is_insurance = fields.Boolean(string='Insurance', default=False, required=False)
