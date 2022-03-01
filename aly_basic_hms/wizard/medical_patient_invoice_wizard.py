@@ -4,28 +4,27 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import Warning,UserError
 from datetime import date,datetime
-from docx import Document
 
 
 class MedicalPatientInvoiceWizard(models.TransientModel):
     _name = 'medical.patient.invoice.wizard'
 
-    def create_invoice(self):
-        active_ids = self._context.get('active_ids')
-        list_of_ids = []
-        medical_patient_env = self.env['medical.patient']
-        for active_id in active_ids:
-            medical_patient_obj = medical_patient_env.browse(active_id)
-            document = Document()
-            document.add_heading('aly el nemr', 0)
-            document.save('/aly_basic_hms/static/src/demo.docx')
-        return {
-            'type': 'ir.actions.act_url',
-            'url': str('/aly_basic_hms/static/src/'),
-            'target': 'new',
-        }
+    # def create_invoice(self):
+    #     active_ids = self._context.get('active_ids')
+    #     list_of_ids = []
+    #     medical_patient_env = self.env['medical.patient']
+    #     for active_id in active_ids:
+    #         medical_patient_obj = medical_patient_env.browse(active_id)
+    #         document = Document()
+    #         document.add_heading('aly el nemr', 0)
+    #         document.save('/aly_basic_hms/static/src/demo.docx')
+    #     return {
+    #         'type': 'ir.actions.act_url',
+    #         'url': str('/aly_basic_hms/static/src/'),
+    #         'target': 'new',
+    #     }
 
-    def create_invoice_old(self):
+    def create_invoice(self):
         active_ids = self._context.get('active_ids')
         list_of_ids = []
         medical_patient_env = self.env['medical.patient']
