@@ -85,8 +85,4 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_inpatient_administration_update_note"
-            parent="menu_inpatient_administration" action="action_medical_inpatient_update_note"
-            sequence="1" />
-
 </odoo>

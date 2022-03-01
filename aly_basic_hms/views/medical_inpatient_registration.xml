@@ -119,8 +119,4 @@
         </record>
 
 
-        <menuitem id="menu_inpatient_administration_admission"
-            parent="menu_inpatient_administration" action="action_medical_inpatient_registration"
-            sequence="0" />
-
 </odoo>
