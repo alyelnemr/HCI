@@ -34,6 +34,17 @@
                                     <field name="medication_ids" string="Medication" widget="one2many_list" />
                                 </group>
                             </page>
+                            <page string="Management">
+                            <group string="Administrative Data">
+                                <group>
+                                    <span>The Patient has been admitted in</span>
+                                    <field name="admission_type_management" />
+                                </group>
+                            </group>
+                            <group string="Medications">
+                                <field name="medication_ids" string="Medication" widget="one2many_list" />
+                            </group>
+                        </page>
                             <page string="Care Plan">
                                 <group>
                                     <field name="nursing_plan" />
@@ -84,5 +95,10 @@
             <field name="binding_view_types">form</field>
             <field name="view_mode">tree,form</field>
         </record>
+
+    <act_window id="action_view_inpatient_update_new" name="Patient Inpatient Update Notes"
+                res_model="medical.inpatient.update.note" binding_model="medical.patient"
+                view_mode="tree,form" domain="[('patient_id', '=', active_id)]"/>
+
 
 </odoo>

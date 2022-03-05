@@ -90,8 +90,6 @@
                                 <group>
                                     <field name="accommodation_id" options="{'no_create_edit': True, 'no_create': True}"/>
                                     <field name="admission_type" />
-                                    <field name="admission_date" />
-                                    <field name="discharge_date" />
                                     <field name="admission_duration"/>
                                 </group>
                                 <group>

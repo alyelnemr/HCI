@@ -27,6 +27,7 @@
         'views/medical_drug_route.xml',
         'views/medical_dose_unit.xml',
         'views/medical_family_disease.xml',
+        'views/medical_inpatient_accommodation.xml',
         'views/medical_inpatient_registration.xml',
         'views/medical_inpatient_update_note.xml',
         'views/medical_inpatient_medication.xml',

@@ -94,6 +94,42 @@ class MedicalPatient(models.Model):
     #                             string="Contract")
 
     @api.model
+    def get_sorting(self):
+        record = self
+        my_list = []
+        i = 0
+        for app in record.update_note_ids:
+            my_list.append(
+                {
+                    'date': app.appointment_date.date(),
+                    'obj_type': 'app',
+                    'order_in_list': i
+                 })
+            i += 1
+        i = 0
+        for app in record.inpatient_ids:
+            my_list.append(
+                {
+                    'date': app.admission_date,
+                    'obj_type': 'inp',
+                    'order_in_list': i
+                })
+            i += 1
+        i = 0
+        for app in record.operation_ids:
+            my_list.append(
+                {
+                    'date': app.time_in.date(),
+                    'obj_type': 'op',
+                    'order_in_list': i
+                })
+            i += 1
+        i = 0
+        my_list_sorted = sorted(my_list, key=lambda a:(a['date']))
+
+        return my_list_sorted
+
+    @api.model
     def create(self, val):
         if val.get('date_of_birth'):
             dt = val.get('date_of_birth')

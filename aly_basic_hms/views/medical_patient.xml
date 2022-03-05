@@ -13,14 +13,14 @@
                                 name="%(action_medical_patient_invoice_wizard)d"
                                 string="Create Invoice" type="action" class="oe_highlight"
                                 groups="aly_basic_hms.bi_group_manager"
-                                attrs="{'invisible': [('is_invoiced', '=', True)]}"
                         />
+                        <!--attrs="{'invisible': [('is_invoiced', '=', True)]}"-->
                     </header>
                     <sheet>
                         <div class="oe_right">
                             <h2>
-                                <label for="is_opened_visit" attrs="{'invisible': [('is_invoiced', '=', True)]}" />
-                                <field string="Open Visit" attrs="{'invisible': [('is_invoiced', '=', True)]}" name="is_opened_visit" widget="boolean_toggle" />
+                                <label for="is_opened_visit" attrs="{'invisible': [('invoice_id', '!=', False)]}" />
+                                <field string="Open Visit" attrs="{'invisible': [('invoice_id', '!=', False)]}" name="is_opened_visit" widget="boolean_toggle" />
                             </h2>
                         </div>
                         <br/>

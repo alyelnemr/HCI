@@ -40,15 +40,17 @@ class MedicalInpatientRegistration(models.Model):
 
     name = fields.Char(string="Registration Code", readonly=True)
     is_invoiced = fields.Boolean(copy=False, default=False)
-    patient_id = fields.Many2one('medical.patient', domain=[('is_invoiced', '=', False)], string="Patient", required=True)
+    patient_id = fields.Many2one('medical.patient', domain=[('inpatient_ids', '=', False)],
+                                 string="Patient", required=True)
     admission_date = fields.Date(string="Admission date", required=True, default=date.today())
     discharge_date = fields.Date(string="Expected Discharge date", required=True, default=date.today())
-    admission_days = fields.Integer(compute=_compute_admission_days, string="Admission Duration", store=True)
+    # admission_days = fields.Integer(compute=_compute_admission_days, string="Admission Duration", store=True)
+    admission_days = fields.Integer(string="Admission Duration", default=1)
     attending_physician_id = fields.Many2one('medical.physician',string="Attending Physician")
     admission_type = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU'), ('care', 'Intermediate Care Unit')],
                                       required=False, string="Admission Type")
     info = fields.Text(string="Notes")
-    bed_transfers_ids = fields.One2many('bed.transfer', 'inpatient_id', string='Transfer Bed')
+    bed_transfers_ids = fields.One2many('medical.inpatient.accommodation', 'inpatient_id', string='Accommodations')
     ip_update_note_ids = fields.One2many('medical.inpatient.update.note', 'inpatient_id', string='Inpatient Update Notes')
     state = fields.Selection([('requested', 'Requested'), ('admitted', 'Admitted'), ('discharged', 'Discharged')],
                              string="State", default="requested")
@@ -63,7 +65,7 @@ class MedicalInpatientRegistration(models.Model):
     ], 'Status', compute=_compute_validity_status, store=False, sort=False, readonly=True, default='tobe')
     invoice_id = fields.Many2one('account.move', 'Invoice')
     accommodation_id = fields.Many2one('product.product', 'Accommodation Service',
-                                       domain=lambda self: self._get_accommodation_product_category_domain(), required=True)
+                                       domain=lambda self: self._get_accommodation_product_category_domain())
     discharge_medication_ids = fields.One2many('medical.inpatient.medication', 'medical_inpatient_registration_id',
                                                string='Medication')
     is_discharged = fields.Boolean(copy=False, default=False)
@@ -89,7 +91,7 @@ class MedicalInpatientRegistration(models.Model):
             if rec.admission_days <= 0:
                 raise ValidationError(_('Admission Duration must be greater than zero...'))
             if not rec.accommodation_id and len(rec.bed_transfers_ids) <= 0:
-                raise ValidationError(_('Add Accommodation Service or Bed Accommodation must have at least one record...'))
+                raise ValidationError(_('Accommodation Services must have at least one record...'))
 
     def name_get(self):
         res = []

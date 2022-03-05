@@ -28,20 +28,6 @@ class MedicalAppointment(models.Model):
             insurance_ids = self.patient_id.current_insurance_id
             return [('id', 'in', insurance_ids)]
 
-    @api.depends('discharge_date', 'admission_date')
-    def _compute_admission_days(self):
-        for rec in self:
-            d2 = rec.discharge_date
-            d1 = rec.admission_date
-            if d1 and d2:
-                rd = d2 - d1
-                seconds_in_day = 24 * 60 * 60
-                hours_in_day = 24 * 60
-                dur = divmod(rd.days * seconds_in_day + rd.seconds, seconds_in_day)
-                rec.admission_duration = str(dur[0]) + 'd  -  ' + str(int(dur[1]/3600)) + 'h'
-                if rec.discharge_date < rec.admission_date or rd.days < 0:
-                    raise UserError(_('Discharge Date Must be greater than or equal Admission Date...'))
-
     def _get_accommodation_product_category_domain(self):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('accommodation.product_category')
         prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
@@ -67,9 +53,7 @@ class MedicalAppointment(models.Model):
     prescription_line_id = fields.One2many('medical.prescription.order', 'appointment_id',
                                            string='Services and Lab Investigations', required=True)
     invoice_id = fields.Many2one('account.move', 'Invoice')
-    admission_date = fields.Datetime(string="Admission date", required=False, default=date.today())
-    discharge_date = fields.Datetime(string="Expected Discharge date", required=False, default=date.today())
-    admission_duration = fields.Char(compute=_compute_admission_days, string="Admission Duration", store=True)
+    admission_duration = fields.Integer(string="Observation Duration (per hour)")
     accommodation_id = fields.Many2one('product.product', 'Accommodation Service',
                                        domain=lambda self: self._get_accommodation_product_category_domain(), required=False)
     admission_type = fields.Selection([('observation', 'Observation Room')],

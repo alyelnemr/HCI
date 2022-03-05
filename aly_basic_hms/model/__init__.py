@@ -9,6 +9,7 @@ from . import medical_appointment
 from . import medical_appointment_consultation_line
 from . import medical_appointment_line
 from . import medical_inpatient_line
+from . import medical_inpatient_accommodation
 from . import medical_directions
 from . import medical_patient_medication
 from . import medical_patient_medication1

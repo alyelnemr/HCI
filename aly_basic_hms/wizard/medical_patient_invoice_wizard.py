@@ -37,13 +37,10 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
         ir_property_obj = self.env['ir.property']
         for active_id in active_ids:
             medical_patient_obj = medical_patient_env.browse(active_id)
-            list_of_update_notes = medical_appointment_env.search([('is_invoiced', '=', False),
-                                                                   ('patient_id', '=', medical_patient_obj.id)])
-            list_of_inpatient = medical_inpatient_env.search([('is_invoiced', '=', False),
-                                                                   ('patient_id', '=', medical_patient_obj.id)])
-            list_of_operation = medical_operation_env.search([('is_invoiced', '=', False),
-                                                                   ('patient_id', '=', medical_patient_obj.id)])
-            if medical_patient_obj.is_invoiced or medical_patient_obj.invoice_id.state == 'posted':
+            list_of_update_notes = medical_appointment_env.search([('patient_id', '=', medical_patient_obj.id)])
+            list_of_inpatient = medical_inpatient_env.search([('patient_id', '=', medical_patient_obj.id)])
+            list_of_operation = medical_operation_env.search([('patient_id', '=', medical_patient_obj.id)])
+            if medical_patient_obj.invoice_id.state == 'posted':
                 raise UserError(_('This patient is already invoiced'))
             for inpatient in list_of_inpatient:
                 if not inpatient.is_discharged:
@@ -56,7 +53,7 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                 partner_id = medical_patient_obj.insurance_company_id.id
                 partner_shipping_id = medical_patient_obj.insurance_company_id.id
 
-            if not medical_patient_obj.invoice_id:
+            if not medical_patient_obj.invoice_id.state == 'posted':
                 sale_journals = self.env['account.journal'].search([('type','=','sale')])
                 invoice_vals = {
                 'name': self.env['ir.sequence'].next_by_code('medical_patient_inv_seq'),
@@ -101,6 +98,32 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                         'product_id': appointment.consultations_id.id,
                     }
                     list_of_vals.append((0, 0, invoice_line_vals))
+
+                    # accommodation of update note (management tab)
+                    if appointment.accommodation_id:
+                        invoice_line_account_id = appointment.accommodation_id.property_account_income_id.id \
+                                                  or appointment.accommodation_id.categ_id.property_account_income_categ_id.id \
+                                                  or False
+                        if not invoice_line_account_id:
+                            inc_acc = ir_property_obj.get('property_account_income_categ_id', 'product.category')
+                        if not invoice_line_account_id:
+                            raise UserError(
+                                _('There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
+                                (appointment.accommodation_id.name,))
+
+                        tax_ids = []
+                        taxes = appointment.accommodation_id.taxes_id.filtered(lambda r: not appointment.accommodation_id.company_id or r.company_id == appointment.accommodation_id.company_id)
+                        tax_ids = taxes.ids
+                        invoice_line_vals = {
+                            # 'name': appointment.accommodation_id.name or '',
+                            'name': 'Update Note - Accommodation' or '',
+                            'account_id': invoice_line_account_id,
+                            'price_unit': appointment.accommodation_id.lst_price,
+                            'product_uom_id': appointment.accommodation_id.uom_id.id,
+                            'quantity': appointment.admission_duration or 1,
+                            'product_id': appointment.accommodation_id.id,
+                        }
+                        list_of_vals.append((0, 0, invoice_line_vals))
 
                     for p_line in appointment.appointment_procedure_ids:
 
@@ -387,25 +410,19 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
 
                 medical_patient_obj.invoice_id = res
                 medical_patient_obj.with_context({'come_from_invoice': True}).is_opened_visit = False
-                medical_patient_obj.is_invoiced = True
                 for appointment in list_of_update_notes:
                     appointment.invoice_id = res
-                    appointment.is_invoiced = True
                 for inpatient in list_of_inpatient:
                     inpatient.invoice_id = res
-                    inpatient.is_invoiced = True
                     for ip_update_note in inpatient.ip_update_note_ids:
                         ip_update_note.invoice_id = res
-                        ip_update_note.is_invoiced = True
                 for operation in list_of_operation:
                     operation.invoice_id = res
-                    operation.is_invoiced = True
 
                 list_of_ids.append(res.id)
                 if list_of_ids:
                         imd = self.env['ir.model.data']
                         lab_req_obj_brw = medical_patient_env.browse(self._context.get('active_id'))
-                        lab_req_obj_brw.write({'is_invoiced': True})
                         action = imd.sudo().xmlid_to_object('account.action_move_out_invoice_type')
                         list_view_id = imd.sudo().xmlid_to_res_id('account.view_invoice_tree')
                         form_view_id = imd.sudo().xmlid_to_res_id('account.view_move_form')

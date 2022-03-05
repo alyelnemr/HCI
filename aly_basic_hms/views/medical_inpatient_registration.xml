@@ -32,16 +32,14 @@
 
                                 <field name="admission_date" attrs="{'readonly': [('is_discharged','=', True)]}"
                                     required="1" />
-                                <field name="discharge_date" attrs="{'readonly': [('is_discharged','=', True)]}"
-                                    required="1" />
-                                <field name="admission_days"/>
+                                <!--<field name="discharge_date" attrs="{'readonly': [('is_discharged','=', True)]}"-->
+                                    <!--required="1" />-->
+                                <!--<field name="admission_days"/>-->
                             </group>
                             <group>
                                 <field name="attending_physician_id" />
-                                <field name="admission_type"
-                                    required="1" />
                             </group>
-                            <group string="Invoice Data">
+                            <group string="Invoice Data" attrs="{'invisible': True}">
                                 <field name="accommodation_id" attrs="{'readonly': [('validity_status','=', 'invoice')]}" options="{'no_create_edit': True, 'no_create': True}"/>
                                 <field name="no_invoice" attrs="{'invisible': True}"/>
                                 <field name="is_discharged" attrs="{'invisible': True}"/>
@@ -49,7 +47,7 @@
                                 <field name="invoice_id" readonly="1" attrs="{'invisible': True}"/>
                             </group>
                         </group>
-                        <group string="Bed Transfer">
+                        <group string="Accommodations">
                             <field name="bed_transfers_ids" help="Will Override Accommodation Service" widget="one2many_list" />
                         </group>
 
@@ -117,6 +115,11 @@
             <field name="binding_view_types">form</field>
             <field name="view_mode">tree,form</field>
         </record>
+
+
+    <act_window id="action_view_inpatient_new" name="Patient Admissions"
+                res_model="medical.inpatient.registration" binding_model="medical.patient"
+                view_mode="tree,form" domain="[('patient_id', '=', active_id)]"/>
 
 
 </odoo>
