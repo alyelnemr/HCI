@@ -1,6 +1,6 @@
 
 from odoo import api, fields, models, _
-
+from datetime import date
 
 class MedicalReportTemplate(models.AbstractModel):
     _name = 'report.aly_basic_hms.medical_record_report'
@@ -59,7 +59,8 @@ class MedicalReportTemplate(models.AbstractModel):
         active_id = self.env.context.get('active_id')
         docs = self.env[model].browse(docids)
         sorted_data = self.get_sorting(docs)
-        min_update_note_date = sorted_data[0]['date']
+        sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
+        min_update_note_date = sorted_update_note[0].appointment_date.date()
         return {
             'data': data,
             'doc_ids': docids,
@@ -127,7 +128,8 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
         active_id = self.env.context.get('active_id')
         docs = self.env[model].browse(docids)
         sorted_data = self.get_sorting(docs)
-        min_update_note_date = sorted_data[0]['date']
+        sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
+        min_update_note_date = sorted_update_note[0].appointment_date.date()
         return {
             'data': data,
             'doc_ids': docids,
@@ -195,7 +197,8 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
         active_id = self.env.context.get('active_id')
         docs = self.env[model].browse(docids)
         sorted_data = self.get_sorting(docs)
-        min_update_note_date = sorted_data[0]['date']
+        sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
+        min_update_note_date = sorted_update_note[0].appointment_date.date()
         return {
             'data': data,
             'doc_ids': docids,
