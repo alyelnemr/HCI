@@ -30,8 +30,7 @@ class MedicalInpatientUpdateNote(models.Model):
     update_note_date = fields.Datetime(string="Update Note date", required=True, default=date.today())
     attending_physician_id = fields.Many2one('medical.physician', string="Attending Physician")
     info = fields.Text(string="Notes")
-    admission_type_management = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU'), ('care', 'Intermediate Care Unit')],
-                                      string="Admission Type")
+    admission_type_management = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU')], string="Admission Type")
     nursing_plan = fields.Text(string="Nursing Plan")
     discharge_plan = fields.Text(string="Discharge Plan")
     medication_ids = fields.One2many('medical.inpatient.medication', 'medical_inpatient_update_note_id', string='Medication')

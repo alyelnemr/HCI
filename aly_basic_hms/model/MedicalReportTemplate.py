@@ -1,6 +1,6 @@
 
 from odoo import api, models
-
+from datetime import date
 
 class MedicalReportTemplate(models.AbstractModel):
     _name = 'report.aly_basic_hms.medical_record_report'
@@ -60,14 +60,16 @@ class MedicalReportTemplate(models.AbstractModel):
         docs = self.env[model].browse(docids)
         sorted_data = self.get_sorting(docs)
         sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
-        min_update_note_date = sorted_update_note[0].appointment_date.date()
+        min_update_note_date = sorted_update_note[0].appointment_date.date() if len(sorted_update_note) > 0 else date.today()
+        is_discharged = docs.inpatient_ids[0].is_discharged if len(docs.inpatient_ids) > 0 else False
         return {
             'data': data,
             'doc_ids': docids,
             'doc_model': model,
             'docs': docs,
             'sorted_data': sorted_data,
-            'min_update_note_date': min_update_note_date
+            'min_update_note_date': min_update_note_date,
+            'is_discharged': is_discharged
         }
 
 
@@ -129,14 +131,16 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
         docs = self.env[model].browse(docids)
         sorted_data = self.get_sorting(docs)
         sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
-        min_update_note_date = sorted_update_note[0].appointment_date.date()
+        min_update_note_date = sorted_update_note[0].appointment_date.date() if len(sorted_update_note) > 0 else date.today()
+        is_discharged = docs.inpatient_ids[0].is_discharged if len(docs.inpatient_ids) > 0 else False
         return {
             'data': data,
             'doc_ids': docids,
             'doc_model': model,
             'docs': docs,
             'sorted_data': sorted_data,
-            'min_update_note_date': min_update_note_date
+            'min_update_note_date': min_update_note_date,
+            'is_discharged': is_discharged
         }
 
 
@@ -198,12 +202,14 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
         docs = self.env[model].browse(docids)
         sorted_data = self.get_sorting(docs)
         sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
-        min_update_note_date = sorted_update_note[0].appointment_date.date()
+        min_update_note_date = sorted_update_note[0].appointment_date.date() if len(sorted_update_note) > 0 else date.today()
+        is_discharged = docs.inpatient_ids[0].is_discharged if len(docs.inpatient_ids) > 0 else False
         return {
             'data': data,
             'doc_ids': docids,
             'doc_model': model,
             'docs': docs,
             'sorted_data': sorted_data,
-            'min_update_note_date': min_update_note_date
+            'min_update_note_date': min_update_note_date,
+            'is_discharged': is_discharged
         }

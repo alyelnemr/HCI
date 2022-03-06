@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <template id="medical_record_report">
+        <template id="medical_record_report_update">
                 <t t-call="web.html_container">
                     <t t-foreach="docs" t-as="doc">
                         <t t-if="doc.company_id.header">
@@ -85,6 +85,8 @@
                                 <div>
                                     <h3 class="text-center"><strong>Update Medical Report</strong></h3>
                                 </div>
+                                <br/>
+                                <br/>
                                 <br/>
                                 <div>
                                     <table style="width:100%">
@@ -553,6 +555,45 @@
                                             <br/>
                                         </t>
 
+                                    </t>
+                                    <t t-if="is_discharged" >
+                                        <div>
+                                            <h4 class="text-center"><strong>Discharge Note</strong></h4>
+                                        </div>
+                                                <div class="text-left">At <span t-esc="docs.inpatient_ids.discharge_datetime" /> , the patient was discharged on much improvement basis, transported by
+                                                    <span t-esc="docs.inpatient_ids.transportation" />
+                                                    with our medical escort till arranged TARMAC access , and received the following medication:
+                                                </div>
+                                                <t t-if="docs.inpatient_ids.discharge_medication_ids">
+                                                    <table>
+                                                        <tbody class="sale_tbody">
+                                                            <t t-set="counter_medication" t-value="0" />
+                                                            <t t-foreach="docs.inpatient_ids.discharge_medication_ids" t-as="med">
+                                                                <tr>
+                                                                    <td style="width:100%">
+                                                                        <t t-set="counter_medication" t-value="counter_medication+1" />
+                                                                        <t t-esc="counter_medication" />.
+                                                                        <span t-field="med.medical_medicament_id.product_id.name" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </t>
+                                                        </tbody>
+                                                    </table>
+                                                </t>
+                                        <br/>
+                                                <table>
+                                                    <tbody class="sale_tbody">
+                                                        <tr>
+                                                            <td style="width:30%">Recommendations:</td>
+                                                            <td style="width:70%;">
+                                                                <span t-field="docs.inpatient_ids.recommendation" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <br/>
+                                                <br/>
+                                        <br/>
                                     </t>
 
                                 </div>
