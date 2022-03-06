@@ -12,7 +12,7 @@
             <!--file="aly_basic_hms.medical_record_report"-->
             <!--/>-->
 <record id="report_print_medical_record" model="ir.actions.report">
-        <field name="name">Patient Medical Report</field>
+        <field name="name">Patient Medical Report - Final</field>
         <field name="model">medical.patient</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">aly_basic_hms.medical_record_report</field>
@@ -21,6 +21,25 @@
         <field name="binding_type">report</field>
     </record>
 
+        <record id="report_print_medical_record_primary" model="ir.actions.report">
+        <field name="name">Patient Medical Report - Primary</field>
+        <field name="model">medical.patient</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">aly_basic_hms.medical_record_report_primary</field>
+        <field name="report_file">aly_basic_hms.medical_record_report_primary</field>
+        <field name="binding_model_id" ref="aly_basic_hms.model_medical_patient"/>
+        <field name="binding_type">report</field>
+    </record>
+
+        <record id="report_print_medical_record_update" model="ir.actions.report">
+        <field name="name">Patient Medical Report - Update</field>
+        <field name="model">medical.patient</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">aly_basic_hms.medical_record_report_update</field>
+        <field name="report_file">aly_basic_hms.medical_record_report_update</field>
+        <field name="binding_model_id" ref="aly_basic_hms.model_medical_patient"/>
+        <field name="binding_type">report</field>
+    </record>
         <!--<report-->
             <!--id="report_print_prescription"-->
             <!--model="medical.prescription.order"-->

@@ -49,6 +49,8 @@
         'views/res_partner.xml',
         'views/res_company.xml',
         'report/report_view.xml',
+        'report/medical_record_report_primary.xml',
+        'report/medical_record_report_update.xml',
         'report/medical_record_report_template.xml',
         'report/medical_view_report_document_lab.xml',
         'report/inpatient_invoice_report.xml',

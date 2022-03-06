@@ -18,14 +18,6 @@
                             <t t-set="counter_inp_note" t-value="0" />
                             <t t-set="app_counter" t-value="0" />
                             <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
-                                <!--<tr >-->
-                                    <!--<th style="background-color:MediumSlateBlue !important;color:#FFF !important;">-->
-                                        <!--Patient Name-->
-                                    <!--</th>-->
-                                    <!--<td colspan="3">-->
-                                        <!--<b><span t-field="doc.patient_id.name" class="text-center"/></b>-->
-                                    <!--</td>-->
-                                <!--</tr>-->
                                 <tr>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Patient Name</th>
                                     <td>
@@ -90,7 +82,7 @@
                             </table>
                             <div>
                                 <div>
-                                    <h3 class="text-center"><strong>Final Medical Report</strong></h3>
+                                    <h3 class="text-center"><strong>Primary Medical Report</strong></h3>
                                 </div>
                                 <br/>
                                 <div>

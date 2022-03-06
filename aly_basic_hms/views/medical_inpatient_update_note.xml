@@ -97,8 +97,8 @@
         </record>
 
     <act_window id="action_view_inpatient_update_new" name="Patient Inpatient Update Notes"
-                res_model="medical.inpatient.update.note" binding_model="medical.patient"
-                view_mode="tree,form" domain="[('patient_id', '=', active_id)]"/>
+                res_model="medical.inpatient.update.note" binding_model="medical.inpatient.registration"
+                view_mode="tree,form" domain="[('inpatient_id', '=', active_id)]"/>
 
 
 </odoo>
