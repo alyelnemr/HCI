@@ -27,39 +27,39 @@
                                     <!--</td>-->
                                 <!--</tr>-->
                                 <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Patient Name</th>
-                                    <td>
-                                        <b><span t-field="doc.patient_id.name" class="text-center"/></b>
-                                    </td>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Date</th>
                                     <td>
-                                        <span t-field="min_update_note_date" class="text-center"/>
+                                        <span t-esc="min_update_note_date" class="text-center"/>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Date of Birth</th>
-                                    <td>
-                                        <span t-field="doc.date_of_birth" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Nationality</th>
-                                    <td>
-                                        <span t-field="doc.nationality_id.name" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Sex</th>
                                     <td>
                                         <span t-field="doc.sex" class="text-center"/>
                                     </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Hospital Ref#</th>
+                                </tr>
+                                <tr>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Patient Name</th>
                                     <td>
-                                        <span t-field="doc.our_reference" class="text-center"/>
+                                        <b><span t-field="doc.patient_id.name" class="text-center"/></b>
+                                    </td>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Date of Birth</th>
+                                    <td>
+                                        <span t-field="doc.date_of_birth" class="text-center"/>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Nationality</th>
+                                    <td>
+                                        <span t-field="doc.nationality_id.name" class="text-center"/>
+                                    </td>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Insurance Company</th>
                                     <td>
                                         <span t-field="doc.insurance_company_id.name" class="text-center"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Hospital Ref#</th>
+                                    <td>
+                                        <span t-field="doc.our_reference" class="text-center"/>
                                     </td>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Insurance Ref#</th>
                                     <td>
