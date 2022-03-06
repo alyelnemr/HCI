@@ -1,6 +1,6 @@
 
-from odoo import api, fields, models, _
-from datetime import date
+from odoo import api, models
+
 
 class MedicalReportTemplate(models.AbstractModel):
     _name = 'report.aly_basic_hms.medical_record_report'
