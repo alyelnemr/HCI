@@ -35,6 +35,7 @@
         'views/medical_insurance_plan.xml',
         'views/medical_appointment.xml',
         'views/medical_appointment_line.xml',
+        'views/medical_patient_line.xml',
         'views/medical_appointment_consultation_line.xml',
         'views/medical_operation.xml',
         'views/medical_operation_line.xml',

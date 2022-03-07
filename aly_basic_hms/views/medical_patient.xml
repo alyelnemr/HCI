@@ -119,40 +119,12 @@
                                     </group>
                                 </group>
                             </page>
-                            <!--<page string="Insurance Data">-->
-                                <!--<group string="Insurance Cards">-->
-                                    <!--<field name="current_insurance_id" nolabel="1"/>-->
-                                <!--</group>-->
-                            <!--</page>-->
+                            <page string="Disposables and Supplies">
+                                <group>
+                                    <field name="disposable_ids" nolabel="1" widget="one2many_list" />
+                                </group>
+                            </page>
 
-                            <!--<page string="Medical &amp; Social History">-->
-                                <!--<group string="Complaints">-->
-                                    <!--<field name="patient_disease_ids" nolabel="1" widget="one2many_list" />-->
-                                <!--</group>-->
-                                <!--<group string="Family History">-->
-                                    <!--<field name="family_history_ids" nolabel="1" widget="one2many_list" />-->
-                                <!--</group>-->
-                                <!--<group string="Social History">-->
-                                    <!--<field name="social_history_info" nolabel="1" />-->
-                                <!--</group>-->
-                            <!--</page>-->
-
-                            <!--<page string="Medication">-->
-                                <!--<group>-->
-                                    <!--<field name="medication_ids"-->
-                                        <!--string="Medication History"-->
-                                        <!--colspan="4" widget="one2many_list" >-->
-                                        <!--<tree>-->
-                                            <!--<field name="medical_medicament_id" />-->
-                                            <!--<field name="indication_pathology_id" />-->
-                                            <!--<field name="start_treatment" />-->
-                                            <!--<field name="end_treatment" />-->
-                                            <!--<field name="is_active" />-->
-                                            <!--<field name="doctor_physician_id" />-->
-                                        <!--</tree>-->
-                                    <!--</field>-->
-                                <!--</group>-->
-                            <!--</page>-->
 
                         </notebook>
                     </sheet>
