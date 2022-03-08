@@ -89,12 +89,12 @@
                                     <field name="family_history" />
                                     <field name="social_history" />
                                 </group>
-                                <group >
-                                    <group>
-                                        <field name="primary_care_physician_id" />
-                                        <field name="blood_type" />
-                                    </group>
-                                </group>
+                                <!--<group >-->
+                                    <!--<group>-->
+                                        <!--<field name="primary_care_physician_id" />-->
+                                        <!--<field name="blood_type" />-->
+                                    <!--</group>-->
+                                <!--</group>-->
                             </page>
                             <page string="Diagnosis">
                                 <group >
