@@ -85,7 +85,7 @@
 
     <record forcecreate="True" id="record_standard_accommodation_product_product" model="product.template">
         <field name="name">Standard Accommodation</field>
-        <field name="categ_id">Accommodation</field>
+        <field name="categ_id.name">Accommodation</field>
         <field name="type">service</field>
     </record>
 
