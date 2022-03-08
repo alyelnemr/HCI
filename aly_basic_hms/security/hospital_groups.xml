@@ -92,7 +92,7 @@
     <record forcecreate="True" id="record_service_charge_tax" model="account.tax">
         <field name="name">Service Charge 12.5%</field>
         <field name="amount_type">percent</field>
-        <field name="tax_type">sale</field>
+        <field name="tax_type_use">sale</field>
         <field name="amount">12.5</field>
     </record>
 
