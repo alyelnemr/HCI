@@ -79,13 +79,13 @@
 
     <record forcecreate="True" id="record_medical_examination_product_product" model="product.template">
         <field name="name">Medical Examination</field>
-        <field name="categ_id.name">Examinations</field>
+        <field name="categ_id" ref="aly_basic_hms.record_examination_product_category" />
         <field name="type">service</field>
     </record>
 
     <record forcecreate="True" id="record_standard_accommodation_product_product" model="product.template">
         <field name="name">Standard Accommodation</field>
-        <field name="categ_id.name">Accommodation</field>
+        <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
         <field name="type">service</field>
     </record>
 
