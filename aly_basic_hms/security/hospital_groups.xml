@@ -79,7 +79,7 @@
 
     <record forcecreate="True" id="record_medical_examination_product_product" model="product.template">
         <field name="name">Medical Examination</field>
-        <field name="categ_id">Examinations</field>
+        <field name="categ_id.name">Examinations</field>
         <field name="type">service</field>
     </record>
 
