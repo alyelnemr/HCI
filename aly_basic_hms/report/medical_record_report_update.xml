@@ -487,36 +487,42 @@
                                                                 <span t-field="my_list_obj['obj_id'].monitoring" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                                             </td>
                                                         </tr>
+                                                        <br/>
                                                         <tr>
                                                             <td style="width:30%">Induction:</td>
                                                             <td style="width:70%;">
                                                                 <span t-field="my_list_obj['obj_id'].induction" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                                             </td>
                                                         </tr>
+                                                        <br/>
                                                         <tr>
                                                             <td style="width:30%">Maintenance:</td>
                                                             <td style="width:70%">
                                                                 <span t-field="my_list_obj['obj_id'].maintenance" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                                             </td>
                                                         </tr>
+                                                        <br/>
                                                         <tr>
                                                             <td style="width:30%">Hemodynamic Status:</td>
                                                             <td style="width:70%;">
                                                                 <span t-field="my_list_obj['obj_id'].hemodynamic_status" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                                             </td>
                                                         </tr>
+                                                        <br/>
                                                         <tr>
                                                             <td style="width:30%">Blood Loss:</td>
                                                             <td style="width:70%">
                                                                 <span t-field="my_list_obj['obj_id'].blood_loss" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                                             </td>
                                                         </tr>
+                                                        <br/>
                                                         <tr>
                                                             <td style="width:30%">Recovery:</td>
                                                             <td style="width:70%;">
                                                                 <span t-field="my_list_obj['obj_id'].recovery" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                                             </td>
                                                         </tr>
+                                                        <br/>
                                                         <tr>
                                                             <td style="width:30%">Further Note:</td>
                                                             <td style="width:70%">

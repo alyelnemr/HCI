@@ -24,11 +24,11 @@
 			<field name="arch" type="xml">
 			<form string="Operations">
                     <header>
-                        <button
-                                name="%(action_medical_operation_invoice_wizard)d"
-                                string="Create Invoice" type="action" class="oe_highlight"
-                                attrs="{'invisible': ['|', ('validity_status','=', 'invoice'), ('no_invoice', '=', True)]}"
-                        />
+                        <!--<button-->
+                                <!--name="%(action_medical_operation_invoice_wizard)d"-->
+                                <!--string="Create Invoice" type="action" class="oe_highlight"-->
+                                <!--attrs="{'invisible': ['|', ('validity_status','=', 'invoice'), ('no_invoice', '=', True)]}"-->
+                        <!--/>-->
                     </header>
                         <sheet>
                             <group>

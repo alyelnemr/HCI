@@ -1,8 +1,8 @@
 from odoo import api, fields, models, _
 
 
-class MedicalAppointmentLine(models.Model):
-    _name = 'medical.appointment.line'
+class MedicalAppointmentInvestigation(models.Model):
+    _name = 'medical.appointment.investigation'
 
     name = fields.Many2one('medical.appointment', 'Appointment ID')
     appointment_id = fields.Many2one('medical.appointment', 'Appointment ID')

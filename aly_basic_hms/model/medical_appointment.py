@@ -45,10 +45,10 @@ class MedicalAppointment(models.Model):
                                        store=False, sort=False,readonly=True,default='tobe')
     consultations_id = fields.Many2one('product.product','Consultation Service',
                                        domain=lambda self: self._get_examination_product_category_domain(), required=True)
-    appointment_procedure_ids = fields.One2many('medical.appointment.line', 'appointment_id', string='Procedures', required=True)
+    appointment_procedure_ids = fields.One2many('medical.appointment.procedure', 'appointment_id', string='Procedures', required=True)
     appointment_consultation_ids = fields.One2many('medical.appointment.consultation.line', 'appointment_id',
                                                    string='Another Consultations', required=True)
-    appointment_investigations_ids = fields.One2many('medical.appointment.line', 'appointment_id',
+    appointment_investigations_ids = fields.One2many('medical.appointment.investigation', 'appointment_id',
                                                      string='Investigations', required=True)
     prescription_line_id = fields.One2many('medical.prescription.order', 'appointment_id',
                                            string='Services and Lab Investigations', required=True)

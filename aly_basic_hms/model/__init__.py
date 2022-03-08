@@ -7,7 +7,8 @@ from . import medical_diet_belief
 from . import medical_diet_therapeutic
 from . import medical_appointment
 from . import medical_appointment_consultation_line
-from . import medical_appointment_line
+from . import medical_appointment_procedure
+from . import medical_appointment_investigation
 from . import medical_patient_line
 from . import medical_inpatient_line
 from . import medical_inpatient_accommodation
