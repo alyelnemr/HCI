@@ -433,6 +433,37 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                         }
                         list_of_vals.append((0, 0, invoice_line_vals))
 
+                for p_line in medical_patient_obj.disposable_ids:
+
+                    invoice_line_account_id = False
+                    if p_line.product_id.id:
+                        invoice_line_account_id = p_line.product_id.property_account_income_id.id or p_line.product_id.categ_id.property_account_income_categ_id.id or False
+                    if not invoice_line_account_id:
+                        invoice_line_account_id = ir_property_obj.get('property_account_income_categ_id', 'product.category')
+                    if not invoice_line_account_id:
+                        raise UserError(
+                            _(
+                                'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
+                            (p_line.product_id.name,))
+
+                    tax_ids = []
+                    taxes = p_line.product_id.taxes_id.filtered(
+                        lambda r: not p_line.product_id.company_id or r.company_id == p_line.product_id.company_id)
+                    tax_ids = taxes.ids
+
+                    invoice_line_vals = {
+                        # 'name': p_line.product_id.display_name or '',
+                        'name': 'Post Operative Investigations' or '',
+                        'move_name': p_line.product_id.display_name or '',
+                        'account_id': invoice_line_account_id,
+                        'price_unit': p_line.product_id.lst_price,
+                        'product_uom_id': p_line.product_id.uom_id.id,
+                        'quantity': p_line.quantity,
+                        'tax_ids': tax_ids,
+                        'product_id': p_line.product_id.id,
+                    }
+                    list_of_vals.append((0, 0, invoice_line_vals))
+
                 res1 = res.write({'invoice_line_ids': list_of_vals})
 
                 medical_patient_obj.invoice_id = res
