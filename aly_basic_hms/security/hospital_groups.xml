@@ -69,6 +69,26 @@
         <field name="name">Packages</field>
     </record>
 
+    <record forcecreate="True" id="record_accommodation_product_category" model="product.category">
+        <field name="name">Accommodation</field>
+    </record>
+
+    <record forcecreate="True" id="record_examination_product_category" model="product.category">
+        <field name="name">Examinations</field>
+    </record>
+
+    <record forcecreate="True" id="record_medical_examination_product_product" model="product.template">
+        <field name="name">Medical Examination</field>
+        <field name="categ_id">Examinations</field>
+        <field name="type">service</field>
+    </record>
+
+    <record forcecreate="True" id="record_standard_accommodation_product_product" model="product.template">
+        <field name="name">Standard Accommodation</field>
+        <field name="categ_id">Accommodation</field>
+        <field name="type">service</field>
+    </record>
+
 </data>
 
 <data noupdate="0">
