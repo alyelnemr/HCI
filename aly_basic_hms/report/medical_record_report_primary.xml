@@ -469,19 +469,13 @@
                                                         <tr>
                                                             <td style="width:30%">Time Out:</td>
                                                             <td style="width:70%">
-                                                                <span t-field="my_list_obj['obj_id'].time_in" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
+                                                                <span t-field="my_list_obj['obj_id'].time_out" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="width:30%">Type of Anesthesia:</td>
+                                                            <td style="width:30%"><b>Type of Anesthesia:</b></td>
                                                             <td style="width:70%;">
                                                                 <span t-field="my_list_obj['obj_id'].type_of_anesthesia" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="width:30%">Operative Report:</td>
-                                                            <td style="width:70%;">
-                                                                <span t-field="my_list_obj['obj_id'].notes" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -524,6 +518,14 @@
                                                             <td style="width:30%">Further Note:</td>
                                                             <td style="width:70%">
                                                                 <span t-field="my_list_obj['obj_id'].further_note" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
+                                                            </td>
+                                                        </tr>
+                                                        <br/>
+                                                        <br/>
+                                                        <tr>
+                                                            <td style="width:30%"><b>Operative Report:</b></td>
+                                                            <td style="width:70%;">
+                                                                <span t-field="my_list_obj['obj_id'].notes" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                                             </td>
                                                         </tr>
                                                     </tbody>
