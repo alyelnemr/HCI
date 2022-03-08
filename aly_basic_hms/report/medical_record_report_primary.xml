@@ -290,7 +290,7 @@
                                                         <span  style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;">
                                                             The patient has been admitted in <strong><span t-field="my_list_obj['obj_id'].admission_type" /></strong>
                                                             under complete monitoring &amp;
-                                                            observation, preparation for operation and is receiving the following treatment:
+                                                            observation, and is receiving the following treatment:
                                                         </span>
                                                     </div>
                                                 </t>
