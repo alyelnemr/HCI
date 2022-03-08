@@ -453,7 +453,7 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
 
                     invoice_line_vals = {
                         # 'name': p_line.product_id.display_name or '',
-                        'name': 'Post Operative Investigations' or '',
+                        'name': 'Disposables and Supplies' or '',
                         'move_name': p_line.product_id.display_name or '',
                         'account_id': invoice_line_account_id,
                         'price_unit': p_line.product_id.lst_price,
