@@ -7,6 +7,7 @@ from datetime import date,datetime
 class medical_preinatal(models.Model):
     
     _name = 'medical.preinatal'
+    _description = ''
     
     pregnency_id = fields.Many2one('medical.patient.pregnency', 'Pregnancy', )
     gestational_weeks = fields.Integer('Gestational weeks')

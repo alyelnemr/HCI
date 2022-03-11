@@ -7,6 +7,7 @@ from datetime import date,datetime
 class medical_icu_ventilation(models.Model):
     _name = 'medical.icu.ventilation'
     _rec_name = 'ventilation'
+    _description = ''
 
     current_mv = fields.Boolean(string="Current",required=True,default=True)
     mv_start = fields.Datetime(string="From",required=True)

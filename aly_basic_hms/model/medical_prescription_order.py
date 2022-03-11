@@ -7,6 +7,7 @@ from datetime import date, datetime
 
 class medical_prescription_order(models.Model):
     _name = "medical.prescription.order"
+    _description = ''
 
     name = fields.Char('Prescription ID', readonly=True)
     patient_id = fields.Many2one('medical.patient', 'Patient ID', required=True)

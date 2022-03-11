@@ -6,6 +6,7 @@ from datetime import date,datetime
 
 class medical_patient_rounding_vaccine(models.Model):
     _name = 'medical.patient.rounding.vaccine'
+    _description = ''
     
     vaccine_id = fields.Many2one('product.product',string="Vaccines",required=True)
     quantity = fields.Integer(string="Quantity")

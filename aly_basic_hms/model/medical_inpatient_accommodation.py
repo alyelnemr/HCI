@@ -7,6 +7,7 @@ from odoo.exceptions import ValidationError
 
 class MedicalInpatientAccommodation(models.Model):
     _name = 'medical.inpatient.accommodation'
+    _description = ''
 
     def _get_accommodation_product_category_domain(self):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('accommodation.product_category')

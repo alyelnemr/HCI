@@ -7,6 +7,7 @@ from odoo import api, fields, models, _
 
 class medical_test_criteria(models.Model):
     _name  = 'medical_test.criteria'
+    _description = ''
 
     test_id = fields.Many2one('medical.test_type',)
     name = fields.Char('Name',)

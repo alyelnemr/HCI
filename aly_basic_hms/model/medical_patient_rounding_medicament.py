@@ -5,6 +5,7 @@ from odoo import api, fields, models, _
 
 class medical_patient_rounding_medicament(models.Model):
     _name = 'medical.patient.rounding.medicament'
+    _description = ''
     
     medicament_id = fields.Many2one('medical.medicament',string='Medicament',required=True)
     quantity = fields.Integer(string="Quantity")

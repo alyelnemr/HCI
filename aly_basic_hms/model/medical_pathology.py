@@ -3,8 +3,10 @@
 
 from odoo import models, fields, api, _
 
+
 class medical_pathology(models.Model):
     _name = 'medical.pathology'
+    _description = ''
 
     name = fields.Char(string="Name",required=True)
     code = fields.Char(string="Code")

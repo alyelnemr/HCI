@@ -5,6 +5,7 @@ from odoo import models, fields, api, _
 
 class medical_pediatrics_growth_charts_who(models.Model):
     _name = 'medical.pediatrics.growth.charts.who'
+    _description = ''
     
     name = fields.Selection([
                              ('l/h-f-a','Length/height For age'),

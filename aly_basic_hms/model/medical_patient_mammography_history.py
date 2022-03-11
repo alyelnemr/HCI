@@ -5,8 +5,8 @@ from odoo import api, fields, models, _
 from datetime import date,datetime
 
 class medical_patient_mammography_history(models.Model):
-
     _name = 'medical.patient.mammography.history'
+    _description = ''
     
     patient_id = fields.Many2one('medical.patient', 'Patient')
     evolution_id = fields.Many2one('medical.patient.evaluation','Evaluation')

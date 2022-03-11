@@ -4,9 +4,9 @@
 from odoo import api, fields, models, _
 from datetime import date,datetime
 
-class medical_patient_prental_evolution(models.Model):   
-    
+class medical_patient_prental_evolution(models.Model):
     _name = 'medical.patient.prental.evoultion'
+    _description = ''
 
     pregnency_id = fields.Many2one('medical.patient.pregnency', )
     evoultion_date = fields.Date('Date', required = True) 

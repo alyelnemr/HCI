@@ -9,6 +9,7 @@ from odoo.exceptions import Warning
 class medical_patient_lab_test(models.Model):
     _name = 'medical.patient.lab.test'
     _rec_name = 'medical_test_type_id'
+    _description = ''
 
     request = fields.Char('Request', readonly = True)
     date =  fields.Datetime('Date', default = fields.Datetime.now)

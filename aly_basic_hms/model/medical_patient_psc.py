@@ -8,6 +8,7 @@ from datetime import date,datetime
 class medical_patient_psc(models.Model):
     _name = 'medical.patient.psc'
     _rec_name = 'patient_id'
+    _description = ''
 
     @api.model
     def default_get(self,fields):

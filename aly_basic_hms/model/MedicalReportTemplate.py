@@ -4,6 +4,7 @@ from datetime import date
 
 class MedicalReportTemplate(models.AbstractModel):
     _name = 'report.aly_basic_hms.medical_record_report'
+    _description = ''
 
     def get_sorting(self, record):
         my_list = []

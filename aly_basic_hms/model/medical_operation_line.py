@@ -6,6 +6,7 @@ from odoo import api, fields, models, _
 
 class MedicalOperationLine(models.Model):
     _name = 'medical.operation.line'
+    _description = ''
 
     operation_id = fields.Many2one('medical.operation','Operation')
     product_id = fields.Many2one('product.product','Service',domain=[('sale_ok', '=', 1), ('type', '=', 'service')],

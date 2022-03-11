@@ -7,6 +7,7 @@ from odoo import models, fields
 class MedicalInpatientMedication(models.Model):
     _name = 'medical.inpatient.medication'
     _rec_name = 'medical_medicament_id'
+    _description = ''
 
     medical_medicament_id = fields.Many2one('medical.medicament', string='Medicine', required=True)
     medicine_quantity = fields.Integer(string='Medicine Quantity', default=1)

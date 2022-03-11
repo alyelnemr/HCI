@@ -3,11 +3,11 @@
 
 from odoo import api, fields, models, _
 from datetime import date,datetime
-# classes under  menu of laboratry 
+
 
 class medical_lab(models.Model):
-
     _name = 'medical.lab'
+    _description = ''
 
     name = fields.Char('ID')
     test_id = fields.Many2one('medical.test_type', 'Test Type', required = True)

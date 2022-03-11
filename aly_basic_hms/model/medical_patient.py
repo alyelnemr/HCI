@@ -10,6 +10,7 @@ from odoo.exceptions import UserError
 class MedicalPatient(models.Model):
     _name = 'medical.patient'
     _rec_name = 'patient_id'
+    _description = ''
 
     def print_report(self):
         return self.env.ref('aly_basic_hms.report_print_medical_record').report_action(self)

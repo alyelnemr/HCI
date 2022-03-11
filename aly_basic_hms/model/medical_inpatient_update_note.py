@@ -7,6 +7,7 @@ from datetime import date
 
 class MedicalInpatientUpdateNote(models.Model):
     _name = 'medical.inpatient.update.note'
+    _description = ''
 
     def print_invoice_report(self):
         return self.env.ref('aly_basic_hms.report_print_inpatient_invoice_report').report_action(self)

@@ -3,6 +3,7 @@ from odoo import api, fields, models, _
 
 class MedicalPatientLine(models.Model):
     _name = 'medical.patient.line'
+    _description = ''
 
     name = fields.Many2one('medical.patient', 'Patient ID')
     patient_id = fields.Many2one('medical.patient', 'Patient ID')
