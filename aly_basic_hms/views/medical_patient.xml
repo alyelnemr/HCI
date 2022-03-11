@@ -121,7 +121,8 @@
                                 </group>
                             </page>
                             <page>
-                                <group string="Attachments">
+                            <page string="Attachments">
+                                <group>
                                     <field name="attachment_ids" nolabel="1" widget="one2many_list" />
                                 </group>
                             </page>

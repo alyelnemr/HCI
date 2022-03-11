@@ -8,22 +8,22 @@
             <field name="priority">2</field>
             <field name="arch" type="xml">
                 <tree string="Patient Attachments">
-                    <field name="att_document" filename="att_document_name" />
-                    <field name="att_document_name" invisible="1" />
+                    <field name="name" />
+                    <field name="att_document" />
                     <field name="short_comment" />
                 </tree>
             </field>
         </record>
 
-        <record id="medical_patient_attachment_form_view" model="ir.ui.view">
-            <field name="name">medical.patient.attachment.form.view</field>
-            <field name="model">medical.patient.attachment</field>
+        <record id="medical_patient_line_form_view" model="ir.ui.view">
+            <field name="name">medical.patient.line.form.view</field>
+            <field name="model">medical.patient.line</field>
             <field name="arch" type="xml">
-                <form string="Patient Attachments">
+                <form string="Patient Disposables">
                     <group colspan="4" col="4">
-                        <field name="att_document" filename="att_document_name" />
-                        <field name="att_document_name" invisible="1" />
-                        <field name="short_comment" />
+                    <field name="name" />
+                    <field name="att_document" />
+                    <field name="short_comment" />
                     </group>
                 </form>
             </field>
