@@ -7,7 +7,7 @@ from datetime import date,datetime
 class medical_neomatal_apgar(models.Model):
     _name  =  'medical.neomatal.apgar'
     _rec_name = 'apgar_appearance'
-    _description = ''
+    _description = 'description'
     
     apgar_activity = fields.Selection([('0', 'None'),('1','Some Flexion'),('2','Fixed Arm and Legs')], 'Activity')
     apgar_appearance = fields.Selection([('0', 'Central cyanosis'),('1', 'Acrosynosis'), ('2', 'No Cynosis')], 'Appearance')

@@ -7,7 +7,7 @@ from odoo import api, fields, models, _
 class medical_medicament(models.Model):
     _name = 'medical.medicament'
     _rec_name = 'product_id'
-    _description = ''
+    _description = 'description'
 
     @api.depends('product_id')
     def onchange_product(self):

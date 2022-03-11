@@ -6,7 +6,7 @@ from odoo import api, fields, models, _
 class medical_patient_rounding(models.Model):
     _name = "medical.patient.rounding"
     _rec_name = 'medical_inpatient_registration'
-    _description = ''
+    _description = 'description'
 
     @api.onchange('right_pupil','left_pupil')
     def onchange_duration(self):

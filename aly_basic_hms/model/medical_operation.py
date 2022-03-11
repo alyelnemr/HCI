@@ -6,7 +6,7 @@ from odoo import models, fields, api, _
 
 class MedicalOperation(models.Model):
     _name = 'medical.operation'
-    _description = ''
+    _description = 'description'
 
     @api.depends('invoice_id')
     def _compute_validity_status(self):

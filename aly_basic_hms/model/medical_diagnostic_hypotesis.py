@@ -6,7 +6,7 @@ from odoo import models, fields, api, _
 class medical_diagnostic_hypotesis(models.Model):
     _name = 'medical.diagnostic_hypotesis'
     _rec_name = 'diagnostic_pathology_id'
-    _description = ''
+    _description = 'description'
 
     diagnostic_pathology_id = fields.Many2one('medical.pathology','Procedure')
     patient_evaluation_id = fields.Many2one('medical.patient.evaluation','Patient Evaluation')

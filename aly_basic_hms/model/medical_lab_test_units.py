@@ -6,7 +6,7 @@ from odoo import api, fields, models, _
 
 class medical_lab_test_units(models.Model):
     _name = 'medical.lab.test.units'
-    _description = ''
+    _description = 'description'
     
     name = fields.Char('Name', required = True)
     code = fields.Char('Code')

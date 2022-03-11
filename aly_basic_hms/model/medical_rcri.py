@@ -7,7 +7,7 @@ from datetime import date,datetime
 class medical_rcri(models.Model):
     _name = "medical.rcri"
     _rec_name = 'patient_id'
-    _description = ''
+    _description = 'description'
 
     patient_id = fields.Many2one('medical.patient',string="Patient", required=True)
     rcri_date = fields.Datetime('RCRI Date')

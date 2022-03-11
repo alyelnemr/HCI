@@ -3,7 +3,7 @@ from odoo import api, fields, models, _
 
 class MedicalAppointmentInvestigation(models.Model):
     _name = 'medical.appointment.investigation'
-    _description = ''
+    _description = 'description'
 
     name = fields.Many2one('medical.appointment', 'Appointment ID')
     appointment_id = fields.Many2one('medical.appointment', 'Appointment ID')

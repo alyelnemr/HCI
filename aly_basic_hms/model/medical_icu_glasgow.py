@@ -7,7 +7,7 @@ from datetime import date,datetime
 class medical_icu_glasgow(models.Model):
     _name = 'medical.icu.glasgow'
     _rec_name = 'medical_inpatient_registration_id'
-    _description = ''
+    _description = 'description'
 
     medical_inpatient_registration_id = fields.Many2one('medical.inpatient.registration',string="Registration Code",required=True)
     evaluation_date = fields.Datetime(string="Date",required=True)

@@ -6,7 +6,7 @@ from datetime import date,datetime
 
 class medical_patient_menstrual_history(models.Model):
     _name = 'medical.patient.menstrual.history'
-    _description = ''
+    _description = 'description'
     
     patient_id = fields.Many2one('medical.patient', 'Patient')
     evolution_id = fields.Many2one('medical.patient.evaluation','Evaluation')

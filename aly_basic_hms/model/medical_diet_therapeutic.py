@@ -5,7 +5,7 @@ from odoo import models, fields, api, _
 
 class medical_diet_therapeutic(models.Model):
     _name = 'medical.diet.therapeutic'
-    _description = ''
+    _description = 'description'
 
     name = fields.Char(string='Diet Type',required=True)
     code = fields.Char(string='Code',required=True)

@@ -6,7 +6,7 @@ from datetime import date,datetime
 
 class  medical_patient_pregnency(models.Model):
     _name = 'medical.patient.pregnency'
-    _description = ''
+    _description = 'description'
 
     gravida = fields.Integer('Pregnancy #')
     lmp = fields.Integer('LMP')

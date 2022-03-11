@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 
 class BedTransfer(models.Model):
     _name = 'bed.transfer'
-    _description = ''
+    _description = 'description'
 
     def _get_accommodation_product_category_domain(self):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('accommodation.product_category')

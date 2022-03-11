@@ -7,7 +7,7 @@ from datetime import date,datetime
 class medical_perinatal_monitor(models.Model):
     
     _name = 'medical.perinatal.monitor'
-    _description = ''
+    _description = 'description'
     
     medical_perinatal_id = fields.Many2one('medical.perinatal.monitor')
     date  = fields.Date('Date')

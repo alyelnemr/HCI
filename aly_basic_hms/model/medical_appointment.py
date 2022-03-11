@@ -7,7 +7,7 @@ class MedicalAppointment(models.Model):
     _name = "medical.appointment"
     _inherit = 'mail.thread'
     _order = "name, appointment_date desc"
-    _description = ''
+    _description = 'description'
 
     @api.depends('invoice_id')
     def _compute_validity_status(self):

@@ -7,7 +7,7 @@ from datetime import date,datetime
 
 class medical_lab(models.Model):
     _name = 'medical.lab'
-    _description = ''
+    _description = 'description'
 
     name = fields.Char('ID')
     test_id = fields.Many2one('medical.test_type', 'Test Type', required = True)

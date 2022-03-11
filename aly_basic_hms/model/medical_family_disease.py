@@ -6,7 +6,7 @@ from odoo import api, fields, models, _
 class medical_family_disease(models.Model):
     _name = 'medical.family.disease'
     _rec_name = 'patient_id'
-    _description = ''
+    _description = 'description'
 
     medical_pathology_id = fields.Many2one('medical.pathology', 'Disease',required=True)
     relative_name = fields.Char('Relative', required=True)

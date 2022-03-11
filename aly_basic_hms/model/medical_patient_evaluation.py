@@ -7,7 +7,7 @@ from odoo import models, fields, api, _
 class medical_patient_evaluation(models.Model):
 	_name = 'medical.patient.evaluation'
 	_rec_name = 'medical_patient_id'
-	_description = ''
+	_description = 'description'
 
 	patient_id = fields.Many2one('res.partner',domain=[('is_patient','=',True)],string="Patient")
 	medical_patient_id = fields.Many2one('medical.patient',string="Patient",required=True)

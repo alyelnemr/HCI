@@ -7,7 +7,7 @@ from datetime import date,datetime
 
 class medical_patient_colposcopy_history(models.Model):
     _name = 'medical.patient.colposcopy.history'
-    _description = ''
+    _description = 'description'
     
     patient_id = fields.Many2one('medical.patient', 'Patient')
     evolution_id = fields.Many2one('medical.patient.evaluation', 'Evaluation')

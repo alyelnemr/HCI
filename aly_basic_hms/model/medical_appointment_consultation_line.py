@@ -4,7 +4,7 @@ from odoo import fields, models
 
 class MedicalAppointmentConsultationLine(models.Model):
     _name = 'medical.appointment.consultation.line'
-    _description = ''
+    _description = 'description'
 
     def _get_examination_product_category_domain(self):
         exam_prod_cat = self.env['ir.config_parameter'].sudo().get_param('examination.product_category')

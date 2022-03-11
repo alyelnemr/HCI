@@ -5,7 +5,7 @@ from odoo import api, fields, models, _
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
-    _description = ''
+    _description = 'description'
 
     relationship = fields.Char(string='Relationship')
     relative_partner_id = fields.Many2one('res.partner',string="Relative_id")

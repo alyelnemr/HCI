@@ -5,7 +5,7 @@ from odoo import api, fields, models, _
 
 class medical_icu_chest_drainage(models.Model):
     _name = 'medical.icu.chest_drainage'
-    _description = ''
+    _description = 'description'
 
     location = fields.Selection([('rl','Right Pleura'),
                                  ('ll','Left Pleura'),

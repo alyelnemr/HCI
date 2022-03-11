@@ -6,7 +6,7 @@ from datetime import date,datetime
 
 class medical_inpatient_medication_log(models.Model):
     _name = 'medical.inpatient.medication.log'
-    _description = ''
+    _description = 'description'
 
     admin_time = fields.Datetime(string='Date',readonly=True)
     dose = fields.Float(string='Dose')

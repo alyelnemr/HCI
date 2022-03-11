@@ -5,7 +5,7 @@ from odoo import models, fields, api, _
 
 class medical_inpatient_diet(models.Model):
     _name = 'medical.inpatient.diet'
-    _description = ''
+    _description = 'description'
 
     diet_id = fields.Many2one('medical.diet.therapeutic',string='Diet',required=True)
     remarks = fields.Text(string=' Remarks / Directions ')

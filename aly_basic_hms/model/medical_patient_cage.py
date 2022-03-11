@@ -7,7 +7,7 @@ from datetime import date,datetime
 class medical_patient_cage(models.Model):
     _name = 'medical.patient.cage'
     _rec_name = 'patient_id'
-    _description = ''
+    _description = 'description'
 
     @api.onchange('cage_c', 'cage_a', 'cage_g', 'cage_e')
     def get_score(self):

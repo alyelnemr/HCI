@@ -5,7 +5,7 @@ from odoo import api, fields, models, _
 
 class medical_dose_unit(models.Model):
     _name = 'medical.dose.unit'
-    _description = ''
+    _description = 'description'
 
     name = fields.Char(string="Unit",required=True)
     description = fields.Char(string="Description")

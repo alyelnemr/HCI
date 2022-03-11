@@ -6,7 +6,7 @@ from odoo import api, fields, models, _
 class medical_insurance_plan(models.Model):
     _name = 'medical.insurance.plan'
     _rec_name = 'insurance_product_id'
-    _description = ''
+    _description = 'description'
 
     insurance_product_id = fields.Many2one('product.product', 'Plan', domain="[('type','=','service')]")
     is_default = fields.Boolean('Default Plan')

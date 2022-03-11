@@ -6,7 +6,7 @@ from datetime import date,datetime
 
 class medical_vaccination(models.Model):
     _name = 'medical.vaccination'
-    _description = ''
+    _description = 'description'
 
     vaccine_product_id = fields.Many2one('product.product',string='Name',required=True)
     institution_partner_id = fields.Many2one('res.partner',domain=[('is_institution','=',True)],string='Institution',required=True)

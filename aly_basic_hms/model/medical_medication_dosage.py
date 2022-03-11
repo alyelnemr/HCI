@@ -5,7 +5,7 @@ from odoo import api, fields, models, _
 
 class medical_medication_dosage(models.Model):
     _name = 'medical.medication.dosage'
-    _description = ''
+    _description = 'description'
     
     name = fields.Char(string="Frequency",required=True)
     abbreviation = fields.Char(string="Abbreviation")
