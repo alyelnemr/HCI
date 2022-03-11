@@ -1,90 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <template id="medical_record_report_primary">
-                <t t-call="web.html_container">
-                    <t t-foreach="docs" t-as="doc">
-                        <t t-if="doc.company_id.header">
-                            <div class="header">
-                                <t t-set="company" t-value="doc.company_id"></t>
-                                <div class="row mt32 mb32">
-                                    <div class="col-6">
-                                        <img t-att-src="'data:image/png;base64,%s' % to_text(company.header)"
-                                             />
-                                    </div>
-                                </div>
-                            </div>
-                        </t>
-                        <t t-call="web.internal_layout">
-                            <t t-set="counter_inp_note" t-value="0" />
-                            <t t-set="app_counter" t-value="0" />
-                            <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Date</th>
-                                    <td>
-                                        <span t-esc="min_update_note_date" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Sex</th>
-                                    <td>
-                                        <span t-field="doc.sex" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Patient Name</th>
-                                    <td>
-                                        <b><span t-field="doc.patient_id.name" class="text-center"/></b>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Date of Birth</th>
-                                    <td>
-                                        <span t-field="doc.date_of_birth" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Nationality</th>
-                                    <td>
-                                        <span t-field="doc.nationality_id.name" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Insurance Company</th>
-                                    <td>
-                                        <span t-field="doc.insurance_company_id.name" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Hospital Ref#</th>
-                                    <td>
-                                        <span t-field="doc.our_reference" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Insurance Ref#</th>
-                                    <td>
-                                        <span t-field="doc.insurance_reference" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Hotel</th>
-                                    <td>
-                                        <span t-field="doc.hotel.name" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Room</th>
-                                    <td>
-                                        <span t-field="doc.room_number" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Arrival</th>
-                                    <td>
-                                        <span t-field="doc.date_of_arrival" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Departure</th>
-                                    <td>
-                                        <span t-field="doc.date_of_departure" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <br/>
-                            </table>
-                            <div>
-                                <div>
-                                    <h3 class="text-center"><strong>Primary Medical Report</strong></h3>
-                                </div>
-                                <br/>
+	<template id="medical_report_core">
                                 <div>
                                     <table style="width:100%">
                                         <tbody class="sale_tbody" style="width:100%">
@@ -295,6 +211,11 @@
                                                     </div>
                                                 </t>
                                                 <t t-if="my_list_obj['obj_id'].medication_ids">
+                                                    <br/>
+                                                    <br/>
+                                                    <div class="text-left">
+                                                        <strong>Medications</strong>
+                                                    </div>
                                                     <table style="width: 100%">
                                                         <tbody class="sale_tbody">
                                                         <t t-set="counter_medication" t-value="0" />
@@ -603,6 +524,94 @@
                                     </t>
 
                                 </div>
+	</template>
+        <template id="medical_record_report_primary">
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="doc">
+                        <t t-if="doc.company_id.header">
+                            <div class="header">
+                                <t t-set="company" t-value="doc.company_id"></t>
+                                <div class="row mt32 mb32">
+                                    <div class="col-6">
+                                        <img t-att-src="'data:image/png;base64,%s' % to_text(company.header)"
+                                             />
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-call="web.internal_layout">
+                            <t t-set="counter_inp_note" t-value="0" />
+                            <t t-set="app_counter" t-value="0" />
+                            <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
+                                <tr>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Date</th>
+                                    <td>
+                                        <span t-esc="min_update_note_date" class="text-center"/>
+                                    </td>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Sex</th>
+                                    <td>
+                                        <span t-field="doc.sex" class="text-center"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Patient Name</th>
+                                    <td>
+                                        <b><span t-field="doc.patient_id.name" class="text-center"/></b>
+                                    </td>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Date of Birth</th>
+                                    <td>
+                                        <span t-field="doc.date_of_birth" class="text-center"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Nationality</th>
+                                    <td>
+                                        <span t-field="doc.nationality_id.name" class="text-center"/>
+                                    </td>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Insurance Company</th>
+                                    <td>
+                                        <span t-field="doc.insurance_company_id.name" class="text-center"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Hospital Ref#</th>
+                                    <td>
+                                        <span t-field="doc.our_reference" class="text-center"/>
+                                    </td>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Insurance Ref#</th>
+                                    <td>
+                                        <span t-field="doc.insurance_reference" class="text-center"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Hotel</th>
+                                    <td>
+                                        <span t-field="doc.hotel.name" class="text-center"/>
+                                    </td>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Room</th>
+                                    <td>
+                                        <span t-field="doc.room_number" class="text-center"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Arrival</th>
+                                    <td>
+                                        <span t-field="doc.date_of_arrival" class="text-center"/>
+                                    </td>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Departure</th>
+                                    <td>
+                                        <span t-field="doc.date_of_departure" class="text-center"/>
+                                    </td>
+                                </tr>
+                                <br/>
+                            </table>
+                            <div>
+                                <div>
+                                    <h3 class="text-center"><strong>Primary Medical Report</strong></h3>
+                                </div>
+                                <br/>
+                                <t t-call="aly_basic_hms.medical_report_core">
+                                </t>
                             </div>
                         </t>
                         <t t-if="doc.company_id.footer" >

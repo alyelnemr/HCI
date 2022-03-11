@@ -71,7 +71,8 @@ class MedicalReportTemplate(models.AbstractModel):
             'docs': docs,
             'sorted_data': sorted_data,
             'min_update_note_date': min_update_note_date,
-            'is_discharged': is_discharged
+            'is_discharged': is_discharged,
+            'report_title': 'Primary Medical Report'
         }
 
 
@@ -143,7 +144,8 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
             'docs': docs,
             'sorted_data': sorted_data,
             'min_update_note_date': min_update_note_date,
-            'is_discharged': is_discharged
+            'is_discharged': is_discharged,
+            'report_title': 'Update Medical Report'
         }
 
 
@@ -215,5 +217,6 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
             'docs': docs,
             'sorted_data': sorted_data,
             'min_update_note_date': min_update_note_date,
-            'is_discharged': is_discharged
+            'is_discharged': is_discharged,
+            'report_title': 'Primary Medical Report'
         }
