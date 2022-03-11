@@ -93,14 +93,14 @@ access_medical_lab_test_criteria_chem,medical.group.medical.lab.test.criteria.ch
 
 
 
-access_medical_physician,medical.group.physician,model_medical_physician,group_medical_group,1,1,1,
+access_medical_physician,medical.group.physician,model_medical_physician,group_medical_group,1,1,1,1
 access_medical_physician_doctor,medical.group.physician.doctor,model_medical_physician,bi_group_doctor,1,1,1,
+access_medical_physician_ch,medical.group.medical.physician.ch,model_medical_physician,group_chemist,1,0,0,0
 access_dose_unit,medical.group.dose.unit,model_medical_dose_unit,group_medical_group,1,1,1,1
 access_medical_patient_medication,medical.group.patient.medication,model_medical_patient_medication,group_medical_group,1,0,0,0
 access_medical_patient_medication,medical.group.patient,model_medical_patient,group_medical_group,1,0,0,0
 access_patient_diseases,medical.group.patient.diseases,model_medical_patient_disease,group_medical_group,1,1,1,0
 access_medical_medication_dosage,medical.group.medication.dosage,model_medical_medication_dosage,group_medical_group,1,1,1,0
-access_medical_physician,medical.group.medical.physician,model_medical_physician,group_medical_group,1,0,0,0
 access_medical_lab,medical.group.medical.lab,model_medical_lab,group_medical_group,1,1,1,1
 
 
@@ -111,7 +111,6 @@ access_doctor_medical_inpatient_registration,medical.doctor.group.medical.inpati
 access_medical_lab_chemist,medical.group.medical.lab.chemist,model_medical_lab,group_chemist,1,1,1,1
 
 
-access_medical_physician_ch,medical.group.medical.physician.ch,model_medical_physician,group_chemist,1,0,0,0
 
 
 
