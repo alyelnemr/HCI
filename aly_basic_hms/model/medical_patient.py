@@ -91,7 +91,7 @@ class MedicalPatient(models.Model):
     update_note_ids = fields.One2many('medical.appointment', 'patient_id')
     inpatient_ids = fields.One2many('medical.inpatient.registration', 'patient_id')
     operation_ids = fields.One2many('medical.operation', 'patient_id')
-    attachment_ids = fields.One2many('medical.patient.attachment','patient_id',string="Attachments")
+    attachment_ids = fields.One2many('medical.patient.line','patient_id',string="Attachments")
     # attachment = fields.One2many('ir.attachment', 'res_partner_id', string='Attachments')
     # att = fields.Many2many(comodel_name="ir.attachment", relation="m2m_patient_rel", column1="m2m_id", column2="attachment_id",
     #                             string="Contract")
