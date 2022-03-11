@@ -97,8 +97,7 @@ access_medical_physician,medical.group.physician,model_medical_physician,group_m
 access_medical_physician_doctor,medical.group.physician.doctor,model_medical_physician,bi_group_doctor,1,1,1,
 access_medical_physician_ch,medical.group.medical.physician.ch,model_medical_physician,group_chemist,1,0,0,0
 access_dose_unit,medical.group.dose.unit,model_medical_dose_unit,group_medical_group,1,1,1,1
-access_medical_patient_medication,medical.group.patient.medication,model_medical_patient_medication,group_medical_group,1,0,0,0
-access_medical_patient_medication,medical.group.patient,model_medical_patient,group_medical_group,1,0,0,0
+access_medical_patient_medication,access_medical_patient_medication,model_medical_patient_medication,,1,1,1,1
 access_patient_diseases,medical.group.patient.diseases,model_medical_patient_disease,group_medical_group,1,1,1,0
 access_medical_medication_dosage,medical.group.medication.dosage,model_medical_medication_dosage,group_medical_group,1,1,1,0
 access_medical_lab,medical.group.medical.lab,model_medical_lab,group_medical_group,1,1,1,1
@@ -225,7 +224,6 @@ access_medical_signs_and_sympotoms,access_medical_signs_and_sympotoms,model_medi
 access_psc_code,access_psc_code,model_psc_code,,1,1,1,1
 access_bed_transfer,access_bed_transfer,model_bed_transfer,,1,1,1,1
 access_medical_icu_chest_drainage,access_medical_icu_chest_drainage,model_medical_icu_chest_drainage,,1,1,1,1
-access_medical_patient_medication,access_medical_patient_medication,model_medical_patient_medication,,1,1,1,1
 access_medical_icu_ecg,access_medical_icu_ecg,model_medical_icu_ecg,,1,0,0,0
 access_medical_icu_glasgow,access_medical_icu_glasgow,model_medical_icu_glasgow,,1,0,0,0
 access_medical_drug_route,access_medical_drug_route,model_medical_drug_route,,1,0,0,0
