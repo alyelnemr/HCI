@@ -11,6 +11,7 @@
                     <field name="name" />
                     <field name="att_document" />
                     <field name="short_comment" />
+                    <field name="patient_id" invisible="1" />
                 </tree>
             </field>
         </record>
@@ -24,6 +25,7 @@
                         <field name="name" />
                         <field name="att_document" filename="name" />
                         <field name="short_comment" />
+                        <field name="patient_id" invisible="1" />
                     </group>
                 </form>
             </field>
