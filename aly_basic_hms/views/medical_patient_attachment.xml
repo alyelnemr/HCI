@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Tree view -->
+        <record id="medical_patient_attachment_tree_view" model="ir.ui.view">
+            <field name="name">medical.patient.attachment.tree.view</field>
+            <field name="model">medical.patient.attachment</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <tree string="Patient Attachments">
+                    <field name="att_document" filename="att_document_name" />
+                    <field name="att_document_name" invisible="1" />
+                    <field name="short_comment" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="medical_patient_attachment_form_view" model="ir.ui.view">
+            <field name="name">medical.patient.attachment.form.view</field>
+            <field name="model">medical.patient.attachment</field>
+            <field name="arch" type="xml">
+                <form string="Patient Attachments">
+                    <group colspan="4" col="4">
+                        <field name="att_document" filename="att_document_name" />
+                        <field name="att_document_name" invisible="1" />
+                        <field name="short_comment" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+</odoo>
