@@ -15,12 +15,12 @@
             </field>
         </record>
 
-        <record id="medical_patient_line_form_view" model="ir.ui.view">
+        <record id="medical_patient_attachment_form_view" model="ir.ui.view">
             <field name="name">medical.patient.attachment.form.view</field>
             <field name="model">medical.patient.attachment</field>
             <field name="arch" type="xml">
                 <form string="Patient Attachments">
-                    <group colspan="4" col="4">
+                    <group colspan="3" col="3">
                         <field name="name" />
                         <field name="att_document" filename="name" />
                         <field name="short_comment" />
