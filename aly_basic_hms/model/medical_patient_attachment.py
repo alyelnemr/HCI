@@ -1,7 +1,7 @@
 from odoo import api, fields, models, _
 
 
-class MedicalPatientLine(models.Model):
+class MedicalPatientAttachment(models.Model):
     _name = 'medical.patient.attachment'
     _description = 'description'
 
