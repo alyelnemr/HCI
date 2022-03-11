@@ -7,8 +7,8 @@ from odoo.exceptions import Warning
 # classes under  menu of laboratry 
 
 class medical_lab_test_invoice(models.TransientModel):
-    
     _name = 'medical.lab.test.invoice'
+    _description = 'description'
     
     def create_lab_invoice(self):
         if self._context == None:

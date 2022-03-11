@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 
 class MedicalInpatientInvoiceWizard(models.TransientModel):
     _name = 'medical.inpatient.discharge.wizard'
+    _description = 'description'
 
     @api.depends('discharge_datetime')
     def _compute_admission_days(self):

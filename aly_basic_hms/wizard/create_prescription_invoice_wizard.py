@@ -7,6 +7,7 @@ from odoo.exceptions import Warning
 
 class create_prescription_invoice(models.TransientModel):
     _name = 'create.prescription.invoice'
+    _description = 'description'
 
     def create_prescription_invoice(self):
         active_ids = self._context.get('active_ids')

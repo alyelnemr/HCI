@@ -2,6 +2,7 @@
 from odoo import api, models
 from datetime import date
 
+
 class MedicalReportTemplate(models.AbstractModel):
     _name = 'report.aly_basic_hms.medical_record_report'
     _description = 'description'
@@ -76,6 +77,7 @@ class MedicalReportTemplate(models.AbstractModel):
 
 class MedicalReportTemplateUpdate(models.AbstractModel):
     _name = 'report.aly_basic_hms.medical_record_report_update'
+    _description = 'description'
 
     def get_sorting(self, record):
         my_list = []
@@ -147,6 +149,7 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
 
 class MedicalReportTemplatePrimary(models.AbstractModel):
     _name = 'report.aly_basic_hms.medical_record_report_primary'
+    _description = 'description'
 
     def get_sorting(self, record):
         my_list = []

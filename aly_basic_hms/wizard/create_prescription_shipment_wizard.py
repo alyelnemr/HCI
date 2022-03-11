@@ -7,6 +7,7 @@ from odoo.exceptions import Warning
 
 class create_prescription_shipment(models.TransientModel):
     _name = 'create.prescription.shipment'
+    _description = 'description'
 
     def create_prescription_shipment(self):
         active_id = self._context.get('active_id')

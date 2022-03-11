@@ -7,6 +7,7 @@ from datetime import date,datetime
 
 class medical_lab_test_create(models.TransientModel):
     _name = 'medical.lab.test.create'
+    _description = 'description'
     
     def create_lab_test(self):
         res_ids = []

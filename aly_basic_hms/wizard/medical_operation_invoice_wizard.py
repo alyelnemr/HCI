@@ -8,6 +8,7 @@ from datetime import date,datetime
 
 class MedicalOperationInvoiceWizard(models.TransientModel):
     _name = "medical.operation.invoice.wizard"
+    _description = 'description'
 
     def create_invoice(self):
         active_ids = self._context.get('active_ids')

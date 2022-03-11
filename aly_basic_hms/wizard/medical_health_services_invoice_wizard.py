@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 
 class medical_health_services_invoice(models.TransientModel):
     _name = 'medical.health.service.invoice'
+    _description = 'description'
 
     def create_medical_service_invoice(self):
         active_id = self._context.get('active_id')
