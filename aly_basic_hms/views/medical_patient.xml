@@ -63,9 +63,6 @@
                                 <field name="is_invoiced" attrs="{'invisible': True}" />
                             </group>
                         </group>
-                        <group string="Attachments">
-                            <field name="attachment_ids" widget="one2many_list" />
-                        </group>
                         <group string="Family - Emergency Contact">
                             <group>
                                 <field name="emergency_contact_name" />
@@ -123,7 +120,11 @@
                                     <field name="disposable_ids" nolabel="1" widget="one2many_list" />
                                 </group>
                             </page>
-
+                            <page>
+                                <group string="Attachments">
+                                    <field name="attachment_ids" nolabel="1" widget="one2many_list" />
+                                </group>
+                            </page>
 
                         </notebook>
                     </sheet>
