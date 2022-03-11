@@ -41,7 +41,7 @@ class MedicalPatient(models.Model):
     patient_id = fields.Many2one('res.partner', domain=[('is_patient', '=', True)], string="Patient Name", required=True)
     name = fields.Char(string='Patient Code', readonly=True)
     date_of_birth = fields.Date(string="Date of Birth", required=True)
-    sex = fields.Selection([('m', 'Male'), ('f', 'Female')], string="Sex")
+    sex = fields.Selection([('m', 'Male'), ('f', 'Female')], string="Sex", required=True)
     age = fields.Char(compute=onchange_age,string="Patient Age", store=True)
     referred_by = fields.Char(string='Referred By')
     is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
@@ -90,6 +90,7 @@ class MedicalPatient(models.Model):
     update_note_ids = fields.One2many('medical.appointment', 'patient_id')
     inpatient_ids = fields.One2many('medical.inpatient.registration', 'patient_id')
     operation_ids = fields.One2many('medical.operation', 'patient_id')
+    attachment_ids = fields.One2many('medical.patient.attachment','patient_id',string="Attachments")
     # attachment = fields.One2many('ir.attachment', 'res_partner_id', string='Attachments')
     # att = fields.Many2many(comodel_name="ir.attachment", relation="m2m_patient_rel", column1="m2m_id", column2="attachment_id",
     #                             string="Contract")

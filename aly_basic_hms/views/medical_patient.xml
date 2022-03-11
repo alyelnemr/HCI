@@ -63,9 +63,9 @@
                                 <field name="is_invoiced" attrs="{'invisible': True}" />
                             </group>
                         </group>
-                        <!--<group string="Attachments">-->
-                            <!--<field name="attachment" widget="one2many_list" />-->
-                        <!--</group>-->
+                        <group string="Attachments">
+                            <field name="attachment_ids" widget="one2many_list" />
+                        </group>
                         <group string="Family - Emergency Contact">
                             <group>
                                 <field name="emergency_contact_name" />
@@ -113,7 +113,6 @@
                                         <field name="room_number" />
                                     </group>
                                     <group>
-                                        <field name="assistance_company" />
                                         <field name="travel_agency" context="{'default_is_travel_agency': True,'default_company_type': 'company'}"/>
                                         <field name="tour_operator" context="{'default_is_tour_operator': True}"/>
                                     </group>
