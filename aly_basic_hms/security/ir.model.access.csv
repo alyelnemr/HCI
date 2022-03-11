@@ -54,19 +54,18 @@ access_medical_patient_medical_group,medical.group.patient.medical.group,model_m
 access_chemist_line,chemist.prescription.line,model_medical_prescription_line,group_chemist,1,0,0,0
 access_medical_group_insurance,medical.group.medical_insurance,model_res_partner,group_medical_group,1,0,0,0
 access_medical_group_insurance_chem,medical.group.medical_insurance.chem,model_res_partner,group_chemist,1,0,0,0
-access_medical_group_insurance_chem_r,medical.group.medical_insurance.r.chem,model_res_partner,group_chemist,1,0,0,0
+access_medical_group_insurance_chem_r,medical.group.medical_insurance.r.chem,model_medical_insurance,group_chemist,1,0,0,0
 access_medical_group_insurance_chem_rm,medical.group.medical_insurance.rm.chem,model_res_partner,group_medical_group,1,0,0,0
 access_diseases_category,medical.group.diseases.category,model_medical_pathology_category,group_medical_group,1,0,0,0
 access_diseases,medical.group.diseases,model_medical_pathology,group_medical_group,1,0,0,0
 
 
+access_medical_group_partner_chem_r,medical.group.medical_insurance.r.chem,model_res_partner,group_chemist,1,0,0,0
 
 
 access_diseases_category_doc,medical.group.diseases.category.doc,model_medical_pathology_category,bi_group_doctor,1,1,1,0
 access_diseases_doc,medical.group.diseases.doc,model_medical_pathology,bi_group_doctor,1,1,1,0
 
-
-access_medical_group_insurance_chem_r,medical.group.medical_insurance.r.chem,model_medical_insurance,group_chemist,1,0,0,0
 
 
 access_vaccination,medical.group.vaccination,model_medical_vaccination,group_medical_group,1,1,1,1
