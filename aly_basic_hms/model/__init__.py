@@ -61,6 +61,7 @@ from . import medical_patient_rounding_medicament
 from . import medical_patient_rounding_vaccine
 from . import medical_patient_rounding
 from . import medical_patient
+from . import medical_patient_attachment
 from . import medical_pediatrics_growth_charts_who
 from . import medical_perinatal_monitor
 from . import medical_physician
