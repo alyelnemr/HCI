@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="medical_inp_update_note_form_view" model="ir.ui.view">
+        <field name="name">medical.inp.update.note.form.view</field>
+        <field name="model">medical.inp.update.note</field>
+        <field name="arch" type="xml">
+            <form string="Inpatient Update Note">
+                <header>
+                    <!--<button-->
+                            <!--name="%(action_medical_appointments_invoice_wizard)d"-->
+                            <!--string="Create Invoice" type="action" class="oe_highlight"-->
+                            <!--attrs="{'invisible': ['|', ('validity_status','=', 'invoice'), ('no_invoice', '=', True)]}"-->
+                    <!--/>-->
+                </header>
+                <sheet>
+                    <div class="oe_left" style="width: 500px;">
+                        <div class="oe_title" style="width: 390px;">
+                            <label class="oe_edit_only" for="name"
+                                   string="Update Note #"/>
+                            <h2>
+                                <group>
+                                    <field name="name" />
+                                    <field name="inpatient_id" options="{'always_reload': 1, 'limit':2, 'no_create_edit': True, 'no_create': True, 'no_edit': True}" />
+                                    <field name="update_note_date" />
+                                </group>
+                            </h2>
+                        </div>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="doctor_id"  />
+                            <!--<field name="doctor_id" attrs="{'readonly': [('validity_status','=', 'invoice')]}" />-->
+                            <!--<field name="consultations_id" attrs="{'readonly': [('validity_status','=', 'invoice')]}"  options="{'no_create_edit': True, 'no_create': True}"/>-->
+                            <!--<field name="consultations_id" options="{'no_create_edit': True, 'no_create': True}"/>-->
+                            <!--<field name="appointment_date" attrs="{'readonly': [('validity_status','=', 'invoice')]}" />-->
+                            <field name="no_invoice" attrs="{'invisible': True}"/>
+                            <field name="is_discharged" attrs="{'invisible': True}"/>
+                            <!--<field name="no_invoice" attrs="{'invisible': [('validity_status','=', 'invoice')]}"/>-->
+                            <!--<field name="validity_status" readonly="1" />-->
+                            <!--<field name="invoice_id" readonly="1" attrs="{'invisible': ['|', ('validity_status','=', 'tobe'), ('no_invoice','=', True)]}"/>-->
+                        </group>
+                        <group>
+                            <!--<field name="invoice_to_insurer" attrs="{'invisible': [('validity_status','=', 'invoice')]}"/>-->
+                            <!--<field name="insurer_id" attrs="{'invisible': ['|', ('invoice_to_insurer','=', False), ('validity_status','=', 'invoice')]}"/>-->
+                            <field name="is_company_id_readonly" attrs="{'invisible': 1}"/>
+                            <field name="company_id" attrs="{'invisible': True}" />
+                            <!--<field name="company_id" attrs="{'readonly': ['|', ('validity_status','=', 'invoice'), ('is_company_id_readonly', '=', True)]}" />-->
+                        </group>
+                        <group string="Vital Data">
+                                <field name="vital_bp"/>
+                                <field name="vital_pulse"/>
+                                <field name="vital_temp"/>
+                                <field name="vital_rr"/>
+                                <field name="vital_oxygen"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Physical Examination">
+                            <group>
+                                <group>
+                                    <field name="general_appearance" />
+                                    <field name="head_neck" />
+                                    <field name="chest" />
+                                    <field name="heart" />
+                                </group>
+                                <group>
+                                    <field name="extremities" />
+                                    <field name="neurological_examination" />
+                                    <field name="further_examination" />
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Investigations">
+                            <group>
+                                <field name="inp_update_note_investigations_ids" nolabel="1" widget="one2many_list" />
+                            </group>
+                        </page>
+                        <page string="Procedures">
+                            <group>
+                                <field name="inp_update_note_procedure_ids" nolabel="1" widget="one2many_list" />
+                            </group>
+                        </page>
+                        <page string="Management">
+                            <group string="Medications">
+                                <field name="medication_ids" string="Medication" widget="one2many_list" />
+                            </group>
+                        </page>
+                        <page string="Another Consultations">
+                            <group>
+                                <field name="inp_update_note_consultation_ids" nolabel="1" widget="one2many_list" />
+                            </group>
+                        </page>
+                        <page string="Recommendations">
+                            <group>
+                                <field name="recommendation" class="oe_inline" string="Further" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="medical_inp_update_note_tree_view" model="ir.ui.view">
+        <field name="name">medical.inp.update.note.tree.view</field>
+        <field name="model">medical.inp.update.note</field>
+        <field name="arch" type="xml">
+            <tree string="Update Notes">
+                <field name="name"/>
+                <field name="inpatient_id"/>
+                <!--<field name="urgency_level"/>-->
+                <field name="update_note_date"/>
+                <!--<field name="institution_partner_id"/>-->
+                <!--<field name="validity_status"/>-->
+                <!--<field name="company_id" />-->
+            </tree>
+        </field>
+    </record>
+
+        <record id="action_medical_inp_update_note" model="ir.actions.act_window">
+            <field name="name">Inpatient Update Notes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">medical.inp.update.note</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    <act_window id="action_view_inp_update_new" name="Inpatient Update Notes"
+                res_model="medical.inp.update.note" binding_model="medical.inpatient.registration"
+                view_mode="tree,form" domain="[('inpatient_id', '=', active_id)]"/>
+</odoo>
+

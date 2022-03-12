@@ -12,7 +12,10 @@ class BedTransfer(models.Model):
     def _get_accommodation_product_category_domain(self):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('accommodation.product_category')
         prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
-        return [('categ_id', '=', prod_cat_obj.id)]
+        prod_cat_obj_id = 0
+        if len(prod_cat_obj) > 1:
+            prod_cat_obj_id = prod_cat_obj[0].id
+        return [('categ_id', '=', prod_cat_obj_id)]
 
     @api.constrains('accommodation_qty')
     def date_constrains(self):

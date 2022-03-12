@@ -18,6 +18,7 @@ class MedicalInpatientMedication(models.Model):
     frequency = fields.Integer(string='Frequency')
     frequency_unit = fields.Selection([('hours', 'hours')], readonly=True, default='hours', string='Frequency Unit')
     notes = fields.Text(string='Notes')
+    medical_inp_update_note_id = fields.Many2one('medical.inp.update.note', string='Medication')
     medical_inpatient_update_note_id = fields.Many2one('medical.inpatient.update.note', string='Medication')
     medical_inpatient_registration_id = fields.Many2one('medical.inpatient.registration', string='Medication')
     medical_appointment_id = fields.Many2one('medical.appointment', string='Medication')

@@ -11,7 +11,8 @@
     'Aly El Nemr' upgraded a module developed by BrowseInfo, was deployed on Odoo 14 third-party apps.
 """,
 
-    "depends": ["base", "sale_management", "stock", "account_accountant"],
+    "depends": ["base", "sale_management", "stock", "account"],
+    # "depends": ["base", "sale_management", "stock", "account_accountant"],
     "data": [
         'security/hospital_groups.xml',
         'security/ir.model.access.csv',
@@ -27,9 +28,11 @@
         'views/medical_drug_route.xml',
         'views/medical_dose_unit.xml',
         'views/medical_family_disease.xml',
+        'views/medical_inpatient_acc.xml',
         'views/medical_inpatient_accommodation.xml',
         'views/medical_inpatient_registration.xml',
         'views/medical_inpatient_update_note.xml',
+        'views/medical_inp_update_note.xml',
         'views/medical_inpatient_medication.xml',
         'views/medical_inpatient_medication_transient.xml',
         'views/medical_insurance_plan.xml',

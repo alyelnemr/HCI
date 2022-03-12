@@ -37,7 +37,10 @@ class MedicalInpatientRegistration(models.Model):
     def _get_accommodation_product_category_domain(self):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('accommodation.product_category')
         prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
-        return [('categ_id', '=', prod_cat_obj.id)]
+        prod_cat_obj_id = 0
+        if len(prod_cat_obj) > 1:
+            prod_cat_obj_id = prod_cat_obj[0].id
+        return [('categ_id', '=', prod_cat_obj_id)]
 
     name = fields.Char(string="Registration Code", readonly=True)
     is_invoiced = fields.Boolean(copy=False, default=False)
@@ -51,7 +54,7 @@ class MedicalInpatientRegistration(models.Model):
     admission_type = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU'), ('care', 'Intermediate Care Unit')],
                                       required=False, string="Admission Type")
     info = fields.Text(string="Notes")
-    bed_transfers_ids = fields.One2many('medical.inpatient.accommodation', 'inpatient_id', string='Accommodations')
+    bed_transfers_ids = fields.One2many('medical.inpatient.acc', 'inpatient_id', string='Accommodations')
     ip_update_note_ids = fields.One2many('medical.inpatient.update.note', 'inpatient_id', string='Inpatient Update Notes')
     state = fields.Selection([('requested', 'Requested'), ('admitted', 'Admitted'), ('discharged', 'Discharged')],
                              string="State", default="requested")

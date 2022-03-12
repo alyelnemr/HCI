@@ -2,8 +2,8 @@
 from odoo import fields, models
 
 
-class MedicalAppointmentConsultationLine(models.Model):
-    _name = 'medical.appointment.consultation.line'
+class MedicalInpUpdateNoteConsultationLine(models.Model):
+    _name = 'medical.inp.update.note.consultation.line'
     _description = 'description'
 
     def _get_examination_product_category_domain(self):
@@ -14,8 +14,8 @@ class MedicalAppointmentConsultationLine(models.Model):
             prod_cat_obj_id = prod_cat_obj[0].id
         return [('sale_ok', '=', 1), ('type', '=', 'service'), ('categ_id', '=', prod_cat_obj_id)]
 
-    name = fields.Many2one('medical.appointment', 'Appointment ID')
-    appointment_id = fields.Many2one('medical.appointment', 'Appointment ID')
+    name = fields.Many2one('medical.inp.update.note', 'Appointment ID')
+    inp_update_note_id = fields.Many2one('medical.inp.update.note', 'Inpatient Update Note ID')
     product_id = fields.Many2one('product.product', 'Service',
                                  domain=lambda self: self._get_examination_product_category_domain(), required=True)
     quantity = fields.Integer('Quantity', default=1)
