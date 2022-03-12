@@ -18,12 +18,12 @@
                             <label class="oe_edit_only" for="name"
                                    string="Update Note #"/>
                             <h2>
-                                <group>
-                                    <field name="name" />
-                                    <field name="inpatient_id" options="{'always_reload': 1, 'limit':2, 'no_create_edit': True, 'no_create': True, 'no_edit': True}" />
-                                    <field name="update_note_date" />
-                                </group>
+                                <field name="name" class="oe_inline"/>
                             </h2>
+                            <group>
+                                <field name="inpatient_id" options="{'always_reload': 1, 'limit':2, 'no_create_edit': True, 'no_create': True, 'no_edit': True}" />
+                                <field name="update_note_date" />
+                            </group>
                         </div>
                     </div>
                     <group>
@@ -33,6 +33,7 @@
                             <!--<field name="consultations_id" attrs="{'readonly': [('validity_status','=', 'invoice')]}"  options="{'no_create_edit': True, 'no_create': True}"/>-->
                             <!--<field name="consultations_id" options="{'no_create_edit': True, 'no_create': True}"/>-->
                             <!--<field name="appointment_date" attrs="{'readonly': [('validity_status','=', 'invoice')]}" />-->
+                            <field name="update_note_date" />
                             <field name="no_invoice" attrs="{'invisible': True}"/>
                             <field name="is_discharged" attrs="{'invisible': True}"/>
                             <!--<field name="no_invoice" attrs="{'invisible': [('validity_status','=', 'invoice')]}"/>-->
@@ -45,6 +46,10 @@
                             <field name="is_company_id_readonly" attrs="{'invisible': 1}"/>
                             <field name="company_id" attrs="{'invisible': True}" />
                             <!--<field name="company_id" attrs="{'readonly': ['|', ('validity_status','=', 'invoice'), ('is_company_id_readonly', '=', True)]}" />-->
+                            <group>
+                                <field name="accommodation_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                                <field name="admission_type" />
+                            </group>
                         </group>
                         <group string="Vital Data">
                                 <field name="vital_bp"/>
