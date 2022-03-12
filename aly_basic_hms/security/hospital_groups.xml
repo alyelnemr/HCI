@@ -66,6 +66,7 @@
         <field name="value">Accommodation</field>
     </record>
 
+
     <record id="standard_accommodation_services_product" model="ir.config_parameter">
         <field name="key">standard_accommodation.auto_services</field>
         <field name="value">record_standard_accommodation_product_template,record_standard_nursing_product_template,record_standard_medical_care_product_template</field>
