@@ -5,7 +5,6 @@ from odoo import api, fields, models, _
 
 class res_partner(models.Model):
     _inherit = 'res.partner'
-    _description = 'description'
 
     relationship = fields.Char(string='Relationship')
     relative_partner_id = fields.Many2one('res.partner',string="Relative_id")
@@ -23,6 +22,7 @@ class res_partner(models.Model):
     is_institution = fields.Boolean('Institution')
     company_insurance_ids = fields.One2many('medical.insurance','insurance_company_id','Insurance')
     reference = fields.Char('ID Number')
+    patient_id = fields.One2many('medical.patient', 'patient_id', string="Patient Name")
 
     @api.model
     def create(self,val):

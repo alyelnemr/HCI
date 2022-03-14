@@ -329,7 +329,7 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                         list_of_vals.append((0, 0, invoice_line_vals))
 
                     for inp_acc in inpatient.bed_transfers_ids:
-                        for p_bed in inp_acc:
+                        for p_bed in inp_acc.acc_service_ids:
 
                             invoice_line_account_id = False
                             if p_bed.accommodation_service.id:
