@@ -20,6 +20,7 @@
                                 <field name="actual_admission_days"/>
                             </group>
                             <group>
+                                <field name="doctor_id" />
                                 <field name="refer_to" />
                                 <field name="transportation" />
                             </group>

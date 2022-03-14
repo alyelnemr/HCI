@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields, api
+from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 
 class MedicalInpatientAcc(models.Model):
     _name = 'medical.inpatient.acc'
     _description = 'description'
+
+    @api.constrains('accommodation_qty')
+    def date_constrains(self):
+        for rec in self:
+            if rec.accommodation_qty < 1:
+                raise ValidationError(_('Accommodation Days Must be greater than 1'))
 
     name = fields.Char("Name")
     admission_type = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU')],
@@ -48,6 +54,7 @@ class MedicalInpatientAcc(models.Model):
         param_name = ''
         for record in self:
             admission_type = val['admission_type'] if 'admission_type' in val.keys() else record.admission_type
+            accommodation_qty = val['accommodation_qty'] if 'accommodation_qty' in val.keys() else record.accommodation_qty
             if admission_type == 'standard':
                 param_name = 'standard_accommodation.auto_services'
             elif admission_type == 'icu':
@@ -66,7 +73,7 @@ class MedicalInpatientAcc(models.Model):
                     'name': admission_type,
                     'admission_type': admission_type,
                     'accommodation_service': product_record.id,
-                    'accommodation_qty': val['accommodation_qty']
+                    'accommodation_qty': accommodation_qty
                 }))
             val.update({
                 'acc_service_ids': acc_services

@@ -22,15 +22,16 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
                     rd = d2 - d1
                     self.actual_admission_days = rd.days + 1
                     if self.discharge_datetime.date() < rec.admission_date or rd.days < 0:
-                        raise UserError(_('Discharge Date Must be greater than or equal Admission Date...'))
+                        raise UserError(_('Discharge Date Must be greater than or equal Admission Date (%s)...', rec.admission_date))
 
     name = fields.Char(string="Discharge Code", readonly=True)
     discharge_datetime = fields.Datetime(string='Discharge Date Time', required=True)
-    actual_admission_days = fields.Integer(compute=_compute_admission_days,string="Admission Days",store=False, default=0)
+    actual_admission_days = fields.Integer(compute=_compute_admission_days, string="Admission Days",store=False, default=0)
     discharge_basis = fields.Selection([('improve', 'Improvement Basis'), ('against', 'Against Medical Advice'),
-                                        ('repatriation', 'Repatriation Basis')],
+                                        ('repatriation', 'Repatriation Basis')], default="improve",
                                        required=True, string="Discharge Basis")
     refer_to = fields.Char(string="Refer To")
+    doctor_id = fields.Many2one('medical.physician', string='Treating Physician',required=False)
     transportation = fields.Selection([('car', 'Standard Car'), ('ambulance', 'Ambulance')],
                                       required=True, default='car', string="Transportation")
     recommendation = fields.Text(string="Recommendations")
@@ -47,6 +48,7 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
             appointment_obj.discharge_basis = self.discharge_basis
             appointment_obj.refer_to = self.refer_to
             appointment_obj.transportation = self.transportation
+            appointment_obj.doctor_id = self.doctor_id
             appointment_obj.recommendation = self.recommendation
             appointment_obj.state = 'discharged'
             appointment_obj.admission_days = self.actual_admission_days
@@ -55,6 +57,7 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
             for line in self.discharge_medication_ids:
                 discharge_medication_ids.append((0, 0, {
                     'medical_medicament_id': line.medical_medicament_id.id,
+                    'medicine_quantity': line.medicine_quantity,
                     'dose': line.dose,
                     'admin_method': line.admin_method,
                     'medical_dose_unit_id': line.medical_dose_unit_id.id,
@@ -63,3 +66,40 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
                     'notes': line.notes,
                 }))
             appointment_obj.discharge_medication_ids = discharge_medication_ids
+            param_name = ''
+            if self.transportation == 'car':
+                param_name = 'car.product_template'
+            elif self.transportation == 'ambulance':
+                param_name = 'ambulance.product_template'
+
+            accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param(param_name)
+            services = accom_prod_cat.split(',') if self.transportation == 'ambulance' else accom_prod_cat
+
+            service_record_id = services[0] if self.transportation == 'ambulance' else services
+            product_record = self.env['product.product'].search([('product_tmpl_id', '=', service_record_id)])
+            appointment_obj.transportation_service = product_record.id
+            if self.transportation == 'ambulance':
+                service_record_id = services[1]
+                product_record = self.env['product.product'].search([('product_tmpl_id', '=', service_record_id)])
+                appointment_obj.transportation_service2 = product_record.id
+
+            admission_days_current = 0
+            for inp in appointment_obj.bed_transfers_ids:
+                admission_days_current += inp.accommodation_qty
+
+            # (record.id, '%s %s' % (record.name, record.patient_id.patient_id.name))
+
+            if admission_days_current > 0 and admission_days_current != self.actual_admission_days:
+                return {
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+                        'title': _(
+                            "Note that Patient [%s] Admission Days [%s] are not equal to Accommodation days [%s]"
+                            % (appointment_obj.name, self.actual_admission_days, admission_days_current)
+                        ),
+                        'type': 'warning',
+                        'sticky': True,
+                        'next': {'type': 'ir.actions.act_window_close'},
+                    },
+                }

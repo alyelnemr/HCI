@@ -23,14 +23,8 @@ class MedicalInpUpdateNote(models.Model):
         prod_cat_obj_id = 0
         if len(prod_cat_obj) > 1:
             prod_cat_obj_id = prod_cat_obj[0].id
-        return [('categ_id', '=', prod_cat_obj_id)]
-
-    def _get_accommodation_product_category_domain(self):
-        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('accommodation.product_category')
-        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
-        prod_cat_obj_id = 0
-        if len(prod_cat_obj) > 1:
-            prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
         return [('categ_id', '=', prod_cat_obj_id)]
 
     name = fields.Char(string="Inpatient Update Note ID", readonly=True, copy=True)
@@ -44,19 +38,16 @@ class MedicalInpUpdateNote(models.Model):
     validity_status = fields.Selection([('invoice', 'Invoice Created'), ('tobe', 'To be Invoiced')], string='Status',
                                        compute=_compute_validity_status,
                                        store=False, sort=False,readonly=True,default='tobe')
-    consultations_id = fields.Many2one('product.product','Consultation Service',
-                                       domain=lambda self: self._get_examination_product_category_domain(), required=True)
     inp_update_note_procedure_ids = fields.One2many('medical.inpatient.procedure', 'inp_update_note_id', string='Procedures', required=True)
     inp_update_note_consultation_ids = fields.One2many('medical.inp.update.note.consultation.line', 'inp_update_note_id',
                                                    string='Another Consultations', required=True)
     inp_update_note_investigations_ids = fields.One2many('medical.inpatient.investigation', 'inp_update_note_id',
                                                      string='Investigations', required=True)
     invoice_id = fields.Many2one('account.move', 'Invoice')
-    admission_duration = fields.Integer(string="Observation Duration (per hour)")
-    accommodation_id = fields.Many2one('product.product', 'Accommodation Service',
-                                       domain=lambda self: self._get_accommodation_product_category_domain(), required=False)
-    admission_type = fields.Selection([('observation', 'Observation Room')],
-                                      required=False, default='observation', readonly=True, string="Admission Type")
+    admission_type = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU')],
+                                      required=True, default='standard', string="Admission Type")
+    admission_status = fields.Selection([('still', 'is still'), ('has', 'has been')],
+                                      required=True, default='still', string="Admission Status")
     is_discharged = fields.Boolean(copy=False, default=False)
     discharge_datetime = fields.Datetime(string='Discharge Date Time')
     discharge_basis = fields.Selection([('improve', 'Improvement Basis'), ('against', 'Against Medical Advice'),

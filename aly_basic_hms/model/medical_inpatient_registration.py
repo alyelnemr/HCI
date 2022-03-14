@@ -9,6 +9,7 @@ from odoo.exceptions import UserError, ValidationError
 class MedicalInpatientRegistration(models.Model):
     _name = 'medical.inpatient.registration'
     _description = 'description'
+    _rec_name = 'patient_id'
 
     def print_invoice_report(self):
         return self.env.ref('aly_basic_hms.report_print_inpatient_invoice_report').report_action(self)
@@ -40,6 +41,8 @@ class MedicalInpatientRegistration(models.Model):
         prod_cat_obj_id = 0
         if len(prod_cat_obj) > 1:
             prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
         return [('categ_id', '=', prod_cat_obj_id)]
 
     name = fields.Char(string="Registration Code", readonly=True)
@@ -60,48 +63,41 @@ class MedicalInpatientRegistration(models.Model):
                              string="State", default="requested")
     nursing_plan = fields.Text(string="Nursing Plan")
     discharge_plan = fields.Text(string="Discharge Plan")
-    # medication_ids = fields.One2many('medical.inpatient.medication','medical_inpatient_registration_id',string='Medication')
-    # inpatient_line_ids = fields.One2many('medical.inpatient.line','inpatient_id',string='Services and Procedures',required=True)
     no_invoice = fields.Boolean(string='Invoice exempt', default=False)
     validity_status = fields.Selection([
         ('invoice', 'Invoice Created'),
         ('tobe', 'To be Invoiced'),
     ], 'Status', compute=_compute_validity_status, store=False, sort=False, readonly=True, default='tobe')
     invoice_id = fields.Many2one('account.move', 'Invoice')
-    accommodation_id = fields.Many2one('product.product', 'Accommodation Service',
-                                       domain=lambda self: self._get_accommodation_product_category_domain())
     discharge_medication_ids = fields.One2many('medical.inpatient.medication', 'medical_inpatient_registration_id',
                                                string='Medication')
     is_discharged = fields.Boolean(copy=False, default=False)
     discharge_datetime = fields.Datetime(string='Discharge Date Time')
     discharge_basis = fields.Selection([('improve', 'Improvement Basis'), ('against', 'Against Medical Advice'),
-                                        ('repatriation', 'Repatriation Basis')],string="Discharge Basis")
+                                        ('repatriation', 'Repatriation Basis')], string="Discharge Basis")
     refer_to = fields.Char(string="Refer To")
     transportation = fields.Selection([('car', 'Standard Car'), ('ambulance', 'Ambulance')], string="Transportation")
+    transportation_service = fields.Many2one('product.product',
+                                            string='Transportation Service', required=False)
+    transportation_service2 = fields.Many2one('product.product',
+                                            string='Transportation Service2', required=False)
     recommendation = fields.Text(string="Recommendations")
-    inpatient_update_note_ids = fields.One2many('medical.inpatient.update.note', 'inpatient_id')
+    doctor_id = fields.Many2one('medical.physician','Physician',required=False)
+    inpatient_update_note_ids = fields.One2many('medical.inp.update.note', 'inpatient_id')
 
     @api.constrains('discharge_date', 'admission_date')
     def date_constrains(self):
         for rec in self:
             if rec.discharge_date < rec.admission_date or rec.admission_days < 0:
                 raise ValidationError(_('Discharge Date Must be greater than or equal Admission Date...'))
+            if rec.admission_date > date.today():
+                raise ValidationError(_('Admission Date Must be lower than or equal Today...'))
 
     @api.constrains('admission_days', 'bed_transfers_ids', 'discharge_date', 'admission_date', 'accommodation_id')
-    def date_constrains(self):
+    def admission_constrains(self):
         for rec in self:
-            if rec.discharge_date < rec.admission_date or rec.admission_days < 0:
-                raise ValidationError(_('Discharge Date Must be greater than or equal Admission Date...'))
-            if rec.admission_days <= 0:
-                raise ValidationError(_('Admission Duration must be greater than zero...'))
-            if not rec.accommodation_id and len(rec.bed_transfers_ids) <= 0:
+            if len(rec.bed_transfers_ids) <= 0:
                 raise ValidationError(_('Accommodation Services must have at least one record...'))
-
-    def name_get(self):
-        res = []
-        for record in self:
-            res.append((record.id, '%s %s' % (record.name, record.patient_id.patient_id.name)))
-        return res
 
     @api.model
     def create(self,val):

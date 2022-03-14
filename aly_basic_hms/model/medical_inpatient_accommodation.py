@@ -15,13 +15,9 @@ class MedicalInpatientAccommodation(models.Model):
         prod_cat_obj_id = 0
         if len(prod_cat_obj) > 1:
             prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
         return [('categ_id', '=', prod_cat_obj_id)]
-
-    @api.constrains('accommodation_qty')
-    def date_constrains(self):
-        for rec in self:
-            if rec.accommodation_qty <= 0:
-                raise ValidationError(_('Accommodation Qty must be greater than or equal Admission Date...'))
 
     name = fields.Char("Name")
     # , ('care', 'Intermediate Care Unit')

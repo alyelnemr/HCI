@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-# Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
-
-from odoo import models, fields
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class MedicalInpatientMedication(models.Model):
@@ -9,8 +7,14 @@ class MedicalInpatientMedication(models.Model):
     _rec_name = 'medical_medicament_id'
     _description = 'description'
 
+    @api.constrains('medicine_quantity')
+    def date_constrains(self):
+        for rec in self:
+            if rec.medicine_quantity < 1:
+                raise ValidationError(_('Medicine Qty Must be greater than 1'))
+
     medical_medicament_id = fields.Many2one('medical.medicament', string='Medicine', required=True)
-    medicine_quantity = fields.Integer(string='Medicine Quantity', default=1)
+    medicine_quantity = fields.Integer(string='Quantity', default=1)
     dose = fields.Float(string='Dose')
     admin_method = fields.Selection([('iv', 'IV'), ('im', 'IM'), ('sc', 'SC'), ('oral', 'Oral'), ('local', 'Local')],
                                     string='Administration Method')

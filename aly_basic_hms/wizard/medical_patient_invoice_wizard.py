@@ -240,37 +240,61 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                         list_of_vals.append((0, 0, invoice_line_vals))
 
                 for inpatient in list_of_inpatient:
-                    if inpatient.accommodation_id.id:
-                        invoice_line_account_id = inpatient.accommodation_id.property_account_income_id.id \
-                                                  or inpatient.accommodation_id.categ_id.property_account_income_categ_id.id \
+                    if inpatient.transportation_service:
+                        invoice_line_account_id = inpatient.transportation_service.property_account_income_id.id \
+                                                  or inpatient.transportation_service.categ_id.property_account_income_categ_id.id \
                                                   or False
-                    if not invoice_line_account_id:
-                        invoice_line_account_id = ir_property_obj.get('property_account_income_categ_id', 'product.category')
-                    if not invoice_line_account_id:
-                        raise UserError(
-                            _(
-                                'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
-                            (inpatient.accommodation_id.name,))
+                        if not invoice_line_account_id:
+                            invoice_line_account_id = ir_property_obj.get('property_account_income_categ_id', 'product.category')
+                        if not invoice_line_account_id:
+                            raise UserError(
+                                _(
+                                    'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
+                                (inpatient.transportation_service.name,))
 
-                    tax_ids = []
-                    taxes = inpatient.accommodation_id.taxes_id.filtered(
-                        lambda r: not inpatient.accommodation_id.company_id or r.company_id == inpatient.accommodation_id.company_id)
-                    tax_ids = taxes.ids
+                        tax_ids = []
+                        taxes = inpatient.transportation_service.taxes_id.filtered(
+                            lambda r: not inpatient.transportation_service.company_id or r.company_id == inpatient.transportation_service.company_id)
+                        tax_ids = taxes.ids
 
-                    # Calculate accommodation days
-                    accommodation_qty = 1 if inpatient.admission_days == 0 else inpatient.admission_days
+                        invoice_line_vals = {
+                            'name': 'Inpatient - Transportation Service' or '',
+                            'account_id': invoice_line_account_id,
+                            'price_unit': inpatient.transportation_service.lst_price,
+                            'product_uom_id': inpatient.transportation_service.uom_id.id,
+                            'quantity': 1,
+                            'tax_ids': tax_ids,
+                            'product_id': inpatient.transportation_service.id,
+                        }
+                        list_of_vals.append((0, 0, invoice_line_vals))
 
-                    invoice_line_vals = {
-                        # 'name': inpatient.accommodation_id.name or '',
-                        'name': 'Inpatient - Accommodation_id' or '',
-                        'account_id': invoice_line_account_id,
-                        'price_unit': inpatient.accommodation_id.lst_price,
-                        'product_uom_id': inpatient.accommodation_id.uom_id.id,
-                        'quantity': accommodation_qty,
-                        'tax_ids': tax_ids,
-                        'product_id': inpatient.accommodation_id.id,
-                    }
-                    list_of_vals.append((0, 0, invoice_line_vals))
+                    if inpatient.transportation_service2:
+                        invoice_line_account_id = inpatient.transportation_service2.property_account_income_id.id \
+                                                  or inpatient.transportation_service2.categ_id.property_account_income_categ_id.id \
+                                                  or False
+                        if not invoice_line_account_id:
+                            invoice_line_account_id = ir_property_obj.get('property_account_income_categ_id', 'product.category')
+                        if not invoice_line_account_id:
+                            raise UserError(
+                                _(
+                                    'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
+                                (inpatient.transportation_service2.name,))
+
+                        tax_ids = []
+                        taxes = inpatient.transportation_service2.taxes_id.filtered(
+                            lambda r: not inpatient.transportation_service2.company_id or r.company_id == inpatient.transportation_service2.company_id)
+                        tax_ids = taxes.ids
+
+                        invoice_line_vals = {
+                            'name': 'Inpatient - Transportation Service' or '',
+                            'account_id': invoice_line_account_id,
+                            'price_unit': inpatient.transportation_service2.lst_price,
+                            'product_uom_id': inpatient.transportation_service2.uom_id.id,
+                            'quantity': 1,
+                            'tax_ids': tax_ids,
+                            'product_id': inpatient.transportation_service2.id,
+                        }
+                        list_of_vals.append((0, 0, invoice_line_vals))
 
                     for p_line in inpatient.discharge_medication_ids:
 
@@ -304,41 +328,43 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                         }
                         list_of_vals.append((0, 0, invoice_line_vals))
 
-                    for p_bed in inpatient.bed_transfers_ids:
+                    for inp_acc in inpatient.bed_transfers_ids:
+                        for p_bed in inp_acc:
 
-                        invoice_line_account_id = False
-                        if p_bed.accommodation_service.id:
-                            invoice_line_account_id = p_bed.accommodation_service.property_account_income_id.id \
-                                                      or p_bed.accommodation_service.categ_id.property_account_income_categ_id.id \
-                                                      or False
-                        if not invoice_line_account_id:
-                            invoice_line_account_id = ir_property_obj.get('property_account_income_categ_id', 'product.category')
-                        if not invoice_line_account_id:
-                            raise UserError(
-                                _(
-                                    'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
-                                (p_bed.accommodation_service.name,))
+                            invoice_line_account_id = False
+                            if p_bed.accommodation_service.id:
+                                invoice_line_account_id = p_bed.accommodation_service.property_account_income_id.id \
+                                                          or p_bed.accommodation_service.categ_id.property_account_income_categ_id.id \
+                                                          or False
+                            if not invoice_line_account_id:
+                                invoice_line_account_id = ir_property_obj.get('property_account_income_categ_id', 'product.category')
+                            if not invoice_line_account_id:
+                                raise UserError(
+                                    _(
+                                        'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
+                                    (p_bed.accommodation_service.name,))
 
-                        tax_ids = []
-                        taxes = p_bed.accommodation_service.taxes_id.filtered(
-                            lambda r: not p_bed.accommodation_service.company_id or r.company_id == p_bed.accommodation_service.company_id)
-                        tax_ids = taxes.ids
+                            tax_ids = []
+                            taxes = p_bed.accommodation_service.taxes_id.filtered(
+                                lambda r: not p_bed.accommodation_service.company_id or r.company_id == p_bed.accommodation_service.company_id)
+                            tax_ids = taxes.ids
 
-                        invoice_line_vals = {
-                            # 'name': p_bed.accommodation_service.display_name or '',
-                            'name': 'Inpatient Bed Transfer Accommodation' or '',
-                            'move_name': p_bed.accommodation_service.display_name or '',
-                            'account_id': invoice_line_account_id,
-                            'price_unit': p_bed.accommodation_service.lst_price,
-                            'product_uom_id': p_bed.accommodation_service.uom_id.id,
-                            'quantity': p_bed.accommodation_qty,
-                            'tax_ids': tax_ids,
-                            'product_id': p_bed.accommodation_service.id,
-                        }
-                        list_of_vals.append((0, 0, invoice_line_vals))
+                            invoice_line_vals = {
+                                # 'name': p_bed.accommodation_service.display_name or '',
+                                'name': 'Inpatient Bed Transfer Accommodation' or '',
+                                'move_name': p_bed.accommodation_service.display_name or '',
+                                'account_id': invoice_line_account_id,
+                                'price_unit': p_bed.accommodation_service.lst_price,
+                                'product_uom_id': p_bed.accommodation_service.uom_id.id,
+                                'quantity': p_bed.accommodation_qty,
+                                'tax_ids': tax_ids,
+                                'product_id': p_bed.accommodation_service.id,
+                            }
+                            list_of_vals.append((0, 0, invoice_line_vals))
 
-                    for ip_update_note in inpatient.ip_update_note_ids:
-                        for p_line in ip_update_note.inpatient_line_ids:
+                    for appointment in inpatient.inpatient_update_note_ids:
+
+                        for p_line in appointment.inp_update_note_procedure_ids:
 
                             invoice_line_account_id = False
                             if p_line.product_id.id:
@@ -359,7 +385,7 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
 
                             invoice_line_vals = {
                                 # 'name': p_line.product_id.display_name or '',
-                                'name': 'Inpatient Update Note - Services and Procedures' or '',
+                                'name': 'IP Update Note - Procedures' or '',
                                 'move_name': p_line.product_id.display_name or '',
                                 'account_id': invoice_line_account_id,
                                 'price_unit': p_line.product_id.lst_price,
@@ -370,7 +396,74 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                             }
                             list_of_vals.append((0, 0, invoice_line_vals))
 
-                        for p_line in ip_update_note.medication_ids:
+                        for p_cons_line in appointment.inp_update_note_consultation_ids:
+
+                            invoice_line_account_id = False
+                            if p_cons_line.product_id.id:
+                                invoice_line_account_id = p_cons_line.product_id.property_account_income_id.id \
+                                                          or p_cons_line.product_id.categ_id.property_account_income_categ_id.id \
+                                                          or False
+                            if not invoice_line_account_id:
+                                invoice_line_account_id = ir_property_obj.get('property_account_income_categ_id',
+                                                                              'product.category')
+                            if not invoice_line_account_id:
+                                raise UserError(
+                                    _(
+                                        'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
+                                    (p_cons_line.product_id.name,))
+
+                            tax_ids = []
+                            taxes = p_cons_line.product_id.taxes_id.filtered(
+                                lambda
+                                    r: not p_cons_line.product_id.company_id or r.company_id == p_cons_line.product_id.company_id)
+                            tax_ids = taxes.ids
+
+                            invoice_line_vals = {
+                                # 'name': p_cons_line.product_id.display_name or '',
+                                'name': 'Update Note - Another Consultations' or '',
+                                'move_name': p_cons_line.product_id.display_name or '',
+                                'account_id': invoice_line_account_id,
+                                'price_unit': p_cons_line.product_id.lst_price,
+                                'product_uom_id': p_cons_line.product_id.uom_id.id,
+                                'quantity': p_cons_line.quantity,
+                                'tax_ids': tax_ids,
+                                'product_id': p_cons_line.product_id.id,
+                            }
+                            list_of_vals.append((0, 0, invoice_line_vals))
+
+                        for p_line in appointment.inp_update_note_investigations_ids:
+
+                            invoice_line_account_id = False
+                            if p_line.product_id.id:
+                                invoice_line_account_id = p_line.product_id.property_account_income_id.id or p_line.product_id.categ_id.property_account_income_categ_id.id or False
+                            if not invoice_line_account_id:
+                                invoice_line_account_id = ir_property_obj.get('property_account_income_categ_id',
+                                                                              'product.category')
+                            if not invoice_line_account_id:
+                                raise UserError(
+                                    _(
+                                        'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
+                                    (p_line.product_id.name,))
+
+                            tax_ids = []
+                            taxes = p_line.product_id.taxes_id.filtered(
+                                lambda r: not p_line.product_id.company_id or r.company_id == p_line.product_id.company_id)
+                            tax_ids = taxes.ids
+
+                            invoice_line_vals = {
+                                # 'name': p_line.product_id.display_name or '',
+                                'name': 'Update Note - Investigations' or '',
+                                'move_name': p_line.product_id.display_name or '',
+                                'account_id': invoice_line_account_id,
+                                'price_unit': p_line.product_id.lst_price,
+                                'product_uom_id': p_line.product_id.uom_id.id,
+                                'quantity': p_line.quantity,
+                                'tax_ids': tax_ids,
+                                'product_id': p_line.product_id.id,
+                            }
+                            list_of_vals.append((0, 0, invoice_line_vals))
+
+                        for p_line in appointment.medication_ids:
 
                             invoice_line_account_id = False
                             if p_line.medical_medicament_id.product_id.id:
@@ -391,7 +484,7 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
 
                             invoice_line_vals = {
                                 # 'name': p_line.medical_medicament_id.product_id.display_name or '',
-                                'name': 'Inpatient Update Note - Medications' or '',
+                                'name': 'Update Note - Medications' or '',
                                 'move_name': p_line.medical_medicament_id.product_id.display_name or '',
                                 'account_id': invoice_line_account_id,
                                 'price_unit': p_line.medical_medicament_id.product_id.lst_price,
@@ -469,14 +562,6 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
 
                 medical_patient_obj.invoice_id = res
                 medical_patient_obj.with_context({'come_from_invoice': True}).is_opened_visit = False
-                for appointment in list_of_update_notes:
-                    appointment.invoice_id = res
-                for inpatient in list_of_inpatient:
-                    inpatient.invoice_id = res
-                    for ip_update_note in inpatient.ip_update_note_ids:
-                        ip_update_note.invoice_id = res
-                for operation in list_of_operation:
-                    operation.invoice_id = res
 
                 list_of_ids.append(res.id)
                 if list_of_ids:

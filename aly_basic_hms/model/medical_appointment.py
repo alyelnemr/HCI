@@ -1,6 +1,6 @@
 from odoo import api, fields, models, _
 from datetime import datetime, date
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class MedicalAppointment(models.Model):
@@ -8,6 +8,12 @@ class MedicalAppointment(models.Model):
     _inherit = 'mail.thread'
     _order = "name, appointment_date desc"
     _description = 'description'
+
+    @api.constrains('appointment_date')
+    def date_constrains(self):
+        for rec in self:
+            if rec.appointment_date.date() > date.today():
+                raise ValidationError(_('Update Note Date Must be lower than or equal Today...'))
 
     @api.depends('invoice_id')
     def _compute_validity_status(self):
@@ -25,6 +31,8 @@ class MedicalAppointment(models.Model):
         prod_cat_obj_id = 0
         if len(prod_cat_obj) > 1:
             prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
         return [('categ_id', '=', prod_cat_obj_id)]
 
     def _get_insurance_cards_domain(self):
@@ -38,6 +46,8 @@ class MedicalAppointment(models.Model):
         prod_cat_obj_id = 0
         if len(prod_cat_obj) >= 2:
             prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
         return [('categ_id', '=', prod_cat_obj_id)]
 
     name = fields.Char(string="Appointment ID", readonly=True, copy=True)

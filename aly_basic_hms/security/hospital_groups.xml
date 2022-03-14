@@ -1,7 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="0">
+    <data noupdate="1">
+        <record id="examination_product_category" model="ir.config_parameter">
+            <field name="key">examination.product_category</field>
+            <field name="value">Examinations</field>
+        </record>
 
+        <record id="investigation_product_category" model="ir.config_parameter">
+            <field name="key">investigation.product_category</field>
+            <field name="value">Investigations</field>
+        </record>
+
+        <record id="procedure_product_category" model="ir.config_parameter">
+            <field name="key">procedure.product_category</field>
+            <field name="value">Procedures</field>
+        </record>
+
+        <record id="accommodation_product_category" model="ir.config_parameter">
+            <field name="key">accommodation.product_category</field>
+            <field name="value">Accommodation</field>
+        </record>
+
+        <record id="standard_accommodation_services_product" model="ir.config_parameter">
+            <field name="key">standard_accommodation.auto_services</field>
+            <field name="value">record_standard_accommodation_product_template,record_standard_nursing_product_template,record_standard_medical_care_product_template</field>
+        </record>
+
+        <record id="icu_accommodation_services_product" model="ir.config_parameter">
+            <field name="key">icu_accommodation.auto_services</field>
+            <field name="value">record_icu_accommodation_product_template,record_icu_nursing_product_template,record_icu_medical_care_product_template</field>
+        </record>
+
+        <record forcecreate="True" id="record_transportation_product_category" model="product.category">
+            <field name="name">Transportation</field>
+        </record>
+
+        <record forcecreate="True" id="record_package_product_category" model="product.category">
+            <field name="name">Packages</field>
+        </record>
+
+        <record forcecreate="True" id="record_accommodation_product_category" model="product.category">
+            <field name="name">Accommodation</field>
+        </record>
+
+        <record forcecreate="True" id="record_examination_product_category" model="product.category">
+            <field name="name">Examinations</field>
+        </record>
+
+        <record forcecreate="True" id="record_investigation_product_category" model="product.category">
+            <field name="name">Investigations</field>
+        </record>
+
+        <record forcecreate="True" id="record_examination_product_category" model="product.category">
+            <field name="name">Procedures</field>
+        </record>
+
+        <record forcecreate="True" id="record_transportation_car_product_template" model="product.template">
+            <field name="name">Standard transportation by normal car per Km</field>
+            <field name="categ_id" ref="aly_basic_hms.record_transportation_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record forcecreate="True" id="record_transportation_ambulance_product_template" model="product.template">
+            <field name="name">Ambulance transportation per Km</field>
+            <field name="categ_id" ref="aly_basic_hms.record_transportation_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record forcecreate="True" id="record_transportation_ambulance2_product_template" model="product.template">
+            <field name="name">Starting ambulance fees with ordinary equipment</field>
+            <field name="categ_id" ref="aly_basic_hms.record_transportation_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record id="transportation_car_product" model="ir.config_parameter">
+            <field name="key">car.product_template</field>
+            <field name="value" ref="aly_basic_hms.record_transportation_car_product_template" />
+        </record>
+
+        <record id="transportation_ambulance_product" model="ir.config_parameter">
+            <field name="key">ambulance1.product_template</field>
+            <field name="value" ref="record_transportation_ambulance_product_template" />
+        </record>
+
+        <record id="transportation_ambulance_product" model="ir.config_parameter">
+            <field name="key">ambulance2.product_template</field>
+            <field name="value" ref="record_transportation_ambulance2_product_template" />
+        </record>
+
+        <record forcecreate="True" id="record_medical_examination_product_template" model="product.template">
+            <field name="name">Medical Examination</field>
+            <field name="categ_id" ref="aly_basic_hms.record_examination_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record forcecreate="True" id="record_standard_accommodation_product_template" model="product.template">
+            <field name="name">Standard Accommodation</field>
+            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record forcecreate="True" id="record_standard_nursing_product_template" model="product.template">
+            <field name="name">Nursing Fees in standard room per day</field>
+            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record forcecreate="True" id="record_standard_medical_care_product_template" model="product.template">
+            <field name="name">Medical Care / Control visit per day</field>
+            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record forcecreate="True" id="record_icu_accommodation_product_template" model="product.template">
+            <field name="name">ICU Accommodation</field>
+            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record forcecreate="True" id="record_icu_nursing_product_template" model="product.template">
+            <field name="name">Nursing Fees in ICU per day</field>
+            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record forcecreate="True" id="record_icu_medical_care_product_template" model="product.template">
+            <field name="name">Medical Care / Specialist supervision in ICU per day</field>
+            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record forcecreate="True" id="record_service_charge_tax" model="account.tax">
+            <field name="name">Service Charge 12.5%</field>
+            <field name="amount_type">percent</field>
+            <field name="type_tax_use">sale</field>
+            <field name="amount">12.5</field>
+        </record>
+
+    </data>
+
+    <data noupdate="1">
+        <record id="medical_prescription_multi_company_rule" model="ir.rule">
+            <field name="name">Medical Prescription filtered by Company</field>
+            <field name="model_id" ref="model_medical_prescription_order" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
+        </record>
+
+        <record id="medical_patient_multi_company_rule" model="ir.rule">
+            <field name="name">Medical Patient filtered by Company</field>
+            <field name="model_id" ref="model_medical_patient" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
+        </record>
+
+        <record id="medical_appointment_multi_company_rule" model="ir.rule">
+            <field name="name">Medical Appointment filtered by Company</field>
+            <field name="model_id" ref="model_medical_appointment" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
+        </record>
+
+        <record id="medical_appointment_line_multi_company_rule" model="ir.rule">
+            <field name="name">Medical Appointment Lines filtered by Company</field>
+            <field name="model_id" ref="model_medical_appointment_line" />
+            <field name="global" eval="True" />
+            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
+        </record>
+
+    </data>
+
+    <data noupdate="1">
         <record id="module_category_hospital" model="ir.module.category">
             <field name="name">Hospital Management</field>
             <field name="description">Hospital Management System.</field>
@@ -50,125 +219,4 @@
             <field name="comment">the user will have access to change the company of any model.</field>
         </record>
     </data>
-    <data noupdate="0">
-    <record id="examination_product_category" model="ir.config_parameter">
-        <field name="key">examination.product_category</field>
-        <field name="value">Examinations</field>
-    </record>
-
-    <record id="lab_investigation_product_category" model="ir.config_parameter">
-        <field name="key">lab.investigation.product_category</field>
-        <field name="value">Lab Investigations</field>
-    </record>
-
-    <record id="accommodation_product_category" model="ir.config_parameter">
-        <field name="key">accommodation.product_category</field>
-        <field name="value">Accommodation</field>
-    </record>
-
-
-    <record id="standard_accommodation_services_product" model="ir.config_parameter">
-        <field name="key">standard_accommodation.auto_services</field>
-        <field name="value">record_standard_accommodation_product_template,record_standard_nursing_product_template,record_standard_medical_care_product_template</field>
-    </record>
-
-    <record id="icu_accommodation_services_product" model="ir.config_parameter">
-        <field name="key">icu_accommodation.auto_services</field>
-        <field name="value">record_icu_accommodation_product_template,record_icu_nursing_product_template,record_icu_medical_care_product_template</field>
-    </record>
-
-    <record forcecreate="True" id="record_package_product_category" model="product.category">
-        <field name="name">Packages</field>
-    </record>
-
-    <record forcecreate="True" id="record_accommodation_product_category" model="product.category">
-        <field name="name">Accommodation</field>
-    </record>
-
-    <record forcecreate="True" id="record_examination_product_category" model="product.category">
-        <field name="name">Examinations</field>
-    </record>
-
-    <record forcecreate="True" id="record_medical_examination_product_template" model="product.template">
-        <field name="name">Medical Examination</field>
-        <field name="categ_id" ref="aly_basic_hms.record_examination_product_category" />
-        <field name="type">service</field>
-    </record>
-
-    <record forcecreate="True" id="record_standard_accommodation_product_template" model="product.template">
-        <field name="name">Standard Accommodation</field>
-        <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-        <field name="type">service</field>
-    </record>
-
-    <record forcecreate="True" id="record_standard_nursing_product_template" model="product.template">
-        <field name="name">Nursing Fees in standard room per day</field>
-        <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-        <field name="type">service</field>
-    </record>
-
-    <record forcecreate="True" id="record_standard_medical_care_product_template" model="product.template">
-        <field name="name">Medical Care / Control visit per day</field>
-        <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-        <field name="type">service</field>
-    </record>
-
-    <record forcecreate="True" id="record_icu_accommodation_product_template" model="product.template">
-        <field name="name">ICU Accommodation</field>
-        <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-        <field name="type">service</field>
-    </record>
-
-    <record forcecreate="True" id="record_icu_nursing_product_template" model="product.template">
-        <field name="name">Nursing Fees in ICU per day</field>
-        <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-        <field name="type">service</field>
-    </record>
-
-    <record forcecreate="True" id="record_icu_medical_care_product_template" model="product.template">
-        <field name="name">Medical Care / Specialist supervision in ICU per day</field>
-        <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-        <field name="type">service</field>
-    </record>
-
-    <record forcecreate="True" id="record_service_charge_tax" model="account.tax">
-        <field name="name">Service Charge 12.5%</field>
-        <field name="amount_type">percent</field>
-        <field name="type_tax_use">sale</field>
-        <field name="amount">12.5</field>
-    </record>
-
-</data>
-
-<data noupdate="0">
-    <record id="medical_prescription_multi_company_rule" model="ir.rule">
-        <field name="name">Medical Prescription filtered by Company</field>
-        <field name="model_id" ref="model_medical_prescription_order" />
-        <field name="global" eval="True" />
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
-    </record>
-
-    <record id="medical_patient_multi_company_rule" model="ir.rule">
-        <field name="name">Medical Patient filtered by Company</field>
-        <field name="model_id" ref="model_medical_patient" />
-        <field name="global" eval="True" />
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
-    </record>
-
-    <record id="medical_appointment_multi_company_rule" model="ir.rule">
-        <field name="name">Medical Appointment filtered by Company</field>
-        <field name="model_id" ref="model_medical_appointment" />
-        <field name="global" eval="True" />
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
-    </record>
-
-    <record id="medical_appointment_line_multi_company_rule" model="ir.rule">
-        <field name="name">Medical Appointment Lines filtered by Company</field>
-        <field name="model_id" ref="model_medical_appointment_line" />
-        <field name="global" eval="True" />
-        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
-    </record>
-
-</data>
-
 </odoo>

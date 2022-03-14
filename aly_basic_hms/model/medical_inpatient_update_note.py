@@ -18,6 +18,8 @@ class MedicalInpatientUpdateNote(models.Model):
         prod_cat_obj_id = 0
         if len(prod_cat_obj) > 1:
             prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
         return [('categ_id', '=', prod_cat_obj_id)]
 
     def _get_current_inpatient_domain(self):

@@ -1,10 +1,16 @@
-
-from odoo import fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class MedicalInpUpdateNoteConsultationLine(models.Model):
     _name = 'medical.inp.update.note.consultation.line'
     _description = 'description'
+
+    @api.constrains('quantity')
+    def date_constrains(self):
+        for rec in self:
+            if rec.quantity < 1:
+                raise ValidationError(_('Another Consultation Qty Must be greater than 1'))
 
     def _get_examination_product_category_domain(self):
         exam_prod_cat = self.env['ir.config_parameter'].sudo().get_param('examination.product_category')
@@ -12,9 +18,11 @@ class MedicalInpUpdateNoteConsultationLine(models.Model):
         prod_cat_obj_id = 0
         if len(prod_cat_obj) > 1:
             prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
         return [('sale_ok', '=', 1), ('type', '=', 'service'), ('categ_id', '=', prod_cat_obj_id)]
 
-    name = fields.Many2one('medical.inp.update.note', 'Appointment ID')
+    name = fields.Many2one('medical.inp.update.note', 'Consultations')
     inp_update_note_id = fields.Many2one('medical.inp.update.note', 'Inpatient Update Note ID')
     product_id = fields.Many2one('product.product', 'Service',
                                  domain=lambda self: self._get_examination_product_category_domain(), required=True)

@@ -93,9 +93,5 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-    <act_window id="action_view_inpatient_update_new" name="Inpatient Update Notes"
-                res_model="medical.inpatient.update.note" binding_model="medical.inpatient.registration"
-                view_mode="tree,form" domain="[('inpatient_id', '=', active_id)]"/>
-
 
 </odoo>

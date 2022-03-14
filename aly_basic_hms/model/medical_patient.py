@@ -2,9 +2,9 @@
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
-from datetime import datetime
+from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class MedicalPatient(models.Model):
@@ -32,12 +32,20 @@ class MedicalPatient(models.Model):
     def onchange_age(self):
         for rec in self:
             if rec.date_of_birth:
+                if rec.date_of_birth > date.today():
+                    raise ValidationError(_('Birth date Must be lower than or equal Today...'))
                 d1 = rec.date_of_birth
                 d2 = datetime.today().date()
                 rd = relativedelta(d2, d1)
                 rec.age = str(rd.years) + 'y' + ' ' + str(rd.months) + 'm' + ' ' + str(rd.days) + 'd'
             else:
                 rec.age = "No Date Of Birth!!"
+
+    @api.constrains('diagnosis_final', 'diagnosis_provisional')
+    def diagnosis_constrains(self):
+        for rec in self:
+            if not rec.diagnosis_final and not rec.diagnosis_provisional:
+                raise ValidationError(_('Diagnosis must have at least one (final or provisional)'))
 
     patient_id = fields.Many2one('res.partner', domain=[('is_patient', '=', True)], string="Patient Name", required=True)
     name = fields.Char(string='Patient Code', readonly=True)
@@ -49,7 +57,7 @@ class MedicalPatient(models.Model):
     is_invoiced = fields.Boolean(string='Is Invoiced', default=False, required=False)
     invoice_id = fields.Many2one('account.move', 'Invoice')
     is_insurance = fields.Boolean(string='Insurance', default=False, required=False)
-    our_reference = fields.Char(string='Our Reference')
+    our_reference = fields.Char(string='Our Reference', required=False)
     insurance_reference = fields.Char(string='Insurance Reference')
     insurance_company_id = fields.Many2one('res.partner', domain=[('is_insurance_company', '=', True)],
                                            required=False, string='Insurance Company')
@@ -62,10 +70,10 @@ class MedicalPatient(models.Model):
     nationality_id = fields.Many2one("res.country", "Nationality", required=True)
     travel_agency = fields.Many2one('res.partner',domain=[('is_travel_agency','=',True)],string='Travel Agency')
     tour_operator = fields.Many2one('res.partner',domain=[('is_tour_operator','=',True)],string='Tour Operator')
-    date_of_arrival = fields.Date(string="Date of Arrival")
-    date_of_departure = fields.Date(string="Date of Departure")
-    hotel = fields.Many2one('res.partner',domain=[('is_hotel','=',True)],string='Hotel')
-    room_number = fields.Integer('Room Number')
+    date_of_arrival = fields.Date(string="Date of Arrival", required=True)
+    date_of_departure = fields.Date(string="Date of Departure", required=True)
+    hotel = fields.Many2one('res.partner',domain=[('is_hotel','=',True)],string='Hotel', required=True)
+    room_number = fields.Integer(string='Room Number', required=True)
     social_history_info = fields.Text(string="Patient Social History")
     emergency_contact_name = fields.Char(string='Contact Name')
     emergency_contact_phone = fields.Char(string='Contact Phone')
@@ -87,6 +95,7 @@ class MedicalPatient(models.Model):
     social_history = fields.Char(string='Social History (SH)', required=True)
     company_id = fields.Many2one('res.company', required=True, string='Branch', readonly=False,
                                  default=lambda self: self.env.user.company_id)
+    bill_to = fields.Char(string='Bill To', required=True)
     update_note_ids = fields.One2many('medical.appointment', 'patient_id')
     inpatient_ids = fields.One2many('medical.inpatient.registration', 'patient_id')
     operation_ids = fields.One2many('medical.operation', 'patient_id')
