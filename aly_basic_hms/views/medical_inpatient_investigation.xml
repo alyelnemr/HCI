@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <!-- Tree view -->
+        <record id="medical_inpatient_investigation_tree_view" model="ir.ui.view">
+            <field name="name">medical.inpatient.investigation.tree.view</field>
+            <field name="model">medical.inpatient.investigation</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <tree string="Update Note Investigation">
+                    <field name="product_id" />
+                    <field name="quantity" />
+                    <field name="short_comment" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="medical_inpatient_investigation_form_view" model="ir.ui.view">
+            <field name="name">medical.inpatient.investigation.form.view</field>
+            <field name="model">medical.inpatient.investigation</field>
+            <field name="arch" type="xml">
+                <form string="Update Note investigation">
+                    <group colspan="4" col="4">
+                        <field name="product_id" required="1" />
+                        <field name="quantity" required="1" />
+                        <field name="short_comment" />
+                    </group>
+                </form>
+            </field>
+        </record>
+
+</odoo>
