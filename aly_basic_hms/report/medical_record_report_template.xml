@@ -46,23 +46,6 @@
                             <span t-field="doc.social_history" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                         </td>
                     </tr>
-                    <t t-if="doc.diagnosis_final">
-                        <tr>
-                            <td style="width:20%">Final Diagnosis:</td>
-                            <td style="width:80%">
-                                <span t-field="doc.diagnosis_final" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
-                            </td>
-                        </tr>
-                    </t>
-                    <br/>
-                    <t t-if="doc.diagnosis_provisional">
-                        <tr>
-                            <td style="width:20%">Provisional Diagnosis:</td>
-                            <td style="width:80%">
-                                <span t-field="doc.diagnosis_provisional" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
-                            </td>
-                        </tr>
-                    </t>
                 </tbody>
             </table>
             <table style="width:100%">
@@ -487,21 +470,33 @@
                                         <span t-field="my_list_obj['obj_id'].time_in" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                     </td>
                                 </tr>
-                    <br/>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td style="width:30%">Time Out:</td>
                                     <td style="width:70%">
                                         <span t-field="my_list_obj['obj_id'].time_out" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                     </td>
                                 </tr>
-                    <br/>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td style="width:30%"><b>Type of Anesthesia:</b></td>
                                     <td style="width:70%;">
                                         <span t-field="my_list_obj['obj_id'].type_of_anesthesia" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                     </td>
                                 </tr>
-                                <br/>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
                                 <t t-if="my_list_obj['obj_id'].monitoring">
                                     <tr>
                                         <td style="width:30%">Monitoring:</td>
@@ -509,7 +504,11 @@
                                             <span t-field="my_list_obj['obj_id'].monitoring" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                         </td>
                                     </tr>
-                                <br/>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
                                 </t>
                                 <t t-if="my_list_obj['obj_id'].induction">
                                     <tr>
@@ -518,7 +517,11 @@
                                             <span t-field="my_list_obj['obj_id'].induction" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                         </td>
                                     </tr>
-                                <br/>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
                                 </t>
                                 <t t-if="my_list_obj['obj_id'].maintenance">
                                     <tr>
@@ -527,7 +530,11 @@
                                             <span t-field="my_list_obj['obj_id'].maintenance" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                         </td>
                                     </tr>
-                                <br/>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
                                 </t>
                                 <t t-if="my_list_obj['obj_id'].hemodynamic_status">
                                 <tr>
@@ -536,7 +543,11 @@
                                         <span t-field="my_list_obj['obj_id'].hemodynamic_status" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                     </td>
                                 </tr>
-                                <br/>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
                                 </t>
                                 <t t-if="my_list_obj['obj_id'].blood_loss">
                                 <tr>
@@ -545,7 +556,11 @@
                                         <span t-field="my_list_obj['obj_id'].blood_loss" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                     </td>
                                 </tr>
-                                <br/>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
                                 </t>
                                 <t t-if="my_list_obj['obj_id'].recovery">
                                 <tr>
@@ -554,7 +569,11 @@
                                         <span t-field="my_list_obj['obj_id'].recovery" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                     </td>
                                 </tr>
-                                <br/>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
                                 </t>
                                 <t t-if="my_list_obj['obj_id'].further_note">
                                 <tr>
@@ -563,9 +582,22 @@
                                         <span t-field="my_list_obj['obj_id'].further_note" style="font-size: 13px;font-family: Verdana, sans-serif;font-weight: normal;"/>
                                     </td>
                                 </tr>
-                                <br/>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
                                 </t>
-                                <br/>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br/>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td style="width:30%"><b>Operative Report:</b></td>
                                     <td style="width:70%;">
