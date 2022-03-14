@@ -18,14 +18,6 @@ class MedicalOperation(models.Model):
                 rec.validity_status = 'tobe'
                 rec.is_invoiced = False
 
-    @api.constrains('time_in', 'time_out')
-    def date_constrains(self):
-        for rec in self:
-            if rec.time_in.date() > date.today() or rec.time_out.date() > date.today():
-                raise ValidationError(_('Operation Time Must be lower than or equal Today...'))
-            if rec.time_out > rec.time_in:
-                raise ValidationError(_('Operation Time in Must be lower than Time out...'))
-
     name = fields.Char(string="Operation Code", readonly=True)
     patient_id = fields.Many2one('medical.patient', string='Patient', required=True)
     type_of_anesthesia = fields.Char(string='Type of Anesthesia', required=True)

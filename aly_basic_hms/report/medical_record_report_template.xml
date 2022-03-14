@@ -63,8 +63,6 @@
                             </td>
                         </tr>
                     </t>
-                    <br/>
-                    <br/>
                 </tbody>
             </table>
             <table style="width:100%">
@@ -90,7 +88,6 @@
             </table>
             <t t-foreach="sorted_data" t-as="my_list_obj">
                 <t t-if="my_list_obj['obj_type']=='app'">
-                    <br/>
                     <br/>
                     <div>
                         <h4 class="text-center"><strong>Update Notes</strong></h4>
@@ -140,7 +137,6 @@
                         </table>
                         <div>
                             <br/>
-                            <br/>
                             <div class="text-left">
                                 <strong>Physical Examination</strong>
                             </div>
@@ -188,7 +184,6 @@
                         </div>
                         <t t-if="my_list_obj['obj_id'].appointment_investigations_ids">
                             <br/>
-                            <br/>
                             <div class="text-left">
                                 <strong>Investigations</strong>
                             </div>
@@ -209,7 +204,6 @@
                             </t>
                         </t>
                         <t t-if="my_list_obj['obj_id'].appointment_procedure_ids">
-                            <br/>
                             <br/>
                             <div class="text-left">
                                 <strong>Procedures</strong>
@@ -232,7 +226,6 @@
                         </t>
                         <t t-if="my_list_obj['obj_id'].accommodation_id">
                             <br/>
-                            <br/>
                             <div class="text-left">
                                 <strong>Management</strong>
                             </div>
@@ -246,7 +239,6 @@
                             </div>
                         </t>
                         <t t-if="my_list_obj['obj_id'].medication_ids">
-                            <br/>
                             <br/>
                             <div class="text-left">
                                 <strong>Medications</strong>
@@ -267,7 +259,6 @@
                                 </t>
                               </tbody>
                             </table>
-                            <br/>
                             <br/>
                         </t>
                         <t t-if="my_list_obj['obj_id'].recommendation">
@@ -290,7 +281,6 @@
 
 
                 <t t-if="my_list_obj['obj_type']=='inp_up'">
-                    <br/>
                     <br/>
                     <div>
                         <h4 class="text-center"><strong>Inpatient Update Notes</strong></h4>
@@ -340,7 +330,6 @@
                         </table>
                         <div>
                             <br/>
-                            <br/>
                             <div class="text-left">
                                 <strong>Physical Examination</strong>
                             </div>
@@ -388,7 +377,6 @@
                         </div>
                         <t t-if="my_list_obj['obj_id'].inp_update_note_investigations_ids">
                             <br/>
-                            <br/>
                             <div class="text-left">
                                 <strong>Investigations</strong>
                             </div>
@@ -409,7 +397,6 @@
                             </t>
                         </t>
                         <t t-if="my_list_obj['obj_id'].inp_update_note_procedure_ids">
-                            <br/>
                             <br/>
                             <div class="text-left">
                                 <strong>Procedures</strong>
@@ -432,7 +419,6 @@
                         </t>
                         <t t-if="my_list_obj['obj_id'].admission_type">
                             <br/>
-                            <br/>
                             <div class="text-left">
                                 <strong>Management</strong>
                             </div>
@@ -446,7 +432,6 @@
                             </div>
                         </t>
                         <t t-if="my_list_obj['obj_id'].medication_ids">
-                            <br/>
                             <br/>
                             <div class="text-left">
                                 <strong>Medications</strong>
@@ -467,7 +452,6 @@
                                 </t>
                               </tbody>
                             </table>
-                            <br/>
                             <br/>
                         </t>
                         <t t-if="my_list_obj['obj_id'].recommendation">
@@ -491,7 +475,6 @@
 
 
                 <t t-if="my_list_obj['obj_type']=='op'">
-                    <br/>
                     <br/>
                     <div>
                         <h4 class="text-center"><strong>Operations</strong></h4>
@@ -750,13 +733,11 @@
                                         <span t-field="doc.date_of_departure" class="text-center"/>
                                     </td>
                                 </tr>
-                                <br/>
                             </table>
                             <div>
                                 <div>
                                     <h3 class="text-center"><strong>Final Medical Report</strong></h3>
                                 </div>
-                                <br/>
                                 <t t-call="aly_basic_hms.medical_report_core">
                                 </t>
                             </div>
