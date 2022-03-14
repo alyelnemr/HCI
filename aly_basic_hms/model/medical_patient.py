@@ -95,7 +95,7 @@ class MedicalPatient(models.Model):
     social_history = fields.Char(string='Social History (SH)', required=True)
     company_id = fields.Many2one('res.company', required=True, string='Branch', readonly=False,
                                  default=lambda self: self.env.user.company_id)
-    bill_to = fields.Char(string='Bill To', required=True)
+    bill_to = fields.Char(string='Bill To', required=False)
     update_note_ids = fields.One2many('medical.appointment', 'patient_id')
     inpatient_ids = fields.One2many('medical.inpatient.registration', 'patient_id')
     operation_ids = fields.One2many('medical.operation', 'patient_id')
