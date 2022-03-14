@@ -51,7 +51,7 @@
             <field name="name">Investigations</field>
         </record>
 
-        <record forcecreate="True" id="record_examination_product_category" model="product.category">
+        <record forcecreate="True" id="record_procedure_product_category" model="product.category">
             <field name="name">Procedures</field>
         </record>
 
