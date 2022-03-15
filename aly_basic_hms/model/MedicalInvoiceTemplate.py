@@ -61,11 +61,22 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         docs = self.env[model].browse(docids)
         # sorted_data = self.get_sorting(docs.partner_id.patient_id)
         is_draft = docs.state == 'draft'
-        sorted_update_note = sorted(docs.partner_id.patient_id.inpatient_ids, key=lambda a: a.admission_date)
-        min_admission_date = sorted_update_note[0].admission_date if len(sorted_update_note) > 0 else False
-        min_discharge_date = sorted_update_note[0].discharge_datetime if len(sorted_update_note) > 0 else False
-        is_discharged = docs.partner_id.patient_id.inpatient_ids[0].is_discharged if len(sorted_update_note) > 0 else False
-        tax_amount = docs.amount_by_group[0][3]
+        sorted_inpatient_ids = sorted(docs.partner_id.patient_id.inpatient_ids, key=lambda a: a.admission_date)
+        min_admission_date = sorted_inpatient_ids[0].admission_date if len(sorted_inpatient_ids) > 0 else False
+        min_discharge_date = sorted_inpatient_ids[0].discharge_datetime if len(sorted_inpatient_ids) > 0 else False
+        is_discharged = docs.partner_id.patient_id.inpatient_ids[0].is_discharged if len(sorted_inpatient_ids) > 0 else False
+        var_subtotal = 0
+        var_discount = 0
+        var_disposable = 0
+        var_prosthetics = 0
+        for line in docs.invoice_line_ids:
+            if line.product_id.categ_id.name == 'Prosthetics':
+                var_prosthetics += var_prosthetics + line.price_subtotal
+            if line.product_id.categ_id.name == 'Disposables':
+                var_disposable += var_disposable + line.price_subtotal
+            if line.discount:
+                var_discount += line.discount
+        var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics)
         return {
             'data': data,
             'doc_ids': docids,
@@ -76,5 +87,8 @@ class MedicalInvoiceTemplate(models.AbstractModel):
             'is_discharged': is_discharged,
             'report_title': 'Primary Medical Report',
             'is_draft': is_draft,
-            'tax_amount': tax_amount
+            'var_prosthetics': var_prosthetics,
+            'var_disposable': var_disposable,
+            'var_subtotal': var_subtotal,
+            'var_discount': var_discount
         }

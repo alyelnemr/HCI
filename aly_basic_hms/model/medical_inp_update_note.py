@@ -46,7 +46,7 @@ class MedicalInpUpdateNote(models.Model):
     invoice_id = fields.Many2one('account.move', 'Invoice')
     admission_type = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU')],
                                       required=True, default='standard', string="Admission Type")
-    admission_status = fields.Selection([('still', 'is still'), ('has', 'has been')],
+    admission_status = fields.Selection([('still', 'is still admitted'), ('has', 'has been transferred to')],
                                       required=True, default='still', string="Admission Status")
     is_discharged = fields.Boolean(copy=False, default=False)
     discharge_datetime = fields.Datetime(string='Discharge Date Time')

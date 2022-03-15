@@ -67,19 +67,19 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
                 }))
             appointment_obj.discharge_medication_ids = discharge_medication_ids
             param_name = ''
+            param_name2 = ''
             if self.transportation == 'car':
                 param_name = 'car.product_template'
             elif self.transportation == 'ambulance':
-                param_name = 'ambulance.product_template'
+                param_name = 'ambulance1.product_template'
+                param_name2 = 'ambulance2.product_template'
 
-            accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param(param_name)
-            services = accom_prod_cat.split(',') if self.transportation == 'ambulance' else accom_prod_cat
+            service_record_id = self.env['ir.config_parameter'].sudo().get_param(param_name)
 
-            service_record_id = services[0] if self.transportation == 'ambulance' else services
             product_record = self.env['product.product'].search([('product_tmpl_id', '=', service_record_id)])
             appointment_obj.transportation_service = product_record.id
             if self.transportation == 'ambulance':
-                service_record_id = services[1]
+                service_record_id = self.env['ir.config_parameter'].sudo().get_param(param_name2)
                 product_record = self.env['product.product'].search([('product_tmpl_id', '=', service_record_id)])
                 appointment_obj.transportation_service2 = product_record.id
 

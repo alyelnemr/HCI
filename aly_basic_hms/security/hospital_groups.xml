@@ -51,8 +51,16 @@
             <field name="name">Investigations</field>
         </record>
 
+        <record forcecreate="True" id="record_disposable_product_category" model="product.category">
+            <field name="name">Disposables</field>
+        </record>
+
         <record forcecreate="True" id="record_procedure_product_category" model="product.category">
             <field name="name">Procedures</field>
+        </record>
+
+        <record forcecreate="True" id="record_prosthetics_product_category" model="product.category">
+            <field name="name">Prosthetics</field>
         </record>
 
         <record forcecreate="True" id="record_transportation_car_product_template" model="product.template">
@@ -78,12 +86,12 @@
             <field name="value" ref="aly_basic_hms.record_transportation_car_product_template" />
         </record>
 
-        <record id="transportation_ambulance_product" model="ir.config_parameter">
+        <record id="transportation_ambulance1_product" model="ir.config_parameter">
             <field name="key">ambulance1.product_template</field>
             <field name="value" ref="record_transportation_ambulance_product_template" />
         </record>
 
-        <record id="transportation_ambulance_product" model="ir.config_parameter">
+        <record id="transportation_ambulance2_product" model="ir.config_parameter">
             <field name="key">ambulance2.product_template</field>
             <field name="value" ref="record_transportation_ambulance2_product_template" />
         </record>

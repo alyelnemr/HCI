@@ -5,10 +5,20 @@ class MedicalPatientLine(models.Model):
     _name = 'medical.patient.line'
     _description = 'description'
 
+    def _get_disposable_product_category_domain(self):
+        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('investigation.product_category')
+        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
+        prod_cat_obj_id = 0
+        if len(prod_cat_obj) > 1:
+            prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
+        return [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', 1), ('type', '=', 'service')]
+
     name = fields.Many2one('medical.patient', 'Patient ID')
     patient_id = fields.Many2one('medical.patient', 'Patient ID')
-    product_id = fields.Many2one('product.product', 'Disposable', domain=[('sale_ok', '=', 1), ('type', '=', 'consu')],
-                                 required=True)
+    product_id = fields.Many2one('product.product', 'Disposable',
+                                 domain=lambda self: self._get_disposable_product_category_domain(), required=True)
     quantity = fields.Integer('Quantity', default=1)
     short_comment = fields.Char('Comment', size=128)
     company_id = fields.Many2one('res.company', required=True, readonly=False, default=lambda self: self.env.user.company_id)
