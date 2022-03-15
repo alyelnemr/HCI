@@ -170,7 +170,7 @@
                             <div class="text-left">
                                 <strong>Investigations</strong>
                             </div>
-                            <t t-foreach="my_list_obj['obj_id'].appointment_investigations_ids" t-as="inv">
+                            <t t-foreach="my_list_obj['obj_id'].inp_update_note_investigations_ids" t-as="inv">
                                 <table>
                                     <tbody class="sale_tbody">
                                         <tr>
@@ -186,7 +186,7 @@
                                 </table>
                             </t>
                         </t>
-                        <t t-if="my_list_obj['obj_id'].appointment_procedure_ids">
+                        <t t-if="my_list_obj['obj_id'].inp_update_note_procedure_ids">
                             <br/>
                             <div class="text-left">
                                 <strong>Procedures</strong>
