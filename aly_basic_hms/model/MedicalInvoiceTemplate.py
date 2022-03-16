@@ -82,7 +82,7 @@ class MedicalInvoiceTemplate(models.AbstractModel):
                     var_discount += line.discount
                     var_subtotal_with_discount += var_subtotal_with_discount + line.price_subtotal
         var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics)
-        var_tax = docs.amount_by_group[1]
+        var_tax = docs.amount_by_group[0][1] if docs.amount_by_group[0] else False
         var_subtotal_for_discount = var_subtotal + var_tax
         # How to Calc Discount:
         # Total-new total required=v
