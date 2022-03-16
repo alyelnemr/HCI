@@ -85,7 +85,6 @@ class MedicalPatient(models.Model):
     patient_disease_ids = fields.One2many('medical.patient.disease','patient_id')
     family_history_ids = fields.One2many('medical.family.disease','patient_id',string="Family Disease Lines")
     report_date = fields.Date('Date',default = datetime.today().date())
-    medication_ids = fields.One2many('medical.patient.medication1','medical_patient_medication_id')
     patient_complaint = fields.Char(string='Patient Complaint', required=True)
     food_drug_allergy = fields.Char(string='Food and Drug Allergy', required=True)
     history_present_illness = fields.Char(string='History of Present Illness (HPI)', required=True)

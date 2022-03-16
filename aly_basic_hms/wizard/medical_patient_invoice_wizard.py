@@ -237,7 +237,8 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                             'tax_ids': tax_ids,
                             'product_id': p_line.medical_medicament_id.product_id.id,
                         }
-                        list_of_vals.append((0, 0, invoice_line_vals))
+                        # delete medicines from the invoice
+                        #list_of_vals.append((0, 0, invoice_line_vals))
 
                 for inpatient in list_of_inpatient:
                     if inpatient.transportation_service:
@@ -326,7 +327,9 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                             'tax_ids': tax_ids,
                             'product_id': p_line.medical_medicament_id.product_id.id,
                         }
-                        list_of_vals.append((0, 0, invoice_line_vals))
+
+                        # delete medicines from the invoice
+                        #list_of_vals.append((0, 0, invoice_line_vals))
 
                     for inp_acc in inpatient.bed_transfers_ids:
                         for p_bed in inp_acc.acc_service_ids:
@@ -493,7 +496,8 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                                 'tax_ids': tax_ids,
                                 'product_id': p_line.medical_medicament_id.product_id.id,
                             }
-                            list_of_vals.append((0, 0, invoice_line_vals))
+                            # delete medicines from the invoice
+                            #list_of_vals.append((0, 0, invoice_line_vals))
 
                 for operation in list_of_operation:
                     for p_line in operation.operation_line_ids:

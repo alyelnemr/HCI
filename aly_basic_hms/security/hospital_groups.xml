@@ -63,9 +63,19 @@
             <field name="name">Prosthetics</field>
         </record>
 
+        <record forcecreate="True" id="record_discounts_product_category" model="product.category">
+            <field name="name">Discounts</field>
+        </record>
+
         <record forcecreate="True" id="record_transportation_car_product_template" model="product.template">
             <field name="name">Standard transportation by normal car per Km</field>
             <field name="categ_id" ref="aly_basic_hms.record_transportation_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record forcecreate="True" id="record_discount_product_template" model="product.template">
+            <field name="name">Discount Service</field>
+            <field name="categ_id" ref="aly_basic_hms.record_discounts_product_category" />
             <field name="type">service</field>
         </record>
 

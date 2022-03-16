@@ -66,17 +66,38 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         min_discharge_date = sorted_inpatient_ids[0].discharge_datetime if len(sorted_inpatient_ids) > 0 else False
         is_discharged = docs.partner_id.patient_id.inpatient_ids[0].is_discharged if len(sorted_inpatient_ids) > 0 else False
         var_subtotal = 0
+        var_subtotal_with_discount = 0
         var_discount = 0
         var_disposable = 0
         var_prosthetics = 0
         for line in docs.invoice_line_ids:
             if line.product_id.categ_id.name == 'Prosthetics':
                 var_prosthetics += var_prosthetics + line.price_subtotal
+                var_subtotal_with_discount += var_subtotal_with_discount + line.price_subtotal
             if line.product_id.categ_id.name == 'Disposables':
                 var_disposable += var_disposable + line.price_subtotal
-            if line.discount:
-                var_discount += line.discount
+                var_subtotal_with_discount += var_subtotal_with_discount + line.price_subtotal
+            if line.product_id.categ_id.name == 'Discounts':
+                if line.discount:
+                    var_discount += line.discount
+                    var_subtotal_with_discount += var_subtotal_with_discount + line.price_subtotal
         var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics)
+        var_tax = docs.amount_by_group[1]
+        var_subtotal_for_discount = var_subtotal + var_tax
+        # How to Calc Discount:
+        # Total-new total required=v
+        # 	200-150=50
+        # Total/v=v2
+        # 	200/50=4
+        # 100/v2=discount%
+        # 100/4=25%
+
+        # Total-new total required=v
+        v = var_subtotal_for_discount - var_subtotal_with_discount
+        # Total/v=v2
+        v2 = var_subtotal_for_discount / v
+        # 100/v2=discount%
+        var_discount_percent = 100 / v2
         return {
             'data': data,
             'doc_ids': docids,
@@ -90,5 +111,6 @@ class MedicalInvoiceTemplate(models.AbstractModel):
             'var_prosthetics': var_prosthetics,
             'var_disposable': var_disposable,
             'var_subtotal': var_subtotal,
-            'var_discount': var_discount
+            'var_discount': var_discount,
+            'var_discount_percent': var_discount_percent
         }

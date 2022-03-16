@@ -15,7 +15,7 @@ class MedicalInpatientMedication(models.Model):
 
     medical_medicament_id = fields.Many2one('medical.medicament', string='Medicine', required=True)
     medicine_quantity = fields.Integer(string='Quantity', default=1)
-    dose = fields.Float(string='Dose')
+    dose = fields.Integer(string='Dose')
     admin_method = fields.Selection([('iv', 'IV'), ('im', 'IM'), ('sc', 'SC'), ('oral', 'Oral'), ('local', 'Local')],
                                     string='Administration Method')
     medical_dose_unit_id = fields.Many2one('medical.dose.unit', string='Dose Unit')
