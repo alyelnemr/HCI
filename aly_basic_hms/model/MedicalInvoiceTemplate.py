@@ -80,24 +80,9 @@ class MedicalInvoiceTemplate(models.AbstractModel):
             if line.product_id.categ_id.name == 'Discounts':
                 if line.discount:
                     var_discount += line.discount
-                    var_subtotal_with_discount += var_subtotal_with_discount + line.price_subtotal
+                    var_subtotal_with_discount += var_subtotal_with_discount + (line.price_unit * line.quantity)
         var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics)
-        var_tax = docs.amount_by_group[0][1] if docs.amount_by_group[0] else False
-        var_subtotal_for_discount = var_subtotal + var_tax
-        # How to Calc Discount:
-        # Total-new total required=v
-        # 	200-150=50
-        # Total/v=v2
-        # 	200/50=4
-        # 100/v2=discount%
-        # 100/4=25%
-
-        # Total-new total required=v
-        v = var_subtotal_for_discount - var_subtotal_with_discount
-        # Total/v=v2
-        v2 = var_subtotal_for_discount / v
-        # 100/v2=discount%
-        var_discount_percent = 100 / v2
+        var_discount_percent = docs.discount_total if docs.discount_total else False
         return {
             'data': data,
             'doc_ids': docids,

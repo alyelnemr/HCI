@@ -1,0 +1,45 @@
+
+from odoo import api, fields, models, _
+
+
+class AccountInvoiceLine(models.Model):
+    _inherit = "account.move.line"
+
+    discount = fields.Float(string='Discount (%)', digits=(16, 20), default=0.0)
+
+
+class ResCompany(models.Model):
+    _inherit = 'account.move'
+
+    @api.depends('discount_total')
+    def onchange_age(self):
+        discount_amount = 0
+        discount_amount_untaxed = 0
+        amount_untaxed = 0
+        amount_total = 0
+        for rec in self:
+            if rec.amount_total:
+                # amount_total = (rec.amount_untaxed * rec.discount_total / 100)
+                amount_total = 0 # rec.amount_total
+                discount_amount = 0
+                not_discount_amount = 0
+                first_subtotal = 0
+                for line in rec.line_ids:
+                    amount_total += (line.price_unit * line.quantity) if line.debit <= 0 else 0
+                    discount_amount += ((line.price_unit * line.quantity) * rec.discount_total / 100) if (line.price_unit * line.quantity) > 0 else 0
+                    line.with_context({'check_move_validity': False}).discount = rec.discount_total
+                for line in rec.line_ids:
+                    if line.product_id.categ_id.name in ['Prosthetics', 'Disposables', 'Discounts)']:
+                        first_subtotal = (line.price_unit * line.quantity)
+                        not_discount_amount += line.price_subtotal - first_subtotal if (line.price_subtotal - first_subtotal) > 0 else (first_subtotal - line.price_subtotal)
+                        line.with_context({'check_move_validity': False}).discount = 0
+                for line in rec.line_ids:
+                    if line.debit > 0 and rec.discount_total > 0:
+                        discount_total_amount = (1 - ((line.debit + not_discount_amount) / amount_total)) * 100
+                        line.discount = ((discount_amount - not_discount_amount) / amount_total) * 100
+                        x= line.discount
+                rec._compute_amount()
+                rec._compute_invoice_taxes_by_group()
+
+    discount_total = fields.Monetary(string='Invoice Total Discount')
+    discount_amount = fields.Monetary(compute=onchange_age,string="Discount", store=True)

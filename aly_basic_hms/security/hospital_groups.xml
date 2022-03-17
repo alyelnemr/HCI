@@ -148,13 +148,30 @@
             <field name="type">service</field>
         </record>
 
+        <record forcecreate="True" id="record_service_charge_tax_group" model="account.tax.group">
+            <field name="name">Service Charge 12.5%</field>
+        </record>
+
         <record forcecreate="True" id="record_service_charge_tax" model="account.tax">
             <field name="name">Service Charge 12.5%</field>
             <field name="amount_type">percent</field>
             <field name="type_tax_use">sale</field>
             <field name="amount">12.5</field>
+            <field name="tax_group_id" ref="aly_basic_hms.record_service_charge_tax_group" />
         </record>
-
+        <record id = "aly_basic_hms.account_move_form_inherit" model = "ir.ui.view">
+            <field name = "name">aly_basic_hms.account_move_for_discount</field>
+            <field name = "model">account.move</field>
+            <field name = "inherit_id" ref = "account.view_move_form" />
+            <field name = "arch" type = "xml">
+                <xpath expr="//field[@name='payment_reference']" position="after">
+                    <field name = "discount_total" />
+                </xpath>
+                <xpath position="after" expr="//field[@name='amount_by_group']">
+                    <field name="discount_amount"/>
+                </xpath>
+            </field>
+        </record>
     </data>
 
     <data noupdate="1">

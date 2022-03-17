@@ -67,8 +67,8 @@
                                     <span t-field="doc.amount_total" />
                                 </td>
                             </tr>
-                            <t t-if="var_discount > 0">
-                                <tr>
+                            <t t-if="var_discount_percent > 0">
+                                <tr class="border-black">
                                     <td>Discount</td>
                                     <td t-attf-class="text-right">
                                         <span t-esc="var_discount_percent"/>%
