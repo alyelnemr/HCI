@@ -41,5 +41,5 @@ class ResCompany(models.Model):
                 rec._compute_amount()
                 rec._compute_invoice_taxes_by_group()
 
-    discount_total = fields.Monetary(string='Invoice Total Discount')
+    discount_total = fields.Float(string='Total Discount %')
     discount_amount = fields.Monetary(compute=onchange_age,string="Discount", store=True)
