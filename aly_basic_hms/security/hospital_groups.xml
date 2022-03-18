@@ -115,11 +115,11 @@ l
             <field name="value" ref="record_transportation_ambulance2_product_template" />
         </record>
 
-        <!--<record forcecreate="True" id="record_medical_examination_product_template" model="product.template">-->
-            <!--<field name="name">Medical Examination</field>-->
-            <!--<field name="categ_id" ref="aly_basic_hms.record_examination_product_category" />-->
-            <!--<field name="type">service</field>-->
-        <!--</record>-->
+        <record forcecreate="True" id="record_medical_examination_product_template" model="product.template">
+            <field name="name">Medical Examination</field>
+            <field name="categ_id" ref="aly_basic_hms.record_examination_product_category" />
+            <field name="type">service</field>
+        </record>
 
         <record forcecreate="True" id="record_standard_accommodation_product_template" model="product.template">
             <field name="name">Standard admission room per day</field>

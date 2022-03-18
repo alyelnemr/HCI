@@ -14,7 +14,7 @@
                     </page>
                     <page string="Medical Invoice Bank Details">
                         <group >
-                            <field name="bank_details"/>
+                            <!--<field name="bank_details"/>-->
                         </group>
                     </page>
                 </notebook>
