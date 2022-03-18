@@ -72,6 +72,10 @@ l
             <field name="name">Discounts</field>
         </record>
 
+        <record forcecreate="True" id="record_general_services_product_category" model="product.category">
+            <field name="name">General Services</field>
+        </record>
+
         <record forcecreate="True" id="record_transportation_car_product_template" model="product.template">
             <field name="name">Standard transportation by normal car per Km</field>
             <field name="categ_id" ref="aly_basic_hms.record_transportation_product_category" />
@@ -118,13 +122,13 @@ l
         <!--</record>-->
 
         <record forcecreate="True" id="record_standard_accommodation_product_template" model="product.template">
-            <field name="name">Standard Accommodation</field>
+            <field name="name">Standard admission room per day</field>
             <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
             <field name="type">service</field>
         </record>
 
         <record forcecreate="True" id="record_standard_nursing_product_template" model="product.template">
-            <field name="name">Nursing Fees in standard room per day</field>
+            <field name="name">Nursing fees in standard admission room per day</field>
             <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
             <field name="type">service</field>
         </record>
@@ -136,13 +140,13 @@ l
         </record>
 
         <record forcecreate="True" id="record_icu_accommodation_product_template" model="product.template">
-            <field name="name">ICU Accommodation</field>
+            <field name="name">ICU admission per day</field>
             <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
             <field name="type">service</field>
         </record>
 
         <record forcecreate="True" id="record_icu_nursing_product_template" model="product.template">
-            <field name="name">Nursing Fees in ICU per day</field>
+            <field name="name">Nursing in ICU per day</field>
             <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
             <field name="type">service</field>
         </record>
