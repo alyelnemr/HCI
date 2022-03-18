@@ -72,17 +72,11 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         var_prosthetics = 0
         for line in docs.invoice_line_ids:
             if line.product_id.categ_id.name == 'Prosthetics':
-                var_prosthetics += var_prosthetics + line.price_subtotal
-                var_subtotal_with_discount += var_subtotal_with_discount + line.price_subtotal
+                var_prosthetics += line.price_subtotal
             if line.product_id.categ_id.name == 'Disposables':
-                var_disposable += var_disposable + line.price_subtotal
-                var_subtotal_with_discount += var_subtotal_with_discount + line.price_subtotal
-            if line.product_id.categ_id.name == 'Discounts':
-                if line.discount:
-                    var_discount += line.discount
-                    var_subtotal_with_discount += var_subtotal_with_discount + (line.price_unit * line.quantity)
-        var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics)
-        var_discount_percent = docs.discount_total if docs.discount_total else False
+                var_disposable += line.price_subtotal
+        var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics) if (docs.amount_untaxed - (var_disposable + var_prosthetics)) >= 1 else 0
+        var_discount_percent = docs.discount_total if docs.discount_total and var_subtotal > 0 else 0
         return {
             'data': data,
             'doc_ids': docids,

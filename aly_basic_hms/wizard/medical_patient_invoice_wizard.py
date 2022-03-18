@@ -40,6 +40,10 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                 partner_shipping_id = medical_patient_obj.insurance_company_id.id
 
             if not medical_patient_obj.invoice_id.state == 'posted':
+                # delete all invoices related to this patient
+                all_old_inv = account_invoice_obj.search([('partner_id', '=', partner_id)])
+                for inv in all_old_inv:
+                        inv.state = 'cancel'
                 sale_journals = self.env['account.journal'].search([('type','=','sale')])
                 invoice_vals = {
                 'name': self.env['ir.sequence'].next_by_code('medical_patient_inv_seq'),

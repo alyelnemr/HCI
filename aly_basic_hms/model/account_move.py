@@ -35,8 +35,8 @@ class ResCompany(models.Model):
                         line.with_context({'check_move_validity': False}).discount = 0
                 for line in rec.line_ids:
                     if line.debit > 0 and rec.discount_total > 0:
-                        discount_total_amount = (1 - ((line.debit + not_discount_amount) / amount_total)) * 100
-                        line.discount = ((discount_amount - not_discount_amount) / amount_total) * 100
+                        discount_diff = round((discount_amount - not_discount_amount), 2)
+                        line.discount = ((discount_amount - not_discount_amount) / amount_total) * 100 if discount_diff >= 1 else 0
                         x= line.discount
                 rec._compute_amount()
                 rec._compute_invoice_taxes_by_group()

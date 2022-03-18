@@ -6,7 +6,7 @@ class MedicalPatientLine(models.Model):
     _description = 'description'
 
     def _get_disposable_product_category_domain(self):
-        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('investigation.product_category')
+        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('disposable.product_category')
         prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
         prod_cat_obj_id = 0
         if len(prod_cat_obj) > 1:
