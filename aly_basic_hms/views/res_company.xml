@@ -12,6 +12,11 @@
                             <field name="footer" widget="image" />
                         </group>
                     </page>
+                    <page string="Medical Invoice Bank Details">
+                        <group >
+                            <field name="bank_details"/>
+                        </group>
+                    </page>
                 </notebook>
             </field>
         </record>
