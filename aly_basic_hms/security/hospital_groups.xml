@@ -16,6 +16,11 @@
             <field name="value">Disposables</field>
         </record>
 
+        <record id="medicine_product_category" model="ir.config_parameter">
+            <field name="key">medicine.product_category</field>
+            <field name="value">Medicines</field>
+        </record>
+
         <record id="procedure_product_category" model="ir.config_parameter">
             <field name="key">procedure.product_category</field>
             <field name="value">Procedures</field>

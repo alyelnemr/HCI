@@ -27,21 +27,6 @@
                             <field name="composition" />
                         </page>
 
-                        <page string="Dosage">
-                            <group colspan="4" col="4">
-                                <field name="dosage" />
-                                <field name="overdosage" />
-                            </group>
-                        </page>
-
-                        <page string="Pregnancy / Lactancy">
-                            <group colspan="4" col="4">
-                                <field name="pregnancy_warning" />
-                                <field name="pregnancy_category" />
-                                <field name="pregnancy" />
-                            </group>
-                        </page>
-
                         <page string="Adverse Reactions">
                             <field name="adverse_reaction" />
                         </page>
@@ -68,7 +53,6 @@
                     <field name="active_component" />
                     <field name="qty_available" />
                     <field name="therapeutic_action" />
-                    <field name="pregnancy_warning" />
                     <field name="price" />
                 </tree>
             </field>
