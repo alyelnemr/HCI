@@ -25,7 +25,7 @@ class MedicalInpUpdateNote(models.Model):
             prod_cat_obj_id = prod_cat_obj[0].id
         else:
             prod_cat_obj_id = prod_cat_obj.id
-        return [('categ_id', '=', prod_cat_obj_id)]
+        return [('sale_ok', '=', 1), ('type', '=', 'service'), ('categ_id', '=', prod_cat_obj_id)]
 
     name = fields.Char(string="Inpatient Update Note ID", readonly=True, copy=True)
     is_invoiced = fields.Boolean(copy=False, default=False)

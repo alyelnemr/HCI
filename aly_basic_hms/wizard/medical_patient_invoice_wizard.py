@@ -107,7 +107,7 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                         tax_ids = taxes.ids
                         invoice_line_vals = {
                             # 'name': appointment.accommodation_id.name or '',
-                            'name': 'Update Note - Accommodation' or '',
+                            'name': 'Update Note - Observation' or '',
                             'account_id': invoice_line_account_id,
                             'price_unit': appointment.accommodation_id.lst_price,
                             'product_uom_id': appointment.accommodation_id.uom_id.id,

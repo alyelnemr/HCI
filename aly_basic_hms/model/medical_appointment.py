@@ -33,7 +33,7 @@ class MedicalAppointment(models.Model):
             prod_cat_obj_id = prod_cat_obj[0].id
         else:
             prod_cat_obj_id = prod_cat_obj.id
-        return [('categ_id', '=', prod_cat_obj_id)]
+        return [('sale_ok', '=', 1), ('type', '=', 'service'), ('categ_id', '=', prod_cat_obj_id)]
 
     def _get_insurance_cards_domain(self):
         if self.patient_id.id:
