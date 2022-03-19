@@ -268,8 +268,15 @@ l
             <field name="key">medicine.product_category</field>
             <field name="value">Medicines</field>
         </record>
+        <record id="observation_product_category" model="ir.config_parameter">
+            <field name="key">observation.product_category</field>
+            <field name="value">Observations</field>
+        </record>
         <record forcecreate="True" id="record_medicines_product_category" model="product.category">
             <field name="name">Medicines</field>
+        </record>
+        <record forcecreate="True" id="record_observations_product_category" model="product.category">
+            <field name="name">Observations</field>
         </record>
     </data>
 </odoo>
