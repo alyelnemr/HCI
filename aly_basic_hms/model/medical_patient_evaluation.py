@@ -224,6 +224,5 @@ class medical_patient_evaluation(models.Model):
 	derived_from_physician_id = fields.Many2one('medical.physician','Derived from Doctor')
 	derived_to_physician_id = fields.Many2one('medical.physician','Derived to Doctor')
 	secondary_conditions_ids = fields.One2many('medical.secondary_condition','patient_evaluation_id','Secondary Conditions')
-	procedure_ids = fields.One2many('medical.directions','patient_evaluation_id','Procedures')
 
 
