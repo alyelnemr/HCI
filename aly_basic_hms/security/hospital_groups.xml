@@ -268,5 +268,8 @@ l
             <field name="key">medicine.product_category</field>
             <field name="value">Medicines</field>
         </record>
+        <record forcecreate="True" id="record_medicines_product_category" model="product.category">
+            <field name="name">Medicines</field>
+        </record>
     </data>
 </odoo>
