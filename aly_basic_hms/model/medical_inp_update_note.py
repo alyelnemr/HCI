@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 
 class MedicalInpUpdateNote(models.Model):
     _name = "medical.inp.update.note"
-    _description = 'description'
+    _description = 'Medical Inpatient Update Notes'
 
     @api.depends('invoice_id')
     def _compute_validity_status(self):

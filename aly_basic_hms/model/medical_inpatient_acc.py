@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 
 class MedicalInpatientAcc(models.Model):
     _name = 'medical.inpatient.acc'
-    _description = 'description'
+    _description = 'Medical Inpatient Accommodations'
 
     @api.constrains('accommodation_qty')
     def date_constrains(self):

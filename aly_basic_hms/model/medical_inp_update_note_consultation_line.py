@@ -4,7 +4,7 @@ from odoo.exceptions import ValidationError
 
 class MedicalInpUpdateNoteConsultationLine(models.Model):
     _name = 'medical.inp.update.note.consultation.line'
-    _description = 'description'
+    _description = 'Medical Inpatient Update Notes Another Consultations'
 
     @api.constrains('quantity')
     def date_constrains(self):

@@ -2,10 +2,7 @@
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 from . import account_move
 from . import bed_transfer
-from . import medical_diagnostic_hypotesis
 from . import medical_patient_evaluation
-from . import medical_diet_belief
-from . import medical_diet_therapeutic
 from . import medical_appointment
 from . import medical_inp_update_note
 from . import medical_appointment_line
@@ -16,7 +13,6 @@ from . import medical_inpatient_procedure
 from . import medical_inpatient_investigation
 from . import medical_appointment_investigation
 from . import medical_patient_line
-from . import medical_inpatient_line
 from . import medical_inpatient_accommodation
 from . import medical_inpatient_acc
 from . import MedicalReportTemplate
@@ -30,7 +26,6 @@ from . import medical_icu_ecg
 from . import medical_icu_glasgow
 from . import medical_drug_route
 from . import medical_icu_ventilation
-from . import medical_inpatient_diet
 from . import medical_inpatient_medication_admin_time
 from . import medical_inpatient_medication_log
 from . import medical_inpatient_medication

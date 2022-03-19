@@ -47,7 +47,6 @@
         'views/medical_inp_update_note_consultation_line.xml',
         'views/medical_operation.xml',
         'views/medical_operation_line.xml',
-        'views/medical_inpatient_line.xml',
         'views/medical_insurance.xml',
         'views/bed_transfer.xml',
         'views/medical_patient_disease.xml',

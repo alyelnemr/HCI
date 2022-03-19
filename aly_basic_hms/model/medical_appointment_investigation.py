@@ -3,7 +3,7 @@ from odoo import api, fields, models, _
 
 class MedicalAppointmentInvestigation(models.Model):
     _name = 'medical.appointment.investigation'
-    _description = 'description'
+    _description = 'Medical Appointment Investigations'
 
     def _get_investigation_product_category_domain(self):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('investigation.product_category')

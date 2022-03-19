@@ -24,16 +24,6 @@
                         </group>
 
                         <notebook>
-                            <page string="Services and Procedures">
-                                <group>
-                                    <field name="inpatient_line_ids" widget="one2many_list" />
-                                </group>
-                            </page>
-                            <page string="Medications">
-                                <group string="Medications">
-                                    <field name="medication_ids" string="Medication" widget="one2many_list" />
-                                </group>
-                            </page>
                             <page string="Management">
                             <group string="Administrative Data">
                                 <group>

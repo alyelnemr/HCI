@@ -39,9 +39,6 @@ class MedicalInpatientUpdateNote(models.Model):
     admission_type_management = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU')], string="Admission Type")
     nursing_plan = fields.Text(string="Nursing Plan")
     discharge_plan = fields.Text(string="Discharge Plan")
-    medication_ids = fields.One2many('medical.inpatient.medication', 'medical_inpatient_update_note_id', string='Medication')
-    inpatient_line_ids = fields.One2many('medical.inpatient.line', 'medical_inpatient_update_note_id',
-                                         string='Services and Procedures', required=True)
     invoice_id = fields.Many2one('account.move', 'Invoice')
     is_discharged = fields.Boolean(copy=False, default=False)
     refer_to = fields.Char(string="Refer To")
