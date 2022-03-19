@@ -20,7 +20,7 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
                 d1 = rec.admission_date
                 if d1 and d2:
                     rd = d2 - d1
-                    self.actual_admission_days = rd.days + 1
+                    self.actual_admission_days = rd.days
                     if self.discharge_datetime.date() < rec.admission_date or rd.days < 0:
                         raise UserError(_('Discharge Date Must be greater than or equal Admission Date (%s)...', rec.admission_date))
 
