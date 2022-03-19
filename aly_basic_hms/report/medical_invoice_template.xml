@@ -165,6 +165,11 @@
                                 <t t-call="aly_basic_hms.medical_invoice_core">
                                 </t>
                             </div>
+                            <t t-if="doc.company_id.bank_details" >
+                                <div class="text-left">
+                                    <span t-field="doc.company_id.bank_details" class="text-center"/>
+                                </div>
+                            </t>
                         </t>
                         <t t-if="doc.company_id.footer" >
                             <div class="footer">
