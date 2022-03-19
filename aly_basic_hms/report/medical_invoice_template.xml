@@ -3,6 +3,7 @@
 	<template id="medical_invoice_core">
         <div>
             <table style="width:100%">
+                <tr>
                 <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
                     <tr>
                         <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Medical Service</th>
@@ -25,18 +26,20 @@
                         </t>
                     </t>
                 </table>
-                <div class="col-6 pull-right">
+                </tr>
+                <tr style="display: block;" class="pull-left">
+                <div style="display: block;">
                         <table class="table table-condensed">
-                            <tr class="border-black">
+                            <tr class="border-black text-center">
                                 <td>
                                     <strong>Subtotal</strong>
                                 </td>
                                 <td class="text-right">
-                                    <span t-esc="var_subtotal" />
+                                    <span t-esc="var_subtotal" widget='monetary'/>
                                 </td>
                             </tr>
                             <t t-foreach="doc.amount_by_group" t-as="amount_by_group">
-                                <tr>
+                                <tr class="text-center">
                                     <td><span t-esc="amount_by_group[0]"/></td>
                                     <td class="text-right">
                                         <span t-esc="amount_by_group[1]"/>
@@ -44,7 +47,7 @@
                                 </tr>
                             </t>
                             <t t-if="var_disposable>0">
-                                <tr>
+                                <tr class="text-center">
                                     <td>Disposables and Supplies</td>
                                     <td class="text-right">
                                         <t t-esc="var_disposable" />
@@ -52,14 +55,14 @@
                                 </tr>
                             </t>
                             <t t-if="var_prosthetics>0">
-                                <tr>
+                                <tr class="text-center">
                                     <td>Prosthetics</td>
                                     <td class="text-right">
                                         <t t-esc="var_prosthetics" />
                                     </td>
                                 </tr>
                             </t>
-                            <tr class="border-black">
+                            <tr class="border-black text-center">
                                 <td>
                                     <strong>Total</strong>
                                 </td>
@@ -68,7 +71,7 @@
                                 </td>
                             </tr>
                             <t t-if="var_discount_percent > 0">
-                                <tr class="border-black">
+                                <tr class="border-black text-center">
                                     <td>Discount</td>
                                     <td t-attf-class="text-right">
                                         <span t-esc="var_discount_percent"/>%
@@ -78,7 +81,7 @@
                             <t t-if="doc.payment_state != 'invoicing_legacy'">
                                 <t t-set="payments_vals" t-value="doc.sudo()._get_reconciled_info_JSON_values()"/>
                                 <t t-foreach="payments_vals" t-as="payment_vals">
-                                    <tr>
+                                    <tr class="text-center">
                                         <td>
                                             <i class="oe_form_field text-right oe_payment_label">Paid on <t t-esc="payment_vals['date']"/></i>
                                         </td>
@@ -88,7 +91,7 @@
                                     </tr>
                                 </t>
                             </t>
-                            <tr class="border-black">
+                            <tr class="border-black text-center">
                                 <td><strong>Amount Due</strong></td>
                                 <td class="text-right">
                                     <span t-field="doc.amount_residual"/>
@@ -96,6 +99,14 @@
                             </tr>
                         </table>
                     </div>
+                    <div style="display: block;" class="pull-left text-left">
+                        <t t-if="doc.company_id.bank_details" >
+                            <p class="text-left" style="display: block;">
+                                <span t-field="doc.company_id.bank_details" />
+                            </p>
+                        </t>
+                    </div>
+                </tr>
             </table>
         </div>
 	</template>
@@ -165,11 +176,6 @@
                                 <t t-call="aly_basic_hms.medical_invoice_core">
                                 </t>
                             </div>
-                            <t t-if="doc.company_id.bank_details" >
-                                <div class="text-left">
-                                    <span t-field="doc.company_id.bank_details" class="text-center"/>
-                                </div>
-                            </t>
                         </t>
                         <t t-if="doc.company_id.footer" >
                             <div class="footer">
