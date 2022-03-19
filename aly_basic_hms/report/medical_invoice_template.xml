@@ -78,9 +78,11 @@
                                     </td>
                                 </tr>
                             </t>
-                            <t t-set="payments_vals" t-value="doc.sudo()._get_reconciled_info_JSON_values()"/>
+                            <t t-set="is_payment_exist" t-value="False"/>
                             <t t-if="doc.payment_state != 'invoicing_legacy'">
+                                <t t-set="payments_vals" t-value="doc.sudo()._get_reconciled_info_JSON_values()"/>
                                 <t t-foreach="payments_vals" t-as="payment_vals">
+                                    <t t-set="is_payment_exist" t-value="False"/>
                                     <tr class="text-center">
                                         <td>
                                             <i class="oe_form_field text-right oe_payment_label">Amount Paid on <t t-esc="payment_vals['date']"/></i>
@@ -91,7 +93,7 @@
                                     </tr>
                                 </t>
                             </t>
-                            <t t-if="payments_vals == False">
+                            <t t-if="is_payment_exist == False">
                                 <tr class="text-center">
                                     <td>
                                         <i class="oe_form_field text-right oe_payment_label">Amount Paid </i>
