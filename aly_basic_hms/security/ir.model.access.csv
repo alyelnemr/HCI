@@ -204,7 +204,6 @@ access_product_pricelist_sale_manager,product.pricelist salemanager,product.mode
 access_product_group_res_partner_sale_manager,res_partner group_sale_manager,base.model_res_partner,bi_group_doctor,1,1,1,0
 access_sale_order_invoicing_payments,sale.order,sale.model_sale_order,bi_group_doctor,1,1,0,0
 access_sale_order_line_invoicing_payments,sale.order.line,sale.model_sale_order_line,bi_group_doctor,1,1,0,0
-access_medical_directions,access_medical_directions,model_medical_directions,,1,1,1,1
 access_medical_family_disease,access_medical_family_disease,model_medical_family_disease,,1,1,1,1
 access_medical_icu_ventilation,access_medical_icu_ventilation,model_medical_icu_ventilation,,1,1,1,1
 access_medical_inpatient_medication_admin_time,access_medical_inpatient_medication_admin_time,model_medical_inpatient_medication_admin_time,,1,1,1,1

@@ -25,12 +25,18 @@
                                 <field name="transportation" />
                             </group>
                         </group>
-                        <group string="Medications">
-                            <field name="discharge_medication_ids" widget="one2many_list" />
-                        </group>
-                        <group string="Recommendation">
-                            <field name="recommendation"/>
-                        </group>
+                        <notebook>
+                            <page string="Medications">
+                                <group string="Medications">
+                                    <field name="discharge_medication_ids" widget="one2many_list" />
+                                </group>
+                            </page>
+                            <page string="Recommendations">
+                                <group string="Recommendation">
+                                    <field name="recommendation"/>
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                     <footer>
                         <button name="discharge_patient" string="Discharge Patient"
