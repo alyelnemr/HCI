@@ -7,7 +7,7 @@ class ResCompany(models.Model):
 
     header = fields.Binary(string='Report Header')
     footer = fields.Binary(string='Report Footer')
-    # bank_details = fields.Text(string='Banks Accounts Details')
+    bank_details = fields.Text(string='Banks Accounts Details')
 
 
 class ResUsers(models.Model):
