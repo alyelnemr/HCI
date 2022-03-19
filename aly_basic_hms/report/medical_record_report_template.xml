@@ -752,7 +752,7 @@
                                     </td>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Room</th>
                                     <td>
-                                        <span t-field="doc.room_number" class="text-center"/>
+                                        <span t-esc="var_room_number" widget="char" options="{'format': 0}" class="text-center"/>
                                     </td>
                                 </tr>
                                 <tr>

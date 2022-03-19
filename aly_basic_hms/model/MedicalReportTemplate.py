@@ -62,7 +62,10 @@ class MedicalReportTemplate(models.AbstractModel):
         docs = self.env[model].browse(docids)
         sorted_data = self.get_sorting(docs)
         sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
-        min_update_note_date = sorted_update_note[0].appointment_date.date() if len(sorted_update_note) > 0 else date.today()
+        var_room_number = str(docs.room_number)
+        today_now = datetime.now()
+        min_update_note_date = sorted_update_note[0].appointment_date.strftime("%d/%m/%Y %H:%M:%S") \
+            if len(sorted_update_note) > 0 else today_now.strftime("%d/%m/%Y %H:%M:%S")
         is_discharged = docs.inpatient_ids[0].is_discharged if len(docs.inpatient_ids) > 0 else False
         return {
             'data': data,
@@ -70,6 +73,7 @@ class MedicalReportTemplate(models.AbstractModel):
             'doc_model': model,
             'docs': docs,
             'sorted_data': sorted_data,
+            'var_room_number': var_room_number,
             'min_update_note_date': min_update_note_date,
             'is_discharged': is_discharged,
             'report_title': 'Primary Medical Report'
@@ -135,6 +139,7 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
         docs = self.env[model].browse(docids)
         sorted_data = self.get_sorting(docs)
         sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
+        var_room_number = str(docs.room_number)
         today_now = datetime.now()
         min_update_note_date = sorted_update_note[0].appointment_date.strftime("%d/%m/%Y %H:%M:%S") \
             if len(sorted_update_note) > 0 else today_now.strftime("%d/%m/%Y %H:%M:%S")
@@ -145,6 +150,7 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
             'doc_model': model,
             'docs': docs,
             'sorted_data': sorted_data,
+            'var_room_number': var_room_number,
             'min_update_note_date': min_update_note_date,
             'is_discharged': is_discharged,
             'report_title': 'Update Medical Report'
@@ -210,7 +216,10 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
         docs = self.env[model].browse(docids)
         sorted_data = self.get_sorting(docs)
         sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
-        min_update_note_date = sorted_update_note[0].appointment_date.date() if len(sorted_update_note) > 0 else date.today()
+        var_room_number = str(docs.room_number)
+        today_now = datetime.now()
+        min_update_note_date = sorted_update_note[0].appointment_date.strftime("%d/%m/%Y %H:%M:%S") \
+            if len(sorted_update_note) > 0 else today_now.strftime("%d/%m/%Y %H:%M:%S")
         is_discharged = docs.inpatient_ids[0].is_discharged if len(docs.inpatient_ids) > 0 else False
         return {
             'data': data,
@@ -218,6 +227,7 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
             'doc_model': model,
             'docs': docs,
             'sorted_data': sorted_data,
+            'var_room_number': var_room_number,
             'min_update_note_date': min_update_note_date,
             'is_discharged': is_discharged,
             'report_title': 'Primary Medical Report'
