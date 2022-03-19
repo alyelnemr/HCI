@@ -16,11 +16,6 @@
             <field name="value">Disposables</field>
         </record>
 
-        <record id="medicine_product_category" model="ir.config_parameter">
-            <field name="key">medicine.product_category</field>
-            <field name="value">Medicines</field>
-        </record>
-
         <record id="procedure_product_category" model="ir.config_parameter">
             <field name="key">procedure.product_category</field>
             <field name="value">Procedures</field>
@@ -266,6 +261,12 @@ l
             <field name="name">Can Change Company</field>
             <field name="category_id" ref="module_category_hospital"/>
             <field name="comment">the user will have access to change the company of any model.</field>
+        </record>
+    </data>
+    <data noupdate="0">
+        <record id="medicine_product_category" model="ir.config_parameter">
+            <field name="key">medicine.product_category</field>
+            <field name="value">Medicines</field>
         </record>
     </data>
 </odoo>
