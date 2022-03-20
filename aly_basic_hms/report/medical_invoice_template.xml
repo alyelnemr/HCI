@@ -11,15 +11,16 @@
                         <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Unit Price</th>
                         <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Amount</th>
                     </tr>
-                    <t t-foreach="doc.invoice_line_ids" t-as="line">
-                        <t t-if="line.product_id.categ_id.name!='Prosthetics'">
-                            <t t-if="line.product_id.categ_id.name!='Disposables'">
-                                <t t-if="line.product_id.categ_id.name!='Discounts'">
+                    <t t-set="line_quantity_subtotal" t-value="doc.get_quantity_subtotal()" />
+                    <t t-foreach="line_quantity_subtotal" t-as="line">
+                        <t t-if="line[2]!='Prosthetics'">
+                            <t t-if="line[2]!='Disposables'">
+                                <t t-if="line[2]!='Discounts'">
                                     <tr>
-                                        <td><span t-field="line.product_id.name" class="text-center"/></td>
-                                        <td><span t-field="line.quantity" class="text-center"/></td>
-                                        <td><span t-field="line.price_unit" class="text-center"/></td>
-                                        <td><span t-field="line.price_subtotal" class="text-center"/></td>
+                                        <td><span t-esc="line[1]" class="text-center"/></td>
+                                        <td><span t-esc="line[3]" class="text-center"/></td>
+                                        <td><span t-esc="line[4]" class="text-center"/></td>
+                                        <td><span t-esc="line[5]" class="text-center"/></td>
                                     </tr>
                                 </t>
                             </t>

@@ -65,8 +65,6 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         min_admission_date = sorted_inpatient_ids[0].admission_date if len(sorted_inpatient_ids) > 0 else False
         min_discharge_date = sorted_inpatient_ids[0].discharge_datetime if len(sorted_inpatient_ids) > 0 else False
         is_discharged = docs.partner_id.patient_id.inpatient_ids[0].is_discharged if len(sorted_inpatient_ids) > 0 else False
-        var_subtotal = 0
-        var_subtotal_with_discount = 0
         var_discount = 0
         var_disposable = 0
         var_prosthetics = 0
