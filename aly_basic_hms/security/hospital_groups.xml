@@ -176,8 +176,8 @@ l
                 <xpath expr="//field[@name='payment_reference']" position="after">
                     <field name = "discount_total" />
                 </xpath>
-                <xpath position="after" expr="//field[@name='amount_by_group']">
-                    <field name="discount_amount"/>
+                <xpath position="after" expr="//field[@name='ref']">
+                    <field name="patient_id"/>
                 </xpath>
             </field>
         </record>
