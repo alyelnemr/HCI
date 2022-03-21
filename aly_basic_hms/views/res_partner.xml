@@ -12,6 +12,7 @@
                 <notebook>
                     <page string="Medical">
                         <group colspan="6" col="6">
+                            <field name="patient_id" />
                             <field name="is_patient" />
                             <field name="is_doctor" />
                             <field name="is_institution" />
