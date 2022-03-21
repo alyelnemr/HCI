@@ -157,7 +157,7 @@
                                 <tr>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Patient Name</th>
                                     <td>
-                                        <b><span t-field="doc.patient_id.name" class="text-center"/></b>
+                                        <b><span t-field="doc.patient_id.patient_id.name" class="text-center"/></b>
                                     </td>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Date of Birth</th>
                                     <td>
