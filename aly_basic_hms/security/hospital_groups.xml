@@ -168,24 +168,6 @@ l
             <field name="amount">12.5</field>
             <field name="tax_group_id" ref="aly_basic_hms.record_service_charge_tax_group" />
         </record>
-        <record id = "aly_basic_hms.account_move_form_inherit" model = "ir.ui.view">
-            <field name = "name">aly_basic_hms.account_move_for_discount</field>
-            <field name = "model">account.move</field>
-            <field name = "inherit_id" ref = "account.view_move_form" />
-            <field name = "arch" type = "xml">
-                <xpath expr="//field[@name='payment_reference']" position="after">
-                    <field name = "discount_total" />
-                </xpath>
-                <notebook>
-                    <page string="Medical">
-                        <group colspan="6" col="6">
-                            <field name="patient_id" />
-                            <field name="discount_amount" />
-                        </group>
-                    </page>
-                </notebook>
-            </field>
-        </record>
     </data>
 
     <data noupdate="1">
@@ -268,7 +250,7 @@ l
             <field name="comment">the user will have access to change the company of any model.</field>
         </record>
     </data>
-    <data noupdate="0">
+    <data noupdate="1">
         <record id="medicine_product_category" model="ir.config_parameter">
             <field name="key">medicine.product_category</field>
             <field name="value">Medicines</field>

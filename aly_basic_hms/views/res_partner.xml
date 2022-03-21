@@ -81,6 +81,24 @@
             </field>
         </record>
 
+        <record id = "aly_basic_hms.account_move_form_inherit" model = "ir.ui.view">
+            <field name = "name">aly_basic_hms.account_move_for_discount</field>
+            <field name = "model">account.move</field>
+            <field name = "inherit_id" ref = "account.view_move_form" />
+            <field name = "arch" type = "xml">
+                <xpath expr="//field[@name='payment_reference']" position="after">
+                    <field name = "discount_total" />
+                </xpath>
+                <notebook>
+                    <page string="Medical">
+                        <group colspan="6" col="6">
+                            <field name="patient_id" />
+                            <field name="discount_amount" />
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
 
 </odoo>
 
