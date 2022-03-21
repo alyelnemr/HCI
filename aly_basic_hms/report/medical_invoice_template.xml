@@ -151,27 +151,27 @@
                                 <tr>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">To</th>
                                     <td colspan="3" class="text-left">
-                                        <b><span t-field="doc.partner_id.patient_id.bill_to" class="text-left"/></b>
+                                        <b><span t-field="doc.patient_id.bill_to" class="text-left"/></b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Patient Name</th>
                                     <td>
-                                        <b><span t-field="doc.partner_id.name" class="text-center"/></b>
+                                        <b><span t-field="doc.patient_id.name" class="text-center"/></b>
                                     </td>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Date of Birth</th>
                                     <td>
-                                        <span t-field="doc.partner_id.patient_id.date_of_birth" class="text-center"/>
+                                        <span t-field="doc.patient_id.date_of_birth" class="text-center"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Our Ref#</th>
                                     <td>
-                                        <span t-field="doc.partner_id.patient_id.our_reference" class="text-center"/>
+                                        <span t-field="doc.patient_id.our_reference" class="text-center"/>
                                     </td>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Insurance Ref#</th>
                                     <td>
-                                        <span t-field="doc.partner_id.patient_id.insurance_reference" class="text-center"/>
+                                        <span t-field="doc.patient_id.insurance_reference" class="text-center"/>
                                     </td>
                                 </tr>
                                     <tr>

@@ -33,6 +33,7 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                     raise UserError(_('This patient is not discharged, Discharge the patient and then Create Invoice.'))
 
             partner_id = medical_patient_obj.insurance_company_id.id if medical_patient_obj.is_insurance else medical_patient_obj.patient_id.id or False
+            customer_ref = medical_patient_obj.patient_id.id
             partner_shipping_id = medical_patient_obj.patient_id.id
 
             if medical_patient_obj.is_insurance:
@@ -46,18 +47,20 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                         inv.state = 'cancel'
                 sale_journals = self.env['account.journal'].search([('type','=','sale')])
                 invoice_vals = {
-                'name': self.env['ir.sequence'].next_by_code('medical_patient_inv_seq'),
-                'invoice_origin': medical_patient_obj.name or '',
-                'move_type': 'out_invoice',
-                'ref': False,
-                'partner_id': partner_id or False,
-                'partner_shipping_id': partner_shipping_id or False,
-                'currency_id':medical_patient_obj.patient_id.currency_id.id ,
-                'invoice_payment_term_id': False,
-                'fiscal_position_id': medical_patient_obj.patient_id.property_account_position_id.id,
-                'team_id': False,
-                'invoice_date': date.today(),
-                'company_id':medical_patient_obj.patient_id.company_id.id or False ,
+                    'name': self.env['ir.sequence'].next_by_code('medical_patient_inv_seq'),
+                    'invoice_origin': medical_patient_obj.name or '',
+                    'move_type': 'out_invoice',
+                    'partner_id': partner_id or False,
+                    'partner_shipping_id': partner_shipping_id or False,
+                    'currency_id':medical_patient_obj.patient_id.currency_id.id ,
+                    'invoice_payment_term_id': False,
+                    'fiscal_position_id': medical_patient_obj.patient_id.property_account_position_id.id,
+                    'team_id': False,
+                    'invoice_date': date.today(),
+                    'company_id': medical_patient_obj.patient_id.company_id.id or False,
+                    'ref': customer_ref,
+                    'is_insurance': medical_patient_obj.is_insurance,
+                    'patient_id': customer_ref
                 }
                 res = account_invoice_obj.create(invoice_vals)
 
