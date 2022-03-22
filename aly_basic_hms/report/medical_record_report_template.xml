@@ -61,7 +61,9 @@
                     <br/>
                     <t t-if="doc.diagnosis_provisional">
                         <tr>
-                            <td style="width:30%"><strong>Provisional Diagnosis:</strong></td>
+                            <td style="width:30%">
+                                <strong>Provisional Diagnosis:</strong>
+                            </td>
                             <td style="width:80%">
                                 <span t-field="doc.diagnosis_provisional" />
                             </td>
