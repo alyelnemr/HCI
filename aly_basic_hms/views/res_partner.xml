@@ -104,7 +104,7 @@
         <record id = "aly_basic_hms.product_category_form_inherit" model = "ir.ui.view">
             <field name = "name">aly_basic_hms.product_category_for_sorting</field>
             <field name = "model">product.category</field>
-            <field name = "inherit_id" ref = "product.category.form" />
+            <field name = "inherit_id" ref = "product.product_category_form_view" />
             <field name = "arch" type = "xml">
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name = "sorting_rank" />
