@@ -171,7 +171,7 @@
                                 <strong>Investigations</strong>
                             </div>
                             <t t-foreach="my_list_obj['obj_id'].appointment_investigations_ids" t-as="inv">
-                                <table>
+                                <table style="width:100%">
                                     <tbody class="sale_tbody">
                                         <tr>
                                             <td style="width:50%">
@@ -192,7 +192,7 @@
                                 <strong>Procedures</strong>
                             </div>
                             <t t-foreach="my_list_obj['obj_id'].appointment_procedure_ids" t-as="inv">
-                                <table>
+                                <table style="width:100%">
                                     <tbody class="sale_tbody">
                                         <tr>
                                             <td style="width:50%">
@@ -249,7 +249,7 @@
                                 <strong>Recommendations</strong>
                             </div>
                             <br/>
-                            <table>
+                            <table style="width:100%">
                                 <tbody class="sale_tbody">
                                     <tr>
                                         <td style="width:100%">
@@ -362,7 +362,7 @@
                                 <strong>Investigations</strong>
                             </div>
                             <t t-foreach="my_list_obj['obj_id'].inp_update_note_investigations_ids" t-as="inv">
-                                <table>
+                                <table style="width:100%">
                                     <tbody class="sale_tbody">
                                         <tr>
                                             <td style="width:50%">
@@ -383,7 +383,7 @@
                                 <strong>Procedures</strong>
                             </div>
                             <t t-foreach="my_list_obj['obj_id'].appointment_procedure_ids" t-as="inv">
-                                <table>
+                                <table style="width:100%">
                                     <tbody class="sale_tbody">
                                         <tr>
                                             <td style="width:50%">
@@ -439,7 +439,7 @@
                                 <strong>Recommendations</strong>
                             </div>
                             <br/>
-                            <table>
+                            <table style="width:100%">
                                 <tbody class="sale_tbody">
                                     <tr>
                                         <td style="width:100%">
@@ -608,7 +608,7 @@
                             <div class="text-left">
                                 <strong>Post Operative Investigations</strong>
                             </div>
-                            <table>
+                            <table style="width:100%">
                                 <tbody class="sale_tbody">
                                     <t t-foreach="my_list_obj['obj_id'].operation_line_ids" t-as="med">
                                         <tr>
@@ -662,7 +662,7 @@
                                 <strong>Recommendations</strong>
                             </div>
                             <br/>
-                            <table>
+                            <table style="width:100%">
                                 <tbody class="sale_tbody">
                                     <tr>
                                         <td style="width:100%">
@@ -671,7 +671,7 @@
                                     </tr>
                               </tbody>
                             </table>
-                        <table>
+                        <table style="width:100%">
                             <tbody class="sale_tbody">
                                 <tr>
                                     <td style="width:30%">Recommendations:</td>
@@ -686,7 +686,7 @@
                         <br/>
                         <br/>
                     <t t-if="docs.inpatient_ids.doctor_id">
-                        <table>
+                        <table style="width:100%">
                             <tbody class="sale_tbody">
                                 <tr>
                                     <td style="width:30%">Treating Physician:</td>
