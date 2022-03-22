@@ -2,13 +2,19 @@
 from odoo import api, fields, models, _
 
 
+class ProductCategorySorting(models.Model):
+    _inherit = "product.category"
+
+    sorting_rank = fields.Integer(string='Sorting Rank', default=1)
+
+
 class AccountInvoiceLine(models.Model):
     _inherit = "account.move.line"
 
     discount = fields.Float(string='Discount (%)', digits=(16, 20), default=0.0)
 
 
-class ResCompany(models.Model):
+class AccountMoveForDiscount(models.Model):
     _inherit = 'account.move'
 
     @api.depends('discount_total')
