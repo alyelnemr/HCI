@@ -61,10 +61,10 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         docs = self.env[model].browse(docids)
         # sorted_data = self.get_sorting(docs.partner_id.patient_id)
         is_draft = docs.state == 'draft'
-        sorted_inpatient_ids = sorted(docs.partner_id.patient_id.inpatient_ids, key=lambda a: a.admission_date)
+        sorted_inpatient_ids = sorted(docs.patient_id.inpatient_ids, key=lambda a: a.admission_date)
         min_admission_date = sorted_inpatient_ids[0].admission_date if len(sorted_inpatient_ids) > 0 else False
         min_discharge_date = sorted_inpatient_ids[0].discharge_datetime.date() if len(sorted_inpatient_ids) > 0 else False
-        is_discharged = docs.partner_id.patient_id.inpatient_ids[0].is_discharged if len(sorted_inpatient_ids) > 0 else False
+        is_discharged = docs.patient_id.inpatient_ids[0].is_discharged if len(sorted_inpatient_ids) > 0 else False
         var_discount = 0
         var_disposable = 0
         var_prosthetics = 0
