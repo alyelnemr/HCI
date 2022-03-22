@@ -174,12 +174,9 @@
                                 <table style="width:100%">
                                     <tbody class="sale_tbody">
                                         <tr>
-                                            <td style="width:50%">
+                                            <td style="width:100%">
                                                 -
                                                 <span t-field="inv.product_id.name" />
-                                            </td>
-                                            <td style="width:50%;">
-                                                <span t-field="inv.short_comment" />
                                             </td>
                                         </tr>
                                     </tbody>
@@ -195,12 +192,9 @@
                                 <table style="width:100%">
                                     <tbody class="sale_tbody">
                                         <tr>
-                                            <td style="width:50%">
+                                            <td style="width:100%">
                                                 -
                                                 <span t-field="inv.product_id.name" />
-                                            </td>
-                                            <td style="width:50%;">
-                                                <span t-field="inv.short_comment" />
                                             </td>
                                         </tr>
                                     </tbody>
@@ -365,12 +359,9 @@
                                 <table style="width:100%">
                                     <tbody class="sale_tbody">
                                         <tr>
-                                            <td style="width:50%">
+                                            <td style="width:100%">
                                                 -
                                                 <span t-field="inv.product_id.name" />
-                                            </td>
-                                            <td style="width:50%;">
-                                                <span t-field="inv.short_comment" />
                                             </td>
                                         </tr>
                                     </tbody>
@@ -386,12 +377,9 @@
                                 <table style="width:100%">
                                     <tbody class="sale_tbody">
                                         <tr>
-                                            <td style="width:50%">
+                                            <td style="width:100%">
                                                 -
                                                 <span t-field="inv.product_id.name" />
-                                            </td>
-                                            <td style="width:50%;">
-                                                <span t-field="inv.short_comment" />
                                             </td>
                                         </tr>
                                     </tbody>
