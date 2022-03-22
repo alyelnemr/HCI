@@ -150,8 +150,8 @@
                             <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
                                 <tr>
                                     <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">To</th>
-                                    <td colspan="3" class="text-left">
-                                        <b><span t-field="doc.patient_id.bill_to" class="text-left"/></b>
+                                    <td colspan="3" class="text-center">
+                                        <b><span t-field="doc.patient_id.bill_to" class="text-center"/></b>
                                     </td>
                                 </tr>
                                 <tr>
