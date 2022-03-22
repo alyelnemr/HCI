@@ -15,6 +15,7 @@
     # "depends": ["base", "sale_management", "stock", "account_accountant"],
     "data": [
         'security/hospital_groups.xml',
+        'security/product_categories_data.xml',
         'security/ir.model.access.csv',
         'data/ir_sequence_data.xml',
         'views/assets.xml',

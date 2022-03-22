@@ -10,17 +10,17 @@
 
         <record id="record_accommodation_product_category" model="product.category">
             <field name="name">Accommodation</field>
-            <field name="sorting_rank">2</field>
+            <!--<field name="sorting_rank">2</field>-->
         </record>
 
         <record id="record_examination_product_category" model="product.category">
             <field name="name">Examinations</field>
-            <field name="sorting_rank">1</field>
+            <!--<field name="sorting_rank">1</field>-->
         </record>
 
         <record id="record_investigation_product_category" model="product.category">
             <field name="name">Investigations</field>
-            <field name="sorting_rank">4</field>
+            <!--<field name="sorting_rank">4</field>-->
         </record>
 
         <record id="record_disposable_product_category" model="product.category">
@@ -29,7 +29,7 @@
 l
         <record id="record_procedure_product_category" model="product.category">
             <field name="name">Procedures</field>
-            <field name="sorting_rank">3</field>
+            <!--<field name="sorting_rank">3</field>-->
         </record>
 
         <record id="record_prosthetics_product_category" model="product.category">
