@@ -98,12 +98,6 @@ access_medical_group_partner_chem_r,medical.group.medical_insurance.r.chem,model
 
 
 
-access_vaccination,medical.group.vaccination,model_medical_vaccination,group_medical_group,1,1,1,1
-access_vaccination_doctor,medical.group.vaccination.doctor,model_medical_vaccination,bi_group_doctor,1,1,1,0
-access_vaccination_chemist,medical.group.vaccination.chemist,model_medical_vaccination,group_chemist,1,1,1,0
-
-
-
 access_doctor_medical_patient_disease,medical.doctor.group.medical.patient.disease,model_medical_patient_disease,bi_group_doctor,1,1,1,1
 access_doctor_medical_patient_disease_chemist,medical.doctor.group.medical.patient.disease.chemist,model_medical_patient_disease,group_chemist,1,0,0,0
 access_patient_diseases,medical.group.patient.diseases,model_medical_patient_disease,group_medical_group,1,1,1,0
