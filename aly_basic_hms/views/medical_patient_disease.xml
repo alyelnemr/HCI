@@ -6,7 +6,6 @@
             <field name="arch" type="xml">
                 <form string="Diseases">
                     <group colspan="4" col="4" string="Main">
-                        <field name="pathology_id" />
                         <field name="disease_severity" />
                         <field name="status" />
                         <field name="is_infectious" />
@@ -43,7 +42,6 @@
             <field name="model">medical.patient.disease</field>
             <field name="arch" type="xml">
                 <tree string="Diseases">
-                    <field name="pathology_id" />
                     <field name="status" />
                     <field name="is_active" />
                     <field name="is_infectious" />

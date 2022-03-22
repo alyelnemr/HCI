@@ -45,7 +45,6 @@
               <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th>Disease (ICD-10)</th>
                         <th>Severity</th>
                         <th>Status</th>
                         <th>Active</th>
@@ -57,9 +56,6 @@
                <tbody class="sale_tbody">
                     <t t-foreach="doc.patient_disease_ids" t-as="l">
                         <tr>
-                            <td>
-                               <span t-field="l.pathology_id.name"/>
-                            </td>
                              <td>
                                <span t-field="l.disease_severity"/>
                             </td>
