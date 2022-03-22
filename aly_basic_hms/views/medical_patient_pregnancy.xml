@@ -19,9 +19,6 @@
                     <group colspan="3" string="Prenatal Info">
                         <field name="medical_perinatal_ids" />
                     </group>
-                    <group colspan="3" string="Puerperium Monitor">
-                        <field name="puerperium_perental_ids" />
-                    </group>
                     <group id="group_pregnancy_footer1" colspan="4"
                         col="8">
                         <field name="fetuses" />

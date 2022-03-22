@@ -83,7 +83,6 @@ class MedicalPatient(models.Model):
     diagnosis_provisional = fields.Char(string='Provisional Diagnosis')
     primary_care_physician_id = fields.Many2one('medical.physician', string="Primary Care Doctor")
     patient_disease_ids = fields.One2many('medical.patient.disease','patient_id')
-    family_history_ids = fields.One2many('medical.family.disease','patient_id',string="Family Disease Lines")
     report_date = fields.Date('Date',default = datetime.today().date())
     patient_complaint = fields.Char(string='Patient Complaint', required=True)
     food_drug_allergy = fields.Char(string='Food and Drug Allergy', required=True)

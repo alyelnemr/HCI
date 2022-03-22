@@ -28,5 +28,4 @@ class MedicalInsurance(models.Model):
     category = fields.Char('Category')
     notes = fields.Text('Extra Info')
     member_exp = fields.Date(string='Card Expiration Date', required=True)
-    medical_insurance_plan_id = fields.Many2one('medical.insurance.plan','Plan')
     price_list_id = fields.Many2one('product.pricelist', string="Insurance Price List", required=False)
