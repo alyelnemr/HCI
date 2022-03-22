@@ -13,7 +13,6 @@ class  medical_patient_pregnency(models.Model):
     pdd = fields.Date('Pregnency  Due Date')
     patient_id= fields.Many2one('medical.patient','Patient')
     current_pregnency = fields.Boolean('Current Pregnency')
-    medical_patient_evolution_prental_ids = fields.One2many('medical.patient.prental.evoultion', 'pregnency_id', 'Patient Perinatal Evaluations')
     fetuses = fields.Boolean('Fetuses')
     monozygotic = fields.Boolean('Monozygotic')
     igur = fields.Selection([('s','Symmetric'),('a','Asymmetric')], 'IGUR')

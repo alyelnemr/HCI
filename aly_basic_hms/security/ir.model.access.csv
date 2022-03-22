@@ -90,15 +90,11 @@ access_medical_group_insurance,medical.group.medical_insurance,model_res_partner
 access_medical_group_insurance_chem,medical.group.medical_insurance.chem,model_res_partner,group_chemist,1,0,0,0
 access_medical_group_insurance_chem_r,medical.group.medical_insurance.r.chem,model_medical_insurance,group_chemist,1,0,0,0
 access_medical_group_insurance_chem_rm,medical.group.medical_insurance.rm.chem,model_res_partner,group_medical_group,1,0,0,0
-access_diseases_category,medical.group.diseases.category,model_medical_pathology_category,group_medical_group,1,0,0,0
-access_diseases,medical.group.diseases,model_medical_pathology,group_medical_group,1,0,0,0
 
 
 access_medical_group_partner_chem_r,medical.group.medical_insurance.r.chem,model_res_partner,group_chemist,1,0,0,0
 
 
-access_diseases_category_doc,medical.group.diseases.category.doc,model_medical_pathology_category,bi_group_doctor,1,1,1,0
-access_diseases_doc,medical.group.diseases.doc,model_medical_pathology,bi_group_doctor,1,1,1,0
 
 
 
@@ -209,12 +205,9 @@ access_medical_inpatient_medication_transient,access_medical_inpatient_medicatio
 
 
 
-access_medical_pathology_group_member,access_medical_pathology_group_member,model_medical_pathology_group_member,,1,1,1,1
-access_medical_pathology_group,access_medical_pathology_group,model_medical_pathology_group,,1,1,1,1
 access_medical_patient_cage,access_medical_patient_cage,model_medical_patient_cage,,1,1,1,1
 access_medical_patient_medication1,access_medical_patient_medication1,model_medical_patient_medication1,,1,1,1,1
 access_medical_patient_pregnency,access_medical_patient_pregnency,model_medical_patient_pregnency,,1,1,1,1
-access_medical_patient_prental_evoultion,access_medical_patient_prental_evoultion,model_medical_patient_prental_evoultion,,1,1,1,1
 
 
 access_bed_transfer,access_bed_transfer,model_bed_transfer,,1,1,1,1

@@ -10,7 +10,6 @@ class medical_patient_disease(models.Model):
     _rec_name = 'patient_id'
     _description = 'description'
 
-    pathology_id = fields.Many2one('medical.pathology','Disease', required=True)
     disease_severity = fields.Selection([('1_mi','Mild'),
                                ('2_mo','Moderate'),
                                ('3_sv','Severe')],'Severity')

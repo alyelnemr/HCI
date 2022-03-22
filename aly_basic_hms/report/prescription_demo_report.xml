@@ -94,14 +94,6 @@
 											<span t-field="test.form"/>
 										</td>
 									</tr>
-									<tr t-if="test.indication">
-										<td>
-											<strong>Indication</strong>
-										</td>
-										<td>
-											<span t-field="test.indication"/>
-										</td>
-									</tr>
 									<tr t-if="test.route">
 										<td>
 											<strong>Route</strong>

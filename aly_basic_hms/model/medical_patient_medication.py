@@ -26,7 +26,6 @@ class medical_patient_medication(models.Model):
     start_treatment = fields.Datetime(string='Start Of Treatment',required=True)
     course_completed = fields.Boolean(string="Course Completed")
     doctor_physician_id = fields.Many2one('medical.physician',string='Physician')
-    indication = fields.Many2one('medical.pathology',string='Indication')
     end_treatment = fields.Datetime(string='End Of Treatment',required=True)
     treatment_days = fields.Integer(compute=_compute_treatment_days,string="Treatment Days Count",store=True)
     discontinued = fields.Boolean(string='Discontinued')

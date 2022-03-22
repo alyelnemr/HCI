@@ -7,8 +7,7 @@ from datetime import date,datetime
 class medical_patient_diseases(models.Model):
     _name = 'medical.patient.diseases'
     _description = 'description'
-    
-    pathelogh_id = fields.Many2one('medical.pathology', 'Disease')
+
     status_of_the_disease = fields.Selection([('chronic','Chronic'),('status quo','Status Quo'),('healed','Healed'), ('improving','Improving'), ('worsening', 'Worsening') ], 'Status of the disease')
     is_active = fields.Boolean('Active Disease')
     diagnosed_date = fields.Date('Date of Diagnosis')

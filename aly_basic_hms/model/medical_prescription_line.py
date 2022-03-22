@@ -10,7 +10,6 @@ class medical_prescription_line(models.Model):
 
     name = fields.Many2one('medical.prescription.order','Prescription ID')
     medicament_id = fields.Many2one('medical.medicament','Medicament')
-    indication = fields.Char('Indication')
     allow_substitution = fields.Boolean('Allow Substitution')
     form = fields.Char('Form')
     prnt = fields.Boolean('Print')
