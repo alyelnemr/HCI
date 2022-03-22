@@ -5,7 +5,7 @@ from odoo import api, fields, models, _
 class ProductCategorySorting(models.Model):
     _inherit = "product.category"
 
-    sorting_rank = fields.Integer(string='Sorting Rank', default=1)
+    sorting_rank = fields.Integer(string='Sorting Rank', default=100)
 
 
 class AccountInvoiceLine(models.Model):

@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
+        <record id="medicine_product_category" model="ir.config_parameter">
+            <field name="key">medicine.product_category</field>
+            <field name="value">Medicines</field>
+        </record>
+
+        <record id="observation_product_category" model="ir.config_parameter">
+            <field name="key">observation.product_category</field>
+            <field name="value">Observations</field>
+        </record>
+
+        <record forcecreate="True" id="record_medicines_product_category" model="product.category">
+            <field name="name">Medicines</field>
+        </record>
+
+        <record forcecreate="True" id="record_observations_product_category" model="product.category">
+            <field name="name">Observations</field>
+        </record>
+
         <record id="examination_product_category" model="ir.config_parameter">
             <field name="key">examination.product_category</field>
             <field name="value">Examinations</field>
@@ -36,70 +54,6 @@
             <field name="value">record_icu_accommodation_product_template,record_icu_nursing_product_template,record_icu_medical_care_product_template</field>
         </record>
 
-        <record forcecreate="True" id="record_transportation_product_category" model="product.category">
-            <field name="name">Transportation</field>
-        </record>
-
-        <record forcecreate="True" id="record_package_product_category" model="product.category">
-            <field name="name">Packages</field>
-        </record>
-
-        <record forcecreate="True" id="record_accommodation_product_category" model="product.category">
-            <field name="name">Accommodation</field>
-        </record>
-
-        <record forcecreate="True" id="record_examination_product_category" model="product.category">
-            <field name="name">Examinations</field>
-        </record>
-
-        <record forcecreate="True" id="record_investigation_product_category" model="product.category">
-            <field name="name">Investigations</field>
-        </record>
-
-        <record forcecreate="True" id="record_disposable_product_category" model="product.category">
-            <field name="name">Disposables</field>
-        </record>
-l
-        <record forcecreate="True" id="record_procedure_product_category" model="product.category">
-            <field name="name">Procedures</field>
-        </record>
-
-        <record forcecreate="True" id="record_prosthetics_product_category" model="product.category">
-            <field name="name">Prosthetics</field>
-        </record>
-
-        <record forcecreate="True" id="record_discounts_product_category" model="product.category">
-            <field name="name">Discounts</field>
-        </record>
-
-        <record forcecreate="True" id="record_general_services_product_category" model="product.category">
-            <field name="name">General Services</field>
-        </record>
-
-        <record forcecreate="True" id="record_transportation_car_product_template" model="product.template">
-            <field name="name">Standard transportation by normal car per Km</field>
-            <field name="categ_id" ref="aly_basic_hms.record_transportation_product_category" />
-            <field name="type">service</field>
-        </record>
-
-        <record forcecreate="True" id="record_discount_product_template" model="product.template">
-            <field name="name">Discount Service</field>
-            <field name="categ_id" ref="aly_basic_hms.record_discounts_product_category" />
-            <field name="type">service</field>
-        </record>
-
-        <record forcecreate="True" id="record_transportation_ambulance_product_template" model="product.template">
-            <field name="name">Ambulance transportation per Km</field>
-            <field name="categ_id" ref="aly_basic_hms.record_transportation_product_category" />
-            <field name="type">service</field>
-        </record>
-
-        <record forcecreate="True" id="record_transportation_ambulance2_product_template" model="product.template">
-            <field name="name">Starting ambulance fees with ordinary equipment</field>
-            <field name="categ_id" ref="aly_basic_hms.record_transportation_product_category" />
-            <field name="type">service</field>
-        </record>
-
         <record id="transportation_car_product" model="ir.config_parameter">
             <field name="key">car.product_template</field>
             <field name="value" ref="aly_basic_hms.record_transportation_car_product_template" />
@@ -113,48 +67,6 @@ l
         <record id="transportation_ambulance2_product" model="ir.config_parameter">
             <field name="key">ambulance2.product_template</field>
             <field name="value" ref="record_transportation_ambulance2_product_template" />
-        </record>
-
-        <record forcecreate="True" id="record_medical_examination_product_template" model="product.template">
-            <field name="name">Medical Examination</field>
-            <field name="categ_id" ref="aly_basic_hms.record_examination_product_category" />
-            <field name="type">service</field>
-        </record>
-
-        <record forcecreate="True" id="record_standard_accommodation_product_template" model="product.template">
-            <field name="name">Standard admission room per day</field>
-            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-            <field name="type">service</field>
-        </record>
-
-        <record forcecreate="True" id="record_standard_nursing_product_template" model="product.template">
-            <field name="name">Nursing fees in standard admission room per day</field>
-            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-            <field name="type">service</field>
-        </record>
-
-        <record forcecreate="True" id="record_standard_medical_care_product_template" model="product.template">
-            <field name="name">Medical Care / Control visit per day</field>
-            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-            <field name="type">service</field>
-        </record>
-
-        <record forcecreate="True" id="record_icu_accommodation_product_template" model="product.template">
-            <field name="name">ICU admission per day</field>
-            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-            <field name="type">service</field>
-        </record>
-
-        <record forcecreate="True" id="record_icu_nursing_product_template" model="product.template">
-            <field name="name">Nursing in ICU per day</field>
-            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-            <field name="type">service</field>
-        </record>
-
-        <record forcecreate="True" id="record_icu_medical_care_product_template" model="product.template">
-            <field name="name">Medical Care / Specialist supervision in ICU per day</field>
-            <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
-            <field name="type">service</field>
         </record>
 
         <record forcecreate="True" id="record_service_charge_tax_group" model="account.tax.group">
@@ -248,22 +160,6 @@ l
             <field name="name">Can Change Company</field>
             <field name="category_id" ref="module_category_hospital"/>
             <field name="comment">the user will have access to change the company of any model.</field>
-        </record>
-    </data>
-    <data noupdate="1">
-        <record id="medicine_product_category" model="ir.config_parameter">
-            <field name="key">medicine.product_category</field>
-            <field name="value">Medicines</field>
-        </record>
-        <record id="observation_product_category" model="ir.config_parameter">
-            <field name="key">observation.product_category</field>
-            <field name="value">Observations</field>
-        </record>
-        <record forcecreate="True" id="record_medicines_product_category" model="product.category">
-            <field name="name">Medicines</field>
-        </record>
-        <record forcecreate="True" id="record_observations_product_category" model="product.category">
-            <field name="name">Observations</field>
         </record>
     </data>
 </odoo>
