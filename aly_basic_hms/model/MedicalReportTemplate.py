@@ -13,7 +13,7 @@ class MedicalReportTemplate(models.AbstractModel):
         for app in record.update_note_ids:
             my_list.append(
                 {
-                    'date': app.appointment_date.date(),
+                    'date': app.appointment_date,
                     'obj_type': 'app',
                     'order_in_list': i,
                     'obj_id': app
@@ -24,7 +24,7 @@ class MedicalReportTemplate(models.AbstractModel):
         for app in record.inpatient_ids:
             my_list.append(
                 {
-                    'date': app.admission_date,
+                    'date': app.admission_date.combine(date.today(), datetime.min.time()),
                     'obj_type': 'inp',
                     'order_in_list': i,
                     'obj_id': app
@@ -33,7 +33,7 @@ class MedicalReportTemplate(models.AbstractModel):
             for inp in app.inpatient_update_note_ids:
                 my_list.append(
                     {
-                        'date': inp.update_note_date.date(),
+                        'date': inp.update_note_date,
                         'obj_type': 'inp_up',
                         'order_in_list': i,
                         'obj_id': inp
@@ -44,7 +44,7 @@ class MedicalReportTemplate(models.AbstractModel):
         for app in record.operation_ids:
             my_list.append(
                 {
-                    'date': app.time_in.date(),
+                    'date': app.time_in,
                     'obj_type': 'op',
                     'order_in_list': i,
                     'obj_id': app
