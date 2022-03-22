@@ -417,12 +417,17 @@
                                             <t t-if="med.frequency"> / <span t-field="med.frequency" />hr</t>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td><br/></td>
+                                    </tr>
                                 </t>
                               </tbody>
                             </table>
                             <br/>
                         </t>
                         <t t-if="my_list_obj['obj_id'].recommendation">
+                            <br/>
+                            <br/>
                             <div class="text-left">
                                 <strong>Recommendations</strong>
                             </div>
@@ -659,16 +664,6 @@
                                     </tr>
                               </tbody>
                             </table>
-                        <table style="width:100%">
-                            <tbody class="sale_tbody">
-                                <tr>
-                                    <td style="width:30%">Recommendations:</td>
-                                    <td style="width:70%;">
-                                        <span t-field="docs.inpatient_ids.recommendation" />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </t>
                         <br/>
                         <br/>
