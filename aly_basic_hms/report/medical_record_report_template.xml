@@ -658,6 +658,19 @@
                         </t>
                 <br/>
                     <t t-if="docs.inpatient_ids.recommendation">
+                            <div class="text-left">
+                                <strong>Recommendations</strong>
+                            </div>
+                            <br/>
+                            <table>
+                                <tbody class="sale_tbody">
+                                    <tr>
+                                        <td style="width:100%">
+                                            <span t-field="docs.inpatient_ids.recommendation" />
+                                        </td>
+                                    </tr>
+                              </tbody>
+                            </table>
                         <table>
                             <tbody class="sale_tbody">
                                 <tr>
