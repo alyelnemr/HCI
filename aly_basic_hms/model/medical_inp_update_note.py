@@ -47,7 +47,7 @@ class MedicalInpUpdateNote(models.Model):
     admission_type = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU')],
                                       required=True, default='standard', string="Admission Type")
     admission_status = fields.Selection([('still', 'is still admitted in'), ('has', 'has been transferred to')],
-                                      required=True, default='still', string="Admission Status")
+                                      required=False, default='', string="Admission Status")
     is_discharged = fields.Boolean(copy=False, default=False)
     discharge_datetime = fields.Datetime(string='Discharge Date Time')
     discharge_basis = fields.Selection([('improve', 'Improvement Basis'), ('against', 'Against Medical Advice'),
