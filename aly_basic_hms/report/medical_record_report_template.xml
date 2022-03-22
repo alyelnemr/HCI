@@ -52,7 +52,7 @@
                 <tbody class="sale_tbody" style="width:100%">
                     <t t-if="doc.diagnosis_final">
                         <tr>
-                            <td style="width:30%">Final Diagnosis:</td>
+                            <td style="width:30%"><strong>Final Diagnosis:</strong></td>
                             <td style="width:80%">
                                 <span t-field="doc.diagnosis_final" />
                             </td>
@@ -61,7 +61,7 @@
                     <br/>
                     <t t-if="doc.diagnosis_provisional">
                         <tr>
-                            <td style="width:30%">Provisional Diagnosis:</td>
+                            <td style="width:30%"><strong>Provisional Diagnosis:</strong></td>
                             <td style="width:80%">
                                 <span t-field="doc.diagnosis_provisional" />
                             </td>
