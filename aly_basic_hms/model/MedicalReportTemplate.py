@@ -22,9 +22,10 @@ class MedicalReportTemplate(models.AbstractModel):
         i = 0
         # inpatient_update_note_ids
         for app in record.inpatient_ids:
+            admission_date = datetime.combine(app.admission_date, datetime.min.time())
             my_list.append(
                 {
-                    'date': app.admission_date.combine(date.today(), datetime.min.time()),
+                    'date': admission_date,
                     'obj_type': 'inp',
                     'order_in_list': i,
                     'obj_id': app
