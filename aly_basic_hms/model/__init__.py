@@ -2,7 +2,6 @@
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 from . import account_move
 from . import bed_transfer
-from . import medical_patient_evaluation
 from . import medical_appointment
 from . import medical_inp_update_note
 from . import medical_appointment_line
@@ -64,7 +63,6 @@ from . import medical_prescription_line
 from . import medical_puerperium_monitor
 from . import medical_rounding_procedure
 from . import medical_secondary_condition
-from . import medical_signs_and_sympotoms
 from . import medical_test_criteria
 from . import medical_test_type
 from . import res_company

@@ -230,7 +230,6 @@ access_medical_patient_rounding_vaccine,access_medical_patient_rounding_vaccine,
 access_medical_patient_rounding,access_medical_patient_rounding,model_medical_patient_rounding,,1,1,1,1
 access_medical_rounding_procedure,access_medical_rounding_procedure,model_medical_rounding_procedure,,1,1,1,1
 access_medical_secondary_condition,access_medical_secondary_condition,model_medical_secondary_condition,,1,1,1,1
-access_medical_signs_and_sympotoms,access_medical_signs_and_sympotoms,model_medical_signs_and_sympotoms,,1,1,1,1
 access_bed_transfer,access_bed_transfer,model_bed_transfer,,1,1,1,1
 access_medical_icu_chest_drainage,access_medical_icu_chest_drainage,model_medical_icu_chest_drainage,,1,1,1,1
 access_medical_icu_glasgow,access_medical_icu_glasgow,model_medical_icu_glasgow,,1,0,0,0
@@ -248,7 +247,6 @@ access_medical_prescription_order_doctor,access_medical_prescription_order_docto
 access_medical_medicament_doctor,access_medical_medicament_doctor,model_medical_medicament,bi_group_doctor,1,1,1,
 
 
-access_medical_patient_evaluation,access_medical_patient_evaluation,model_medical_patient_evaluation,,1,0,0,0
 access_medical_insurance,medical.insurance,model_medical_insurance,bi_group_doctor,1,1,1,0
 
 
