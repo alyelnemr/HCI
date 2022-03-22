@@ -6,14 +6,14 @@ from odoo.exceptions import Warning,UserError
 from datetime import date,datetime
 
 
-class MedicalInpatientInvoiceWizard(models.TransientModel):
-    _name = "medical.inpatient.invoice.wizard"
-    _description = 'description'
+class MedicalPatientSaleOrderWizard(models.TransientModel):
+    _name = "medical.patient.sale.order.wizard"
+    _description = 'Medical Patient Sale Order Wizard'
 
     def create_invoice(self):
         active_ids = self._context.get('active_ids')
         list_of_ids = []
-        lab_req_obj = self.env['medical.inpatient.registration']
+        lab_req_obj = self.env['medical.patient']
         account_invoice_obj = self.env['account.move']
         account_invoice_line_obj = self.env['account.move.line']
         ir_property_obj = self.env['ir.property']

@@ -214,7 +214,6 @@ access_medical_insurance_plan,access_medical_insurance_plan,model_medical_insura
 
 
 
-access_medical_neomatal_apgar,access_medical_neomatal_apgar,model_medical_neomatal_apgar,,1,1,1,1
 access_medical_pathology_group_member,access_medical_pathology_group_member,model_medical_pathology_group_member,,1,1,1,1
 access_medical_pathology_group,access_medical_pathology_group,model_medical_pathology_group,,1,1,1,1
 access_medical_patient_cage,access_medical_patient_cage,model_medical_patient_cage,,1,1,1,1
@@ -225,22 +224,15 @@ access_medical_patient_menstrual_history,access_medical_patient_menstrual_histor
 access_medical_patient_pap_history,access_medical_patient_pap_history,model_medical_patient_pap_history,,1,1,1,1
 access_medical_patient_pregnency,access_medical_patient_pregnency,model_medical_patient_pregnency,,1,1,1,1
 access_medical_patient_prental_evoultion,access_medical_patient_prental_evoultion,model_medical_patient_prental_evoultion,,1,1,1,1
-access_medical_patient_rounding_medical_supply,access_medical_patient_rounding_medical_supply,model_medical_patient_rounding_medical_supply,,1,1,1,1
+
 access_medical_patient_rounding_medicament,access_medical_patient_rounding_medicament,model_medical_patient_rounding_medicament,,1,1,1,1
 access_medical_patient_rounding_vaccine,access_medical_patient_rounding_vaccine,model_medical_patient_rounding_vaccine,,1,1,1,1
 access_medical_patient_rounding,access_medical_patient_rounding,model_medical_patient_rounding,,1,1,1,1
-access_medical_pediatrics_growth_charts_who,access_medical_pediatrics_growth_charts_who,model_medical_pediatrics_growth_charts_who,,1,1,1,1
-access_medical_perinatal_monitor,access_medical_perinatal_monitor,model_medical_perinatal_monitor,,1,1,1,1
-access_medical_preinatal,access_medical_preinatal,model_medical_preinatal,,1,1,1,1
-access_medical_puerperium_monitor,access_medical_puerperium_monitor,model_medical_puerperium_monitor,,1,1,1,1
-access_medical_rcri,access_medical_rcri,model_medical_rcri,,1,1,1,1
 access_medical_rounding_procedure,access_medical_rounding_procedure,model_medical_rounding_procedure,,1,1,1,1
 access_medical_secondary_condition,access_medical_secondary_condition,model_medical_secondary_condition,,1,1,1,1
 access_medical_signs_and_sympotoms,access_medical_signs_and_sympotoms,model_medical_signs_and_sympotoms,,1,1,1,1
-access_psc_code,access_psc_code,model_psc_code,,1,1,1,1
 access_bed_transfer,access_bed_transfer,model_bed_transfer,,1,1,1,1
 access_medical_icu_chest_drainage,access_medical_icu_chest_drainage,model_medical_icu_chest_drainage,,1,1,1,1
-access_medical_icu_ecg,access_medical_icu_ecg,model_medical_icu_ecg,,1,0,0,0
 access_medical_icu_glasgow,access_medical_icu_glasgow,model_medical_icu_glasgow,,1,0,0,0
 access_medical_drug_route,access_medical_drug_route,model_medical_drug_route,,1,0,0,0
 
@@ -252,7 +244,7 @@ access_medical_patient_lab_test_chem,medical.patient.lab.test.chem,model_medical
 access_medical_prescription_order,access_medical_prescription_order,model_medical_prescription_order,,1,0,0,0
 access_medical_prescription_order_doctor,access_medical_prescription_order_doctor,model_medical_prescription_order,bi_group_doctor,1,1,1,1
 
-access_medical_patient_psc,access_medical_patient_psc,model_medical_patient_psc,,1,0,0,0
+
 access_medical_medicament_doctor,access_medical_medicament_doctor,model_medical_medicament,bi_group_doctor,1,1,1,
 
 
@@ -268,7 +260,7 @@ access_medical_operation_invoice_wizard,medical.operation.invoice.wizard,model_m
 
 access_medical_inpatient_discharge_wizard,medical.inpatient.discharge.wizard,model_medical_inpatient_discharge_wizard,,1,1,1,1
 
-access_medical_inpatient_invoice_wizard,medical.inpatient.invoice.wizard,model_medical_inpatient_invoice_wizard,,1,1,1,1
+access_medical_patient_sale_order_wizard,medical.patient.sale.order.wizard,model_medical_patient_sale_order_wizard,,1,1,1,1
 
 
 access_create_prescription_invoice,create.prescription.invoice,model_create_prescription_invoice,,1,1,1,1

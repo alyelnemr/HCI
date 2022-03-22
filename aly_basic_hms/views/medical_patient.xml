@@ -14,7 +14,11 @@
                                 string="Create Invoice" type="action" class="oe_highlight"
                                 groups="aly_basic_hms.bi_group_manager"
                         />
-                        <!--attrs="{'invisible': [('is_invoiced', '=', True)]}"-->
+                        <button
+                                name="%(action_medical_patient_sale_order_wizard)d"
+                                string="Create Sales Order" type="action" class="oe_highlight"
+                                groups="aly_basic_hms.bi_group_manager"
+                        />
                     </header>
                     <sheet>
                         <div class="oe_right">

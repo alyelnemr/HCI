@@ -7,11 +7,6 @@
             <field name="arch" type="xml">
                 <form string="Inpatient Registration Information">
                     <header>
-                        <!--<button-->
-                                <!--name="%(action_medical_inpatient_invoice_wizard)d"-->
-                                <!--string="Create Invoice" type="action" class="oe_highlight"-->
-                                <!--attrs="{'invisible': ['|', ('validity_status','=', 'invoice'), ('no_invoice', '=', True)]}"-->
-                        <!--/>-->
                         <button
                                 name="%(action_medical_inpatient_discharge_wizard)d"
                                 string="Discharge Patient" type="action" class="oe_highlight"
