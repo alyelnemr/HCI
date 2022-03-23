@@ -274,17 +274,17 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                         list_view_id = imd.sudo().xmlid_to_res_id('sale.view_quotation_tree')
                         form_view_id = imd.sudo().xmlid_to_res_id('account.view_quotation_form')
                         result = {
-                            'name': action.name,
-                            'view_id': list_view_id,
-                            'view_type': 'tree',
-                            'view_type': 'tree',
-                            'target': 'new',
-                            # 'context': action.context,
-                            'res_model': action.model,
-                            'res_id': res.id,
-                        }
-                        # if list_of_ids:
-                        #     result['domain'] = "[('id','in',%s)]" % list_of_ids
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+                        'title': _(
+                            "Invoice Created Successfully for Patient [%s] with Invoice Number [%s]" % (medical_patient_env.name, res.name)
+                        ),
+                        'type': 'success',
+                        'sticky': True,
+                        'next': {'type': 'ir.actions.act_window_close'},
+                    },
+                }
             else:
                 raise UserError(_(' The Patient is not invoiced, clear Invoice ID   '))
             return result
