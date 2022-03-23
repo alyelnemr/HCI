@@ -115,7 +115,7 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                     for p_line in appointment.appointment_investigations_ids:
                         invoice_line_vals = {
                             'name': 'Update Note - Investigations' or '',
-                            'product_uom_qty': p_cons_line.quantity,
+                            'product_uom_qty': p_line.quantity,
                             'product_uom': p_line.product_id.uom_id.id,
                             'customer_lead': 1,
                             'price_unit': p_line.product_id.lst_price,
