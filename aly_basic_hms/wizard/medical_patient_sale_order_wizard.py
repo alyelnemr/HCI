@@ -13,142 +13,277 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
     def create_invoice(self):
         active_ids = self._context.get('active_ids')
         list_of_ids = []
-        lab_req_obj = self.env['medical.patient']
-        account_invoice_obj = self.env['account.move']
-        account_invoice_line_obj = self.env['account.move.line']
+        medical_patient_env = self.env['medical.patient']
+        medical_appointment_env = self.env['medical.appointment']
+        medical_inpatient_env = self.env['medical.inpatient.registration']
+        medical_operation_env = self.env['medical.operation']
+        account_invoice_obj = self.env['sale.order']
+        account_invoice_line_obj = self.env['sale.order.line']
         ir_property_obj = self.env['ir.property']
-        for active_id in active_ids: 
-            lab_req = lab_req_obj.browse(active_id)
-            lab_req.validity_status = 'invoice'
-            if lab_req.is_invoiced == True:
-                raise Warning('Already Invoiced.')
-            if lab_req.no_invoice == False:
-                sale_journals = self.env['account.journal'].search([('type','=','sale')])
+        for active_id in active_ids:
+            medical_patient_obj = medical_patient_env.browse(active_id)
+            list_of_update_notes = medical_appointment_env.search([('patient_id', '=', medical_patient_obj.id)])
+            list_of_inpatient = medical_inpatient_env.search([('patient_id', '=', medical_patient_obj.id)])
+            list_of_operation = medical_operation_env.search([('patient_id', '=', medical_patient_obj.id)])
+            if medical_patient_obj.invoice_id.state == 'sale':
+                raise UserError(_('This patient is already invoiced'))
+            for inpatient in list_of_inpatient:
+                if not inpatient.is_discharged:
+                    raise UserError(_('This patient is not discharged, Discharge the patient and then Create Invoice.'))
+
+            partner_id = medical_patient_obj.insurance_company_id.id if medical_patient_obj.is_insurance else medical_patient_obj.patient_id.id or False
+            customer_ref = medical_patient_obj.id
+            price_list_id = medical_patient_obj.insurance_company_id.property_product_pricelist.id if medical_patient_obj.is_insurance else medical_patient_obj.patient_id.property_product_pricelist.id or False
+            warehouse_id = self.env['stock.warehouse'].search([('company_id','in',[medical_patient_obj.company_id.id, False])])[0].id
+
+            if medical_patient_obj.is_insurance:
+                partner_id = medical_patient_obj.insurance_company_id.id
+                partner_shipping_id = medical_patient_obj.insurance_company_id.id
+
+            if not medical_patient_obj.invoice_id.state == 'posted':
+                # delete all invoices related to this patient
+                all_old_inv = account_invoice_obj.search([('partner_id', '=', partner_id)])
+                for inv in all_old_inv:
+                        inv.state = 'cancel'
+
                 invoice_vals = {
-                'name': self.env['ir.sequence'].next_by_code('medical_inpatient_inv_seq'),
-                'invoice_origin': lab_req.name or '',
-                'move_type': 'out_invoice',
-                'ref': False,
-                'partner_id': lab_req.patient_id.patient_id.id or False,
-                'partner_shipping_id':lab_req.patient_id.patient_id.id,
-                'currency_id':lab_req.patient_id.patient_id.currency_id.id ,
-                'invoice_payment_term_id': False,
-                'fiscal_position_id': lab_req.patient_id.patient_id.property_account_position_id.id,
-                'team_id': False,
-                'invoice_date': date.today(),
-                'company_id':lab_req.patient_id.patient_id.company_id.id or False ,
+                    'name': self.env['ir.sequence'].next_by_code('medical_patient_inv_seq'),
+                    'partner_id': partner_id or False,
+                    'partner_invoice_id': partner_id or False,
+                    'partner_shipping_id': partner_id or False,
+                    'picking_policy': 'direct',
+                    'warehouse_id': warehouse_id,
+                    'pricelist_id': price_list_id,
+                    'date_order': date.today(),
+                    'company_id': medical_patient_obj.company_id.id or False,
+                    'is_insurance': medical_patient_obj.is_insurance,
+                    'patient_id': customer_ref
                 }
                 res = account_invoice_obj.create(invoice_vals)
 
                 list_of_vals = []
 
-                if lab_req.accommodation_id.id:
-                    invoice_line_account_id = lab_req.accommodation_id.property_account_income_id.id or lab_req.accommodation_id.categ_id.property_account_income_categ_id.id or False
-                if not invoice_line_account_id:
-                    inc_acc = ir_property_obj.get('property_account_income_categ_id', 'product.category')
-                if not invoice_line_account_id:
-                    raise UserError(
-                        _('There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
-                        (lab_req.accommodation_id.name,))
-
-                tax_ids = []
-                taxes = lab_req.accommodation_id.taxes_id.filtered(lambda r: not lab_req.accommodation_id.company_id or r.company_id == lab_req.accommodation_id.company_id)
-                tax_ids = taxes.ids
-
-                # Calculate accommodation days
-                accommodation_qty = 1 if lab_req.admission_days == 0 else lab_req.admission_days
-
-                invoice_line_vals = {
-                    'name': lab_req.accommodation_id.name or '',
-                    'account_id': invoice_line_account_id,
-                    'price_unit':lab_req.accommodation_id.lst_price,
-                    'product_uom_id':lab_req.accommodation_id.uom_id.id,
-                    'quantity': accommodation_qty,
-                    'product_id':lab_req.accommodation_id.id,
-                }
-                list_of_vals.append((0, 0, invoice_line_vals))
-
-                for p_line in lab_req.inpatient_line_ids:
-
-                    invoice_line_account_id = False
-                    if p_line.product_id.id:
-                        invoice_line_account_id = p_line.product_id.property_account_income_id.id or p_line.product_id.categ_id.property_account_income_categ_id.id or False
-                    if not invoice_line_account_id:
-                        invoice_line_account_id = ir_property_obj.get('property_account_income_categ_id', 'product.category')
-                    if not invoice_line_account_id:
-                        raise UserError(
-                            _(
-                                'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
-                            (p_line.medicament_id.product_id.name,))
-
-                    tax_ids = []
-                    taxes = p_line.product_id.taxes_id.filtered(lambda r: not p_line.product_id.company_id or r.company_id == p_line.product_id.company_id)
-                    tax_ids = taxes.ids
-
+                for appointment in list_of_update_notes:
                     invoice_line_vals = {
-                        'name': p_line.product_id.display_name or '',
-                        'move_name': p_line.product_id.display_name or '',
-                        'account_id': invoice_line_account_id,
+                        'name': 'Update Note - Consultation' or '',
+                        'product_uom_qty': 1,
+                        'customer_lead': 1,
+                        'price_unit': appointment.consultations_id.lst_price,
+                        'product_uom': appointment.consultations_id.uom_id.id,
+                        'product_id': appointment.consultations_id.id,
+                        'order_id': res.id
+                    }
+                    res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                    # accommodation of update note (management tab)
+                    if appointment.accommodation_id:
+                        invoice_line_vals = {
+                            'name': 'Update Note - Observation' or '',
+                            'product_uom_qty': appointment.admission_duration or 1,
+                            'product_uom': appointment.accommodation_id.uom_id.id,
+                            'customer_lead': 1,
+                            'price_unit': appointment.accommodation_id.lst_price,
+                            'product_id': appointment.accommodation_id.id,
+                            'order_id': res.id
+                        }
+                        res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                    for p_line in appointment.appointment_procedure_ids:
+                        invoice_line_vals = {
+                            'name': 'Update Note - Procedures' or '',
+                            'product_uom_qty': p_line.quantity,
+                            'product_uom': p_line.product_id.uom_id.id,
+                            'customer_lead': 1,
+                            'price_unit': p_line.product_id.lst_price,
+                            'product_id': p_line.product_id.id,
+                            'order_id': res.id
+                        }
+                        res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                    for p_cons_line in appointment.appointment_consultation_ids:
+                        invoice_line_vals = {
+                            'name': 'Update Note - Another Consultations' or '',
+                            'product_uom_qty': p_cons_line.quantity,
+                            'product_uom': p_cons_line.product_id.uom_id.id,
+                            'customer_lead': 1,
+                            'price_unit': p_cons_line.product_id.lst_price,
+                            'product_id': p_cons_line.product_id.id,
+                            'order_id': res.id
+                        }
+                        res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                    for p_line in appointment.appointment_investigations_ids:
+                        invoice_line_vals = {
+                            'name': 'Update Note - Investigations' or '',
+                            'product_uom_qty': p_cons_line.quantity,
+                            'product_uom': p_line.product_id.uom_id.id,
+                            'customer_lead': 1,
+                            'price_unit': p_line.product_id.lst_price,
+                            'product_id': p_line.product_id.id,
+                            'order_id': res.id
+                        }
+                        res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                    for p_line in appointment.medication_ids:
+                        invoice_line_vals = {
+                            'name': 'Update Note - Medications' or '',
+                            'product_uom_qty': p_line.medicine_quantity,
+                            'product_uom': p_line.medical_medicament_id.product_id.uom_id.id,
+                            'customer_lead': 1,
+                            'price_unit': p_line.medical_medicament_id.product_id.lst_price,
+                            'product_id': p_line.medical_medicament_id.product_id.id,
+                            'order_id': res.id
+                        }
+                        res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                for inpatient in list_of_inpatient:
+                    invoice_line_vals = {
+                        'name': 'Inpatient - Transportation Service' or '',
+                        'product_uom_qty': 1,
+                        'product_uom': inpatient.transportation_service.uom_id.id,
+                        'customer_lead': 1,
+                        'price_unit': inpatient.transportation_service.lst_price,
+                        'product_id': inpatient.transportation_service.id,
+                        'order_id': res.id
+                    }
+                    res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                    if inpatient.transportation_service2:
+                        invoice_line_vals = {
+                            'name': 'Inpatient - Transportation Service' or '',
+                            'product_uom_qty': 1,
+                            'product_uom': inpatient.transportation_service2.uom_id.id,
+                            'customer_lead': 1,
+                            'price_unit': inpatient.transportation_service2.lst_price,
+                            'product_id': inpatient.transportation_service2.id,
+                            'order_id': res.id
+                        }
+                        res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                    for p_line in inpatient.discharge_medication_ids:
+                        invoice_line_vals = {
+                            'name': 'Inpatient Discharge Medications' or '',
+                            'product_uom_qty': p_line.medicine_quantity,
+                            'product_uom': p_line.medical_medicament_id.product_id.uom_id.id,
+                            'customer_lead': 1,
+                            'price_unit': p_line.medical_medicament_id.product_id.lst_price,
+                            'product_id': p_line.medical_medicament_id.product_id.id,
+                            'order_id': res.id
+                        }
+                        res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                    for inp_acc in inpatient.bed_transfers_ids:
+                        for p_bed in inp_acc.acc_service_ids:
+                            invoice_line_vals = {
+                                'name': 'Inpatient Bed Transfer Accommodation' or '',
+                                'product_uom_qty': p_bed.accommodation_qty,
+                                'product_uom': p_bed.accommodation_service.uom_id.id,
+                                'customer_lead': 1,
+                                'price_unit': p_bed.accommodation_service.lst_price,
+                                'product_id': p_bed.accommodation_service.id,
+                                'order_id': res.id
+                            }
+                            res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                    for appointment in inpatient.inpatient_update_note_ids:
+
+                        for p_line in appointment.inp_update_note_procedure_ids:
+                            invoice_line_vals = {
+                                'name': 'IP Update Note - Procedures' or '',
+                                'product_uom_qty': p_line.quantity,
+                                'product_uom': p_line.product_id.uom_id.id,
+                                'customer_lead': 1,
+                                'price_unit': p_line.product_id.lst_price,
+                                'product_id': p_line.product_id.id,
+                                'order_id': res.id
+                            }
+                            res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                        for p_cons_line in appointment.inp_update_note_consultation_ids:
+                            invoice_line_vals = {
+                                'name': 'Update Note - Another Consultations' or '',
+                                'product_uom_qty': p_cons_line.quantity,
+                                'product_uom': p_cons_line.product_id.uom_id.id,
+                                'customer_lead': 1,
+                                'price_unit': p_cons_line.product_id.lst_price,
+                                'product_id': p_cons_line.product_id.id,
+                                'order_id': res.id
+                            }
+                            res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                        for p_line in appointment.inp_update_note_investigations_ids:
+                            invoice_line_vals = {
+                                'name': 'Update Note - Investigations' or '',
+                                'product_uom_qty': p_line.quantity,
+                                'product_uom': p_line.product_id.uom_id.id,
+                                'customer_lead': 1,
+                                'price_unit': p_line.product_id.lst_price,
+                                'product_id': p_line.product_id.id,
+                                'order_id': res.id
+                            }
+                            res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                        for p_line in appointment.medication_ids:
+                            invoice_line_vals = {
+                                'name': 'Update Note - Medications' or '',
+                                'product_uom_qty': p_line.medicine_quantity,
+                                'product_uom': p_line.medical_medicament_id.product_id.uom_id.id,
+                                'customer_lead': 1,
+                                'price_unit': p_line.medical_medicament_id.product_id.lst_price,
+                                'product_id': p_line.medical_medicament_id.product_id.id,
+                                'order_id': res.id
+                            }
+                            res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                for operation in list_of_operation:
+                    for p_line in operation.operation_line_ids:
+                        invoice_line_vals = {
+                            'name': 'Post Operative Investigations' or '',
+                            'product_uom_qty': p_line.quantity,
+                            'product_uom': p_line.product_id.uom_id.id,
+                            'customer_lead': 1,
+                            'price_unit': p_line.product_id.lst_price,
+                            'product_id': p_line.product_id.id,
+                            'order_id': res.id
+                        }
+                        res1 = account_invoice_line_obj.create(invoice_line_vals)
+
+                for p_line in medical_patient_obj.disposable_ids:
+                    invoice_line_vals = {
+                        'name': 'Disposables and Supplies' or '',
+                        'product_uom_qty': p_line.quantity,
+                        'product_uom': p_line.product_id.uom_id.id,
+                        'customer_lead': 1,
                         'price_unit': p_line.product_id.lst_price,
-                        'product_uom_id': p_line.product_id.uom_id.id,
-                        'quantity': p_line.quantity,
                         'product_id': p_line.product_id.id,
+                        'order_id': res.id
                     }
-                    list_of_vals.append((0, 0, invoice_line_vals))
+                    res1 = account_invoice_line_obj.create(invoice_line_vals)
 
-                for p_line in lab_req.medication_ids:
+                # res1 = account_invoice_line_obj.create({'order_line': list_of_vals})
 
-                    invoice_line_account_id = False
-                    if p_line.medical_medicament_id.product_id.id:
-                        invoice_line_account_id = p_line.medical_medicament_id.product_id.property_account_income_id.id or p_line.medical_medicament_id.product_id.categ_id.property_account_income_categ_id.id or False
-                    if not invoice_line_account_id:
-                        invoice_line_account_id = ir_property_obj.get('property_account_income_categ_id', 'product.category')
-                    if not invoice_line_account_id:
-                        raise UserError(
-                            _(
-                                'There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
-                            (p_line.medical_medicament_id.product_id.name,))
-
-                    tax_ids = []
-                    taxes = p_line.medical_medicament_id.product_id.taxes_id.filtered(lambda r: not p_line.medical_medicament_id.product_id.company_id or r.company_id == p_line.product_id.company_id)
-                    tax_ids = taxes.ids
-
-                    invoice_line_vals = {
-                        'name': p_line.medical_medicament_id.product_id.display_name or '',
-                        'move_name': p_line.medical_medicament_id.product_id.display_name or '',
-                        'account_id': invoice_line_account_id,
-                        'price_unit': p_line.medical_medicament_id.product_id.lst_price,
-                        'product_uom_id': p_line.medical_medicament_id.product_id.uom_id.id,
-                        'quantity': p_line.medicine_quantity,
-                        'product_id': p_line.medical_medicament_id.product_id.id,
-                    }
-                    list_of_vals.append((0, 0, invoice_line_vals))
-
-                res1 = res.write({'invoice_line_ids': list_of_vals})
-
-                lab_req.invoice_id = res
-                lab_req.is_discharged = True
+                medical_patient_obj.order_id = res
+                medical_patient_obj.with_context({'come_from_invoice': True}).is_opened_visit = False
 
                 list_of_ids.append(res.id)
                 if list_of_ids:
                         imd = self.env['ir.model.data']
-                        lab_req_obj_brw = lab_req_obj.browse(self._context.get('active_id'))
-                        lab_req_obj_brw.write({'is_invoiced': True})
-                        action = imd.sudo().xmlid_to_object('account.action_move_out_invoice_type')
-                        list_view_id = imd.sudo().xmlid_to_res_id('account.view_invoice_tree')
-                        form_view_id = imd.sudo().xmlid_to_res_id('account.view_move_form')
+                        lab_req_obj_brw = medical_patient_env.browse(self._context.get('active_id'))
+                        action = imd.sudo().xmlid_to_object('sale.view_quotation_tree')
+                        list_view_id = imd.sudo().xmlid_to_res_id('sale.view_quotation_tree')
+                        form_view_id = imd.sudo().xmlid_to_res_id('account.view_quotation_form')
                         result = {
-                                    'name': action.name,
-                                    'help': action.help,
-                                    'type': action.type,
-                                    'views': [ [list_view_id,'tree' ],[form_view_id,'form' ]],
-                                    'target': action.target,
-                                    'context': action.context,
-                                    'res_model': action.res_model,
-
-                                    }
-                        if list_of_ids:
-                            result['domain'] = "[('id','in',%s)]" % list_of_ids
+                            'name': action.name,
+                            'view_id': list_view_id,
+                            'view_type': 'tree',
+                            'view_type': 'tree',
+                            'target': 'new',
+                            # 'context': action.context,
+                            'res_model': action.model,
+                            'res_id': res.id,
+                        }
+                        # if list_of_ids:
+                        #     result['domain'] = "[('id','in',%s)]" % list_of_ids
             else:
-                raise UserError(_(' The Appointment is invoice exempt   '))
+                raise UserError(_(' The Patient is not invoiced, clear Invoice ID   '))
             return result

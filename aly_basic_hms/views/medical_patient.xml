@@ -9,14 +9,14 @@
                     <header>
                         <!--<button name="print_report" type="object"-->
                             <!--string="Print Patient Medical Record" class="oe_highlight" />-->
-                        <button
-                                name="%(action_medical_patient_invoice_wizard)d"
-                                string="Create Invoice" type="action" class="oe_highlight"
-                                groups="aly_basic_hms.bi_group_manager"
-                        />
+                        <!--<button-->
+                                <!--name="%(action_medical_patient_invoice_wizard)d"-->
+                                <!--string="Create Invoice" type="action" class="oe_highlight"-->
+                                <!--groups="aly_basic_hms.bi_group_manager"-->
+                        <!--/>-->
                         <button
                                 name="%(action_medical_patient_sale_order_wizard)d"
-                                string="Create Sales Order" type="action" class="oe_highlight"
+                                string="Create Invoice" type="action" class="oe_highlight"
                                 groups="aly_basic_hms.bi_group_manager"
                         />
                     </header>
@@ -50,6 +50,7 @@
                                 <field name="marital_status" />
                                 <field name="company_id" />
                                 <field name="invoice_id" groups="aly_basic_hms.bi_group_manager"/>
+                                <field name="order_id" groups="aly_basic_hms.bi_group_manager"/>
                             </group>
                             <group>
                                 <field name="bill_to" />

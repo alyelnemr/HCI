@@ -201,7 +201,6 @@ access_medical_inpatient_medication_transient,access_medical_inpatient_medicatio
 
 access_medical_patient_cage,access_medical_patient_cage,model_medical_patient_cage,,1,1,1,1
 access_medical_patient_medication1,access_medical_patient_medication1,model_medical_patient_medication1,,1,1,1,1
-access_medical_patient_pregnency,access_medical_patient_pregnency,model_medical_patient_pregnency,,1,1,1,1
 
 
 access_bed_transfer,access_bed_transfer,model_bed_transfer,,1,1,1,1

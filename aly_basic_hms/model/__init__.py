@@ -36,7 +36,6 @@ from . import medical_prescription_order
 from . import medical_patient_cage
 from . import medical_patient_disease
 from . import medical_patient_diseases
-from . import medical_patient_pregnency
 from . import medical_patient
 from . import medical_patient_attachment
 from . import medical_physician

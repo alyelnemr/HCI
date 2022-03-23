@@ -56,3 +56,38 @@ class AccountMoveForDiscount(models.Model):
         sql = self.env.cr.execute('select line.product_id, pt.name, categ.name, sum(line.quantity), max(line.price_unit), sum(line.price_subtotal) from account_move move inner join account_move_line line on move.id = line.move_id inner join product_product p on line.product_id = p.id inner join product_template pt on pt.id = p.product_tmpl_id inner join product_category categ on pt.categ_id = categ.id where move.id = %s group by line.product_id, pt.name, categ.sorting_rank, categ.name order by categ.sorting_rank' % self.id)
         read_group = self.env.cr.fetchall()
         return read_group
+
+
+
+class SaleOrderForDiscount(models.Model):
+    _inherit = 'sale.order'
+
+    @api.depends('discount_total', 'order_line')
+    def onchange_age(self):
+        for rec in self:
+            if rec.amount_total:
+                # amount_total = (rec.amount_untaxed * rec.discount_total / 100)
+                amount_total = 0 # rec.amount_total
+                discount_amount = 0
+                not_discount_amount = 0
+                first_subtotal = 0
+                for line in rec.order_line:
+                    amount_total += (line.price_unit * line.product_uom_qty)
+                    discount_amount += ((line.price_unit * line.product_uom_qty) * rec.discount_total / 100) if (line.price_unit * line.product_uom_qty) > 0 else 0
+                    line.with_context({'check_move_validity': False}).discount = rec.discount_total
+                for line in rec.order_line:
+                    if line.product_id.categ_id.name in ['Prosthetics', 'Disposables', 'Discounts)']:
+                        first_subtotal = (line.price_unit * line.product_uom_qty)
+                        not_discount_amount += line.price_subtotal - first_subtotal if (line.price_subtotal - first_subtotal) > 0 else (first_subtotal - line.price_subtotal)
+                        line.with_context({'check_move_validity': False}).discount = 0
+                        x = line.discount
+                for line in rec.order_line:
+                    if line.product_id.categ_id.name not in ['Prosthetics', 'Disposables', 'Discounts)']:
+                        discount_diff = round((discount_amount - not_discount_amount), 2)
+                        line.discount = ((discount_amount - not_discount_amount) / amount_total) * 100 if discount_diff >= 1 else 0
+                        x = line.discount
+
+    discount_total = fields.Float(string='Total Discount %')
+    discount_amount = fields.Monetary(compute=onchange_age, string="Discount", store=True)
+    is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
+    patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)

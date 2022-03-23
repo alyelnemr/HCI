@@ -24,7 +24,7 @@
                         <field name="accommodation_qty" />
                     </group>
                     <group string="Accommodations" attrs="{'invisible': True}">
-                        <field name="acc_service_ids" help="Will Override Accommodation Service" widget="one2many_list" />
+                        <field name="acc_service_ids" widget="one2many_list" />
                     </group>
                 </form>
             </field>

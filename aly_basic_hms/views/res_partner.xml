@@ -100,6 +100,24 @@
             </field>
         </record>
 
+        <record id = "aly_basic_hms.sale_order_form_inherit" model = "ir.ui.view">
+            <field name = "name">aly_basic_hms.sale_order_for_discount</field>
+            <field name = "model">sale.order</field>
+            <field name = "inherit_id" ref = "sale.view_order_form" />
+            <field name = "arch" type = "xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name = "discount_total" />
+                </xpath>
+                <notebook>
+                    <page string="Medical">
+                        <group colspan="6" col="6">
+                            <field name="patient_id" />
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
 
         <record id = "aly_basic_hms.product_category_form_inherit" model = "ir.ui.view">
             <field name = "name">aly_basic_hms.product_category_for_sorting</field>
