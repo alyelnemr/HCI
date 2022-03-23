@@ -74,18 +74,18 @@ class SaleOrderForDiscount(models.Model):
                 for line in rec.order_line:
                     amount_total += (line.price_unit * line.product_uom_qty)
                     discount_amount += ((line.price_unit * line.product_uom_qty) * rec.discount_total / 100) if (line.price_unit * line.product_uom_qty) > 0 else 0
-                    line.with_context({'check_move_validity': False}).discount = rec.discount_total
-                for line in rec.order_line:
-                    if line.product_id.categ_id.name in ['Prosthetics', 'Disposables', 'Discounts)']:
-                        first_subtotal = (line.price_unit * line.product_uom_qty)
-                        not_discount_amount += line.price_subtotal - first_subtotal if (line.price_subtotal - first_subtotal) > 0 else (first_subtotal - line.price_subtotal)
-                        line.with_context({'check_move_validity': False}).discount = 0
-                        x = line.discount
-                for line in rec.order_line:
-                    if line.product_id.categ_id.name not in ['Prosthetics', 'Disposables', 'Discounts)']:
-                        discount_diff = round((discount_amount - not_discount_amount), 2)
-                        line.discount = ((discount_amount - not_discount_amount) / amount_total) * 100 if discount_diff >= 1 else 0
-                        x = line.discount
+                    line.discount = rec.discount_total if line.product_id.categ_id.name not in ['Prosthetics', 'Disposables', 'Discounts)'] else 0
+                # for line in rec.order_line:
+                #     if line.product_id.categ_id.name in ['Prosthetics', 'Disposables', 'Discounts)']:
+                #         first_subtotal = (line.price_unit * line.product_uom_qty)
+                #         not_discount_amount += line.price_subtotal - first_subtotal if (line.price_subtotal - first_subtotal) > 0 else (first_subtotal - line.price_subtotal)
+                #         line.discount = 0
+                #         x = line.discount
+                # for line in rec.order_line:
+                #     if line.product_id.categ_id.name not in ['Prosthetics', 'Disposables', 'Discounts)']:
+                #         discount_diff = round((discount_amount - not_discount_amount), 2)
+                #         line.discount = ((discount_amount - not_discount_amount) / amount_total) * 100 if discount_diff >= 1 else 0
+                #         x = line.discount
 
     discount_total = fields.Float(string='Total Discount %')
     discount_amount = fields.Monetary(compute=onchange_age, string="Discount", store=True)
