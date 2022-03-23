@@ -137,16 +137,17 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                         res1 = account_invoice_line_obj.create(invoice_line_vals)
 
                 for inpatient in list_of_inpatient:
-                    invoice_line_vals = {
-                        'name': 'Inpatient - Transportation Service' or '',
-                        'product_uom_qty': 1,
-                        'product_uom': inpatient.transportation_service.uom_id.id,
-                        'customer_lead': 1,
-                        'price_unit': inpatient.transportation_service.lst_price,
-                        'product_id': inpatient.transportation_service.id,
-                        'order_id': res.id
-                    }
-                    res1 = account_invoice_line_obj.create(invoice_line_vals)
+                    if inpatient.transportation_service:
+                        invoice_line_vals = {
+                            'name': 'Inpatient - Transportation Service' or '',
+                            'product_uom_qty': 1,
+                            'product_uom': inpatient.transportation_service.uom_id.id,
+                            'customer_lead': 1,
+                            'price_unit': inpatient.transportation_service.lst_price,
+                            'product_id': inpatient.transportation_service.id,
+                            'order_id': res.id
+                        }
+                        res1 = account_invoice_line_obj.create(invoice_line_vals)
 
                     if inpatient.transportation_service2:
                         invoice_line_vals = {
