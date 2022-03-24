@@ -56,7 +56,8 @@
                                 <field name="bill_to" />
                                 <field name="location_of_examination" />
                                 <field name="our_reference" />
-                                <!--<field name="referred_by" />-->
+                                <field name="referred_by" />
+                                <field name="referred_to" />
                                 <field name="is_insurance" />
                                 <field name="insurance_reference" attrs="{'invisible': [('is_insurance', '=', False)]}" />
                                 <field name="policy_number" attrs="{'invisible': [('is_insurance', '=', False)]}" />

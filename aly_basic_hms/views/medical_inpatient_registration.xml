@@ -75,16 +75,16 @@
             </field>
         </record>
 
-        <!--<record id="medical_inpatient_invoice_inherit_view" model="ir.ui.view">-->
-            <!--<field name="name">medical.inpatient.invoice.inherit.view</field>-->
-            <!--<field name="model">account.move</field>-->
-            <!--<field name="inherit_id" ref="account.view_move_form" />-->
-            <!--<field name="arch" type="xml">-->
-                <!--<field name="name" position="attributes" >-->
-                    <!--<attribute name="readonly">1</attribute>-->
-                <!--</field>-->
-            <!--</field>-->
-        <!--</record>-->
+        <record id="medical_inpatient_invoice_inherit_view" model="ir.ui.view">
+            <field name="name">medical.inpatient.invoice.inherit.view</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <field name="name" position="attributes" >
+                    <attribute name="readonly">1</attribute>
+                </field>
+            </field>
+        </record>
 
         <record id="action_medical_inpatient_registration" model="ir.actions.act_window">
             <field name="name">Inpatient Admission</field>
