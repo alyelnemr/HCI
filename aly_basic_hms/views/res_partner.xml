@@ -15,6 +15,8 @@
                             <field name="patient_id" />
                             <field name="is_patient" />
                             <field name="is_doctor" />
+                            <field name="is_referred_to" />
+                            <field name="is_referred_by" />
                             <field name="is_institution" />
                             <field name="is_person" />
                             <field name="is_insurance_company" />
@@ -86,9 +88,6 @@
             <field name = "model">account.move</field>
             <field name = "inherit_id" ref = "account.view_move_form" />
             <field name = "arch" type = "xml">
-                <xpath expr="//field[@name='payment_reference']" position="after">
-                    <field name = "discount_total" />
-                </xpath>
                 <notebook>
                     <page string="Medical">
                         <group colspan="6" col="6">
@@ -107,6 +106,10 @@
             <field name = "arch" type = "xml">
                 <xpath expr="//field[@name='partner_id']" position="after">
                     <field name = "discount_total" />
+                    <field name="patient_id" />
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send']" position="attributes">
+                    <attribute name="invisible">1</attribute>
                 </xpath>
                 <notebook>
                     <page string="Medical">

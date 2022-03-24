@@ -28,7 +28,8 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
     discharge_datetime = fields.Datetime(string='Discharge Date Time', required=True)
     actual_admission_days = fields.Integer(compute=_compute_admission_days, string="Admission Days",store=False, default=0)
     discharge_basis = fields.Selection([('improve', 'Improvement Basis'), ('against', 'Against Medical Advice'),
-                                        ('repatriation', 'Repatriation Basis')], default="improve",
+                                        ('repatriation', 'Repatriation Basis'),
+                                        ('referral', 'Referral Basis')], default="improve",
                                        required=True, string="Discharge Basis")
     refer_to = fields.Char(string="Refer To")
     doctor_id = fields.Many2one('medical.physician', string='Treating Physician',required=False)

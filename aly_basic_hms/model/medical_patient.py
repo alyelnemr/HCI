@@ -19,7 +19,7 @@ class MedicalPatient(models.Model):
     def onchange_is_opened_visit(self):
         con = self._context.get('come_from_invoice', False)
         for rec in self:
-            if not rec.is_invoiced and not rec.is_opened_visit and not con:
+            if not rec.order_id and not rec.is_opened_visit and not con:
                 raise UserError(_('Cannot close Visit which is not invoiced...'))
 
     @api.constrains('is_insurance', 'insurance_company_id')
@@ -52,7 +52,8 @@ class MedicalPatient(models.Model):
     date_of_birth = fields.Date(string="Date of Birth", required=True)
     sex = fields.Selection([('m', 'Male'), ('f', 'Female')], string="Sex", required=True)
     age = fields.Char(compute=onchange_age,string="Patient Age", store=True)
-    referred_by = fields.Char(string='Referred By')
+    referred_by = fields.Many2one('res.partner', domain=[('is_referred_by', '=', True)], required=False, string='Referred By')
+    referred_to = fields.Many2one('res.partner', domain=[('is_referred_to', '=', True)], required=False, string='Referred To')
     is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
     is_invoiced = fields.Boolean(string='Is Invoiced', default=False, required=False)
     invoice_id = fields.Many2one('account.move', 'Invoice')
