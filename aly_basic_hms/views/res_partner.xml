@@ -15,6 +15,8 @@
                             <field name="patient_id" />
                             <field name="is_patient" />
                             <field name="is_doctor" />
+                            <field name="is_referred_to" />
+                            <field name="is_referred_by" />
                             <field name="is_institution" />
                             <field name="is_person" />
                             <field name="is_insurance_company" />
