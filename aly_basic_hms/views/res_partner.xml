@@ -88,6 +88,15 @@
             <field name = "model">account.move</field>
             <field name = "inherit_id" ref = "account.view_move_form" />
             <field name = "arch" type = "xml">
+                <xpath expr="//button[@name='action_invoice_sent']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='preview_invoice']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_reverse']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
                 <notebook>
                     <page string="Medical">
                         <group colspan="6" col="6">
@@ -108,6 +117,9 @@
                     <field name="patient_id" />
                 </xpath>
                 <xpath expr="//button[@name='action_quotation_send']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_quotation_send'][last()]" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
                 <notebook>
