@@ -20,7 +20,7 @@
         </record>
 
         <record id="action_medical_patient_sale_order_wizard" model="ir.actions.act_window">
-            <field name="name">Create Sales Order</field>
+            <field name="name">Create Invoice</field>
             <field name="res_model">medical.patient.sale.order.wizard</field>
             <field name="binding_view_types">form</field>
             <field name="view_mode">form</field>
