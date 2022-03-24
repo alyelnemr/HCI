@@ -16,12 +16,14 @@
                         <t t-if="line[2]!='Prosthetics'">
                             <t t-if="line[2]!='Disposables'">
                                 <t t-if="line[2]!='Discounts'">
-                                    <tr>
-                                        <td><span t-esc="line[1]" class="text-center"/></td>
-                                        <td><span t-esc="line[3]" class="text-center"/></td>
-                                        <td><span t-esc="line[4]" class="text-center"/></td>
-                                        <td><span t-esc="line[5]" class="text-center"/></td>
-                                    </tr>
+                                    <t t-if="line[2]!='Medicines'">
+                                        <tr>
+                                            <td><span t-esc="line[1]" class="text-center"/></td>
+                                            <td><span t-esc="line[3]" class="text-center"/></td>
+                                            <td><span t-esc="line[4]" class="text-center"/></td>
+                                            <td><span t-esc="line[5]" class="text-center"/></td>
+                                        </tr>
+                                    </t>
                                 </t>
                             </t>
                         </t>

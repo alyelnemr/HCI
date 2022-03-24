@@ -78,8 +78,9 @@ class MedicalInvoiceTemplate(models.AbstractModel):
                 var_medicine += line.price_subtotal
         var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine) if (docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine)) >= 1 else 0
         sale_order = self.env['sale.order'].search([('invoice_ids', 'in', docids)])
+        docs.patient_id = sale_order.patient_id
         discount_total = sale_order.discount_total
-        var_discount_percent = docs.discount_total if docs.discount_total and var_subtotal > 0 else 0
+        var_discount_percent = discount_total if discount_total and var_subtotal > 0 else 0
         return {
             'data': data,
             'doc_ids': docids,
