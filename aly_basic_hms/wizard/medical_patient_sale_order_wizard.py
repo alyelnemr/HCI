@@ -67,7 +67,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                     invoice_line_vals = {
                         'name': 'Update Note - Consultation' or '',
                         'product_uom_qty': 1,
-                        'customer_lead': 1,
                         'price_unit': appointment.consultations_id.lst_price,
                         'product_uom': appointment.consultations_id.uom_id.id,
                         'product_id': appointment.consultations_id.id,
@@ -81,7 +80,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                             'name': 'Update Note - Observation' or '',
                             'product_uom_qty': appointment.admission_duration or 1,
                             'product_uom': appointment.accommodation_id.uom_id.id,
-                            'customer_lead': 1,
                             'price_unit': appointment.accommodation_id.lst_price,
                             'product_id': appointment.accommodation_id.id,
                             'order_id': res.id
@@ -93,7 +91,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                             'name': 'Update Note - Procedures' or '',
                             'product_uom_qty': p_line.quantity,
                             'product_uom': p_line.product_id.uom_id.id,
-                            'customer_lead': 1,
                             'price_unit': p_line.product_id.lst_price,
                             'product_id': p_line.product_id.id,
                             'order_id': res.id
@@ -105,7 +102,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                             'name': 'Update Note - Another Consultations' or '',
                             'product_uom_qty': p_cons_line.quantity,
                             'product_uom': p_cons_line.product_id.uom_id.id,
-                            'customer_lead': 1,
                             'price_unit': p_cons_line.product_id.lst_price,
                             'product_id': p_cons_line.product_id.id,
                             'order_id': res.id
@@ -117,7 +113,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                             'name': 'Update Note - Investigations' or '',
                             'product_uom_qty': p_line.quantity,
                             'product_uom': p_line.product_id.uom_id.id,
-                            'customer_lead': 1,
                             'price_unit': p_line.product_id.lst_price,
                             'product_id': p_line.product_id.id,
                             'order_id': res.id
@@ -129,7 +124,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                             'name': 'Update Note - Medications' or '',
                             'product_uom_qty': p_line.medicine_quantity,
                             'product_uom': p_line.medical_medicament_id.product_id.uom_id.id,
-                            'customer_lead': 1,
                             'price_unit': p_line.medical_medicament_id.product_id.lst_price,
                             'product_id': p_line.medical_medicament_id.product_id.id,
                             'order_id': res.id
@@ -142,7 +136,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                             'name': 'Inpatient - Transportation Service' or '',
                             'product_uom_qty': 1,
                             'product_uom': inpatient.transportation_service.uom_id.id,
-                            'customer_lead': 1,
                             'price_unit': inpatient.transportation_service.lst_price,
                             'product_id': inpatient.transportation_service.id,
                             'order_id': res.id
@@ -154,7 +147,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                             'name': 'Inpatient - Transportation Service' or '',
                             'product_uom_qty': 1,
                             'product_uom': inpatient.transportation_service2.uom_id.id,
-                            'customer_lead': 1,
                             'price_unit': inpatient.transportation_service2.lst_price,
                             'product_id': inpatient.transportation_service2.id,
                             'order_id': res.id
@@ -166,7 +158,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                             'name': 'Inpatient Discharge Medications' or '',
                             'product_uom_qty': p_line.medicine_quantity,
                             'product_uom': p_line.medical_medicament_id.product_id.uom_id.id,
-                            'customer_lead': 1,
                             'price_unit': p_line.medical_medicament_id.product_id.lst_price,
                             'product_id': p_line.medical_medicament_id.product_id.id,
                             'order_id': res.id
@@ -179,7 +170,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                                 'name': 'Inpatient Bed Transfer Accommodation' or '',
                                 'product_uom_qty': p_bed.accommodation_qty,
                                 'product_uom': p_bed.accommodation_service.uom_id.id,
-                                'customer_lead': 1,
                                 'price_unit': p_bed.accommodation_service.lst_price,
                                 'product_id': p_bed.accommodation_service.id,
                                 'order_id': res.id
@@ -193,7 +183,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                                 'name': 'IP Update Note - Procedures' or '',
                                 'product_uom_qty': p_line.quantity,
                                 'product_uom': p_line.product_id.uom_id.id,
-                                'customer_lead': 1,
                                 'price_unit': p_line.product_id.lst_price,
                                 'product_id': p_line.product_id.id,
                                 'order_id': res.id
@@ -205,7 +194,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                                 'name': 'Update Note - Another Consultations' or '',
                                 'product_uom_qty': p_cons_line.quantity,
                                 'product_uom': p_cons_line.product_id.uom_id.id,
-                                'customer_lead': 1,
                                 'price_unit': p_cons_line.product_id.lst_price,
                                 'product_id': p_cons_line.product_id.id,
                                 'order_id': res.id
@@ -217,7 +205,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                                 'name': 'Update Note - Investigations' or '',
                                 'product_uom_qty': p_line.quantity,
                                 'product_uom': p_line.product_id.uom_id.id,
-                                'customer_lead': 1,
                                 'price_unit': p_line.product_id.lst_price,
                                 'product_id': p_line.product_id.id,
                                 'order_id': res.id
@@ -229,7 +216,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                                 'name': 'Update Note - Medications' or '',
                                 'product_uom_qty': p_line.medicine_quantity,
                                 'product_uom': p_line.medical_medicament_id.product_id.uom_id.id,
-                                'customer_lead': 1,
                                 'price_unit': p_line.medical_medicament_id.product_id.lst_price,
                                 'product_id': p_line.medical_medicament_id.product_id.id,
                                 'order_id': res.id
@@ -242,7 +228,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                             'name': 'Post Operative Investigations' or '',
                             'product_uom_qty': p_line.quantity,
                             'product_uom': p_line.product_id.uom_id.id,
-                            'customer_lead': 1,
                             'price_unit': p_line.product_id.lst_price,
                             'product_id': p_line.product_id.id,
                             'order_id': res.id
@@ -254,7 +239,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                         'name': 'Disposables and Supplies' or '',
                         'product_uom_qty': p_line.quantity,
                         'product_uom': p_line.product_id.uom_id.id,
-                        'customer_lead': 1,
                         'price_unit': p_line.product_id.lst_price,
                         'product_id': p_line.product_id.id,
                         'order_id': res.id

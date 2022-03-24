@@ -6,10 +6,10 @@
             <field name="arch" type="xml">
                 <form string="Create Invoice">
                     <h2>
-                        Do you want to create the Sales Order(s) ?
+                        Do you want to create the Patient Invoice ?
                     </h2>
                     <footer>
-                        <button name="create_invoice" string="Create Sale Order"
+                        <button name="create_invoice" string="Create Invoice"
                             type="object" class="oe_highlight" />
                         or
                         <button string="Cancel" type="object"
