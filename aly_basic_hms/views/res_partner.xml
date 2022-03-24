@@ -90,7 +90,6 @@
                     <page string="Medical">
                         <group colspan="6" col="6">
                             <field name="patient_id" />
-                            <field name="discount_amount" />
                         </group>
                     </page>
                 </notebook>

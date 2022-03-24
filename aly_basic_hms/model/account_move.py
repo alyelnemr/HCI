@@ -11,8 +11,6 @@ class ProductCategorySorting(models.Model):
 class AccountMoveForDiscount(models.Model):
     _inherit = 'account.move'
 
-    discount_total = fields.Float(string='Total Discount %')
-    discount_amount = fields.Monetary(string="Discount", store=True)
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
 
