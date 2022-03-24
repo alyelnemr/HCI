@@ -45,6 +45,8 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                 all_old_inv = account_invoice_obj.search([('partner_id', '=', partner_id)])
                 for inv in all_old_inv:
                         inv.state = 'cancel'
+                for inv in all_old_inv.invoice_ids:
+                        inv.state = 'cancel'
 
                 invoice_vals = {
                     'name': self.env['ir.sequence'].next_by_code('medical_patient_inv_seq'),
