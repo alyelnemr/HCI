@@ -56,8 +56,8 @@
                                 <field name="bill_to" />
                                 <field name="location_of_examination" />
                                 <field name="our_reference" />
-                                <field name="referred_by" context="{'is_referred_by': True,'default_is_person': 1}"/>
-                                <field name="referred_to" context="{'is_referred_to': True,'default_is_person': 1}"/>
+                                <field name="referred_by" context="{'default_is_referred_by': True}"/>
+                                <field name="referred_to" context="{'default_is_referred_to': True}"/>
                                 <field name="is_insurance" />
                                 <field name="insurance_reference" attrs="{'invisible': [('is_insurance', '=', False)]}" />
                                 <field name="policy_number" attrs="{'invisible': [('is_insurance', '=', False)]}" />
