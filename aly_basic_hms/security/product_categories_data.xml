@@ -26,7 +26,7 @@
         <record id="record_disposable_product_category" model="product.category">
             <field name="name">Disposables</field>
         </record>
-l
+
         <record id="record_procedure_product_category" model="product.category">
             <field name="name">Procedures</field>
             <field name="sorting_rank">3</field>
@@ -109,6 +109,21 @@ l
             <field name="categ_id" ref="aly_basic_hms.record_accommodation_product_category" />
             <field name="type">service</field>
         </record>
+        <record id="transportation_car_product" model="ir.config_parameter">
+            <field name="key">car.product_template</field>
+            <field name="value" ref="aly_basic_hms.record_transportation_car_product_template" />
+        </record>
+
+        <record id="transportation_ambulance1_product" model="ir.config_parameter">
+            <field name="key">ambulance1.product_template</field>
+            <field name="value" ref="record_transportation_ambulance_product_template" />
+        </record>
+
+        <record id="transportation_ambulance2_product" model="ir.config_parameter">
+            <field name="key">ambulance2.product_template</field>
+            <field name="value" ref="record_transportation_ambulance2_product_template" />
+        </record>
+
 
     </data>
 </odoo>

@@ -54,21 +54,6 @@
             <field name="value">record_icu_accommodation_product_template,record_icu_nursing_product_template,record_icu_medical_care_product_template</field>
         </record>
 
-        <record id="transportation_car_product" model="ir.config_parameter">
-            <field name="key">car.product_template</field>
-            <field name="value" ref="aly_basic_hms.record_transportation_car_product_template" />
-        </record>
-
-        <record id="transportation_ambulance1_product" model="ir.config_parameter">
-            <field name="key">ambulance1.product_template</field>
-            <field name="value" ref="record_transportation_ambulance_product_template" />
-        </record>
-
-        <record id="transportation_ambulance2_product" model="ir.config_parameter">
-            <field name="key">ambulance2.product_template</field>
-            <field name="value" ref="record_transportation_ambulance2_product_template" />
-        </record>
-
         <record forcecreate="True" id="record_service_charge_tax_group" model="account.tax.group">
             <field name="name">Service Charge 12.5%</field>
         </record>
