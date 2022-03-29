@@ -84,8 +84,6 @@ access_medical_patient_doctor,medical.group.patient.doctor,model_medical_patient
 access_medical_patient_chemist,medical.group.patient.chemist,model_medical_patient,group_chemist,1,0,0,0
 access_medical_patient_medical_group,medical.group.patient.medical.group,model_medical_patient,group_medical_group,1,0,0,0
 
-
-access_chemist_line,chemist.prescription.line,model_medical_prescription_line,group_chemist,1,0,0,0
 access_medical_group_insurance,medical.group.medical_insurance,model_res_partner,group_medical_group,1,0,0,0
 access_medical_group_insurance_chem,medical.group.medical_insurance.chem,model_res_partner,group_chemist,1,0,0,0
 access_medical_group_insurance_chem_r,medical.group.medical_insurance.r.chem,model_medical_insurance,group_chemist,1,0,0,0
@@ -144,13 +142,11 @@ access_medical_test_type_chemist,medical.group.medical.test.type.chem,model_medi
 
 
 access_receptionist_medical_physician,medical.group.physician,model_medical_physician,group_receptionist,0,0,0,0
-access_receptionist_line,receptionist.prescription.line,model_medical_prescription_line,group_receptionist,1,0,0,0
 
 access_receptionist_medical_patient_medication,receptionist.group.patient,model_medical_patient,group_receptionist,1,1,1,0
 
 access_receptionist_physician,receptionist.group.physician,model_medical_physician,group_receptionist,1,1,1,0
 
-access_doctor_medical_patient_disease_line,medical.doctor.group.medical.patient.disease.line,model_medical_prescription_line,bi_group_doctor,1,1,1,1
 access_doctor_medical_dose_unit,medical.doctor.group.medical_dose_unit,model_medical_dose_unit,bi_group_doctor,1,1,1,1
 access_sale_order,sale.order,sale.model_sale_order,bi_group_doctor,1,1,1,0
 access_sale_order_line,sale.order.line,sale.model_sale_order_line,bi_group_doctor,1,1,1,1
@@ -211,8 +207,7 @@ access_medical_medicament,access_medical_medicament,model_medical_medicament,,1,
 access_medical_patient_lab_test,access_medical_patient_lab_test,model_medical_patient_lab_test,group_medical_group,1,1,1,1
 access_medical_patient_lab_test_chem,medical.patient.lab.test.chem,model_medical_patient_lab_test,group_chemist,1,0,0,0
 
-access_medical_prescription_order,access_medical_prescription_order,model_medical_prescription_order,,1,0,0,0
-access_medical_prescription_order_doctor,access_medical_prescription_order_doctor,model_medical_prescription_order,bi_group_doctor,1,1,1,1
+
 
 
 access_medical_medicament_doctor,access_medical_medicament_doctor,model_medical_medicament,bi_group_doctor,1,1,1,
