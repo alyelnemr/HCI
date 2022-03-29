@@ -67,8 +67,6 @@ class MedicalAppointment(models.Model):
                                                    string='Another Consultations', required=True)
     appointment_investigations_ids = fields.One2many('medical.appointment.investigation', 'appointment_id',
                                                      string='Investigations', required=True)
-    prescription_line_id = fields.One2many('medical.prescription.order', 'appointment_id',
-                                           string='Services and Lab Investigations', required=True)
     invoice_id = fields.Many2one('account.move', 'Invoice')
     admission_duration = fields.Integer(string="Observation Duration (per hour)")
     accommodation_id = fields.Many2one('product.product', 'Accommodation Service',
@@ -99,7 +97,6 @@ class MedicalAppointment(models.Model):
     neurological_examination = fields.Char('Neurological Examination',required=True)
     further_examination = fields.Char('Further examination',required=False)
     invoice_to_insurer = fields.Boolean('Invoice to Insurance')
-    medical_prescription_order_ids = fields.One2many('medical.prescription.order','appointment_id',string='Prescription')
     insurer_id = fields.Many2one('medical.insurance', string='Insurance Card', domain=lambda self: self._get_insurance_cards_domain())
     company_id = fields.Many2one('res.company', required=True, readonly=False, default=lambda self: self.env.user.company_id)
     is_company_id_readonly = fields.Boolean(compute='_compute_company_id_readonly')

@@ -32,14 +32,12 @@ from . import medical_medication_dosage
 from . import medical_medicament
 from . import medical_patient_lab_test
 from . import medical_dose_unit
-from . import medical_prescription_order
 from . import medical_patient_cage
 from . import medical_patient_disease
 from . import medical_patient_diseases
 from . import medical_patient
 from . import medical_patient_attachment
 from . import medical_physician
-from . import medical_prescription_line
 from . import medical_test_criteria
 from . import medical_test_type
 from . import res_company
