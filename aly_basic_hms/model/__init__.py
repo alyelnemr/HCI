@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
+from . import res_company
+from . import res_partner
 from . import account_move
 from . import bed_transfer
 from . import medical_appointment
@@ -40,6 +42,3 @@ from . import medical_patient_attachment
 from . import medical_physician
 from . import medical_test_criteria
 from . import medical_test_type
-from . import res_company
-from . import res_partner
-from . import res_company
