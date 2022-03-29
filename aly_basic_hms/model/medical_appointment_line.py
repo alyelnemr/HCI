@@ -5,7 +5,7 @@ class MedicalAppointmentLine(models.Model):
     _name = 'medical.appointment.line'
     _description = 'Medical Appointment Medications'
 
-    name = fields.Many2one('medical.appointment', 'Appointment ID')
+    name = fields.Many2one('medical.appointment', 'Appointment Line ID')
     appointment_id = fields.Many2one('medical.appointment', 'Appointment ID')
     product_id = fields.Many2one('product.product', 'Service', domain=[('sale_ok', '=', 1), ('type', '=', 'service')],
                                  required=True)

@@ -15,7 +15,7 @@ class MedicalAppointmentInvestigation(models.Model):
             prod_cat_obj_id = prod_cat_obj.id
         return [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', 1), ('type', '=', 'service')]
 
-    name = fields.Many2one('medical.appointment', 'Appointment ID')
+    name = fields.Many2one('medical.appointment', 'Appointment Investigation ID')
     appointment_id = fields.Many2one('medical.appointment', 'Appointment ID')
     product_id = fields.Many2one('product.product', 'Service',
                                  domain=lambda self: self._get_investigation_product_category_domain(), required=True)

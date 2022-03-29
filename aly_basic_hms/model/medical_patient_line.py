@@ -15,7 +15,7 @@ class MedicalPatientLine(models.Model):
             prod_cat_obj_id = prod_cat_obj.id
         return [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', 1), ('type', '=', 'service')]
 
-    name = fields.Many2one('medical.patient', 'Patient ID')
+    name = fields.Many2one('medical.patient', 'Patient Line ID')
     patient_id = fields.Many2one('medical.patient', 'Patient ID')
     product_id = fields.Many2one('product.product', 'Disposable',
                                  domain=lambda self: self._get_disposable_product_category_domain(), required=True)

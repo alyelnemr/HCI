@@ -9,7 +9,7 @@ class medical_lab(models.Model):
     _name = 'medical.lab'
     _description = 'description'
 
-    name = fields.Char('ID')
+    name = fields.Char('Medical Lab Name')
     test_id = fields.Many2one('medical.test_type', 'Test Type', required = True)
     date_analysis =  fields.Datetime('Date of the Analysis' , default = datetime.now())
     patient_id = fields.Many2one('medical.patient','Patient', required = True) 

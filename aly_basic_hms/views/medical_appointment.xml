@@ -98,7 +98,7 @@
                         </page>
                         <page string="Home Medications" attrs="{'invisible': [('is_discharged','=', False)]}">
                             <group string="Medications">
-                                <field name="discharge_medication_ids" string="Medication" widget="one2many_list" />
+                                <field name="discharge_medication_ids" string="Home Medication" widget="one2many_list" />
                             </group>
                         </page>
                     </notebook>

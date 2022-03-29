@@ -39,7 +39,7 @@ class medical_patient_medication(models.Model):
                                         ('days','Days'),
                                         ('months','Months'),
                                         ('years','Years')],string='Treatment Period')
-    common_dosage = fields.Many2one('medical.medication.dosage',string='Frequency')
+    common_dosage = fields.Many2one('medical.medication.dosage',string='Dosage Frequency')
     admin_times = fields.Char(string='Admin Hours')
     frequency = fields.Integer(string='Frequency')
     frequency_unit = fields.Selection([('seconds','Seconds'),
