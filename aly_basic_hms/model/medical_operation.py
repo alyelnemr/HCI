@@ -36,7 +36,7 @@ class MedicalOperation(models.Model):
     validity_status = fields.Selection([
         ('invoice', 'Invoice Created'),
         ('tobe', 'To be Invoiced'),
-    ], 'Status', compute=_compute_validity_status, store=False, sort=False, readonly=True, default='tobe')
+    ], 'Status', compute=_compute_validity_status, store=False, readonly=True, default='tobe')
     is_invoiced = fields.Boolean(copy=False,default=False)
     no_invoice = fields.Boolean(string='Invoice exempt', default=False)
 

@@ -59,7 +59,7 @@ class MedicalAppointment(models.Model):
     no_invoice = fields.Boolean(string='Invoice exempt',default=False)
     validity_status = fields.Selection([('invoice', 'Invoice Created'), ('tobe', 'To be Invoiced')], string='Status',
                                        compute=_compute_validity_status,
-                                       store=False, sort=False,readonly=True,default='tobe')
+                                       store=False, readonly=True,default='tobe')
     consultations_id = fields.Many2one('product.product','Consultation Service',
                                        domain=lambda self: self._get_examination_product_category_domain(), required=True)
     appointment_procedure_ids = fields.One2many('medical.appointment.procedure', 'appointment_id', string='Procedures', required=True)

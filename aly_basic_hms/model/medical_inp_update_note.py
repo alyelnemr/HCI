@@ -37,7 +37,7 @@ class MedicalInpUpdateNote(models.Model):
     no_invoice = fields.Boolean(string='Invoice exempt',default=False)
     validity_status = fields.Selection([('invoice', 'Invoice Created'), ('tobe', 'To be Invoiced')], string='Status',
                                        compute=_compute_validity_status,
-                                       store=False, sort=False,readonly=True,default='tobe')
+                                       store=False, readonly=True,default='tobe')
     inp_update_note_procedure_ids = fields.One2many('medical.inpatient.procedure', 'inp_update_note_id', string='Procedures', required=True)
     inp_update_note_consultation_ids = fields.One2many('medical.inp.update.note.consultation.line', 'inp_update_note_id',
                                                    string='Another Consultations', required=True)

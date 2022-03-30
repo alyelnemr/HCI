@@ -67,7 +67,7 @@ class MedicalInpatientRegistration(models.Model):
     validity_status = fields.Selection([
         ('invoice', 'Invoice Created'),
         ('tobe', 'To be Invoiced'),
-    ], 'Status', compute=_compute_validity_status, store=False, sort=False, readonly=True, default='tobe')
+    ], 'Status', compute=_compute_validity_status, store=False, readonly=True, default='tobe')
     invoice_id = fields.Many2one('account.move', 'Invoice')
     discharge_medication_ids = fields.One2many('medical.inpatient.medication', 'medical_inpatient_registration_id',
                                                string='Medication')
