@@ -184,7 +184,6 @@ access_medical_drug_route,access_medical_drug_route,model_medical_drug_route,,1,
 
 access_medical_medicament,access_medical_medicament,model_medical_medicament,,1,0,0,0
 
-access_medical_patient_lab_test,access_medical_patient_lab_test,model_medical_patient_lab_test,group_medical_group,1,1,1,1
 
 
 
