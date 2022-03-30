@@ -6,7 +6,7 @@ from odoo import api, fields, models
 
 class MedicalInsurance(models.Model):
     _name = 'medical.insurance'
-    _description = 'description'
+    _description = 'Medical Insurance'
 
     @api.depends('number', 'insurance_company_id', 'member_exp')
     def _compute_record_name(self):

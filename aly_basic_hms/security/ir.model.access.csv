@@ -96,14 +96,6 @@ access_medical_group_partner_chem_r,medical.group.medical_insurance.r.chem,model
 
 
 
-access_doctor_medical_patient_disease,medical.doctor.group.medical.patient.disease,model_medical_patient_disease,bi_group_doctor,1,1,1,1
-access_doctor_medical_patient_disease_chemist,medical.doctor.group.medical.patient.disease.chemist,model_medical_patient_disease,group_chemist,1,0,0,0
-access_patient_diseases,medical.group.patient.diseases,model_medical_patient_disease,group_medical_group,1,1,1,0
-
-
-
-access_medical_lab_test_criteria_chem,medical.group.medical.lab.test.criteria.chem,model_medical_test_criteria,group_chemist,1,1,1,1
-
 
 
 
@@ -126,17 +118,6 @@ access_medical_lab_chemist,medical.group.medical.lab.chemist,model_medical_lab,g
 
 
 
-
-
-access_medical_lab_test_units,medical.group.medical.lab.test.units,model_medical_lab_test_units,group_medical_group,1,1,1,1
-
-medical_lab_test_units_chemist,medical.group.medical.lab.test.units.chemist,model_medical_lab_test_units,group_chemist,1,1,1,1
-
-access_medical_lab_test_criteria,medical.group.medical.lab.test.criteria,model_medical_test_criteria,group_medical_group,1,1,1,1
-
-access_medical_test_type,medical.group.medical.test.type,model_medical_test_type,group_medical_group,1,1,1,1
-
-access_medical_test_type_chemist,medical.group.medical.test.type.chem,model_medical_test_type,group_chemist,1,1,1,1
 
 
 
@@ -195,7 +176,6 @@ access_medical_inpatient_medication_transient,access_medical_inpatient_medicatio
 
 
 
-access_medical_patient_cage,access_medical_patient_cage,model_medical_patient_cage,,1,1,1,1
 access_medical_patient_medication1,access_medical_patient_medication1,model_medical_patient_medication1,,1,1,1,1
 
 
@@ -205,7 +185,6 @@ access_medical_drug_route,access_medical_drug_route,model_medical_drug_route,,1,
 access_medical_medicament,access_medical_medicament,model_medical_medicament,,1,0,0,0
 
 access_medical_patient_lab_test,access_medical_patient_lab_test,model_medical_patient_lab_test,group_medical_group,1,1,1,1
-access_medical_patient_lab_test_chem,medical.patient.lab.test.chem,model_medical_patient_lab_test,group_chemist,1,0,0,0
 
 
 
@@ -228,7 +207,3 @@ access_medical_patient_sale_order_wizard,medical.patient.sale.order.wizard,model
 
 
 
-access_medical_lab_test_create,medical.lab.test.create,model_medical_lab_test_create,,1,1,1,1
-
-
-access_medical_lab_test_invoice,medical.lab.test.invoice,model_medical_lab_test_invoice,,1,1,1,1

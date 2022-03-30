@@ -5,7 +5,7 @@ from odoo import api, fields, models, _
 
 class medical_drug_route(models.Model):
     _name = 'medical.drug.route'
-    _description = 'description'
+    _description = 'Medical Drug Route'
 
     name = fields.Char(string="Route",required=True)
     code = fields.Char(string="Code")

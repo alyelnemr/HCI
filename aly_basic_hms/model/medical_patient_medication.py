@@ -7,7 +7,7 @@ from odoo.exceptions import UserError
 
 class medical_patient_medication(models.Model):
     _name = 'medical.patient.medication'
-    _description = 'description'
+    _description = 'Medical Patient Medication'
 
     @api.depends('start_treatment', 'end_treatment')
     def _compute_treatment_days(self):

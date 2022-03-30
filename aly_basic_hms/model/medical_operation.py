@@ -6,7 +6,7 @@ from odoo.exceptions import UserError, ValidationError
 
 class MedicalOperation(models.Model):
     _name = 'medical.operation'
-    _description = 'description'
+    _description = 'Medical Operation'
 
     @api.depends('invoice_id')
     def _compute_validity_status(self):

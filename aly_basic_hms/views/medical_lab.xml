@@ -42,24 +42,6 @@
                             </group>
                         </group>
                         <group string="Total Cases">
-                            <field name="criteria_ids" colspan="4"
-                                nolabel="1">
-                                <tree editable="top" string="Test Cases">
-                                    <field name="seq" />
-                                    <field name="name" />
-                                    <field name="result_text" />
-                                    <field name="normal_range" />
-                                    <field name="lab_test_unit_id" />
-                                </tree>
-                                <form string="Test Cases">
-
-                                    <field name="name" />
-                                    <field name="seq" />
-                                    <field name="result_text" />
-                                    <field name="lab_test_unit_id" />
-                                    <field name="normal_range" />
-                                </form>
-                            </field>
                         </group>
                         <group string="Extra Info">
                             <field name="results" />

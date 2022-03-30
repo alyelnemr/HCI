@@ -3,7 +3,7 @@ from odoo import api, fields, models, _
 
 class MedicalInpatientProcedure(models.Model):
     _name = 'medical.inpatient.procedure'
-    _description = 'description'
+    _description = 'Medical Inpatient Procedure'
 
     def _get_procedure_product_category_domain(self):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('procedure.product_category')

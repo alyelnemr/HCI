@@ -8,7 +8,7 @@ from odoo.exceptions import UserError, ValidationError
 
 class MedicalInpatientRegistration(models.Model):
     _name = 'medical.inpatient.registration'
-    _description = 'description'
+    _description = 'Medical Inpatient Registration'
     _rec_name = 'patient_id'
 
     def print_invoice_report(self):

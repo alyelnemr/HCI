@@ -28,17 +28,10 @@ from . import medical_inpatient_update_note
 from . import medical_insurance
 from . import medical_operation
 from . import medical_operation_line
-from . import medical_lab_test_units
 from . import medical_lab
 from . import medical_medication_dosage
 from . import medical_medicament
-from . import medical_patient_lab_test
 from . import medical_dose_unit
-from . import medical_patient_cage
-from . import medical_patient_disease
-from . import medical_patient_diseases
 from . import medical_patient
 from . import medical_patient_attachment
 from . import medical_physician
-from . import medical_test_criteria
-from . import medical_test_type

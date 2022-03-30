@@ -10,7 +10,7 @@ from odoo.exceptions import UserError, ValidationError
 class MedicalPatient(models.Model):
     _name = 'medical.patient'
     _rec_name = 'patient_id'
-    _description = 'description'
+    _description = 'Medical Patient'
 
     def print_report(self):
         return self.env.ref('aly_basic_hms.report_print_medical_record').report_action(self)
@@ -84,8 +84,6 @@ class MedicalPatient(models.Model):
     diagnosis_final = fields.Char(string='Final Diagnosis')
     diagnosis_provisional = fields.Char(string='Provisional Diagnosis')
     primary_care_physician_id = fields.Many2one('medical.physician', string="Primary Care Doctor")
-    patient_disease_ids = fields.One2many('medical.patient.disease','patient_id')
-    report_date = fields.Date('Date',default = datetime.today().date())
     patient_complaint = fields.Char(string='Patient Complaint', required=True)
     food_drug_allergy = fields.Char(string='Food and Drug Allergy', required=True)
     history_present_illness = fields.Char(string='History of Present Illness (HPI)', required=True)

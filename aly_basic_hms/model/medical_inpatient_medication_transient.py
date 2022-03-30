@@ -4,7 +4,7 @@ from odoo import models, fields, api, _
 class MedicalInpatientMedicationTransient(models.TransientModel):
     _name = 'medical.inpatient.medication.transient'
     _rec_name = 'medical_medicament_id'
-    _description = 'description'
+    _description = 'Medical Inpatient Medication Transient'
 
     medical_medicament_id = fields.Many2one('medical.medicament',string='Medicine',required=True)
     medicine_quantity = fields.Integer(string='Medicine Quantity',default=1)

@@ -3,7 +3,7 @@ from odoo import api, fields, models, _
 
 class MedicalPatientLine(models.Model):
     _name = 'medical.patient.line'
-    _description = 'description'
+    _description = 'Medical Patient Line'
 
     def _get_disposable_product_category_domain(self):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('disposable.product_category')

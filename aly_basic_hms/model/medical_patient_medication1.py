@@ -8,7 +8,7 @@ from odoo.exceptions import UserError, ValidationError
 class medical_patient_medication1(models.Model):
     _name = 'medical.patient.medication1'
     _rec_name = 'medical_patient_medication_id'
-    _description = 'description'
+    _description = 'Medical Patient Medication1'
 
     @api.depends('start_treatment', 'end_treatment')
     def _compute_treatment_days(self):
