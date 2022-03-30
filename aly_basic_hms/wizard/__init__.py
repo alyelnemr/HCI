@@ -6,5 +6,3 @@ from . import medical_appointments_invoice_wizard
 from . import medical_patient_sale_order_wizard
 from . import medical_inpatient_discharge_wizard
 from . import medical_operation_invoice_wizard
-from . import create_prescription_shipment_wizard
-from . import medical_health_services_invoice_wizard
