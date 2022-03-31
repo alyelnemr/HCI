@@ -29,7 +29,6 @@
         'views/medical_inpatient_acc.xml',
         'views/medical_inpatient_accommodation.xml',
         'views/medical_inpatient_registration.xml',
-        'views/medical_inpatient_update_note.xml',
         'views/medical_inp_update_note.xml',
         'views/medical_inpatient_medication.xml',
         'views/medical_inpatient_medication_transient.xml',

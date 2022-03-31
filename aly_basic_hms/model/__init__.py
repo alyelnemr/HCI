@@ -24,7 +24,6 @@ from . import medical_drug_route
 from . import medical_inpatient_medication
 from . import medical_inpatient_medication_transient
 from . import medical_inpatient_registration
-from . import medical_inpatient_update_note
 from . import medical_insurance
 from . import medical_operation
 from . import medical_operation_line

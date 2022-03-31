@@ -36,10 +36,13 @@ class MedicalInpatientRegistration(models.Model):
                 rec.is_invoiced = False
 
     def _get_inpatient_domain(self):
-        current_inpatient = self.env['medical.inpatient.registration'].search([('state', '!=', 'discharged')])
         patients = []
+        current_inpatient = self.env['medical.inpatient.registration'].search([('state', '=', 'discharged')])
         for rec in current_inpatient:
             patients.append(rec.patient_id.id)
+        current_inpatient = self.env['medical.patient'].search([('inpatient_ids', '=', False)])
+        for rec in current_inpatient:
+            patients.append(rec.id)
         return [('id', 'in', patients)]
 
     name = fields.Char(string="Registration Code", readonly=True)
@@ -55,7 +58,6 @@ class MedicalInpatientRegistration(models.Model):
                                       required=False, string="Admission Type")
     info = fields.Text(string="Notes")
     bed_transfers_ids = fields.One2many('medical.inpatient.acc', 'inpatient_id', string='Accommodations')
-    ip_update_note_ids = fields.One2many('medical.inpatient.update.note', 'inpatient_id', string='Inpatient Update Notes')
     state = fields.Selection([('requested', 'Requested'), ('admitted', 'Admitted'), ('discharged', 'Discharged')],
                              string="State", default="requested")
     nursing_plan = fields.Text(string="Nursing Plan")
@@ -81,7 +83,7 @@ class MedicalInpatientRegistration(models.Model):
                                             string='Transportation Service2', required=False)
     recommendation = fields.Text(string="Recommendations")
     doctor_id = fields.Many2one('medical.physician','Physician',required=False)
-    inpatient_update_note_ids = fields.One2many('medical.inp.update.note', 'inpatient_id')
+    inpatient_update_note_ids = fields.One2many('medical.inp.update.note', 'inpatient_id', string='Inpatient Update Notes')
 
     @api.constrains('discharge_date', 'admission_date')
     def date_constrains(self):

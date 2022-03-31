@@ -17,7 +17,6 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
         medical_appointment_env = self.env['medical.appointment']
         medical_inpatient_env = self.env['medical.inpatient.registration']
         medical_operation_env = self.env['medical.operation']
-        medical_inpatient_update_note_env = self.env['medical.inpatient.update.note']
         account_invoice_obj = self.env['account.move']
         account_invoice_line_obj = self.env['account.move.line']
         ir_property_obj = self.env['ir.property']
