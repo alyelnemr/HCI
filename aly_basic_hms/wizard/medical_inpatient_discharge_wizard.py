@@ -46,6 +46,7 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
             appointment_obj = medical_appointment_obj.browse(active_id)
             appointment_obj.is_discharged = True
             appointment_obj.discharge_datetime = self.discharge_datetime
+            appointment_obj.patient_id.current_discharge_date = self.discharge_datetime
             appointment_obj.discharge_basis = self.discharge_basis
             appointment_obj.refer_to = self.refer_to
             appointment_obj.transportation = self.transportation

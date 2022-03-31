@@ -50,6 +50,7 @@ class MedicalPatient(models.Model):
     patient_id = fields.Many2one('res.partner', domain=[('is_patient', '=', True)], string="Patient Name", required=True)
     name = fields.Char(string='Patient Code', readonly=True)
     date_of_birth = fields.Date(string="Date of Birth", required=True)
+    current_discharge_date = fields.Date(string="Current Discharge Date", required=False)
     sex = fields.Selection([('m', 'Male'), ('f', 'Female')], string="Sex", required=True)
     age = fields.Char(compute=onchange_age,string="Patient Age", store=True)
     referred_by = fields.Many2one('res.partner', domain=[('is_referred_by', '=', True)], required=False, string='Referred By')
