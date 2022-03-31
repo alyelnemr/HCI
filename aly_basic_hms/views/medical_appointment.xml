@@ -164,18 +164,13 @@
             </field>
         </record>
 
+        <record id="action_view_appointment_id_new" model="ir.actions.act_window">
+            <field name="name">Patient Update Notes</field>
+            <field name="res_model">medical.appointment</field>
+            <field name="binding_model_id" ref="model_medical_patient" />
+            <field name="domain">[('inpatient_id', '=', active_id)]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
 
-    <act_window id="action_view_appointment_id_new" name="Patient Update Notes"
-                res_model="medical.appointment" binding_model="medical.patient"
-                view_mode="tree,form" domain="[('patient_id', '=', active_id)]"/>
-
-
-    <!--<record id="action_view_appointment_id_new" model="ir.actions.act_window">-->
-        <!--<field name="name">Patient Update Notes</field>-->
-        <!--<field name="res_model">medical.appointment</field>-->
-        <!--<field name="view_mode">tree,form</field>-->
-        <!--<field name="target">inline</field>-->
-        <!--<field name="domain">[('patient_id', '=', active_id)]</field>-->
-    <!--</record>-->
 </odoo>
 

@@ -117,8 +117,13 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-    <act_window id="action_view_inp_update_new" name="Inpatient Update Notes"
-                res_model="medical.inp.update.note" binding_model="medical.inpatient.registration"
-                view_mode="tree,form" domain="[('inpatient_id', '=', active_id)]"/>
+        <record id="action_view_inp_update_new" model="ir.actions.act_window">
+            <field name="name">Patient IP Update Notes</field>
+            <field name="res_model">medical.inp.update.note</field>
+            <field name="binding_model_id" ref="model_medical_inpatient_registration" />
+            <field name="domain">[('inpatient_id', '=', active_id)]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
 </odoo>
 

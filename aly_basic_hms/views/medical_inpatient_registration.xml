@@ -95,4 +95,11 @@
             <field name="view_mode">tree,form</field>
         </record>
 
+        <record id="action_inpatient_discharge_patient" model="ir.actions.act_window">
+            <field name="name">Discharge Patient</field>
+            <field name="res_model">medical.inpatient.discharge.wizard</field>
+            <field name="binding_model_id" ref="model_medical_inpatient_registration" />
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
 </odoo>
