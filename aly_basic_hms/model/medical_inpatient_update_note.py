@@ -12,26 +12,14 @@ class MedicalInpatientUpdateNote(models.Model):
     def print_invoice_report(self):
         return self.env.ref('aly_basic_hms.report_print_inpatient_invoice_report').report_action(self)
 
-    def _get_accommodation_product_category_domain(self):
-        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('accommodation.product_category')
-        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
-        prod_cat_obj_id = 0
-        if len(prod_cat_obj) > 1:
-            prod_cat_obj_id = prod_cat_obj[0].id
-        else:
-            prod_cat_obj_id = prod_cat_obj.id
-        return [('categ_id', '=', prod_cat_obj_id)]
-
     def _get_current_inpatient_domain(self):
-        current_inpatient = self.env['medical.inpatient.registration'].search([('is_invoiced', '=', False)])
-        patients = []
-        for rec in current_inpatient:
-            patients.append(rec.inpatient_id.id)
-        return [('inpatient_id', '=', current_inpatient[0])]
+        current_inpatient = self.env['medical.inpatient.registration'].search([('state', '!=', 'discharged')])
+        return [('inpatient_id', 'in', current_inpatient)]
 
     name = fields.Char(string="Update Note Code", readonly=True)
     is_invoiced = fields.Boolean(copy=False, default=False)
     inpatient_id = fields.Many2one('medical.inpatient.registration',
+                                 domain=lambda self: self._get_current_inpatient_domain(),
                                  string="Patient", required=True)
     update_note_date = fields.Datetime(string="Update Note date", required=True, default=date.today())
     attending_physician_id = fields.Many2one('medical.physician', string="Attending Physician")

@@ -17,30 +17,20 @@ class MedicalInpUpdateNote(models.Model):
                 rec.validity_status = 'tobe'
                 rec.is_invoiced = False
 
-    def _get_examination_product_category_domain(self):
-        exam_prod_cat = self.env['ir.config_parameter'].sudo().get_param('examination.product_category')
-        prod_cat_obj = self.env['product.category'].search([('name', '=', exam_prod_cat)])
-        prod_cat_obj_id = 0
-        if len(prod_cat_obj) > 1:
-            prod_cat_obj_id = prod_cat_obj[0].id
-        else:
-            prod_cat_obj_id = prod_cat_obj.id
-        return [('sale_ok', '=', 1), ('type', '=', 'service'), ('categ_id', '=', prod_cat_obj_id)]
-
     name = fields.Char(string="Inpatient Update Note ID", readonly=True, copy=True)
     is_invoiced = fields.Boolean(copy=False, default=False)
-    institution_partner_id = fields.Many2one('res.partner',domain=[('is_institution','=',True)],string="Health Center")
-    inpatient_id = fields.Many2one('medical.inpatient.registration',
-                                 string="Patient", required=True)
+    inpatient_id = fields.Many2one('medical.inpatient.registration', domain=[('state', '!=', 'discharged')],
+                                   string="Patient", required=True)
     update_note_date = fields.Datetime('Update Note Date',required=True,default=fields.Datetime.now)
     doctor_id = fields.Many2one('medical.physician','Physician',required=False)
     no_invoice = fields.Boolean(string='Invoice exempt',default=False)
     validity_status = fields.Selection([('invoice', 'Invoice Created'), ('tobe', 'To be Invoiced')], string='Status',
                                        compute=_compute_validity_status,
                                        store=False, readonly=True,default='tobe')
-    inp_update_note_procedure_ids = fields.One2many('medical.inpatient.procedure', 'inp_update_note_id', string='Procedures', required=True)
+    inp_update_note_procedure_ids = fields.One2many('medical.inpatient.procedure', 'inp_update_note_id', string='Procedures',
+                                                    required=True)
     inp_update_note_consultation_ids = fields.One2many('medical.inp.update.note.consultation.line', 'inp_update_note_id',
-                                                   string='Another Consultations', required=True)
+                                                       string='Another Consultations', required=True)
     inp_update_note_investigations_ids = fields.One2many('medical.inpatient.investigation', 'inp_update_note_id',
                                                      string='Investigations', required=True)
     invoice_id = fields.Many2one('account.move', 'Invoice')

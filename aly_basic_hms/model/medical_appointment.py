@@ -52,7 +52,6 @@ class MedicalAppointment(models.Model):
 
     name = fields.Char(string="Appointment ID", readonly=True, copy=True)
     is_invoiced = fields.Boolean(copy=False, default=False)
-    institution_partner_id = fields.Many2one('res.partner',domain=[('is_institution','=',True)],string="Health Center")
     patient_id = fields.Many2one('medical.patient','Patient',required=True)
     appointment_date = fields.Datetime('Appointment Date',required=True,default=fields.Datetime.now)
     doctor_id = fields.Many2one('medical.physician','Physician',required=False)

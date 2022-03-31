@@ -106,9 +106,6 @@
                 <field name="inpatient_id"/>
                 <!--<field name="urgency_level"/>-->
                 <field name="update_note_date"/>
-                <!--<field name="institution_partner_id"/>-->
-                <!--<field name="validity_status"/>-->
-                <!--<field name="company_id" />-->
             </tree>
         </field>
     </record>

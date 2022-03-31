@@ -35,19 +35,16 @@ class MedicalInpatientRegistration(models.Model):
                 rec.validity_status = 'tobe'
                 rec.is_invoiced = False
 
-    def _get_accommodation_product_category_domain(self):
-        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('accommodation.product_category')
-        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
-        prod_cat_obj_id = 0
-        if len(prod_cat_obj) > 1:
-            prod_cat_obj_id = prod_cat_obj[0].id
-        else:
-            prod_cat_obj_id = prod_cat_obj.id
-        return [('categ_id', '=', prod_cat_obj_id)]
+    def _get_inpatient_domain(self):
+        current_inpatient = self.env['medical.inpatient.registration'].search([('state', '!=', 'discharged')])
+        patients = []
+        for rec in current_inpatient:
+            patients.append(rec.patient_id.id)
+        return [('id', 'in', patients)]
 
     name = fields.Char(string="Registration Code", readonly=True)
     is_invoiced = fields.Boolean(copy=False, default=False)
-    patient_id = fields.Many2one('medical.patient', domain=[('current_discharge_date', '=', False)],
+    patient_id = fields.Many2one('medical.patient', domain=lambda self: self._get_inpatient_domain(),
                                  string="Patient", required=True)
     admission_date = fields.Date(string="Admission date", required=True, default=date.today())
     discharge_date = fields.Date(string="Expected Discharge date", required=True, default=date.today())

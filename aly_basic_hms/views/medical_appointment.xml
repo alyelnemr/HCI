@@ -136,9 +136,6 @@
                 <!--<field name="urgency_level"/>-->
                 <field name="appointment_date"/>
                 <field name="doctor_id"/>
-                <!--<field name="institution_partner_id"/>-->
-                <!--<field name="validity_status"/>-->
-                <!--<field name="company_id" />-->
             </tree>
         </field>
     </record>
