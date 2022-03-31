@@ -87,7 +87,7 @@
         </record>
 
         <record id="action_medical_inpatient_registration" model="ir.actions.act_window">
-            <field name="name">Inpatient Admission</field>
+            <field name="name">Inpatient Admissions Registration</field>
             <field name="res_model">medical.inpatient.registration</field>
             <field name="binding_view_types">form</field>
             <field name="view_mode">tree,form</field>
