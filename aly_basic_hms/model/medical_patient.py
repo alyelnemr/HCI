@@ -47,7 +47,15 @@ class MedicalPatient(models.Model):
             if not rec.diagnosis_final and not rec.diagnosis_provisional:
                 raise ValidationError(_('Diagnosis must have at least one (final or provisional)'))
 
-    patient_id = fields.Many2one('res.partner', domain=[('is_patient', '=', True)], string="Patient Name", required=True)
+    def _get_patient_domain(self):
+        patients = []
+        current_inpatient = self.env['medical.patient'].search([])
+        for rec in current_inpatient:
+            patients.append(rec.patient_id.id)
+        return ['&', ('id', 'not in', patients), ('is_patient', '=', True)]
+
+    patient_id = fields.Many2one('res.partner', domain=lambda self: self._get_patient_domain(),
+                                 string="Patient Name", required=True)
     name = fields.Char(string='Patient Code', readonly=True)
     date_of_birth = fields.Date(string="Date of Birth", required=True)
     sex = fields.Selection([('m', 'Male'), ('f', 'Female')], string="Sex", required=True)
