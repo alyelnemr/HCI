@@ -88,16 +88,17 @@
 
         <record id="action_medical_inpatient_registration" model="ir.actions.act_window">
             <field name="name">Inpatient Admission</field>
-            <field name="type">ir.actions.act_window</field>
             <field name="res_model">medical.inpatient.registration</field>
             <field name="binding_view_types">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-
-    <act_window id="action_view_inpatient_new" name="Patient Admissions"
-                res_model="medical.inpatient.registration" binding_model="medical.patient"
-                view_mode="tree,form" domain="[('patient_id', '=', active_id)]"/>
-
+        <record id="action_view_inpatient_new" model="ir.actions.act_window">
+            <field name="name">Patient Admissions</field>
+            <field name="res_model">medical.inpatient.registration</field>
+            <field name="binding_model_id" ref="model_medical_patient" />
+            <field name="domain">[('patient_id', '=', active_id)]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
 
 </odoo>
