@@ -47,7 +47,7 @@ class MedicalInpatientRegistration(models.Model):
 
     name = fields.Char(string="Registration Code", readonly=True)
     is_invoiced = fields.Boolean(copy=False, default=False)
-    patient_id = fields.Many2one('medical.patient', domain=[('inpatient_ids.discharge_date', '!=', False)],
+    patient_id = fields.Many2one('medical.patient',
                                  string="Patient", required=True)
     admission_date = fields.Date(string="Admission date", required=True, default=date.today())
     discharge_date = fields.Date(string="Expected Discharge date", required=True, default=date.today())
