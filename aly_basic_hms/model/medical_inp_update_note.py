@@ -7,32 +7,17 @@ class MedicalInpUpdateNote(models.Model):
     _name = "medical.inp.update.note"
     _description = 'Medical Inpatient Update Notes'
 
-    @api.depends('invoice_id')
-    def _compute_validity_status(self):
-        for rec in self:
-            if rec.invoice_id:
-                rec.validity_status = 'invoice'
-                rec.is_invoiced = True
-            else:
-                rec.validity_status = 'tobe'
-                rec.is_invoiced = False
-
     name = fields.Char(string="Inpatient Update Note ID", readonly=True, copy=True)
-    is_invoiced = fields.Boolean(copy=False, default=False)
     inpatient_id = fields.Many2one('medical.inpatient.registration', domain=[('state', '!=', 'discharged')],
                                    string="Patient", required=True)
     update_note_date = fields.Datetime('Update Note Date',required=True,default=fields.Datetime.now)
     doctor_id = fields.Many2one('medical.physician','Physician',required=False)
-    validity_status = fields.Selection([('invoice', 'Invoice Created'), ('tobe', 'To be Invoiced')], string='Status',
-                                       compute=_compute_validity_status,
-                                       store=False, readonly=True,default='tobe')
     inp_update_note_procedure_ids = fields.One2many('medical.inpatient.procedure', 'inp_update_note_id', string='Procedures',
                                                     required=True)
     inp_update_note_consultation_ids = fields.One2many('medical.inp.update.note.consultation.line', 'inp_update_note_id',
                                                        string='Another Consultations', required=True)
     inp_update_note_investigations_ids = fields.One2many('medical.inpatient.investigation', 'inp_update_note_id',
                                                      string='Investigations', required=True)
-    invoice_id = fields.Many2one('account.move', 'Invoice')
     admission_type = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU')],
                                       required=True, default='standard', string="Admission Type")
     admission_status = fields.Selection([('still', 'is still admitted in'), ('has', 'has been transferred to')],

@@ -17,8 +17,6 @@ class medical_lab(models.Model):
     requestor_physician_id = fields.Many2one('medical.physician', 'Physician', required=True)
     results= fields.Text('Results')
     diagnosis = fields.Text('Diagnosis')
-    is_invoiced = fields.Boolean(copy=False,default = False)
-   
     
     @api.model
     def create(self,val):

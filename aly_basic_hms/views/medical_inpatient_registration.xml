@@ -41,8 +41,6 @@
                             </group>
                             <group string="Invoice Data" attrs="{'invisible': True}">
                                 <field name="is_discharged" attrs="{'invisible': True}"/>
-                                <field name="validity_status" readonly="1" attrs="{'invisible': True}"/>
-                                <field name="invoice_id" readonly="1" attrs="{'invisible': True}"/>
                             </group>
                         </group>
                         <group string="Accommodations">

@@ -15,16 +15,6 @@ class MedicalAppointment(models.Model):
             if rec.appointment_date.date() > date.today():
                 raise ValidationError(_('Update Note Date Must be lower than or equal Today...'))
 
-    @api.depends('invoice_id')
-    def _compute_validity_status(self):
-        for rec in self:
-            if rec.invoice_id:
-                rec.validity_status = 'invoice'
-                rec.is_invoiced = True
-            else:
-                rec.validity_status = 'tobe'
-                rec.is_invoiced = False
-
     def _get_examination_product_category_domain(self):
         exam_prod_cat = self.env['ir.config_parameter'].sudo().get_param('examination.product_category')
         prod_cat_obj = self.env['product.category'].search([('name', '=', exam_prod_cat)])
@@ -51,13 +41,9 @@ class MedicalAppointment(models.Model):
         return [('categ_id', '=', prod_cat_obj_id)]
 
     name = fields.Char(string="Appointment ID", readonly=True, copy=True)
-    is_invoiced = fields.Boolean(copy=False, default=False)
     patient_id = fields.Many2one('medical.patient','Patient',required=True)
     appointment_date = fields.Datetime('Appointment Date',required=True,default=fields.Datetime.now)
     doctor_id = fields.Many2one('medical.physician','Physician',required=False)
-    validity_status = fields.Selection([('invoice', 'Invoice Created'), ('tobe', 'To be Invoiced')], string='Status',
-                                       compute=_compute_validity_status,
-                                       store=False, readonly=True,default='tobe')
     consultations_id = fields.Many2one('product.product','Consultation Service',
                                        domain=lambda self: self._get_examination_product_category_domain(), required=True)
     appointment_procedure_ids = fields.One2many('medical.appointment.procedure', 'appointment_id', string='Procedures', required=True)
@@ -65,7 +51,6 @@ class MedicalAppointment(models.Model):
                                                    string='Another Consultations', required=True)
     appointment_investigations_ids = fields.One2many('medical.appointment.investigation', 'appointment_id',
                                                      string='Investigations', required=True)
-    invoice_id = fields.Many2one('account.move', 'Invoice')
     admission_duration = fields.Integer(string="Observation Duration (per hour)")
     accommodation_id = fields.Many2one('product.product', 'Accommodation Service',
                                        domain=lambda self: self._get_accommodation_product_category_domain(), required=False)

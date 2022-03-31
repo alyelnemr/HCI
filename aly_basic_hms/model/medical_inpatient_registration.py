@@ -25,16 +25,6 @@ class MedicalInpatientRegistration(models.Model):
                 if rec.discharge_date < rec.admission_date or rd.days < 0:
                     raise UserError(_('Discharge Date Must be greater than or equal Admission Date...'))
 
-    @api.depends('invoice_id')
-    def _compute_validity_status(self):
-        for rec in self:
-            if rec.invoice_id:
-                rec.validity_status = 'invoice'
-                rec.is_invoiced = True
-            else:
-                rec.validity_status = 'tobe'
-                rec.is_invoiced = False
-
     def _get_inpatient_domain(self):
         patients = []
         current_inpatient = self.env['medical.inpatient.registration'].search([('state', '=', 'discharged')])
@@ -46,7 +36,6 @@ class MedicalInpatientRegistration(models.Model):
         return [('id', 'in', patients)]
 
     name = fields.Char(string="Registration Code", readonly=True)
-    is_invoiced = fields.Boolean(copy=False, default=False)
     patient_id = fields.Many2one('medical.patient', domain=lambda self: self._get_inpatient_domain(),
                                  string="Patient", required=True)
     admission_date = fields.Date(string="Admission date", required=True, default=date.today())
@@ -62,11 +51,6 @@ class MedicalInpatientRegistration(models.Model):
                              string="State", default="requested")
     nursing_plan = fields.Text(string="Nursing Plan")
     discharge_plan = fields.Text(string="Discharge Plan")
-    validity_status = fields.Selection([
-        ('invoice', 'Invoice Created'),
-        ('tobe', 'To be Invoiced'),
-    ], 'Status', compute=_compute_validity_status, store=False, readonly=True, default='tobe')
-    invoice_id = fields.Many2one('account.move', 'Invoice')
     discharge_medication_ids = fields.One2many('medical.inpatient.medication', 'medical_inpatient_registration_id',
                                                string='Medication')
     is_discharged = fields.Boolean(copy=False, default=False)
