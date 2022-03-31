@@ -189,11 +189,7 @@ access_medical_medicament_doctor,access_medical_medicament_doctor,model_medical_
 access_medical_insurance,medical.insurance,model_medical_insurance,bi_group_doctor,1,1,1,0
 
 
-access_medical_appointments_invoice_wizard,medical.appointments.invoice.wizard,model_medical_appointments_invoice_wizard,,1,1,1,1
-
 access_medical_patient_invoice_wizard,medical.patient.invoice.wizard,model_medical_patient_invoice_wizard,,1,1,1,1
-
-access_medical_operation_invoice_wizard,medical.operation.invoice.wizard,model_medical_operation_invoice_wizard,,1,1,1,1
 
 access_medical_inpatient_discharge_wizard,medical.inpatient.discharge.wizard,model_medical_inpatient_discharge_wizard,,1,1,1,1
 

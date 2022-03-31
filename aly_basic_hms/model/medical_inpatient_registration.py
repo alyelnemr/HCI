@@ -62,7 +62,6 @@ class MedicalInpatientRegistration(models.Model):
                              string="State", default="requested")
     nursing_plan = fields.Text(string="Nursing Plan")
     discharge_plan = fields.Text(string="Discharge Plan")
-    no_invoice = fields.Boolean(string='Invoice exempt', default=False)
     validity_status = fields.Selection([
         ('invoice', 'Invoice Created'),
         ('tobe', 'To be Invoiced'),
@@ -93,7 +92,7 @@ class MedicalInpatientRegistration(models.Model):
             if rec.admission_date > date.today():
                 raise ValidationError(_('Admission Date Must be lower than or equal Today...'))
 
-    @api.constrains('admission_days', 'bed_transfers_ids', 'discharge_date', 'admission_date', 'accommodation_id')
+    @api.constrains('admission_days', 'bed_transfers_ids', 'discharge_date', 'admission_date')
     def admission_constrains(self):
         for rec in self:
             if len(rec.bed_transfers_ids) <= 0:

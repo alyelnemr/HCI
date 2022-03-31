@@ -38,7 +38,6 @@ class MedicalOperation(models.Model):
         ('tobe', 'To be Invoiced'),
     ], 'Status', compute=_compute_validity_status, store=False, readonly=True, default='tobe')
     is_invoiced = fields.Boolean(copy=False,default=False)
-    no_invoice = fields.Boolean(string='Invoice exempt', default=False)
 
     @api.model
     def create(self, val):

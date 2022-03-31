@@ -23,7 +23,6 @@ class MedicalInpUpdateNote(models.Model):
                                    string="Patient", required=True)
     update_note_date = fields.Datetime('Update Note Date',required=True,default=fields.Datetime.now)
     doctor_id = fields.Many2one('medical.physician','Physician',required=False)
-    no_invoice = fields.Boolean(string='Invoice exempt',default=False)
     validity_status = fields.Selection([('invoice', 'Invoice Created'), ('tobe', 'To be Invoiced')], string='Status',
                                        compute=_compute_validity_status,
                                        store=False, readonly=True,default='tobe')
@@ -61,7 +60,6 @@ class MedicalInpUpdateNote(models.Model):
     extremities = fields.Char('Extremities',required=True)
     neurological_examination = fields.Char('Neurological Examination',required=True)
     further_examination = fields.Char('Further examination',required=False)
-    invoice_to_insurer = fields.Boolean('Invoice to Insurance')
     company_id = fields.Many2one('res.company', required=True, readonly=False, default=lambda self: self.env.user.company_id)
     is_company_id_readonly = fields.Boolean(compute='_compute_company_id_readonly')
 
@@ -70,15 +68,6 @@ class MedicalInpUpdateNote(models.Model):
         group_id = self.env['res.groups'].search([('name', '=', 'Can Change Company')])
         is_exists = self.env.user.id in group_id.users.ids
         self.is_company_id_readonly = not is_exists
-
-    @api.onchange('patient_id')
-    def onchange_name(self):
-        ins_obj = self.env['medical.insurance']
-        ins_record = ins_obj.search([('patient_id', '=', self.patient_id.patient_id.id)])
-        if len(ins_record) >= 1:
-            self.insurer_id = ins_record[0].id
-        else:
-            self.insurer_id = False
 
     @api.model
     def create(self, vals):

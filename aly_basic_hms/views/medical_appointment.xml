@@ -27,7 +27,6 @@
                             <field name="doctor_id"  />
                             <field name="consultations_id" options="{'no_create_edit': True, 'no_create': True}"/>
                             <field name="appointment_date" />
-                            <field name="no_invoice" attrs="{'invisible': True}"/>
                             <field name="is_discharged" attrs="{'invisible': True}"/>
                         </group>
                         <group>

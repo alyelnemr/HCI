@@ -12,9 +12,6 @@
                                 string="Discharge Patient" type="action" class="oe_highlight"
                                 attrs="{'invisible': [('is_discharged','=', True)]}"
                         />
-                        <!--<button name="print_invoice_report" type="object"-->
-                                <!--attrs="{'invisible': ['|', ('validity_status','=', 'tobe'), ('no_invoice', '=', True)]}"-->
-                            <!--string="Print Invoice" class="oe_highlight" />-->
                         <field name="state" widget="statusbar"
                             statusbar_visible="requested,admitted"
                             readonly="1" />
@@ -43,7 +40,6 @@
                                        attrs="{'readonly': True, 'invisible': [('is_discharged','=', False)]}"/>
                             </group>
                             <group string="Invoice Data" attrs="{'invisible': True}">
-                                <field name="no_invoice" attrs="{'invisible': True}"/>
                                 <field name="is_discharged" attrs="{'invisible': True}"/>
                                 <field name="validity_status" readonly="1" attrs="{'invisible': True}"/>
                                 <field name="invoice_id" readonly="1" attrs="{'invisible': True}"/>
