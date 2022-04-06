@@ -29,10 +29,8 @@ class SaleOrderForDiscount(models.Model):
         for rec in self:
             if rec.amount_total:
                 # amount_total = (rec.amount_untaxed * rec.discount_total / 100)
-                amount_total = 0 # rec.amount_total
+                amount_total = 0
                 discount_amount = 0
-                not_discount_amount = 0
-                first_subtotal = 0
                 for line in rec.order_line:
                     amount_total += (line.price_unit * line.product_uom_qty)
                     discount_amount += ((line.price_unit * line.product_uom_qty) * rec.discount_total / 100) if (line.price_unit * line.product_uom_qty) > 0 else 0
