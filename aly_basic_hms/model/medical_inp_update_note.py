@@ -7,6 +7,12 @@ class MedicalInpUpdateNote(models.Model):
     _name = "medical.inp.update.note"
     _description = 'Medical Inpatient Update Notes'
 
+    @api.depends('company_id')
+    def _compute_company_id_readonly(self):
+        group_id = self.env['res.groups'].search([('name', '=', 'Can Change Company')])
+        is_exists = self.env.user.id in group_id.users.ids
+        self.is_company_id_readonly = not is_exists
+
     name = fields.Char(string="Inpatient Update Note ID", readonly=True, copy=True)
     inpatient_id = fields.Many2one('medical.inpatient.registration', domain=[('state', '!=', 'discharged')],
                                    string="Patient", required=True)

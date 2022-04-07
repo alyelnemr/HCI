@@ -1,5 +1,6 @@
 
 from odoo import api, fields, models, _
+from odoo.exceptions import UserError, ValidationError
 
 
 class ProductCategorySorting(models.Model):
@@ -20,14 +21,32 @@ class AccountMoveForDiscount(models.Model):
         return read_group
 
 
+class SaleOrderLine(models.Model):
+    _inherit = 'sale.order.line'
+
+    @api.onchange('product_id', 'price_unit', 'product_uom', 'product_uom_qty', 'tax_id')
+    def _onchange_discount(self):
+        super(SaleOrderLine, self)._onchange_discount()
+        for record in self:
+            allow_discount = self.env['ir.model.access'].check_groups("product.group_discount_per_so_line")
+            if record.product_id and record.order_partner_id.id and allow_discount:
+                user_lines = self.env['user.partner.discount'].sudo().search([('partner_id', '=', record.order_partner_id.id),('user_id', '=', self.env.user.id)])
+                if user_lines:
+                    partner_discount_obj = user_lines[0]
+                    discount = partner_discount_obj.discount
+                    record.discount = discount
+
 
 class SaleOrderForDiscount(models.Model):
     _inherit = 'sale.order'
 
     @api.depends('discount_total', 'order_line')
     def onchange_age(self):
+        current_user = self.env['res.users'].sudo().browse(self.env.user.id)
         for rec in self:
-            if rec.amount_total:
+            if rec.discount_total > current_user.max_allowed_discount:
+                raise UserError(_('Your Maximum Allowed Discount is %s', str(current_user.max_allowed_discount)))
+            if rec.amount_total > 0 and rec.discount_total > 0:
                 # amount_total = (rec.amount_untaxed * rec.discount_total / 100)
                 amount_total = 0
                 discount_amount = 0

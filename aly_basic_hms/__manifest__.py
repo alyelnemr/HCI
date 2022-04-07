@@ -49,6 +49,7 @@
         'views/medical_physician.xml',
         'views/res_partner.xml',
         'views/res_company.xml',
+        'views/res_user.xml',
         'report/report_view.xml',
         'report/medical_invoice_template.xml',
         'report/medical_record_report_primary.xml',

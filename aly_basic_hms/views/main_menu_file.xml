@@ -4,7 +4,7 @@
                   
         <menuitem 
         	id="main_menu_hospital_management"
-        	name="Hospital Management"
+        	name="HCI Group"
             web_icon="aly_basic_hms/static/description/icon.png"
            />
 
@@ -12,13 +12,9 @@
             id="main_menu_configuration"
             parent = "main_menu_hospital_management"
             sequence = "4"
+                   groups="aly_basic_hms.group_medical_group"
             />
-            
-    	<menuitem name="Operations"
-            id="main_menu_conf_operation"
-            parent = "main_menu_configuration"
-            sequence="0"
-           />
+
 
         <menuitem id="menu_patients" name='Patients' action="action_medical_patient"
             parent="main_menu_hospital_management" sequence="0" />

@@ -7,7 +7,7 @@ class MedicalAppointment(models.Model):
     _name = "medical.appointment"
     _inherit = 'mail.thread'
     _order = "name, appointment_date desc"
-    _description = 'Medical Appointment Update Notes'
+    _description = 'Medical Appointment'
 
     @api.constrains('appointment_date')
     def date_constrains(self):
