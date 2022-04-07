@@ -44,6 +44,7 @@
             <field name="comment">the user will have access to change the company of any model.</field>
         </record>
     </data>
+
     <data noupdate="1">
         <record id="medicine_product_category" model="ir.config_parameter">
             <field name="key">medicine.product_category</field>
