@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <data noupdate="1">
+        <record id="module_category_hospital" model="ir.module.category">
+            <field name="name">Hospital Management</field>
+            <field name="description">Hospital Management System.</field>
+        </record>
+
+        <record id="bi_group_manager" model="res.groups">
+            <field name="name">Manager - can manage insurance invoices</field>
+            <field name="category_id" ref="module_category_hospital"/>
+            <field name="comment">Hospital Management System  -  Managers.</field>
+        </record>
+
+        <record id="bi_group_manager_invoice" model="res.groups">
+            <field name="name">Can Clear Invoice from Patients</field>
+            <field name="category_id" ref="module_category_hospital"/>
+            <field name="comment">Hospital Management System  -  Managers for patient invoices.</field>
+        </record>
+
+        <record id="bi_group_doctor" model="res.groups">
+            <field name="name">Manage OutPatient</field>
+            <field name="category_id" ref="module_category_hospital"/>
+            <field name="comment">the user will have access to his own data in the OutPatient.</field>
+        </record>
+
+        <record id="group_medical_group" model="res.groups">
+            <field name="name">Medical Managers</field>
+            <field name="category_id" ref="module_category_hospital"/>
+            <field name="comment">the user will have access to his own data in all the Medical Application.</field>
+        </record>
+
+        <record id="group_inpatient" model="res.groups">
+            <field name="name">Manage InPatient</field>
+            <field name="category_id" ref="module_category_hospital"/>
+            <field name="comment">the user will have access to his own data in Inpatient.</field>
+        </record>
+
+
+        <record id="group_change_company" model="res.groups">
+            <field name="name">Can Change Company</field>
+            <field name="category_id" ref="module_category_hospital"/>
+            <field name="comment">the user will have access to change the company of any model.</field>
+        </record>
+    </data>
     <data noupdate="1">
         <record id="medicine_product_category" model="ir.config_parameter">
             <field name="key">medicine.product_category</field>
@@ -188,47 +232,4 @@
 
     </data>
 
-    <data noupdate="1">
-        <record id="module_category_hospital" model="ir.module.category">
-            <field name="name">Hospital Management</field>
-            <field name="description">Hospital Management System.</field>
-        </record>
-
-        <record id="bi_group_manager" model="res.groups">
-            <field name="name">Manager - can manage insurance invoices</field>
-            <field name="category_id" ref="module_category_hospital"/>
-            <field name="comment">Hospital Management System  -  Managers.</field>
-        </record>
-
-        <record id="bi_group_manager_invoice" model="res.groups">
-            <field name="name">Can Clear Invoice from Patients</field>
-            <field name="category_id" ref="module_category_hospital"/>
-            <field name="comment">Hospital Management System  -  Managers for patient invoices.</field>
-        </record>
-
-        <record id="bi_group_doctor" model="res.groups">
-            <field name="name">Manage OutPatient</field>
-            <field name="category_id" ref="module_category_hospital"/>
-            <field name="comment">the user will have access to his own data in the OutPatient.</field>
-        </record>
-
-        <record id="group_medical_group" model="res.groups">
-            <field name="name">Medical Managers</field>
-            <field name="category_id" ref="module_category_hospital"/>
-            <field name="comment">the user will have access to his own data in all the Medical Application.</field>
-        </record>
-
-        <record id="group_inpatient" model="res.groups">
-            <field name="name">Manage InPatient</field>
-            <field name="category_id" ref="module_category_hospital"/>
-            <field name="comment">the user will have access to his own data in Inpatient.</field>
-        </record>
-
-
-        <record id="group_change_company" model="res.groups">
-            <field name="name">Can Change Company</field>
-            <field name="category_id" ref="module_category_hospital"/>
-            <field name="comment">the user will have access to change the company of any model.</field>
-        </record>
-    </data>
 </odoo>
