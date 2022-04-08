@@ -106,6 +106,19 @@
             <field name="amount">12.5</field>
             <field name="tax_group_id" ref="aly_basic_hms.record_service_charge_tax_group" />
         </record>
+
+        <record forcecreate="True" id="record_clinic_jaz_coraya" model="medical.clinic">
+            <field name="name">Jaz Coraya</field>
+        </record>
+
+        <record forcecreate="True" id="record_clinic_jaz_lamaya" model="medical.clinic">
+            <field name="name">Jaz Lamaya</field>
+        </record>
+
+        <record forcecreate="True" id="record_clinic_ras_soma" model="medical.clinic">
+            <field name="name">Ras Soma</field>
+        </record>
+
     </data>
 
     <data noupdate="0">
