@@ -12,7 +12,7 @@
             id="main_menu_configuration"
             parent = "main_menu_hospital_management"
             sequence = "4"
-                   groups="aly_basic_hms.group_medical_group"
+                   groups="aly_basic_hms.aly_group_medical_manager"
             />
 
 
@@ -56,10 +56,13 @@
             parent="menu_inpatient_administration" action="action_medical_inp_update_note"
             sequence="1" />
 
-        <menuitem id="menu_physician" name='Physicians'
+        <menuitem id="menu_config_medical" name='Medical'
             parent="main_menu_configuration" sequence="7" />
 
-        <menuitem id="menu_medical_physician" parent="menu_physician"
+        <menuitem id="menu_medical_physician" parent="menu_config_medical"
             action="action_medical_physician" sequence="6" />
+
+        <menuitem id="menu_medical_clinic" parent="menu_config_medical"
+            action="action_medical_clinic" sequence="7" />
 
 </openerp>

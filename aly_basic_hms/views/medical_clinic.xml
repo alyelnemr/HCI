@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="medical_clinic_form_view" model="ir.ui.view">
+            <field name="name">medical.clinic.form.view</field>
+            <field name="model">medical.clinic</field>
+            <field name="arch" type="xml">
+                <form string="Clinics">
+                    <sheet>
+                        <div class="oe_right">
+                            <group colspan="4" col="4">
+                                <field name="name" />
+                                <field name="info" />
+                            </group>
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="medical_clinic_tree_view" model="ir.ui.view">
+            <field name="name">medical.clinic.tree.view</field>
+            <field name="model">medical.clinic</field>
+            <field name="arch" type="xml">
+                <tree string="Clinics">
+                    <field name="name" />
+                    <field name="info" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_medical_clinic" model="ir.actions.act_window">
+            <field name="name">Clinics</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">medical.clinic</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+</odoo>

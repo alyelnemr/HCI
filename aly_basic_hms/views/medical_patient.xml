@@ -12,12 +12,12 @@
                         <!--<button-->
                                 <!--name="%(action_medical_patient_invoice_wizard)d"-->
                                 <!--string="Create Invoice" type="action" class="oe_highlight"-->
-                                <!--groups="aly_basic_hms.bi_group_manager"-->
+                                <!--groups="aly_basic_hms.aly_group_insurance"-->
                         <!--/>-->
                         <button
                                 name="%(action_medical_patient_sale_order_wizard)d"
                                 string="Create Invoice" type="action" class="oe_highlight"
-                                groups="aly_basic_hms.bi_group_manager"
+                                groups="aly_basic_hms.aly_group_outpatient"
                         />
                     </header>
                     <sheet>
@@ -49,8 +49,9 @@
                                 <field name='nationality_id' options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
                                 <field name="marital_status" />
                                 <field name="company_id" />
-                                <field name="invoice_id" groups="aly_basic_hms.bi_group_manager"/>
-                                <field name="order_id" groups="aly_basic_hms.bi_group_manager"/>
+                                <field name="clinic_id" />
+                                <field name="order_id" />
+                                <field name="invoice_id" />
                             </group>
                             <group>
                                 <field name="bill_to" />
@@ -147,9 +148,9 @@
                     <field name="patient_id" />
                     <field name="sex" />
                     <field name="date_of_birth" />
-                    <!--<field name="primary_care_physician_id" />-->
-                    <field name="travel_agency" />
-                    <field name="is_opened_visit" />
+                    <field name="order_id" />
+                    <field name="invoice_id" />
+                    <field name="create_uid" />
                 </tree>
             </field>
         </record>

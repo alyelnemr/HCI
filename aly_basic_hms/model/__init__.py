@@ -4,6 +4,7 @@ from . import res_company
 from . import res_partner
 from . import account_move
 from . import bed_transfer
+from . import medical_clinic
 from . import medical_appointment
 from . import medical_inp_update_note
 from . import medical_appointment_line

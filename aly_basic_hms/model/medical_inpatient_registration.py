@@ -35,12 +35,6 @@ class MedicalInpatientRegistration(models.Model):
             patients.append(rec.id)
         return [('id', 'in', patients)]
 
-    @api.depends('company_id')
-    def _compute_company_id_readonly(self):
-        group_id = self.env['res.groups'].search([('name', '=', 'Can Change Company')])
-        is_exists = self.env.user.id in group_id.users.ids
-        self.is_company_id_readonly = not is_exists
-
     name = fields.Char(string="Registration Code", readonly=True)
     patient_id = fields.Many2one('medical.patient', domain=lambda self: self._get_inpatient_domain(),
                                  string="Patient", required=True)
@@ -73,8 +67,7 @@ class MedicalInpatientRegistration(models.Model):
     recommendation = fields.Text(string="Recommendations")
     doctor_id = fields.Many2one('medical.physician','Physician',required=False)
     inpatient_update_note_ids = fields.One2many('medical.inp.update.note', 'inpatient_id', string='Inpatient Update Notes')
-    company_id = fields.Many2one('res.company', required=True, readonly=False, default=lambda self: self.env.user.company_id)
-    is_company_id_readonly = fields.Boolean(compute='_compute_company_id_readonly')
+    company_id = fields.Many2one('res.company', required=True, readonly=True, default=lambda self: self.env.user.company_id)
 
     @api.constrains('discharge_date', 'admission_date')
     def date_constrains(self):

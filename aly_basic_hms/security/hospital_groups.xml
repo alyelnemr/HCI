@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <data noupdate="1">
+    <data noupdate="0">
         <record id="module_category_hospital" model="ir.module.category">
             <field name="name">Hospital Management</field>
             <field name="description">Hospital Management System.</field>
         </record>
 
-        <record id="bi_group_manager" model="res.groups">
-            <field name="name">Manager - can manage insurance invoices</field>
-            <field name="category_id" ref="module_category_hospital"/>
-            <field name="comment">Hospital Management System  -  Managers.</field>
+        <record id="module_category_medical_levels" model="ir.module.category" >
+            <field name="name">Medical Application</field>
+            <field name="description">Medical Application</field>
+            <field name="sequence">31</field>
         </record>
 
-        <record id="bi_group_manager_invoice" model="res.groups">
-            <field name="name">Can Clear Invoice from Patients</field>
+        <record id="aly_group_insurance" model="res.groups">
+            <field name="name">Manage insurance invoices</field>
             <field name="category_id" ref="module_category_hospital"/>
-            <field name="comment">Hospital Management System  -  Managers for patient invoices.</field>
+            <field name="comment">Can manage insurance invoices.</field>
         </record>
 
-        <record id="bi_group_doctor" model="res.groups">
-            <field name="name">Manage OutPatient</field>
-            <field name="category_id" ref="module_category_hospital"/>
-            <field name="comment">the user will have access to his own data in the OutPatient.</field>
+        <record id="aly_group_outpatient" model="res.groups">
+            <field name="name">Outpatient</field>
+            <field name="category_id" ref="module_category_medical_levels"/>
+            <field name="comment">the user will have access to his own data in the Outpatient.</field>
         </record>
 
-        <record id="group_medical_group" model="res.groups">
-            <field name="name">Medical Managers</field>
-            <field name="category_id" ref="module_category_hospital"/>
+        <record id="aly_group_inpatient" model="res.groups">
+            <field name="name">Inpatient</field>
+            <field name="category_id" ref="module_category_medical_levels"/>
+            <field name="implied_ids" eval="[(4, ref('aly_group_outpatient'))]"/>
+            <field name="comment">the user will have access to his own data in Inpatient and also Outpatient.</field>
+        </record>
+
+        <record id="aly_group_medical_manager" model="res.groups">
+            <field name="name">Managers</field>
+            <field name="category_id" ref="module_category_medical_levels"/>
+            <field name="implied_ids" eval="[(4, ref('aly_group_inpatient')), (4, ref('aly_group_insurance'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
             <field name="comment">the user will have access to his own data in all the Medical Application.</field>
-        </record>
-
-        <record id="group_inpatient" model="res.groups">
-            <field name="name">Manage InPatient</field>
-            <field name="category_id" ref="module_category_hospital"/>
-            <field name="comment">the user will have access to his own data in Inpatient.</field>
-        </record>
-
-
-        <record id="group_change_company" model="res.groups">
-            <field name="name">Can Change Company</field>
-            <field name="category_id" ref="module_category_hospital"/>
-            <field name="comment">the user will have access to change the company of any model.</field>
         </record>
     </data>
 
@@ -123,15 +119,15 @@
         <record id="medical_patient_per_doctor_rule" model="ir.rule">
             <field name="name">Personal Patients</field>
             <field ref="model_medical_patient" name="model_id"/>
-            <field name="domain_force">['|',('create_uid','=',user.id),('create_uid','=',False)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.bi_group_doctor'))]"/>
+            <field name="domain_force">['|',('create_uid','=',user.id),('clinic_id','=',user.allowed_clinic_ids.ids)]</field>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
 
         <record id="medical_patient_all_patients_rule" model="ir.rule">
             <field name="name">All Patients</field>
             <field ref="model_medical_patient" name="model_id"/>
             <field name="domain_force">[(1,'=',1)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.group_medical_group'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_medical_manager'))]"/>
         </record>
 
 
@@ -148,14 +144,14 @@
             <field name="name">Personal Patients Appointments</field>
             <field ref="model_medical_appointment" name="model_id"/>
             <field name="domain_force">['|',('create_uid','=',user.id),('create_uid','=',False)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.bi_group_doctor'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
 
         <record id="medical_patient_all_appointment_rule" model="ir.rule">
             <field name="name">All Patients</field>
             <field ref="model_medical_appointment" name="model_id"/>
             <field name="domain_force">[(1,'=',1)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.group_medical_group'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_medical_manager'))]"/>
         </record>
 
 
@@ -172,14 +168,14 @@
             <field name="name">Personal Patients Inpatient</field>
             <field ref="model_medical_inpatient_registration" name="model_id"/>
             <field name="domain_force">['|',('create_uid','=',user.id),('create_uid','=',False)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.bi_group_doctor'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
 
         <record id="medical_inpatient_all_inpatient_rule" model="ir.rule">
             <field name="name">All Inpatients</field>
             <field ref="model_medical_inpatient_registration" name="model_id"/>
             <field name="domain_force">[(1,'=',1)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.group_medical_group'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_medical_manager'))]"/>
         </record>
 
 
@@ -195,14 +191,14 @@
             <field name="name">Personal Patients Inpatient Update Notes</field>
             <field ref="model_medical_inp_update_note" name="model_id"/>
             <field name="domain_force">['|',('create_uid','=',user.id),('created_uid','=',False)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.bi_group_doctor'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
 
         <record id="medical_inpatient_all_inpatient_update_note_rule" model="ir.rule">
             <field name="name">All Inpatients Update Notes</field>
             <field ref="model_medical_inp_update_note" name="model_id"/>
             <field name="domain_force">[(1,'=',1)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.group_medical_group'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_medical_manager'))]"/>
         </record>
 
 
@@ -221,14 +217,14 @@
             <field name="name">Personal Patients Operations</field>
             <field ref="model_medical_operation" name="model_id"/>
             <field name="domain_force">['|',('create_uid','=',user.id),('create_uid','=',False)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.bi_group_doctor'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
 
         <record id="medical_operation_all_patients_rule" model="ir.rule">
             <field name="name">All Patient Operations</field>
             <field ref="model_medical_operation" name="model_id"/>
             <field name="domain_force">[(1,'=',1)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.group_medical_group'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_medical_manager'))]"/>
         </record>
 
     </data>

@@ -30,7 +30,6 @@
                             <field name="is_discharged" attrs="{'invisible': True}"/>
                         </group>
                         <group>
-                            <field name="is_company_id_readonly" attrs="{'invisible': 1}"/>
                             <field name="company_id" attrs="{'invisible': True}" />
                         </group>
                         <group string="Vital Data">

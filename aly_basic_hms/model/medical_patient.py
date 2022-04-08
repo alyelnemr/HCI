@@ -54,6 +54,14 @@ class MedicalPatient(models.Model):
             patients.append(rec.patient_id.id)
         return ['&', ('id', 'not in', patients), ('is_patient', '=', True)]
 
+    def _get_clinic_domain(self):
+        current_clinics = self.env['res.users'].browse(self.env.user.id)
+        return [('id', 'in', current_clinics.allowed_clinic_ids)]
+
+    def _get_default_clinic(self):
+        current_clinics = self.env['res.users'].browse(self.env.user.id)
+        return current_clinics.default_clinic_id
+
     patient_id = fields.Many2one('res.partner', domain=lambda self: self._get_patient_domain(),
                                  string="Patient Name", required=True)
     name = fields.Char(string='Patient Code', readonly=True)
@@ -64,8 +72,8 @@ class MedicalPatient(models.Model):
     referred_to = fields.Many2one('res.partner', domain=[('is_referred_to', '=', True)], required=False, string='Referred To')
     is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
     is_invoiced = fields.Boolean(string='Is Invoiced', default=False, required=False)
-    invoice_id = fields.Many2one('account.move', 'Invoice')
-    order_id = fields.Many2one('sale.order', 'Sales Order')
+    invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
+    order_id = fields.Many2one('sale.order', string='Draft Invoice')
     is_insurance = fields.Boolean(string='Insurance', default=False, required=False)
     our_reference = fields.Char(string='Our Reference', required=False)
     insurance_reference = fields.Char(string='Insurance Reference')
@@ -99,8 +107,11 @@ class MedicalPatient(models.Model):
     past_surgical_history = fields.Char(string='Past Surgical History (PSH)', required=True)
     family_history = fields.Char(string='Family History (FH)', required=True)
     social_history = fields.Char(string='Social History (SH)', required=True)
-    company_id = fields.Many2one('res.company', required=True, string='Branch', readonly=False,
+    company_id = fields.Many2one('res.company', required=True, string='Branch', readonly=True,
                                  default=lambda self: self.env.user.company_id)
+    clinic_id = fields.Many2one('medical.clinic', required=True, string='Clinic', readonly=True,
+                                default=lambda self: self._get_default_clinic(),
+                                domain=lambda self: self._get_clinic_domain())
     bill_to = fields.Char(string='Bill To', required=False)
     update_note_ids = fields.One2many('medical.appointment', 'patient_id')
     inpatient_ids = fields.One2many('medical.inpatient.registration', 'patient_id')
@@ -134,5 +145,15 @@ class MedicalPatient(models.Model):
                     vals.update({
                         'name': patient_id,
                     })
+            if record.is_insurance or vals.get('is_insurance'):
+                has_insurance_group = self.env.user.has_group('aly_basic_hms.aly_group_insurance')
+                if record.is_insurance and not vals.get('is_insurance') and not has_insurance_group:
+                    raise UserError(_('You don''t have permission to remove insurance from patient!'))
+                if record.is_insurance and record.order_id and not vals.get('order_id') and not has_insurance_group:
+                    raise UserError(_('You don''t have permission to remove insurance invoice from patient'))
+                if record.is_insurance and record.order_id and record.order_id != vals.get('order_id') and not has_insurance_group:
+                    raise UserError(_('You don''t have permission to change insurance invoice from patient'))
+                if record.is_insurance and record.order_id and record.order_id != vals.get('order_id') and not has_insurance_group:
+                    raise UserError(_('You don''t have permission to change insurance invoice from patient'))
         res = super(MedicalPatient, self).write(vals)
         return res

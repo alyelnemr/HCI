@@ -79,14 +79,7 @@ class MedicalAppointment(models.Model):
     extremities = fields.Char('Extremities',required=True)
     neurological_examination = fields.Char('Neurological Examination',required=True)
     further_examination = fields.Char('Further examination',required=False)
-    company_id = fields.Many2one('res.company', required=True, readonly=False, default=lambda self: self.env.user.company_id)
-    is_company_id_readonly = fields.Boolean(compute='_compute_company_id_readonly')
-
-    @api.depends('company_id')
-    def _compute_company_id_readonly(self):
-        group_id = self.env['res.groups'].search([('name', '=', 'Can Change Company')])
-        is_exists = self.env.user.id in group_id.users.ids
-        self.is_company_id_readonly = not is_exists
+    company_id = fields.Many2one('res.company', required=True, readonly=True, default=lambda self: self.env.user.company_id)
 
     @api.model
     def create(self, vals):

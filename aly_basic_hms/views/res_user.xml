@@ -9,6 +9,8 @@
                     <page string="Medical">
                         <group >
                             <field name="max_allowed_discount" />
+                            <field name="default_clinic_id"  />
+                            <field name="allowed_clinic_ids" widget="many2many_tags" />
                         </group>
                     </page>
                 </notebook>
