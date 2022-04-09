@@ -219,7 +219,7 @@
                                 <span>
                                     The patient admitted in <strong><span t-field="my_list_obj['obj_id'].admission_type" /></strong>
                                     under complete monitoring &amp;
-                                    observation, and is receiving the following treatment:
+                                    observation <t t-if="my_list_obj['obj_id'].medication_ids">and is receiving the following treatment:</t>
                                 </span>
                             </div>
                         </t>
