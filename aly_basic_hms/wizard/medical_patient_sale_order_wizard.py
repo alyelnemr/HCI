@@ -257,6 +257,7 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
 
                 # res1 = account_invoice_line_obj.create({'order_line': list_of_vals})
 
+                res.update_prices()
                 medical_patient_obj.order_id = res
                 medical_patient_obj.with_context({'come_from_invoice': True}).is_opened_visit = False
 
