@@ -167,7 +167,7 @@
             <field name="name">Patient Update Notes</field>
             <field name="res_model">medical.appointment</field>
             <field name="binding_model_id" ref="model_medical_patient" />
-            <field name="domain">[('inpatient_id', '=', active_id)]</field>
+            <field name="domain">[('patient_id', '=', active_id)]</field>
             <field name="view_mode">tree,form</field>
         </record>
 
