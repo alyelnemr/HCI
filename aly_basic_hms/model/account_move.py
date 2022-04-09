@@ -21,22 +21,6 @@ class AccountMoveForDiscount(models.Model):
         return read_group
 
 
-class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
-
-    @api.onchange('product_id', 'price_unit', 'product_uom', 'product_uom_qty', 'tax_id')
-    def _onchange_discount(self):
-        super(SaleOrderLine, self)._onchange_discount()
-        for record in self:
-            allow_discount = self.env['ir.model.access'].check_groups("product.group_discount_per_so_line")
-            if record.product_id and record.order_partner_id.id and allow_discount:
-                user_lines = self.env['user.partner.discount'].sudo().search([('partner_id', '=', record.order_partner_id.id),('user_id', '=', self.env.user.id)])
-                if user_lines:
-                    partner_discount_obj = user_lines[0]
-                    discount = partner_discount_obj.discount
-                    record.discount = discount
-
-
 class SaleOrderForDiscount(models.Model):
     _inherit = 'sale.order'
 
