@@ -387,7 +387,7 @@
                             <div class="text-left">
                                 <strong>Procedures</strong>
                             </div>
-                            <t t-foreach="my_list_obj['obj_id'].appointment_procedure_ids" t-as="inv">
+                            <t t-foreach="my_list_obj['obj_id'].inp_update_note_procedure_ids" t-as="inv">
                                 <table style="width:100%">
                                     <tbody class="sale_tbody">
                                         <tr>
