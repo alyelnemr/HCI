@@ -66,10 +66,12 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         min_discharge_date = sorted_inpatient_ids[0].discharge_datetime.date() if len(sorted_inpatient_ids) > 0 else False
         is_discharged = docs.patient_id.inpatient_ids[0].is_discharged if len(sorted_inpatient_ids) > 0 else False
         var_discount = 0
+        var_subtotal_discount = 0
         var_disposable = 0
         var_medicine = 0
         var_prosthetics = 0
         for line in docs.invoice_line_ids:
+            var_subtotal_discount += (line.quantity * line.price_unit)
             if line.product_id.categ_id.name == 'Prosthetics':
                 var_prosthetics += line.price_subtotal
             if line.product_id.categ_id.name == 'Disposables':
@@ -77,6 +79,7 @@ class MedicalInvoiceTemplate(models.AbstractModel):
             if line.product_id.categ_id.name == 'Medicines':
                 var_medicine += line.price_subtotal
         var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine) if (docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine)) >= 1 else 0
+        var_discount = var_subtotal_discount - docs.amount_untaxed
         sale_order = self.env['sale.order'].search([('invoice_ids', 'in', docids)])
         docs.patient_id = sale_order.patient_id
         docs.patient_id.invoice_id = docids[0]

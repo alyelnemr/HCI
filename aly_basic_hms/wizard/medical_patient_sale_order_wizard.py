@@ -27,9 +27,11 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
             has_inpatient_group = self.env.user.has_group('aly_basic_hms.aly_group_inpatient')
             if medical_patient_obj.is_insurance and not has_insurance_group:
                 raise UserError(_('You don''t have permission to create invoice for insurance patients!'))
-            if medical_patient_obj.invoice_id.state == 'sale':
-                raise UserError(_('This patient is already invoiced'))
+            if medical_patient_obj.invoice_id.state == 'posted':
+                raise UserError(_('This patient''s invoice is posted, you can unpost the previous invoice and then create invoice'))
 
+            medical_patient_obj.invoice_id = False
+            medical_patient_obj.order_id = False
             list_of_inpatient = []
             if has_inpatient_group:
                 list_of_inpatient = medical_inpatient_env.search([('patient_id', '=', medical_patient_obj.id)])

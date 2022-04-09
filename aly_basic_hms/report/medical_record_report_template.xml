@@ -355,12 +355,14 @@
                                             <span t-field="my_list_obj['obj_id'].neurological_examination" />
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>Further Examination:</td>
-                                        <td>
-                                            <span t-field="my_list_obj['obj_id'].further_examination" />
-                                        </td>
-                                    </tr>
+                                    <t t-if="my_list_obj['obj_id'].further_examination">
+                                        <tr>
+                                            <td>Further Examination:</td>
+                                            <td>
+                                                <span t-field="my_list_obj['obj_id'].further_examination" />
+                                            </td>
+                                        </tr>
+                                    </t>
                                 </tbody>
                             </table>
                         </div>
