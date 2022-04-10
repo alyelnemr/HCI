@@ -63,7 +63,6 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         is_draft = docs.state == 'draft'
         sale_order = self.env['sale.order'].search([('invoice_ids', 'in', docids)])
         if not docs.patient_id:
-            docs.patient_id.partner_id.patient_id[0]
             docs.patient_id = sale_order.patient_id
             docs.patient_id.invoice_id = docids[0]
         sorted_inpatient_ids = sorted(docs.patient_id.inpatient_ids, key=lambda a: a.admission_date)
