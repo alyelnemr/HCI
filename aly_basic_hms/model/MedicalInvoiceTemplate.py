@@ -61,6 +61,11 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         docs = self.env[model].browse(docids)
         # sorted_data = self.get_sorting(docs.partner_id.patient_id)
         is_draft = docs.state == 'draft'
+        sale_order = self.env['sale.order'].search([('invoice_ids', 'in', docids)])
+        if not docs.patient_id:
+            docs.patient_id.partner_id.patient_id[0]
+            docs.patient_id = sale_order.patient_id
+            docs.patient_id.invoice_id = docids[0]
         sorted_inpatient_ids = sorted(docs.patient_id.inpatient_ids, key=lambda a: a.admission_date)
         min_admission_date = sorted_inpatient_ids[0].admission_date if len(sorted_inpatient_ids) > 0 else False
         min_discharge_date = sorted_inpatient_ids[0].discharge_datetime.date() if len(sorted_inpatient_ids) > 0 else False
@@ -83,9 +88,6 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         var_discount = round(var_subtotal_with_discount - docs.amount_untaxed, 2)
         var_subtotal += var_discount
         var_amount_total = docs.amount_total + var_discount
-        sale_order = self.env['sale.order'].search([('invoice_ids', 'in', docids)])
-        docs.patient_id = sale_order.patient_id
-        docs.patient_id.invoice_id = docids[0]
         discount_total = sale_order.discount_total
         var_discount_percent = discount_total if discount_total and var_subtotal > 0 else 0
         return {
