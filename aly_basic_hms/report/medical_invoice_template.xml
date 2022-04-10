@@ -70,22 +70,15 @@
                                     <strong>Total</strong>
                                 </td>
                                 <td class="text-right">
-                                    <span t-field="doc.amount_total" />
+                                    <t t-esc="var_amount_total" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                    <!--<span t-field="doc.amount_total" />-->
                                 </td>
                             </tr>
                             <t t-if="var_discount > 0">
                                 <tr class="border-black text-center">
                                     <td>Discount Amount</td>
                                     <td t-attf-class="text-right">
-                                        <span t-esc="var_discount"/>
-                                    </td>
-                                </tr>
-                            </t>
-                            <t t-if="var_discount_percent > 0">
-                                <tr class="border-black text-center">
-                                    <td>Discount</td>
-                                    <td t-attf-class="text-right">
-                                        <span t-esc="var_discount_percent"/>%
+                                        <t t-esc="var_discount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
                                     </td>
                                 </tr>
                             </t>
