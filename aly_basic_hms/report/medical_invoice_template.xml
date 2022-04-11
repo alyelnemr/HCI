@@ -145,10 +145,10 @@
                             <div>
                                 <div>
                                     <br/><br/>
-                                    <h2 class="text-center">
-                                        <t t-if="is_draft"><span style="text-decoration: underline;font-weight: bold;">Estimate Cost</span></t>
-                                        <t t-if="is_draft==False"><span style="text-decoration: underline;font-weight: bold;">Invoice</span></t>
-                                    </h2>
+                                    <span class="text-center">
+                                        <t t-if="is_draft"><span style="text-decoration: underline;font-weight: bold;"><h2>Estimate Cost</h2></span></t>
+                                        <t t-if="is_draft==False"><span style="text-decoration: underline;font-weight: bold;"><h2>Invoice</h2></span></t>
+                                    </span>
                                 </div>
                             <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
                                 <tr>
