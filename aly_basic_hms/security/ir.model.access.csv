@@ -88,20 +88,17 @@ access_medical_operation_line_receptionist,medical.operation.line.receptionist,m
 
 
 access_medical_patient_doctor,medical.group.patient.doctor,model_medical_patient,aly_group_outpatient,1,1,1,1
-access_medical_patient_medical_group,medical.group.patient.medical.group,model_medical_patient,aly_group_medical_manager,1,1,1,1
 
 access_medical_patient_attachment_doctor,medical.patient.attachment.doctor,model_medical_patient_attachment,aly_group_outpatient,1,1,1,1
-access_medical_patient_attachment_medical_group,medical.patient.attachment.medical.group,model_medical_patient_attachment,aly_group_medical_manager,1,0,0,0
 
 access_medical_patient_line_doctor,medical.patient.line.doctor,model_medical_patient_line,aly_group_outpatient,1,1,1,1
-access_medical_patient_line_medical_group,medical.patient.line.medical.group,model_medical_patient_line,aly_group_medical_manager,1,1,1,1
 
 
 
 
 access_medical_physician_doctor,medical.physician.doctor,model_medical_physician,aly_group_outpatient,1,0,0,0
-access_medical_physician_medical_group,medical.physician.medical.group,model_medical_physician,aly_group_outpatient,1,1,1,
-access_medical_physician_receptionist,medical.physician.receptionist,model_medical_physician,aly_group_inpatient,0,0,0,0
+access_medical_physician_medical_group,medical.physician.medical.group,model_medical_physician,aly_group_medical_manager,1,1,1,
+access_medical_physician_receptionist,medical.physician.receptionist,model_medical_physician,aly_group_inpatient,1,0,0,0
 
 
 
@@ -115,7 +112,7 @@ access_medical_res_partner_medical_group,medical_insurance_medical_group,model_r
 
 
 access_medical_insurance_doctor,medical.insurance.doctor,model_medical_insurance,aly_group_outpatient,1,1,1,0
-access_medical_insurance_medical_group,medical.insurance.medical.group,model_medical_insurance,aly_group_outpatient,1,1,1,1
+access_medical_insurance_medical_group,medical.insurance.medical.group,model_medical_insurance,aly_group_medical_manager,1,1,1,1
 
 access_product_template_doctor,product.template.doctor,product.model_product_template,aly_group_outpatient,1,1,1,0
 access_product_template_medical_grouo,product.template.medical_group,product.model_product_template,aly_group_medical_manager,1,1,1,1

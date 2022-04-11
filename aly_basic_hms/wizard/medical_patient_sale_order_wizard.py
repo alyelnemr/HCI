@@ -275,7 +275,7 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                         'tag': 'display_notification',
                         'params': {
                                 'title': _(
-                                    "Invoice Created Successfully for Patient [%s] with Invoice Number [%s]" % (medical_patient_env.name, res.name)
+                                    "Invoice Created Successfully for Patient [%s] with Invoice Number [%s]" % (medical_patient_obj.name, res.name)
                                 ),
                                 'type': 'success',
                                 'sticky': True,
