@@ -19,19 +19,22 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
         medical_operation_env = self.env['medical.operation']
         account_invoice_obj = self.env['sale.order']
         account_invoice_line_obj = self.env['sale.order.line']
-        ir_property_obj = self.env['ir.property']
         for active_id in active_ids:
             medical_patient_obj = medical_patient_env.browse(active_id)
-            list_of_update_notes = medical_appointment_env.search([('patient_id', '=', medical_patient_obj.id)])
             has_insurance_group = self.env.user.has_group('aly_basic_hms.aly_group_insurance')
             has_inpatient_group = self.env.user.has_group('aly_basic_hms.aly_group_inpatient')
             if medical_patient_obj.is_insurance and not has_insurance_group:
                 raise UserError(_('You don''t have permission to create invoice for insurance patients!'))
-            if medical_patient_obj.invoice_id.state == 'posted':
-                raise UserError(_('This patient''s invoice is posted, you can unpost the previous invoice and then create invoice'))
+            if medical_patient_obj.invoice_id.state == 'posted' or medical_patient_obj.order_id.state == 'sale' or medical_patient_obj.order_id.state == 'done':
+                raise UserError(_('This patient''s invoice is posted, you can unpost or cancel the previous invoice and then create invoice'))
 
+            if medical_patient_obj.invoice_id:
+                medical_patient_obj.invoice_id.unlink()
+            if medical_patient_obj.order_id:
+                medical_patient_obj.order_id.unlink()
             medical_patient_obj.invoice_id = False
             medical_patient_obj.order_id = False
+            list_of_update_notes = medical_appointment_env.search([('patient_id', '=', medical_patient_obj.id)])
             list_of_inpatient = []
             if has_inpatient_group:
                 list_of_inpatient = medical_inpatient_env.search([('patient_id', '=', medical_patient_obj.id)])
