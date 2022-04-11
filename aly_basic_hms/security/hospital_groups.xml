@@ -122,6 +122,10 @@
     </data>
 
     <data noupdate="0">
+        <record forcecreate="True" id="record_clinic_hospital" model="medical.clinic">
+            <field name="name">Hospital</field>
+        </record>
+
         <record id="medical_patient_insurance_outpatient_deny_rule" model="ir.rule">
             <field name="name">Insurance Patients Deny Outpatient</field>
             <field ref="model_sale_order" name="model_id"/>

@@ -109,7 +109,7 @@ class MedicalPatient(models.Model):
     social_history = fields.Char(string='Social History (SH)', required=True)
     company_id = fields.Many2one('res.company', required=True, string='Branch', readonly=True,
                                  default=lambda self: self.env.user.company_id)
-    clinic_id = fields.Many2one('medical.clinic', required=True, string='Clinic', readonly=True,
+    clinic_id = fields.Many2one('medical.clinic', required=True, string='Facility', readonly=True,
                                 default=lambda self: self._get_default_clinic(),
                                 domain=lambda self: self._get_clinic_domain())
     bill_to = fields.Char(string='Bill To', required=False)
