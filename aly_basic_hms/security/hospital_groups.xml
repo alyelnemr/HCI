@@ -124,7 +124,7 @@
         </record>
     </data>
 
-    <data noupdate="0">
+    <data noupdate="1">
 
         <record id="medical_patient_insurance_outpatient_deny_rule" model="ir.rule">
             <field name="name">Insurance Patients Deny Outpatient</field>
