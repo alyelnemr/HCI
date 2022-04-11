@@ -107,6 +107,10 @@
             <field name="tax_group_id" ref="aly_basic_hms.record_service_charge_tax_group" />
         </record>
 
+        <record forcecreate="True" id="record_clinic_hospital" model="medical.clinic">
+            <field name="name">Hospital</field>
+        </record>
+
         <record forcecreate="True" id="record_clinic_jaz_coraya" model="medical.clinic">
             <field name="name">Jaz Coraya</field>
         </record>
