@@ -119,12 +119,12 @@
             <field name="name">Ras Soma</field>
         </record>
 
-    </data>
-
-    <data noupdate="0">
         <record forcecreate="True" id="record_clinic_hospital" model="medical.clinic">
             <field name="name">Hospital</field>
         </record>
+    </data>
+
+    <data noupdate="0">
 
         <record id="medical_patient_insurance_outpatient_deny_rule" model="ir.rule">
             <field name="name">Insurance Patients Deny Outpatient</field>
