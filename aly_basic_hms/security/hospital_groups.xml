@@ -7,11 +7,11 @@
             <field name="description">Hospital Management System By Aly El Nemr.</field>
         </record>
 
-        <record id="module_category_insurance_management" model="ir.module.category">
-            <field name="name">Insurance Management</field>
-            <field name="description">Hospital Management System.</field>
-            <field name="parent_id" ref="module_category_medical_app"/>
-        </record>
+        <!--<record id="module_category_insurance_management" model="ir.module.category">-->
+            <!--<field name="name">Insurance Management</field>-->
+            <!--<field name="description">Hospital Management System.</field>-->
+            <!--<field name="parent_id" ref="module_category_medical_app"/>-->
+        <!--</record>-->
 
         <record id="module_category_medical_levels" model="ir.module.category" >
             <field name="name">Medical Permission Levels</field>
@@ -22,7 +22,7 @@
 
         <record id="aly_group_insurance" model="res.groups">
             <field name="name">Manage insurance invoices</field>
-            <field name="category_id" ref="module_category_insurance_management"/>
+            <field name="parent_id" ref="module_category_medical_app"/>
             <field name="comment">Can manage insurance invoices.</field>
         </record>
 
