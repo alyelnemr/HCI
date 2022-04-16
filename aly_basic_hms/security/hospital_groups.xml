@@ -22,7 +22,7 @@
 
         <record id="aly_group_insurance" model="res.groups">
             <field name="name">Manage insurance invoices</field>
-            <field name="parent_id" ref="module_category_medical_app"/>
+            <field name="category_id" ref="module_category_medical_app"/>
             <field name="comment">Can manage insurance invoices.</field>
         </record>
 
