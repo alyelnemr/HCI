@@ -8,7 +8,7 @@
         </record>
 
         <record id="module_category_insurance_management" model="ir.module.category">
-            <field name="name">Insurance Management</field>
+            <field name="name">Insurance</field>
             <field name="description">Hospital Management System.</field>
             <field name="parent_id" ref="module_category_medical_app"/>
         </record>
