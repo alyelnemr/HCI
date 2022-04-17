@@ -9,7 +9,8 @@ from odoo.exceptions import UserError, ValidationError
 
 class MedicalPatient(models.Model):
     _name = 'medical.patient'
-    _rec_name = 'patient_id'
+    _inherits = {'res.partner': 'partner_id'}
+    _rec_name = 'partner_id'
     _description = 'Medical Patient'
 
     def print_report(self):
@@ -62,12 +63,11 @@ class MedicalPatient(models.Model):
         current_clinics = self.env['res.users'].browse(self.env.user.id)
         return current_clinics.default_clinic_id
 
-    patient_id = fields.Many2one('res.partner', domain=lambda self: self._get_patient_domain(),
-                                 string="Patient Name", required=True)
-    name = fields.Char(string='Patient Code', readonly=True)
+    partner_id = fields.Many2one('res.partner', string="Related Partner")
+    patient_code = fields.Char(string='Patient Code', readonly=True)
     date_of_birth = fields.Date(string="Date of Birth", required=True)
-    sex = fields.Selection([('m', 'Male'), ('f', 'Female')], string="Sex", required=True)
-    age = fields.Char(compute=onchange_age,string="Patient Age", store=True)
+    sex = fields.Selection([('m', 'Male'), ('f', 'Female')], default='m', string="Sex", required=True)
+    age = fields.Char(compute=onchange_age, string="Patient Age", store=True)
     referred_by = fields.Many2one('res.partner', domain=[('is_referred_by', '=', True)], required=False, string='Referred By')
     referred_to = fields.Many2one('res.partner', domain=[('is_referred_to', '=', True)], required=False, string='Referred To')
     is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
@@ -132,7 +132,7 @@ class MedicalPatient(models.Model):
         patient_id = self.env['ir.sequence'].next_by_code('medical.patient.code')
         if patient_id:
             val.update({
-                        'name': patient_id,
+                        'patient_code': patient_id,
                        })
         result = super(MedicalPatient, self).create(val)
         return result
@@ -143,7 +143,7 @@ class MedicalPatient(models.Model):
                 patient_id = self.env['ir.sequence'].next_by_code('medical.patient.code')
                 if patient_id:
                     vals.update({
-                        'name': patient_id,
+                        'patient_code': patient_id,
                     })
             if record.is_insurance or vals.get('is_insurance'):
                 has_insurance_group = self.env.user.has_group('aly_basic_hms.aly_group_insurance')
