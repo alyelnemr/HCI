@@ -31,9 +31,9 @@ class MedicalPatientInvoiceWizard(models.TransientModel):
                 if not inpatient.is_discharged:
                     raise UserError(_('This patient is not discharged, Discharge the patient and then Create Invoice.'))
 
-            partner_id = medical_patient_obj.insurance_company_id.id if medical_patient_obj.is_insurance else medical_patient_obj.patient_id.id or False
+            partner_id = medical_patient_obj.insurance_company_id.id if medical_patient_obj.is_insurance else medical_patient_obj.partner_id.id or False
             customer_ref = medical_patient_obj.id
-            partner_shipping_id = medical_patient_obj.patient_id.id
+            partner_shipping_id = medical_patient_obj.partner_id.id
 
             if medical_patient_obj.is_insurance:
                 partner_id = medical_patient_obj.insurance_company_id.id
