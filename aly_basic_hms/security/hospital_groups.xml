@@ -2,20 +2,26 @@
 <odoo>
 
     <data noupdate="0">
-        <record id="module_category_hospital" model="ir.module.category">
-            <field name="name">Insurance Management</field>
+        <record id="module_category_medical_app" model="ir.module.category">
+            <field name="name">Medical Application</field>
+            <field name="description">Hospital Management System By Aly El Nemr.</field>
+        </record>
+
+        <record id="module_category_insurance_management" model="ir.module.category">
+            <field name="name">Insurance</field>
             <field name="description">Hospital Management System.</field>
+            <field name="parent_id" ref="module_category_medical_app"/>
         </record>
 
         <record id="module_category_medical_levels" model="ir.module.category" >
-            <field name="name">Medical Application</field>
-            <field name="description">Medical Application</field>
-            <field name="sequence">31</field>
+            <field name="name">Medical Level</field>
+            <field name="description">Medical Application - permission levels</field>
+            <field name="parent_id" ref="module_category_medical_app"/>
         </record>
 
         <record id="aly_group_insurance" model="res.groups">
             <field name="name">Manage insurance invoices</field>
-            <field name="category_id" ref="module_category_hospital"/>
+            <field name="category_id" ref="module_category_insurance_management"/>
             <field name="comment">Can manage insurance invoices.</field>
         </record>
 

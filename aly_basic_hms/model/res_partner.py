@@ -24,7 +24,6 @@ class res_partner(models.Model):
     is_institution = fields.Boolean('Institution')
     company_insurance_ids = fields.One2many('medical.insurance','insurance_company_id','Insurance')
     reference = fields.Char('ID Number')
-    patient_id = fields.One2many('medical.patient', 'patient_id', string="Patient Name")
 
     @api.model
     def create(self,val):

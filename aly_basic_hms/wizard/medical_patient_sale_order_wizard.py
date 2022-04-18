@@ -25,6 +25,8 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
             has_inpatient_group = self.env.user.has_group('aly_basic_hms.aly_group_inpatient')
             if medical_patient_obj.is_insurance and not has_insurance_group:
                 raise UserError(_('You don''t have permission to create invoice for insurance patients!'))
+            if not medical_patient_obj.is_opened_visit:
+                raise UserError(_('This patient doesn''t has open visit'))
             if medical_patient_obj.invoice_id.state == 'posted' or medical_patient_obj.order_id.state == 'sale' or medical_patient_obj.order_id.state == 'done':
                 raise UserError(_('This patient''s invoice is posted, you can unpost or cancel the previous invoice and then create invoice'))
 
@@ -43,9 +45,9 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                     if not inpatient.is_discharged:
                         raise UserError(_('This patient is not discharged, Discharge the patient and then Create Invoice.'))
 
-            partner_id = medical_patient_obj.insurance_company_id.id if medical_patient_obj.is_insurance else medical_patient_obj.patient_id.id or False
+            partner_id = medical_patient_obj.insurance_company_id.id if medical_patient_obj.is_insurance else medical_patient_obj.partner_id.id or False
             customer_ref = medical_patient_obj.id
-            price_list_id = medical_patient_obj.insurance_company_id.property_product_pricelist.id if medical_patient_obj.is_insurance else medical_patient_obj.patient_id.property_product_pricelist.id or False
+            price_list_id = medical_patient_obj.insurance_company_id.property_product_pricelist.id if medical_patient_obj.is_insurance else medical_patient_obj.partner_id.property_product_pricelist.id or False
             warehouse_id = self.env['stock.warehouse'].search([('company_id','in',[medical_patient_obj.company_id.id, False])])[0].id
 
             if medical_patient_obj.is_insurance:
