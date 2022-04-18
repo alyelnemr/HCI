@@ -9,6 +9,15 @@ class ProductCategorySorting(models.Model):
     sorting_rank = fields.Integer(string='Sorting Rank', default=100)
 
 
+class SaleAdvancePaymentInvMedical(models.TransientModel):
+    _inherit = "sale.advance.payment.inv"
+
+    advance_payment_method = fields.Selection([
+        ('delivered', 'Regular invoice')], string='Create Invoice', default='delivered', required=True, readonly=True,
+        help="A standard invoice is issued with all the order lines ready for invoicing, \
+        according to their invoicing policy (based on ordered or delivered quantity).")
+
+
 class AccountMoveForDiscount(models.Model):
     _inherit = 'account.move'
 
