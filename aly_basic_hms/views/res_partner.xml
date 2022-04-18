@@ -121,6 +121,9 @@
                 <xpath expr="//button[@name='action_quotation_send'][last()]" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
+                <xpath expr="header/button[@context]" position="attributes">
+                    <attribute name="context">{'default_advance_payment_method': 'delivered'}</attribute>
+                </xpath>
                 <notebook>
                     <page string="Medical">
                         <group colspan="6" col="6">
