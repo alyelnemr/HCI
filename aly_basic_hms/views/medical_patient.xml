@@ -26,7 +26,7 @@
                                 <label for="name" />
                             </div>
                             <h1>
-                                <field style="width: 100%%" name="name"
+                                <field style="width: 100%%" name="name" required="1"
                                     default_focus="1" placeholder="Patient Name"
                                     context="{'default_is_patient': 1,'default_is_person': 1}"
                                      />
