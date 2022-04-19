@@ -22,6 +22,8 @@ class MedicalPatient(models.Model):
         for rec in self:
             if not rec.order_id and not rec.is_opened_visit and not con:
                 raise UserError(_('Cannot close Visit which is not invoiced...'))
+            if rec.order_id.state == 'sale' or rec.order_id.state == 'done' or rec.invoice_id == 'posted' and not con:
+                raise UserError(_('Cannot close Visit which has a confirmed invoice...'))
 
     @api.constrains('is_insurance', 'insurance_company_id')
     def onchange_is_insurance(self):
