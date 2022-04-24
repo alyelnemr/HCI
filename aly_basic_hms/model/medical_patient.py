@@ -143,10 +143,12 @@ class MedicalPatient(models.Model):
                        })
         if val.get('is_insurance'):
             insurance = self.env.user.company_id.default_account_rec_insurance_id
-            val['property_account_receivable_id'] = insurance
+            if insurance:
+                val['property_account_receivable_id'] = insurance
         else:
             cash = self.env.user.company_id.default_account_rec_cash_id
-            val['property_account_receivable_id'] = cash
+            if cash:
+                val['property_account_receivable_id'] = cash
         result = super(MedicalPatient, self).create(val)
         return result
 
@@ -170,9 +172,11 @@ class MedicalPatient(models.Model):
                     raise UserError(_('You don''t have permission to change insurance invoice from patient'))
             if vals.get('is_insurance'):
                 insurance = self.env.user.company_id.default_account_rec_insurance_id
-                vals['property_account_receivable_id'] = insurance
+                if insurance:
+                    vals['property_account_receivable_id'] = insurance
             else:
                 cash = self.env.user.company_id.default_account_rec_cash_id
-                vals['property_account_receivable_id'] = cash
+                if cash:
+                    vals['property_account_receivable_id'] = cash
         res = super(MedicalPatient, self).write(vals)
         return res
