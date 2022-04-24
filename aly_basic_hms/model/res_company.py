@@ -8,6 +8,12 @@ class ResCompany(models.Model):
     header = fields.Binary(string='Medical Report Header')
     footer = fields.Binary(string='Medical Report Footer')
     bank_details = fields.Text(string='Banks Accounts Details')
+    default_account_rec_cash_id = fields.Many2one('account.account',
+                                                  domain="[('internal_type', '=', 'receivable'), ('deprecated', '=', False), ('company_id', '=', current_company_id)]",
+                                                  string="Account Receivable (Cash)")
+    default_account_rec_insurance_id = fields.Many2one('account.account',
+                                                       domain="[('internal_type', '=', 'receivable'), ('deprecated', '=', False), ('company_id', '=', current_company_id)]",
+                                                       string="Account Receivable (Insurance)")
 
 
 class ResUsers(models.Model):
