@@ -88,11 +88,11 @@ class MedicalPatient(models.Model):
     marital_status = fields.Selection([('s', 'Single'), ('m', 'Married'),
                                        ('w', 'Widowed'), ('d', 'Divorced')], string='Marital Status')
     nationality_id = fields.Many2one("res.country", "Nationality", required=True)
-    travel_agency = fields.Many2one('res.partner',domain=[('is_travel_agency','=',True)],string='Travel Agency')
-    tour_operator = fields.Many2one('res.partner',domain=[('is_tour_operator','=',True)],string='Tour Operator')
+    travel_agency = fields.Many2one('res.partner', domain=[('is_travel_agency', '=', True)], string='Travel Agency')
+    tour_operator = fields.Many2one('res.partner', domain=[('is_tour_operator', '=', True)], string='Tour Operator')
     date_of_arrival = fields.Date(string="Date of Arrival", required=True)
     date_of_departure = fields.Date(string="Date of Departure", required=True)
-    hotel = fields.Many2one('res.partner',domain=[('is_hotel','=',True)],string='Hotel', required=True)
+    hotel = fields.Many2one('res.partner',domain=[('is_hotel', '=', True)], string='Hotel', required=True)
     room_number = fields.Integer(string='Room Number', required=True)
     social_history_info = fields.Text(string="Patient Social History")
     emergency_contact_name = fields.Char(string='Contact Name')
@@ -118,7 +118,7 @@ class MedicalPatient(models.Model):
     update_note_ids = fields.One2many('medical.appointment', 'patient_id')
     inpatient_ids = fields.One2many('medical.inpatient.registration', 'patient_id')
     operation_ids = fields.One2many('medical.operation', 'patient_id')
-    attachment_ids = fields.One2many('medical.patient.attachment','patient_id',string="Attachments")
+    attachment_ids = fields.One2many('medical.patient.attachment', 'patient_id', string="Attachments")
     disposable_ids = fields.One2many('medical.patient.line', 'patient_id', string='Disposables', required=True)
 
     @api.model
@@ -136,6 +136,19 @@ class MedicalPatient(models.Model):
             val.update({
                         'patient_code': patient_id,
                        })
+        if val.get('is_insurance'):
+            insurance = self.env.user.company_id.default_account_rec_insurance_id
+            val.update({
+                        'property_account_receivable_id': insurance,
+                       })
+        if val.get('is_insurance'):
+            insurance = self.env.user.company_id.default_account_rec_insurance_id
+            if insurance:
+                val['property_account_receivable_id'] = insurance
+        else:
+            cash = self.env.user.company_id.default_account_rec_cash_id
+            if cash:
+                val['property_account_receivable_id'] = cash
         result = super(MedicalPatient, self).create(val)
         return result
 
@@ -157,5 +170,13 @@ class MedicalPatient(models.Model):
                     raise UserError(_('You don''t have permission to change insurance invoice from patient'))
                 if record.is_insurance and record.order_id and record.order_id != vals.get('order_id') and not has_insurance_group:
                     raise UserError(_('You don''t have permission to change insurance invoice from patient'))
+            if vals.get('is_insurance'):
+                insurance = self.env.user.company_id.default_account_rec_insurance_id
+                if insurance:
+                    vals['property_account_receivable_id'] = insurance
+            else:
+                cash = self.env.user.company_id.default_account_rec_cash_id
+                if cash:
+                    vals['property_account_receivable_id'] = cash
         res = super(MedicalPatient, self).write(vals)
         return res

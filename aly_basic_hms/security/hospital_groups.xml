@@ -7,6 +7,10 @@
             <field name="description">Hospital Management System By Aly El Nemr.</field>
         </record>
 
+
+
+
+
         <record id="module_category_insurance_management" model="ir.module.category">
             <field name="name">Insurance</field>
             <field name="description">Hospital Management System.</field>
