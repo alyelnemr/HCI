@@ -17,6 +17,12 @@
                             <field name="bank_details"/>
                         </group>
                     </page>
+                    <page string="Default Accounts">
+                        <group >
+                            <field name="default_account_rec_cash_id"/>
+                            <field name="default_account_rec_insurance_id"/>
+                        </group>
+                    </page>
                 </notebook>
             </field>
         </record>
