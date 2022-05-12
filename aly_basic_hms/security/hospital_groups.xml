@@ -240,7 +240,7 @@
         <record id="medical_inpatient_update_note_per_doctor_rule" model="ir.rule">
             <field name="name">Personal Patients Inpatient Update Notes</field>
             <field ref="model_medical_inp_update_note" name="model_id"/>
-            <field name="domain_force">['|',('create_uid','=',user.id),('created_uid','=',False)]</field>
+            <field name="domain_force">['|',('create_uid','=',user.id),('create_uid','=',False)]</field>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_inpatient'))]"/>
         </record>
 
