@@ -209,7 +209,7 @@
         </record>
 
         <record id="medical_appointment_per_inp_rule" model="ir.rule">
-            <field name="name">Personal Patients Appointments</field>
+            <field name="name">Personal Patients Appointments for Inpatient</field>
             <field ref="model_medical_appointment" name="model_id"/>
             <field name="domain_force">['|',('create_uid','=',user.id),('patient_id.clinic_id','=',user.allowed_clinic_ids.ids)]</field>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_inpatient'))]"/>
@@ -265,7 +265,7 @@
         <record id="medical_inpatient_update_note_per_doctor_rule" model="ir.rule">
             <field name="name">Personal Patients Inpatient Update Notes</field>
             <field ref="model_medical_inp_update_note" name="model_id"/>
-            <field name="domain_force">['|',('create_uid','=',user.id),('patient_id.clinic_id','=',user.allowed_clinic_ids.ids)]</field>
+            <field name="domain_force">['|',('create_uid','=',user.id),('inpatient_id.patient_id.clinic_id','=',user.allowed_clinic_ids.ids)]</field>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_inpatient'))]"/>
         </record>
 
