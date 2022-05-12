@@ -16,6 +16,7 @@ access_medical_appointment_investigation_doctor,medical.appointment.investigatio
 
 access_medical_appointment_procedure_doctor,medical.appointment.procedure.doctor,model_medical_appointment_procedure,,1,1,1,1
 
+
 access_dose_unit_doctor,medical.dose.unit.doctor,model_medical_dose_unit,,1,1,1,1
 
 
@@ -82,18 +83,18 @@ access_medical_operation_line_receptionist,medical.operation.line.receptionist,m
 
 
 
-access_medical_patient_doctor,medical.group.patient.doctor,model_medical_patient,aly_group_outpatient,1,1,1,1
+access_medical_patient_doctor,medical.group.patient.doctor,model_medical_patient,,1,1,1,1
 
-access_medical_patient_attachment_doctor,medical.patient.attachment.doctor,model_medical_patient_attachment,aly_group_outpatient,1,1,1,1
+access_medical_patient_attachment_doctor,medical.patient.attachment.doctor,model_medical_patient_attachment,,1,1,1,1
 
-access_medical_patient_line_doctor,medical.patient.line.doctor,model_medical_patient_line,aly_group_outpatient,1,1,1,1
+
+access_medical_patient_line_doctor,medical.patient.line.doctor,model_medical_patient_line,,1,1,1,1
 
 
 
 
 access_medical_physician_doctor,medical.physician.doctor,model_medical_physician,aly_group_outpatient,1,0,0,0
 access_medical_physician_medical_group,medical.physician.medical.group,model_medical_physician,aly_group_medical_manager,1,1,1,
-access_medical_physician_receptionist,medical.physician.receptionist,model_medical_physician,aly_group_inpatient,1,0,0,0
 
 
 
@@ -111,8 +112,11 @@ access_medical_insurance_medical_group,medical.insurance.medical.group,model_med
 
 access_product_template_doctor,product.template.doctor,product.model_product_template,aly_group_outpatient,1,1,1,0
 access_product_template_medical_grouo,product.template.medical_group,product.model_product_template,aly_group_medical_manager,1,1,1,1
-access_product_product_doctor,product.product.doctor,product.model_product_product,aly_group_outpatient,1,1,1,0
+
+
+access_product_product_doctor,product.product.doctor,product.model_product_product,aly_group_outpatient,1,0,0,0
 access_product_product_medical_group,product.product.medical.group,product.model_product_product,aly_group_medical_manager,1,1,1,1
+
 
 access_account_payment_term_salesman,account_payment_term salesman,account.model_account_payment_term,aly_group_outpatient,1,1,1,0
 access_account_analytic_tag_sale_salesman,account.analytic.tag.sale.salesman,analytic.model_account_analytic_tag,aly_group_outpatient,1,0,0,0
@@ -124,8 +128,9 @@ access_medical_dose_unit_medical_group,medical_dose_unit.medical_group,model_med
 access_medical_medication_dosage_doctor,medical.medication.dosage.doctor,model_medical_medication_dosage,aly_group_outpatient,1,1,1,0
 access_medical_medication_dosage_medical_group,medical.medication.dosage.medical.group,model_medical_medication_dosage,aly_group_medical_manager,1,1,1,1
 
-access_medical_inpatient_medication_doctor,access_medical_inpatient_medication_doctor,model_medical_inpatient_medication,aly_group_outpatient,1,1,1,1
-access_medical_inpatient_medication_medical_group,access_medical_inpatient_medication_medical_group,model_medical_inpatient_medication,aly_group_medical_manager,1,1,1,1
+
+
+access_medical_inpatient_medication_doctor,access_medical_inpatient_medication_doctor,model_medical_inpatient_medication,,1,1,1,1
 
 
 
@@ -141,6 +146,7 @@ access_ir_attachment_doctor,ir.attachment.sales,base.model_ir_attachment,aly_gro
 access_ir_attachment_medical_group,ir.attachment.medical_group,base.model_ir_attachment,aly_group_outpatient,1,1,1,1
 access_product_pricelist_doctor,product.pricelist.sale.doctor,product.model_product_pricelist,aly_group_outpatient,1,0,0,0
 access_product_uom_sale_manager,product.uom salemanager,uom.model_uom_uom,aly_group_outpatient,1,0,0,0
+
 access_product_category_doctor,product.category.doctor,product.model_product_category,aly_group_outpatient,1,0,0,0
 
 
