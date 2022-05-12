@@ -166,12 +166,16 @@
         </record>
 
 
+
         <record id="medical_patient_multi_company_rule" model="ir.rule">
             <field name="name">Medical Patient filtered by Company</field>
             <field name="model_id" ref="model_medical_patient" />
             <field name="global" eval="True" />
             <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
         </record>
+
+
+
 
         <record id="medical_patient_per_doctor_rule" model="ir.rule">
             <field name="name">Personal Patients</field>
@@ -185,13 +189,6 @@
             <field ref="model_medical_patient" name="model_id"/>
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_medical_manager'))]"/>
-        </record>
-
-        <record id="medical_patient_all_inpatients_rule" model="ir.rule">
-            <field name="name">All Patients for Inpatient Managers</field>
-            <field ref="model_medical_patient" name="model_id"/>
-            <field name="domain_force">[(1,'=',1)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_inpatient_manager'))]"/>
         </record>
 
 
@@ -211,7 +208,7 @@
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
 
-        <record id="medical_patient_all_appointment_rule" model="ir.rule">
+        <record id="medical_appointment_all_appointment_rule" model="ir.rule">
             <field name="name">All Patients</field>
             <field ref="model_medical_appointment" name="model_id"/>
             <field name="domain_force">[(1,'=',1)]</field>
@@ -287,7 +284,7 @@
         <record id="medical_operation_per_doctor_rule" model="ir.rule">
             <field name="name">Personal Patients Operations</field>
             <field ref="model_medical_operation" name="model_id"/>
-            <field name="domain_force">['|',('create_uid','=',user.id),('create_uid','=',False)]</field>
+            <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_inpatient'))]"/>
         </record>
 
