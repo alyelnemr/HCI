@@ -34,7 +34,7 @@ class SaleOrderForDiscount(models.Model):
     _inherit = 'sale.order'
 
     @api.depends('discount_total', 'order_line')
-    def onchange_age(self):
+    def onchange_discount(self):
         current_user = self.env['res.users'].sudo().browse(self.env.user.id)
         for rec in self:
             if rec.discount_total < 0:
@@ -51,6 +51,12 @@ class SaleOrderForDiscount(models.Model):
                     line.discount = rec.discount_total if line.product_id.categ_id.name not in ['Prosthetics', 'Medicines', 'Disposables', 'Discounts)'] else 0
 
     discount_total = fields.Float(string='Total Discount %', default=0.0)
-    discount_amount = fields.Monetary(compute=onchange_age, string="Discount", store=True)
+    discount_amount = fields.Monetary(compute=onchange_discount, string="Discount", store=True)
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
+
+    def _action_confirm(self):
+        result = super(SaleOrderForDiscount, self)._action_confirm()
+        self.patient_id.invoice_id = self.invoice_ids[0] if len(self.invoice_ids) > 1 else False
+        return result
+
