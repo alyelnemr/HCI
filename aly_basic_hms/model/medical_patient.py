@@ -168,7 +168,9 @@ class MedicalPatient(models.Model):
                     raise UserError(_('You don''t have permission to remove insurance invoice from patient'))
                 if record.is_insurance and record.order_id and record.order_id != vals.get('order_id') and not has_insurance_group:
                     raise UserError(_('You don''t have permission to change insurance invoice from patient'))
-                if record.is_insurance and record.order_id and record.order_id != vals.get('order_id') and not has_insurance_group:
+                if record.is_insurance and record.invoice_id and not vals.get('invoice_id') and not has_insurance_group:
+                    raise UserError(_('You don''t have permission to remove insurance invoice from patient'))
+                if record.is_insurance and record.invoice_id and record.invoice_id != vals.get('invoice_id') and not has_insurance_group:
                     raise UserError(_('You don''t have permission to change insurance invoice from patient'))
             if vals.get('is_insurance'):
                 insurance = self.env.user.company_id.default_account_rec_insurance_id
