@@ -17,6 +17,19 @@ class SaleAdvancePaymentInvMedical(models.TransientModel):
         help="A standard invoice is issued with all the order lines ready for invoicing, \
         according to their invoicing policy (based on ordered or delivered quantity).")
 
+    def create_invoices(self):
+        result = super(SaleAdvancePaymentInvMedical, self).create_invoices()
+        sale_orders = self.env['sale.order'].browse(self._context.get('active_ids', []))
+        for order in sale_orders:
+            patient = self.env['medical.patient'].browse(order.patient_id.id)
+            for inv in order.invoice_ids:
+                if inv.state != 'cancel':
+                    invoice = self.env['account.move'].browse(inv.id)
+                    patient.invoice_id = inv.id
+                    invoice.patient_id = patient.id
+                    break
+        return result
+
 
 class AccountMoveForDiscount(models.Model):
     _inherit = 'account.move'
@@ -34,7 +47,7 @@ class SaleOrderForDiscount(models.Model):
     _inherit = 'sale.order'
 
     @api.depends('discount_total', 'order_line')
-    def onchange_age(self):
+    def onchange_discount(self):
         current_user = self.env['res.users'].sudo().browse(self.env.user.id)
         for rec in self:
             if rec.discount_total < 0:
@@ -51,6 +64,7 @@ class SaleOrderForDiscount(models.Model):
                     line.discount = rec.discount_total if line.product_id.categ_id.name not in ['Prosthetics', 'Medicines', 'Disposables', 'Discounts)'] else 0
 
     discount_total = fields.Float(string='Total Discount %', default=0.0)
-    discount_amount = fields.Monetary(compute=onchange_age, string="Discount", store=True)
+    discount_amount = fields.Monetary(compute=onchange_discount, string="Discount", store=True)
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
+
