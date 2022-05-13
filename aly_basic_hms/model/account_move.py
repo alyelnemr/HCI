@@ -21,7 +21,13 @@ class SaleAdvancePaymentInvMedical(models.TransientModel):
         result = super(SaleAdvancePaymentInvMedical, self).create_invoices()
         sale_orders = self.env['sale.order'].browse(self._context.get('active_ids', []))
         for order in sale_orders:
-            order.patient_id.invoice_id = order.invoice_ids[0] if len(order.invoice_ids) > 1 else False
+            patient = self.env['medical.patient'].browse(order.patient_id.id)
+            for inv in order.invoice_ids:
+                if inv.state != 'cancel':
+                    invoice = self.env['account.move'].browse(inv.id)
+                    patient.invoice_id = inv.id
+                    invoice.patient_id = patient.id
+                    break
         return result
 
 
