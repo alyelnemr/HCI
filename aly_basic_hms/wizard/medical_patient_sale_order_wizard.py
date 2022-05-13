@@ -41,9 +41,9 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
             if has_inpatient_group:
                 list_of_inpatient = medical_inpatient_env.search([('patient_id', '=', medical_patient_obj.id)])
                 list_of_operation = medical_operation_env.search([('patient_id', '=', medical_patient_obj.id)])
-                for inpatient in list_of_inpatient:
-                    if not inpatient.is_discharged:
-                        inpatient.is_discharged = datetime.today().date()
+                # for inpatient in list_of_inpatient:
+                #     if not inpatient.is_discharged:
+                #         inpatient.discharge_date = datetime.today().date()
                         # raise UserError(_('This patient is not discharged, Discharge the patient and then Create Invoice.'))
 
             partner_id = medical_patient_obj.insurance_company_id.id if medical_patient_obj.is_insurance else medical_patient_obj.partner_id.id or False
