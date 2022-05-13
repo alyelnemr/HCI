@@ -17,6 +17,13 @@ class SaleAdvancePaymentInvMedical(models.TransientModel):
         help="A standard invoice is issued with all the order lines ready for invoicing, \
         according to their invoicing policy (based on ordered or delivered quantity).")
 
+    def create_invoices(self):
+        result = super(SaleAdvancePaymentInvMedical, self).create_invoices()
+        sale_orders = self.env['sale.order'].browse(self._context.get('active_ids', []))
+        for order in sale_orders:
+            order.patient_id.invoice_id = order.invoice_ids[0] if len(order.invoice_ids) > 1 else False
+        return result
+
 
 class AccountMoveForDiscount(models.Model):
     _inherit = 'account.move'
@@ -54,9 +61,4 @@ class SaleOrderForDiscount(models.Model):
     discount_amount = fields.Monetary(compute=onchange_discount, string="Discount", store=True)
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
-
-    def _action_confirm(self):
-        result = super(SaleOrderForDiscount, self)._action_confirm()
-        self.patient_id.invoice_id = self.invoice_ids[0] if len(self.invoice_ids) > 1 else False
-        return result
 
