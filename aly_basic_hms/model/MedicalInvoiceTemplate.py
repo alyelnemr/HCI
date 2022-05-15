@@ -81,7 +81,7 @@ class MedicalInvoiceTemplate(models.AbstractModel):
             var_subtotal_with_discount += (line.quantity * line.price_unit)
             for tax in line.tax_ids:
                 var_taxed_amount += ((line.quantity * line.price_unit) * tax.amount / 100)
-                var_subtotal_taxed = (line.quantity * line.price_unit) + ((line.quantity * line.price_unit) * tax.amount / 100)
+                var_subtotal_taxed += (line.quantity * line.price_unit) + ((line.quantity * line.price_unit) * tax.amount / 100)
             if line.product_id.categ_id.name == 'Prosthetics':
                 var_prosthetics += line.price_subtotal
             if line.product_id.categ_id.name == 'Disposables':
