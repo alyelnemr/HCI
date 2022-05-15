@@ -46,7 +46,7 @@
                                 <field name="marital_status" />
                                 <field name="company_id" />
                                 <field name="clinic_id" />
-                                <field name="invoice_id" groups="aly_basic_hms.aly_group_insurance" />
+                                <field name="order_id" groups="aly_basic_hms.aly_group_insurance" />
                                 <field name="invoice_id" groups="aly_basic_hms.aly_group_insurance" />
                             </group>
                             <group>
