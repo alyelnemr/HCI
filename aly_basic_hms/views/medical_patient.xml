@@ -46,8 +46,8 @@
                                 <field name="marital_status" />
                                 <field name="company_id" />
                                 <field name="clinic_id" />
-                                <field name="order_id" />
-                                <field name="invoice_id" />
+                                <field name="invoice_id" groups="aly_basic_hms.aly_group_insurance" />
+                                <field name="invoice_id" groups="aly_basic_hms.aly_group_insurance" />
                             </group>
                             <group>
                                 <field name="bill_to" />
@@ -63,8 +63,8 @@
                                        context="{'default_is_insurance_company': True,'default_company_type': 'company'}"
                                 />
                                 <field name="assistance_company" attrs="{'invisible': [('is_insurance', '=', False)]}" />
-                                <field name="invoice_id" groups="aly_basic_hms.aly_group_insurance" />
-                                <field name="is_invoiced" groups="aly_basic_hms.aly_group_insurance" />
+                                <field name="invoice_id" attrs="{'invisible': True}" />
+                                <field name="is_invoiced" attrs="{'invisible': True}" />
                             </group>
                         </group>
                         <group string="Family - Emergency Contact">
