@@ -45,7 +45,7 @@
                                 <tr class="text-center">
                                     <td><span t-esc="amount_by_group[0]"/></td>
                                     <td class="text-right">
-                                        <span t-esc="amount_by_group[1]" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                        <span t-esc="var_taxed_amount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                     </td>
                                 </tr>
                             </t>
