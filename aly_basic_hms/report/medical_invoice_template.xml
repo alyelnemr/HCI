@@ -70,7 +70,7 @@
                                     <strong>Total</strong>
                                 </td>
                                 <td class="text-right">
-                                    <t t-esc="var_amount_total" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                    <t t-esc="var_amount_total_taxed" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
                                     <!--<span t-field="doc.amount_total" />-->
                                 </td>
                             </tr>
