@@ -49,7 +49,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Hospital Ref#</th>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Our Ref#</th>
                                     <td>
                                         <span t-field="doc.our_reference" class="text-center"/>
                                     </td>
