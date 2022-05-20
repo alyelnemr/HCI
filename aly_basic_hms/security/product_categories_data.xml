@@ -1,5 +1,5 @@
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
         <record id="record_transportation_product_category" model="product.category">
             <field name="name">Transportation</field>
         </record>
@@ -36,6 +36,10 @@
             <field name="name">Prosthetics</field>
         </record>
 
+        <record id="record_service_charge_product_category" model="product.category">
+            <field name="name">Service Charge Services</field>
+        </record>
+
         <record id="record_discounts_product_category" model="product.category">
             <field name="name">Discounts</field>
         </record>
@@ -53,6 +57,12 @@
         <record id="record_discount_product_template" model="product.template">
             <field name="name">Discount Service</field>
             <field name="categ_id" ref="aly_basic_hms.record_discounts_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record id="record_service_charge_product_template" model="product.template">
+            <field name="name">Service Charge</field>
+            <field name="categ_id" ref="aly_basic_hms.record_service_charge_product_category" />
             <field name="type">service</field>
         </record>
 

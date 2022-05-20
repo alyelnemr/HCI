@@ -45,7 +45,7 @@
                                 <tr class="text-center">
                                     <td><span t-esc="amount_by_group[0]"/></td>
                                     <td class="text-right">
-                                        <span t-esc="var_taxed_amount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                        <span t-esc="amount_by_group[1]" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                     </td>
                                 </tr>
                             </t>
@@ -70,7 +70,7 @@
                                     <strong>Total</strong>
                                 </td>
                                 <td class="text-right">
-                                    <t t-esc="var_amount_total_taxed" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                    <t t-esc="var_amount_total" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
                                     <!--<span t-field="doc.amount_total" />-->
                                 </td>
                             </tr>

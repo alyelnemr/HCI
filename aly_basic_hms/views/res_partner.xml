@@ -115,6 +115,13 @@
                     <field name = "discount_total" />
                     <field name="patient_id" />
                 </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="after">
+                    <field name="service_untaxed_amount" />
+                    <field name="service_charge_amount" />
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
                 <xpath expr="//button[@name='action_quotation_send']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>

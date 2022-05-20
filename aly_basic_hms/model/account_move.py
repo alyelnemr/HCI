@@ -46,6 +46,24 @@ class AccountMoveForDiscount(models.Model):
 class SaleOrderForDiscount(models.Model):
     _inherit = 'sale.order'
 
+    @api.depends('order_line.price_total', 'amount_total', 'amount_untaxed', 'discount_total', 'order_line')
+    def compute_amount_all(self):
+        aly_enable_service_charge = self.env['ir.config_parameter'].sudo().get_param('aly_enable_service_charge')
+        aly_service_product_id = int(self.env['ir.config_parameter'].sudo().get_param('aly_service_product_id'))
+        for rec in self:
+            if aly_enable_service_charge and rec.amount_total > 0:
+                amount_untaxed = 0.0
+                for line in rec.order_line:
+                    if line.product_id.id == aly_service_product_id:
+                        line.price_unit = 0
+                    amount_untaxed += line.price_subtotal
+                aly_service_charge_percentage = float(self.env['ir.config_parameter'].sudo().get_param('aly_service_charge_percentage'))
+                rec.service_charge_amount = aly_service_charge_percentage * amount_untaxed / 100
+                rec.service_untaxed_amount = amount_untaxed
+                for line in rec.order_line:
+                    if line.product_id.id == aly_service_product_id:
+                        line.price_unit = rec.service_charge_amount
+
     @api.depends('discount_total', 'order_line')
     def onchange_discount(self):
         current_user = self.env['res.users'].sudo().browse(self.env.user.id)
@@ -67,4 +85,18 @@ class SaleOrderForDiscount(models.Model):
     discount_amount = fields.Monetary(compute=onchange_discount, string="Discount", store=True)
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
+    service_charge_amount = fields.Monetary(compute=compute_amount_all, string="Service Charge %", store=False)
+    service_untaxed_amount = fields.Monetary(compute=compute_amount_all, string="Untaxed Amount", store=False)
 
+    def update_prices(self):
+        self.ensure_one()
+        aly_service_product_id = int(self.env['ir.config_parameter'].sudo().get_param('aly_service_product_id'))
+        for line in self.order_line:
+            if line.product_id.id == aly_service_product_id:
+                line.price_unit = 0
+        res = super().update_prices()
+        aly_service_charge_percentage = float(self.env['ir.config_parameter'].sudo().get_param('aly_service_charge_percentage'))
+        for line in self.order_line:
+            if line.product_id.id == aly_service_product_id:
+                line.price_unit = aly_service_charge_percentage * self.amount_untaxed / 100
+        return res

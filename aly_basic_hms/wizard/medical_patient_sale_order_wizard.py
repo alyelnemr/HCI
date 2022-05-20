@@ -263,6 +263,18 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                     }
                     res1 = account_invoice_line_obj.create(invoice_line_vals)
 
+                aly_enable_service_charge = self.env['ir.config_parameter'].sudo().get_param('aly_enable_service_charge')
+                if aly_enable_service_charge:
+                    aly_service_product_id = int(self.env['ir.config_parameter'].sudo().get_param('aly_service_product_id'))
+                    invoice_line_vals = {
+                        'name': 'Service Charges' or '',
+                        'product_uom_qty': 1,
+                        'price_unit': 0,
+                        'product_id': aly_service_product_id,
+                        'order_id': res.id
+                    }
+                    res1 = account_invoice_line_obj.create(invoice_line_vals)
+
                 # res1 = account_invoice_line_obj.create({'order_line': list_of_vals})
 
                 res.update_prices()
