@@ -9,7 +9,7 @@
                     <header>
                         <button
                                 name="%(action_medical_patient_sale_order_wizard)d"
-                                string="Create Invoice" type="action" class="oe_highlight"
+                                string="Create Services Order" type="action" class="oe_highlight"
                                 groups="aly_basic_hms.aly_group_outpatient"
                         />
                     </header>
