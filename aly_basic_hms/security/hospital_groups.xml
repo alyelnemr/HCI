@@ -90,6 +90,11 @@
             <field name="value">Procedures</field>
         </record>
 
+        <record id="service_charge_product_category" model="ir.config_parameter">
+            <field name="key">service_charge.product_category</field>
+            <field name="value">Service Charge Services</field>
+        </record>
+
         <record id="accommodation_product_category" model="ir.config_parameter">
             <field name="key">accommodation.product_category</field>
             <field name="value">Accommodation</field>
