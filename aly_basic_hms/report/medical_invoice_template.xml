@@ -45,7 +45,7 @@
                             </tr>
                             <t t-if="var_service_charge>0">
                                 <tr class="text-center">
-                                    <td>Service Charges %</td>
+                                    <td>Service Charges <t t-esc="aly_service_charge_percentage" />%</td>
                                     <td class="text-right">
                                         <t t-esc="var_service_charge" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
                                     </td>
