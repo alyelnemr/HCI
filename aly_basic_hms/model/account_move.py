@@ -56,7 +56,7 @@ class SaleOrderForDiscount(models.Model):
                 for line in rec.order_line:
                     if line.product_id.id == aly_service_product_id:
                         line.price_unit = 0
-                    amount_untaxed += (line.price_unit * line.product_uom_qty) if line.product_id.categ_id.name not in ['Prosthetics', 'Medicines', 'Disposables', 'Discounts)'] else 0
+                    amount_untaxed += (line.price_unit * line.product_uom_qty) if line.product_id.categ_id.name not in ['Prosthetics', 'Medicines', 'Disposables', 'Discounts', 'Service Charge Services'] else 0
                 aly_service_charge_percentage = float(self.env['ir.config_parameter'].sudo().get_param('aly_service_charge_percentage'))
                 rec.service_charge_amount = aly_service_charge_percentage * amount_untaxed / 100
                 rec.service_untaxed_amount = amount_untaxed
@@ -86,7 +86,7 @@ class SaleOrderForDiscount(models.Model):
                 for line in rec.order_line:
                     amount_total += (line.price_unit * line.product_uom_qty)
                     discount_amount += ((line.price_unit * line.product_uom_qty) * rec.discount_total / 100) if (line.price_unit * line.product_uom_qty) > 0 else 0
-                    line.discount = rec.discount_total if line.product_id.categ_id.name not in ['Prosthetics', 'Medicines', 'Disposables', 'Discounts)'] else 0
+                    line.discount = rec.discount_total if line.product_id.categ_id.name not in ['Prosthetics', 'Medicines', 'Disposables', 'Discounts', 'Service Charge Services'] else 0
 
     discount_total = fields.Float(string='Total Discount %', default=0.0)
     discount_amount = fields.Monetary(compute=onchange_discount, string="Discount", store=True)
