@@ -64,6 +64,13 @@ class SaleOrderForDiscount(models.Model):
                     if line.product_id.id == aly_service_product_id:
                         line.price_unit = rec.service_charge_amount
 
+    @api.depends('service_charge_amount')
+    def compute_amount_all(self):
+        aly_enable_service_charge = self.env['ir.config_parameter'].sudo().get_param('aly_enable_service_charge')
+        for rec in self:
+            if aly_enable_service_charge and rec.amount_total > 0:
+                rec.service_untaxed_amount = rec.amount_untaxed - rec.service_charge_amount
+
     @api.depends('discount_total', 'order_line')
     def onchange_discount(self):
         current_user = self.env['res.users'].sudo().browse(self.env.user.id)
