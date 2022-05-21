@@ -56,7 +56,7 @@ class SaleOrderForDiscount(models.Model):
                 for line in rec.order_line:
                     if line.product_id.id == aly_service_product_id:
                         line.price_unit = 0
-                    amount_untaxed += line.price_subtotal
+                    amount_untaxed += line.price_subtotal if line.product_id.categ_id.name not in ['Prosthetics', 'Medicines', 'Disposables', 'Discounts)'] else 0
                 aly_service_charge_percentage = float(self.env['ir.config_parameter'].sudo().get_param('aly_service_charge_percentage'))
                 rec.service_charge_amount = aly_service_charge_percentage * amount_untaxed / 100
                 rec.service_untaxed_amount = amount_untaxed

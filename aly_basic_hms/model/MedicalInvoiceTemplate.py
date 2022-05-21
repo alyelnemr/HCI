@@ -77,6 +77,8 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         var_amount_total = 0
         var_subtotal_taxed = 0
         var_taxed_amount = 0
+        var_service_charge = 0
+        var_service_untaxed_amount = 0
         var_amount_total_taxed = 0
         for line in docs.invoice_line_ids:
             var_subtotal_with_discount += (line.quantity * line.price_unit)
@@ -90,6 +92,9 @@ class MedicalInvoiceTemplate(models.AbstractModel):
             if line.product_id.categ_id.name == 'Medicines':
                 var_medicine += line.price_subtotal
         var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine) if (docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine)) >= 1 else 0
+        var_service_charge = sale_order.service_charge_amount
+        var_service_untaxed_amount = sale_order.service_untaxed_amount
+        var_subtotal = var_subtotal - var_service_charge
         var_discount = round(var_subtotal_with_discount - docs.amount_untaxed, 2)
         var_subtotal += var_discount
         var_amount_total = docs.amount_total + var_discount
@@ -112,6 +117,8 @@ class MedicalInvoiceTemplate(models.AbstractModel):
             'var_taxed_amount': var_taxed_amount,
             'var_subtotal_taxed': var_subtotal_taxed,
             'var_amount_total': var_amount_total,
+            'var_service_charge': var_service_charge,
+            'var_service_untaxed_amount': var_service_untaxed_amount,
             'var_amount_total_taxed': var_amount_total_taxed,
             'var_discount': var_discount,
             'var_subtotal_with_discount': var_subtotal_with_discount,

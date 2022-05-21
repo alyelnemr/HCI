@@ -17,12 +17,14 @@
                             <t t-if="line[2]!='Disposables'">
                                 <t t-if="line[2]!='Discounts'">
                                     <t t-if="line[2]!='Medicines'">
-                                        <tr>
-                                            <td><span t-esc="line[1]" class="text-center"/></td>
-                                            <td><span t-esc="line[3]" class="text-center"/></td>
-                                            <td><span t-esc="line[4]" class="text-center"/></td>
-                                            <td><span t-esc="line[6]" class="text-center"/></td>
-                                        </tr>
+                                        <t t-if="line[2]!='Service Charge Services'">
+                                            <tr>
+                                                <td><span t-esc="line[1]" class="text-center"/></td>
+                                                <td><span t-esc="line[3]" class="text-center"/></td>
+                                                <td><span t-esc="line[4]" class="text-center"/></td>
+                                                <td><span t-esc="line[6]" class="text-center"/></td>
+                                            </tr>
+                                        </t>
                                     </t>
                                 </t>
                             </t>
@@ -41,6 +43,14 @@
                                     <span t-esc="var_subtotal" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                 </td>
                             </tr>
+                            <t t-if="var_service_charge>0">
+                                <tr class="text-center">
+                                    <td>Service Charges %</td>
+                                    <td class="text-right">
+                                        <t t-esc="var_service_charge" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                    </td>
+                                </tr>
+                            </t>
                             <t t-foreach="doc.amount_by_group" t-as="amount_by_group">
                                 <tr class="text-center">
                                     <td><span t-esc="amount_by_group[0]"/></td>
