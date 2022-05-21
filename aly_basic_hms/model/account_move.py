@@ -65,7 +65,7 @@ class SaleOrderForDiscount(models.Model):
                         line.price_unit = rec.service_charge_amount
 
     @api.depends('service_charge_amount')
-    def compute_amount_all(self):
+    def compute_service_untaxed_amount(self):
         aly_enable_service_charge = self.env['ir.config_parameter'].sudo().get_param('aly_enable_service_charge')
         for rec in self:
             if aly_enable_service_charge and rec.amount_total > 0:
@@ -93,7 +93,7 @@ class SaleOrderForDiscount(models.Model):
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
     service_charge_amount = fields.Monetary(compute=compute_amount_all, string="Service Charge %", store=False)
-    service_untaxed_amount = fields.Monetary(compute=compute_amount_all, string="Untaxed Amount", store=False)
+    service_untaxed_amount = fields.Monetary(compute=compute_service_untaxed_amount, string="Untaxed Amount", store=False)
 
     def update_prices(self):
         self.ensure_one()
