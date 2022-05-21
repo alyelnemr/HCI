@@ -14,6 +14,8 @@
                     </page>
                     <page string="Medical Invoice Bank Details">
                         <group >
+                            <field name="aly_enable_service_charge"/>
+                            <br/>
                             <field name="bank_details"/>
                         </group>
                     </page>
