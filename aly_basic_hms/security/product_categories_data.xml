@@ -36,6 +36,10 @@
             <field name="name">Prosthetics</field>
         </record>
 
+        <record id="record_Medicines_product_category" model="product.category">
+            <field name="name">Medicines</field>
+        </record>
+
         <record id="record_service_charge_product_category" model="product.category">
             <field name="name">Service Charge Services</field>
         </record>
