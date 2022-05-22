@@ -16,9 +16,7 @@ class AlyResConfigSettings(models.TransientModel):
             domain = [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', True), ('type', '=', 'service')]
         return domain
 
-    aly_enable_service_charge = fields.Boolean(string='Enable Service Charges',
-                                               related='company_id.aly_enable_service_charge',
-                                               readonly=False)
+    aly_enable_service_charge = fields.Boolean(string='Enable Service Charges', default=True)
     aly_service_charge_percentage = fields.Float(string="Service Charge Percentage", default=12.5)
     aly_service_product_id = fields.Many2one('product.product', string='Service Product',
                                  domain=lambda self: self._get_service_charge_domain())
@@ -26,8 +24,8 @@ class AlyResConfigSettings(models.TransientModel):
     def get_values(self):
         aly_res = super(AlyResConfigSettings, self).get_values()
         aly_res.update(
-            aly_service_charge_percentage=self.env['ir.config_parameter'].sudo().get_param('aly_service_charge_percentage'),
-            aly_enable_service_charge=self.env['ir.config_parameter'].sudo().get_param('aly_enable_service_charge'),
+            aly_service_charge_percentage = self.env['ir.config_parameter'].sudo().get_param('aly_service_charge_percentage'),
+            aly_enable_service_charge = self.env['ir.config_parameter'].sudo().get_param('aly_enable_service_charge'),
             # aly_service_product_id = self.env['ir.config_parameter'].sudo().get_param('aly_service_product_id'),
         )
         return aly_res

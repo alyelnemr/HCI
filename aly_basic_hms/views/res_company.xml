@@ -14,7 +14,23 @@
                     </page>
                     <page string="Medical Invoice Bank Details">
                         <group >
-                            <field name="aly_enable_service_charge"/>
+                                <div class="o_setting_right_pane">
+                                    <label for="aly_enable_service_charge"/>
+                                    <div class="text-muted">
+                                        Allow service charges on orders
+                                    </div>
+                                    <div class="content-group " attrs="{'invisible':[('aly_enable_service_charge','=',False)]}">
+                                        <div class="row mt16">
+                                            <label for="aly_service_product_id" class="col-lg-3 o_light_label"/>
+                                            <field name="aly_service_product_id"
+                                                   attrs="{'required':[('aly_enable_service_charge','=',True)]}"/>
+                                        </div>
+                                        <div class="row">
+                                            <label for="aly_service_charge_percentage" class="col-lg-3 o_light_label"/>
+                                            <field name="aly_service_charge_percentage"/>
+                                        </div>
+                                    </div>
+                                </div>
                             <br/>
                             <field name="bank_details"/>
                         </group>
