@@ -35,4 +35,3 @@ from . import medical_dose_unit
 from . import medical_patient
 from . import medical_patient_attachment
 from . import medical_physician
-from . import res_config_settings
