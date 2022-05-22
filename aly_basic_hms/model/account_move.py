@@ -63,6 +63,9 @@ class SaleOrderForDiscount(models.Model):
                 for line in rec.order_line:
                     if line.product_id.id == aly_service_product_id:
                         line.price_unit = rec.service_charge_amount
+        else:
+            rec.service_charge_amount = 0
+            rec.service_untaxed_amount = 0
 
     @api.depends('service_charge_amount')
     def compute_service_untaxed_amount(self):
