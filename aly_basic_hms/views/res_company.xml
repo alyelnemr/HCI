@@ -13,7 +13,10 @@
                         </group>
                     </page>
                     <page string="Medical Invoice Bank Details">
-                        <group >
+                        <group>
+                                <div class="o_setting_left_pane">
+                                    <field name="aly_enable_service_charge"/>
+                                </div>
                                 <div class="o_setting_right_pane">
                                     <label for="aly_enable_service_charge"/>
                                     <div class="text-muted">
