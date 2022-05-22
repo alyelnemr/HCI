@@ -80,7 +80,6 @@ class SaleOrderForDiscount(models.Model):
             if rec.discount_total > current_user.max_allowed_discount:
                 raise UserError(_('Your Maximum Allowed Discount is %s', str(current_user.max_allowed_discount)))
             if rec.amount_total > 0 and rec.discount_total > 0:
-                # amount_total = (rec.amount_untaxed * rec.discount_total / 100)
                 amount_total = 0
                 discount_amount = 0
                 for line in rec.order_line:
