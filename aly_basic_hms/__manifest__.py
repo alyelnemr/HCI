@@ -21,7 +21,6 @@
         'wizard/medical_patient_invoice_wizard.xml',
         'wizard/medical_patient_sale_order_wizard.xml',
         'wizard/medical_inpatient_discharge_wizard.xml',
-        'views/accounting_settings.xml',
         'views/medical_clinic.xml',
         'views/medical_medicament.xml',
         'views/medical_drug_route.xml',

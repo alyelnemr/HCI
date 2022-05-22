@@ -48,16 +48,16 @@ class SaleOrderForDiscount(models.Model):
 
     @api.depends('order_line.price_total', 'amount_total', 'amount_untaxed', 'discount_total', 'order_line')
     def compute_amount_all(self):
-        aly_enable_service_charge = self.env['ir.config_parameter'].sudo().get_param('aly_enable_service_charge')
+        aly_enable_service_charge = self.company_id.aly_enable_service_charge
         for rec in self:
             if aly_enable_service_charge and rec.amount_total > 0:
-                aly_service_product_id = int(self.env['ir.config_parameter'].sudo().get_param('aly_service_product_id'))
+                aly_service_product_id = int(self.company_id.aly_service_product_id)
                 amount_untaxed = 0.0
                 for line in rec.order_line:
                     if line.product_id.id == aly_service_product_id:
                         line.price_unit = 0
                     amount_untaxed += (line.price_unit * line.product_uom_qty) if line.product_id.categ_id.name not in ['Prosthetics', 'Medicines', 'Disposables', 'Discounts', 'Service Charge Services'] else 0
-                aly_service_charge_percentage = float(self.env['ir.config_parameter'].sudo().get_param('aly_service_charge_percentage'))
+                aly_service_charge_percentage = float(self.company_id.aly_service_charge_percentage)
                 rec.service_charge_amount = aly_service_charge_percentage * amount_untaxed / 100
                 rec.service_untaxed_amount = amount_untaxed
                 for line in rec.order_line:
@@ -66,7 +66,7 @@ class SaleOrderForDiscount(models.Model):
 
     @api.depends('service_charge_amount')
     def compute_service_untaxed_amount(self):
-        aly_enable_service_charge = self.env['ir.config_parameter'].sudo().get_param('aly_enable_service_charge')
+        aly_enable_service_charge = self.company_id.aly_enable_service_charge
         for rec in self:
             if aly_enable_service_charge and rec.amount_total > 0:
                 rec.service_untaxed_amount = rec.amount_untaxed - rec.service_charge_amount
@@ -97,13 +97,16 @@ class SaleOrderForDiscount(models.Model):
 
     def update_prices(self):
         self.ensure_one()
-        aly_service_product_id = int(self.env['ir.config_parameter'].sudo().get_param('aly_service_product_id'))
-        for line in self.order_line:
-            if line.product_id.id == aly_service_product_id:
-                line.price_unit = 0
+        aly_enable_service_charge = self.company_id.aly_enable_service_charge
+        aly_service_product_id = int(self.company_id.aly_service_product_id)
+        if aly_enable_service_charge:
+            for line in self.order_line:
+                if line.product_id.id == aly_service_product_id:
+                    line.price_unit = 0
         res = super().update_prices()
-        aly_service_charge_percentage = float(self.env['ir.config_parameter'].sudo().get_param('aly_service_charge_percentage'))
-        for line in self.order_line:
-            if line.product_id.id == aly_service_product_id:
-                line.price_unit = aly_service_charge_percentage * self.amount_untaxed / 100
+        if aly_enable_service_charge:
+            aly_service_charge_percentage = float(self.company_id.aly_service_charge_percentage)
+            for line in self.order_line:
+                if line.product_id.id == aly_service_product_id:
+                    line.price_unit = aly_service_charge_percentage * self.amount_untaxed / 100
         return res
