@@ -47,9 +47,9 @@
                                 <field name="company_id" />
                                 <field name="clinic_id" />
                                 <!--<field name="order_id" groups="aly_basic_hms.aly_group_insurance" />-->
-                                <field name="order_id" readonly="{'insurance_company_id', '=', True}" />
+                                <field name="order_id" attrs="{'readonly': [('is_insurance', '=', True)]}" />
                                 <!--<field name="invoice_id" groups="aly_basic_hms.aly_group_insurance" />-->
-                                <field name="invoice_id" readonly="{'insurance_company_id', '=', True}"/>
+                                <field name="invoice_id" attrs="{'readonly': [('is_insurance', '=', True)]}"/>
                             </group>
                             <group>
                                 <field name="bill_to" />
