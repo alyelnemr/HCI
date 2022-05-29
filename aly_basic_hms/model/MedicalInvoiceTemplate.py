@@ -58,7 +58,7 @@ class MedicalInvoiceTemplate(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         model = 'account.move'
         active_id = self.env.context.get('active_id')
-        docs = self.env[model].browse(docids)
+        docs = self.env[model].sudo().browse(docids)
         # sorted_data = self.get_sorting(docs.partner_id.patient_id)
         is_draft = docs.state == 'draft'
         sale_order = self.env['sale.order'].search([('invoice_ids', 'in', docids)])
