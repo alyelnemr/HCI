@@ -60,7 +60,7 @@ class MedicalReportTemplate(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         model = 'medical.patient'
         active_id = self.env.context.get('active_id')
-        docs = self.env[model].browse(docids)
+        docs = self.env[model].sudo().browse(docids)
         sorted_data = self.get_sorting(docs)
         sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
         var_room_number = str(docs.room_number)
