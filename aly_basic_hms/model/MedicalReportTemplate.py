@@ -64,10 +64,10 @@ class MedicalReportTemplate(models.AbstractModel):
         sorted_data = self.get_sorting(docs)
         if docs.update_note_ids:
             sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
-            min_date = datetime.strptime("%d/%m/%Y %H:%M:%S", sorted_update_note[0].appointment_date)
+            min_date = sorted_update_note[0].appointment_date.strptime("%d/%m/%Y %H:%M:%S")
         elif docs.inpatient_ids:
             sorted_update_note = sorted(docs.inpatient_ids, key=lambda a: a.admission_date)
-            min_date = datetime.strptime("%d/%m/%Y %H:%M:%S", sorted_update_note[0].admission_date)
+            min_date = sorted_update_note[0].admission_date.strptime("%d/%m/%Y %H:%M:%S")
         var_room_number = str(docs.room_number)
         today_now = datetime.now()
         min_update_note_date = min_date if min_date else today_now.strftime("%d/%m/%Y %H:%M:%S")
