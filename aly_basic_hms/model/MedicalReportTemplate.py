@@ -65,7 +65,7 @@ class MedicalReportTemplate(models.AbstractModel):
         sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
         var_room_number = str(docs.room_number)
         today_now = datetime.now()
-        min_update_note_date = sorted_update_note[0].appointment_date.strftime("%d/%m/%Y %H:%M:%S") \
+        min_update_note_date = sorted_update_note[0].appointment_date.strptime("%d/%m/%Y %H:%M:%S") \
             if len(sorted_update_note) > 0 else today_now.strftime("%d/%m/%Y %H:%M:%S")
         is_discharged = docs.inpatient_ids[0].is_discharged if len(docs.inpatient_ids) > 0 else False
         return {
