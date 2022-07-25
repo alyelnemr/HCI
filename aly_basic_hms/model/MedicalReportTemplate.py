@@ -64,7 +64,7 @@ class MedicalReportTemplate(models.AbstractModel):
         sorted_data = self.get_sorting(docs)
         if docs.update_note_ids:
             sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
-            min_date = self.env['medical.appointment'].brows(sorted_update_note[0].id).appointment_date
+            min_date = self.env['medical.appointment'].browse(sorted_update_note[0].id).appointment_date
         elif docs.inpatient_ids:
             sorted_update_note = sorted(docs.inpatient_ids, key=lambda a: a.admission_date)
             min_date = sorted_update_note[0].admission_date
