@@ -78,6 +78,7 @@ class MedicalReportTemplate(models.AbstractModel):
         today_now = datetime.now()
         min_update_note_date = min_date if min_date else today_now.strftime("%d/%m/%Y %H:%M:%S")
         is_discharged = docs.inpatient_ids[0].is_discharged if len(docs.inpatient_ids) > 0 else False
+        discharge_datetime = pytz.utc.localize(docs.inpatient_ids[0].discharge_datetime).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if len(docs.inpatient_ids) > 0 and is_discharged else False
         return {
             'data': data,
             'doc_ids': docids,
@@ -87,6 +88,7 @@ class MedicalReportTemplate(models.AbstractModel):
             'var_room_number': var_room_number,
             'min_update_note_date': min_update_note_date,
             'is_discharged': is_discharged,
+            'discharge_datetime': discharge_datetime,
             'report_title': 'Primary Medical Report'
         }
 
