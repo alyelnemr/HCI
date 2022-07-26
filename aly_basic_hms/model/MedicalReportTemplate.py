@@ -69,14 +69,14 @@ class MedicalReportTemplate(models.AbstractModel):
         local = pytz.timezone(user_tz)
         min_date_str = ''
         if sorted_data:
-            if sorted_data[0].obj_type == 'app':
-                min_date_str = sorted_data[0].obj_id.appointment_date
-            if sorted_data[0].obj_type == 'inp':
-                min_date_str = sorted_data[0].obj_id.admission_date
-            if sorted_data[0].obj_type == 'inp_up':
-                min_date_str = sorted_data[0].obj_id.update_note_date
-            if sorted_data[0].obj_type == 'op':
-                min_date_str = sorted_data[0].obj_id.time_in
+            if sorted_data[0]['obj_type'] == 'app':
+                min_date_str = sorted_data[0]['obj_id'].appointment_date
+            if sorted_data[0]['obj_type'] == 'inp':
+                min_date_str = sorted_data[0]['obj_id'].admission_date
+            if sorted_data[0]['obj_type'] == 'inp_up':
+                min_date_str = sorted_data[0]['obj_id'].update_note_date
+            if sorted_data[0]['obj_type'] == 'op':
+                min_date_str = sorted_data[0]['obj_id'].time_in
         min_date = pytz.utc.localize(min_date_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S")
         var_room_number = str(docs.room_number)
         today_now = datetime.now()
@@ -161,14 +161,14 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
         local = pytz.timezone(user_tz)
         min_date_str = ''
         if sorted_data:
-            if sorted_data[0].obj_type == 'app':
-                min_date_str = sorted_data[0].obj_id.appointment_date
-            if sorted_data[0].obj_type == 'inp':
-                min_date_str = sorted_data[0].obj_id.admission_date
-            if sorted_data[0].obj_type == 'inp_up':
-                min_date_str = sorted_data[0].obj_id.update_note_date
-            if sorted_data[0].obj_type == 'op':
-                min_date_str = sorted_data[0].obj_id.time_in
+            if sorted_data[0]['obj_type'] == 'app':
+                min_date_str = sorted_data[0]['obj_id'].appointment_date
+            if sorted_data[0]['obj_type'] == 'inp':
+                min_date_str = sorted_data[0]['obj_id'].admission_date
+            if sorted_data[0]['obj_type'] == 'inp_up':
+                min_date_str = sorted_data[0]['obj_id'].update_note_date
+            if sorted_data[0]['obj_type'] == 'op':
+                min_date_str = sorted_data[0]['obj_id'].time_in
         min_date = pytz.utc.localize(min_date_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S")
         var_room_number = str(docs.room_number)
         today_now = datetime.now()
@@ -253,14 +253,14 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
         local = pytz.timezone(user_tz)
         min_date_str = ''
         if sorted_data:
-            if sorted_data[0].obj_type == 'app':
-                min_date_str = sorted_data[0].obj_id.appointment_date
-            if sorted_data[0].obj_type == 'inp':
-                min_date_str = sorted_data[0].obj_id.admission_date
-            if sorted_data[0].obj_type == 'inp_up':
-                min_date_str = sorted_data[0].obj_id.update_note_date
-            if sorted_data[0].obj_type == 'op':
-                min_date_str = sorted_data[0].obj_id.time_in
+            if sorted_data[0]['obj_type'] == 'app':
+                min_date_str = sorted_data[0]['obj_id'].appointment_date
+            if sorted_data[0]['obj_type'] == 'inp':
+                min_date_str = sorted_data[0]['obj_id'].admission_date
+            if sorted_data[0]['obj_type'] == 'inp_up':
+                min_date_str = sorted_data[0]['obj_id'].update_note_date
+            if sorted_data[0]['obj_type'] == 'op':
+                min_date_str = sorted_data[0]['obj_id'].time_in
         min_date = pytz.utc.localize(min_date_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S")
         var_room_number = str(docs.room_number)
         today_now = datetime.now()
