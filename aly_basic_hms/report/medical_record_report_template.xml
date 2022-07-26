@@ -639,10 +639,10 @@
 
             </t>
             <t t-if="is_discharged" >
+                <br/>
                 <div>
                     <h4 class="text-center"><strong>Discharge Note</strong></h4>
                 </div>
-                    <br/>
                         <div class="text-left">At <span t-esc="discharge_datetime" />,
                             the patient was discharged on much improvement basis, transported by
                             <span t-esc="docs.inpatient_ids.transportation" />
