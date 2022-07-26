@@ -1,6 +1,8 @@
 
 from odoo import api, models
 from datetime import date, datetime, timezone
+import pytz
+
 
 
 class MedicalReportTemplate(models.AbstractModel):
@@ -62,12 +64,15 @@ class MedicalReportTemplate(models.AbstractModel):
         active_id = self.env.context.get('active_id')
         docs = self.env[model].sudo().browse(docids)
         sorted_data = self.get_sorting(docs)
+        user_tz = self.env.user.tz or pytz.utc
+
+        local = pytz.timezone(user_tz)
         if docs.update_note_ids:
             sorted_update_note = sorted(docs.update_note_ids, key=lambda a: a.appointment_date)
-            min_date = self.env['medical.appointment'].browse(sorted_update_note[0].id).appointment_date
+            min_date = pytz.utc.localize(sorted_update_note[0].appointment_date).astimezone(local).strftime("%d/%m/%Y %H:%M:%S")
         elif docs.inpatient_ids:
             sorted_update_note = sorted(docs.inpatient_ids, key=lambda a: a.admission_date)
-            min_date = sorted_update_note[0].admission_date
+            min_date = pytz.utc.localize(sorted_update_note[0].admission_date).astimezone(local).strftime("%d/%m/%Y %H:%M:%S")
         var_room_number = str(docs.room_number)
         today_now = datetime.now()
         min_update_note_date = min_date if min_date else today_now.strftime("%d/%m/%Y %H:%M:%S")
