@@ -25,14 +25,14 @@ class MedicalReportTemplate(models.AbstractModel):
         # inpatient_update_note_ids
         for app in record.inpatient_ids:
             admission_date = datetime.combine(app.admission_date, datetime.min.time())
-            my_list.append(
-                {
-                    'date': admission_date,
-                    'obj_type': 'inp',
-                    'order_in_list': i,
-                    'obj_id': app
-                })
-            i += 1
+            # my_list.append(
+            #     {
+            #         'date': admission_date,
+            #         'obj_type': 'inp',
+            #         'order_in_list': i,
+            #         'obj_id': app
+            #     })
+            # i += 1
             for inp in app.inpatient_update_note_ids:
                 my_list.append(
                     {
@@ -71,13 +71,11 @@ class MedicalReportTemplate(models.AbstractModel):
         if sorted_data:
             if sorted_data[0]['obj_type'] == 'app':
                 min_date_str = sorted_data[0]['obj_id'].appointment_date
-            if sorted_data[0]['obj_type'] == 'inp':
-                min_date_str = sorted_data[0]['obj_id'].admission_date
             if sorted_data[0]['obj_type'] == 'inp_up':
                 min_date_str = sorted_data[0]['obj_id'].update_note_date
             if sorted_data[0]['obj_type'] == 'op':
                 min_date_str = sorted_data[0]['obj_id'].time_in
-        min_date = pytz.utc.localize(min_date_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S")
+        min_date = pytz.utc.localize(min_date_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(min_date_str, datetime) else min_date_str.strftime("%d/%m/%Y %H:%M:%S")
         var_room_number = str(docs.room_number)
         today_now = datetime.now()
         min_update_note_date = min_date if min_date else today_now.strftime("%d/%m/%Y %H:%M:%S")
@@ -117,14 +115,14 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
         # inpatient_update_note_ids
         for app in record.inpatient_ids:
             admission_date = datetime.combine(app.admission_date, datetime.min.time())
-            my_list.append(
-                {
-                    'date': admission_date,
-                    'obj_type': 'inp',
-                    'order_in_list': i,
-                    'obj_id': app
-                })
-            i += 1
+            # my_list.append(
+            #     {
+            #         'date': admission_date,
+            #         'obj_type': 'inp',
+            #         'order_in_list': i,
+            #         'obj_id': app
+            #     })
+            # i += 1
             for inp in app.inpatient_update_note_ids:
                 my_list.append(
                     {
@@ -163,13 +161,11 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
         if sorted_data:
             if sorted_data[0]['obj_type'] == 'app':
                 min_date_str = sorted_data[0]['obj_id'].appointment_date
-            if sorted_data[0]['obj_type'] == 'inp':
-                min_date_str = sorted_data[0]['obj_id'].admission_date
             if sorted_data[0]['obj_type'] == 'inp_up':
                 min_date_str = sorted_data[0]['obj_id'].update_note_date
             if sorted_data[0]['obj_type'] == 'op':
                 min_date_str = sorted_data[0]['obj_id'].time_in
-        min_date = pytz.utc.localize(min_date_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S")
+        min_date = pytz.utc.localize(min_date_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(min_date_str, datetime) else min_date_str.strftime("%d/%m/%Y %H:%M:%S")
         var_room_number = str(docs.room_number)
         today_now = datetime.now()
         min_update_note_date = min_date if min_date else today_now.strftime("%d/%m/%Y %H:%M:%S")
@@ -209,14 +205,14 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
         # inpatient_update_note_ids
         for app in record.inpatient_ids:
             admission_date = datetime.combine(app.admission_date, datetime.min.time())
-            my_list.append(
-                {
-                    'date': admission_date,
-                    'obj_type': 'inp',
-                    'order_in_list': i,
-                    'obj_id': app
-                })
-            i += 1
+            # my_list.append(
+            #     {
+            #         'date': admission_date,
+            #         'obj_type': 'inp',
+            #         'order_in_list': i,
+            #         'obj_id': app
+            #     })
+            # i += 1
             for inp in app.inpatient_update_note_ids:
                 my_list.append(
                     {
@@ -255,8 +251,6 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
         if sorted_data:
             if sorted_data[0]['obj_type'] == 'app':
                 min_date_str = sorted_data[0]['obj_id'].appointment_date
-            if sorted_data[0]['obj_type'] == 'inp':
-                min_date_str = sorted_data[0]['obj_id'].admission_date
             if sorted_data[0]['obj_type'] == 'inp_up':
                 min_date_str = sorted_data[0]['obj_id'].update_note_date
             if sorted_data[0]['obj_type'] == 'op':
