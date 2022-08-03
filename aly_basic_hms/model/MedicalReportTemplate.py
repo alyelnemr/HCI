@@ -4,7 +4,6 @@ from datetime import date, datetime, timezone
 import pytz
 
 
-
 class MedicalReportTemplate(models.AbstractModel):
     _name = 'report.aly_basic_hms.medical_record_report'
     _description = 'description'
