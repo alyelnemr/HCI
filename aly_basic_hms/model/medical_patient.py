@@ -4,6 +4,7 @@
 from odoo import api, fields, models, _
 from datetime import date, datetime, timezone
 import pytz
+from tzlocal import get_localzone
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 
@@ -185,7 +186,6 @@ class MedicalPatient(models.Model):
         return res
 
     def my_format_date(self, var_datetime_str):
-
-        user_tz = self.env.user.tz or pytz.utc
+        user_tz = self.env.user.tz or get_localzone() or pytz.utc
         local = pytz.timezone(user_tz)
         return pytz.utc.localize(var_datetime_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(var_datetime_str, datetime) else var_datetime_str.strftime("%d/%m/%Y %H:%M:%S")
