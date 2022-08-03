@@ -31,9 +31,9 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                 raise UserError(_('This patient''s invoice is posted, you can unpost or cancel the previous invoice and then create invoice'))
 
             if medical_patient_obj.invoice_id:
-                medical_patient_obj.invoice_id.unlink()
+                medical_patient_obj.invoice_id.sudo().unlink()
             if medical_patient_obj.order_id:
-                medical_patient_obj.order_id.unlink()
+                medical_patient_obj.order_id.sudo().unlink()
             medical_patient_obj.invoice_id = False
             medical_patient_obj.order_id = False
             list_of_update_notes = medical_appointment_env.search([('patient_id', '=', medical_patient_obj.id)])
