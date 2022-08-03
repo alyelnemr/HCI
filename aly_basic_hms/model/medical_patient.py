@@ -189,3 +189,9 @@ class MedicalPatient(models.Model):
         user_tz = self.env.user.tz or get_localzone() or pytz.utc
         local = pytz.timezone(user_tz)
         return pytz.utc.localize(var_datetime_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(var_datetime_str, datetime) else var_datetime_str.strftime("%d/%m/%Y %H:%M:%S")
+
+
+    def my_format_date2(self):
+        user_tz = self.env.user.tz or get_localzone() or pytz.utc
+        local = pytz.timezone(user_tz)
+        return user_tz
