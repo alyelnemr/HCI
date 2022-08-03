@@ -2,7 +2,8 @@
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
-from datetime import datetime, date
+from datetime import date, datetime, timezone
+import pytz
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError
 
@@ -182,3 +183,9 @@ class MedicalPatient(models.Model):
                     vals['property_account_receivable_id'] = cash
         res = super(MedicalPatient, self).write(vals)
         return res
+
+    def my_format_date(self, var_datetime_str):
+
+        user_tz = self.env.user.tz or pytz.utc
+        local = pytz.timezone(user_tz)
+        return pytz.utc.localize(var_datetime_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(var_datetime_str, datetime) else var_datetime_str.strftime("%d/%m/%Y %H:%M:%S")
