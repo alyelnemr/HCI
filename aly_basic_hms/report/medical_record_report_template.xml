@@ -80,7 +80,8 @@
                         <br/>
                         <div class="text-center">
                             <h5>Update Note</h5>
-                            <span t-esc="my_format_date(my_list_obj['obj_id'].appointment_date)" />
+                            <span t-esc="my_format_date(my_list_obj['obj_id'].appointment_date)" />sss
+                            <span t-esc="my_format_date2()" />
                         </div>
                         <div class="text-left">
                             <strong>Vital Data</strong>
