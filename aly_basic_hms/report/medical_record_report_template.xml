@@ -80,7 +80,7 @@
                         <br/>
                         <div class="text-center">
                             <h5>Update Note</h5>
-                            <span t-field="my_list_obj['obj_id'].appointment_date.strftime('%d/%m/%Y %H:%M:%S')" />
+                            <span t-esc="my_list_obj['obj_id'].appointment_date.strftime('%d/%m/%Y %H:%M:%S')" />
                         </div>
                         <div class="text-left">
                             <strong>Vital Data</strong>
@@ -275,7 +275,7 @@
                         <br/>
                         <div class="text-center">
                             <h5>Update Note</h5>
-                            <span t-field="my_list_obj['obj_id'].update_note_date.strftime('%d/%m/%Y %H:%M:%S')" />
+                            <span t-esc="my_list_obj['obj_id'].update_note_date.strftime('%d/%m/%Y %H:%M:%S')" />
                         </div>
                         <div class="text-left">
                             <strong>Vital Data</strong>
