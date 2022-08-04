@@ -80,8 +80,7 @@
                         <br/>
                         <div class="text-center">
                             <h5>Update Note</h5>
-                            <span t-esc="doc.my_format_date(my_list_obj['obj_id'].appointment_date)" /> -
-                            <span t-esc="doc.my_format_date2()" />
+                            <span t-esc="doc.my_format_date(my_list_obj['obj_id'].appointment_date)" />
                         </div>
                         <div class="text-left">
                             <strong>Vital Data</strong>
@@ -276,7 +275,7 @@
                         <br/>
                         <div class="text-center">
                             <h5>Update Note</h5>
-                            <span t-esc="my_format_date(my_list_obj['obj_id'].update_note_date)" />
+                            <span t-esc="doc.my_format_date(my_list_obj['obj_id'].update_note_date)" />
                         </div>
                         <div class="text-left">
                             <strong>Vital Data</strong>
@@ -644,7 +643,7 @@
                 <div>
                     <h4 class="text-center"><strong>Discharge Note</strong></h4>
                 </div>
-                        <div class="text-left">At <span t-esc="discharge_datetime" />,
+                        <div class="text-left">At <span t-esc="doc.my_format_date(discharge_datetime)" />,
                             the patient was discharged on much improvement basis, transported by
                             <span t-esc="docs.inpatient_ids.transportation" />
                             <t t-if="docs.inpatient_ids.discharge_medication_ids">and received the following medication:</t>
