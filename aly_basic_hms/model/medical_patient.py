@@ -194,4 +194,4 @@ class MedicalPatient(models.Model):
     def my_format_date2(self):
         user_tz = self.env.user.tz or get_localzone() or pytz.utc
         local = pytz.timezone(user_tz)
-        return user_tz + ' -- ' + local
+        return str(user_tz) + ' -- ' + str(local)
