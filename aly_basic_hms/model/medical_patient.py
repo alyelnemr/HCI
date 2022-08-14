@@ -122,6 +122,7 @@ class MedicalPatient(models.Model):
     operation_ids = fields.One2many('medical.operation', 'patient_id')
     attachment_ids = fields.One2many('medical.patient.attachment', 'patient_id', string="Attachments")
     disposable_ids = fields.One2many('medical.patient.line', 'patient_id', string='Disposables', required=True)
+    doctor_id = fields.Many2one('medical.physician','Treating Physician',required=False)
 
     @api.model
     def create(self, val):
