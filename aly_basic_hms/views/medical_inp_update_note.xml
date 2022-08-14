@@ -45,10 +45,11 @@
                                 <group>
                                     <field name="general_appearance" />
                                     <field name="head_neck" />
-                                    <field name="chest" />
                                     <field name="heart" />
+                                    <field name="chest" />
                                 </group>
                                 <group>
+                                    <field name="abdomen" />
                                     <field name="extremities" />
                                     <field name="neurological_examination" />
                                     <field name="further_examination" />
