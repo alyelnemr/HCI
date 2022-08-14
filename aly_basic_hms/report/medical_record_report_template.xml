@@ -701,6 +701,8 @@
                         </table>
                     </t>
             </t>
+            <br/>
+            <br/>
             <t t-if="docs.doctor_id">
                 <table style="width:100%">
                     <tbody class="sale_tbody">
