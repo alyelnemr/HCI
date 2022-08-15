@@ -24,3 +24,4 @@ class medical_lab(models.Model):
         result = super(medical_lab, self).create(val)
 
         return result
+

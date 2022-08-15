@@ -122,6 +122,7 @@ class MedicalPatient(models.Model):
     operation_ids = fields.One2many('medical.operation', 'patient_id')
     attachment_ids = fields.One2many('medical.patient.attachment', 'patient_id', string="Attachments")
     disposable_ids = fields.One2many('medical.patient.line', 'patient_id', string='Disposables', required=True)
+    doctor_id = fields.Many2one('medical.physician','Treating Physician',required=False)
 
     @api.model
     def create(self, val):
@@ -188,7 +189,7 @@ class MedicalPatient(models.Model):
     def my_format_date(self, var_datetime_str):
         user_tz = self.env.user.tz or get_localzone() or pytz.utc
         local = pytz.timezone(user_tz)
-        return pytz.utc.localize(var_datetime_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(var_datetime_str, datetime) else var_datetime_str.strftime("%d/%m/%Y %H:%M:%S")
+        return pytz.utc.localize(var_datetime_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(var_datetime_str, datetime) else var_datetime_str#.strftime("%d/%m/%Y %H:%M:%S")
 
 
     def my_format_date2(self):

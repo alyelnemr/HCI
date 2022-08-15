@@ -141,6 +141,12 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td>Heart:</td>
+                                        <td>
+                                            <span t-field="my_list_obj['obj_id'].heart" />
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>Chest:</td>
                                         <td>
                                             <span t-field="my_list_obj['obj_id'].chest" />
@@ -149,7 +155,7 @@
                                     <tr>
                                         <td>Abdomen:</td>
                                         <td>
-                                            <span t-field="my_list_obj['obj_id'].heart" />
+                                            <span t-field="my_list_obj['obj_id'].abdomen" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -334,6 +340,12 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td>Heart:</td>
+                                        <td>
+                                            <span t-field="my_list_obj['obj_id'].heart" />
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>Chest:</td>
                                         <td>
                                             <span t-field="my_list_obj['obj_id'].chest" />
@@ -342,7 +354,7 @@
                                     <tr>
                                         <td>Abdomen:</td>
                                         <td>
-                                            <span t-field="my_list_obj['obj_id'].heart" />
+                                            <span t-field="my_list_obj['obj_id'].abdomen" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -701,6 +713,22 @@
                         </table>
                     </t>
             </t>
+            <br/>
+            <br/>
+            <t t-if="docs.doctor_id">
+                <table style="width:100%">
+                    <tbody class="sale_tbody">
+                        <tr>
+                            <td style="width:30%">Regards:</td>
+                        </tr>
+                        <tr>
+                            <td style="width:70%;">
+                                <span t-field="docs.doctor_id.partner_id.name" style="font-family: Verdana, sans-serif;font-weight: bold;"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </t>
         </div>
 	</template>
     <template id="medical_record_report">
@@ -802,4 +830,5 @@
                     </t>
                 </t>
         </template>
+
 </odoo>

@@ -1,5 +1,12 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
+access_account_move_doctor,account.move.doctor,model_account_move,,1,1,1,0
+access_account_move_line_doctor,account.move.line.doctor,account.model_account_move_line,,1,1,1,0
+access_account_payment_doctor,account.payment.doctor,account.model_account_payment_register,,1,1,1,0
+access_account_payment_all,account.payment.all,account.model_account_payment,,1,1,1,0
+access_account_reconcile_all,account.reconcile.all,account.model_account_full_reconcile,,1,1,1,0
+
+
 access_medical_appointment_doctor,medical.appointment.doctor,model_medical_appointment,aly_group_outpatient,1,1,1,0
 access_medical_appointment_inpatient,medical.appointment.inpatient,model_medical_appointment,aly_group_inpatient,1,1,1,0
 access_medical_appointment_medical_group,medical.appointment.medical.group,model_medical_appointment,aly_group_medical_manager,1,1,1,1

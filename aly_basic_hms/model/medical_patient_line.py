@@ -9,11 +9,9 @@ class MedicalPatientLine(models.Model):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('disposable.product_category')
         prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
         prod_cat_obj_id = 0
-        if len(prod_cat_obj) > 1:
-            prod_cat_obj_id = prod_cat_obj[0].id
-        else:
-            prod_cat_obj_id = prod_cat_obj.id
-        return [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', 1), ('type', '=', 'service')]
+        for obj in prod_cat_obj:
+            prod_cat_obj_id = obj.id
+        return [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', 1), ('type', '!=', 'service')]
 
     name = fields.Many2one('medical.patient', 'Patient Line ID')
     patient_id = fields.Many2one('medical.patient', 'Patient ID')
