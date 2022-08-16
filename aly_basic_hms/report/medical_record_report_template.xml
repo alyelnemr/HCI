@@ -719,7 +719,9 @@
                 <table style="width:100%">
                     <tbody class="sale_tbody">
                         <tr>
-                            <td style="width:30%">Regards:</td>
+                            <td style="width:30%">Regards:
+                                <br/>
+                            </td>
                         </tr>
                         <tr>
                             <td style="width:70%;">
