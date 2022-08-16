@@ -45,7 +45,7 @@
                                 <field name='nationality_id' options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}"/>
                                 <field name="marital_status" />
                                 <field name="company_id" />
-                                <field name="doctor_id" />
+                                <field name="doctor_id" required="1"/>
                                 <field name="clinic_id" />
                                 <!--<field name="order_id" groups="aly_basic_hms.aly_group_insurance" />-->
                                 <field name="order_id" attrs="{'readonly': [('is_insurance', '=', True)]}" />
@@ -53,8 +53,8 @@
                                 <field name="invoice_id" attrs="{'readonly': [('is_insurance', '=', True)]}"/>
                             </group>
                             <group>
-                                <field name="bill_to" />
-                                <field name="location_of_examination" />
+                                <field name="bill_to" required="1" />
+                                <field name="location_of_examination" required="1" />
                                 <field name="our_reference" />
                                 <field name="referred_by" context="{'default_is_referred_by': True}"/>
                                 <field name="referred_to" context="{'default_is_referred_to': True}"/>
