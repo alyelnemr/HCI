@@ -715,16 +715,19 @@
             </t>
             <br/>
             <br/>
-            <t t-if="docs.doctor_id">
+            <t t-if="docs.treating_physician_ids">
                 <table style="width:100%">
                     <tbody class="sale_tbody">
                         <tr>
                             <td style="width:30%">Regards:</td>
                         </tr>
                         <tr>
-                            <td style="width:70%;">
-                                <span t-field="docs.doctor_id.partner_id.name" style="font-family: Verdana, sans-serif;font-weight: bold;"/>
-                            </td>
+                            <t t-foreach="docs.treating_physician_ids" t-as="doctor_id">
+                                <td style="width:70%;">
+                                    <span t-field="doctor_id.partner_id.name" style="font-family: Verdana, sans-serif;font-weight: bold;"/>
+                                    <br/>
+                                </td>
+                            </t>
                         </tr>
                     </tbody>
                 </table>
