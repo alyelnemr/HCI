@@ -100,7 +100,7 @@ access_medical_patient_line_doctor,medical.patient.line.doctor,model_medical_pat
 
 
 
-access_medical_physician_doctor,medical.physician.doctor,model_medical_physician,aly_group_outpatient,1,0,0,0
+access_medical_physician_doctor,medical.physician.doctor,model_medical_physician,aly_group_outpatient,1,1,1,0
 access_medical_physician_medical_group,medical.physician.medical.group,model_medical_physician,aly_group_medical_manager,1,1,1,
 
 
