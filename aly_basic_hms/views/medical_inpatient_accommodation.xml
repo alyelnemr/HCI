@@ -22,7 +22,7 @@
                 <form string="Accommodation">
                     <group colspan="2" col="2">
                         <field name="admission_type" />
-                        <field name="accommodation_service" />
+                        <field name="accommodation_service"  options="{'no_create_edit': True, 'no_create': True}"/>
                         <field name="accommodation_qty" />
                     </group>
                 </form>

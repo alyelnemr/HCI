@@ -128,6 +128,10 @@
                 <xpath expr="//button[@name='action_quotation_send'][last()]" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
+
+                <xpath expr="//tree/field[@name='product_id']" position="attributes">
+                    <attribute name="options">{'no_create_edit': True, 'no_create': True}</attribute>
+                </xpath>
                 <xpath expr="header/button[@context]" position="attributes">
                     <attribute name="context">{'default_advance_payment_method': 'delivered'}</attribute>
                 </xpath>
