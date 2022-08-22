@@ -29,6 +29,17 @@ class medical_medicament(models.Model):
             prod_cat_obj_id = prod_cat_obj.id
         return [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', 1), ('type', '=', 'product')]
 
+    @api.depends('price', 'qty_available', 'product_id')
+    def get_medicine_product_categ_id(self):
+        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('medicine.product_category')
+        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
+        prod_cat_obj_id = 0
+        if len(prod_cat_obj) > 1:
+            prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
+        self.categ_id_medicine = prod_cat_obj_id
+
     product_id = fields.Many2one('product.product', string='Name',
                                  domain=lambda self: self._get_medicine_product_category_domain(), required=True)
     therapeutic_action = fields.Char('Therapeutic effect', help = 'Therapeutic action')
@@ -38,8 +49,8 @@ class medical_medicament(models.Model):
     active_component = fields.Char(string="Active Component")
     presentation = fields.Text('Presentation')
     composition = fields.Text('Composition')
-
     adverse_reaction = fields.Text('Adverse Reactions')
     storage = fields.Text('Storage Condition')
     notes = fields.Text('Extra Info')
+    categ_id_medicine = fields.Integer('Medicine Product Category ID',store=False, compute=get_medicine_product_categ_id)
 
