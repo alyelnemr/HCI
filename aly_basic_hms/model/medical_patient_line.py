@@ -11,7 +11,7 @@ class MedicalPatientLine(models.Model):
         prod_cat_obj_id = 0
         for obj in prod_cat_obj:
             prod_cat_obj_id = obj.id
-        return [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', 1), ('type', '!=', 'service')]
+        return [('categ_id', '=', prod_cat_obj_id)]
 
     name = fields.Many2one('medical.patient', 'Patient Line ID')
     patient_id = fields.Many2one('medical.patient', 'Patient ID')

@@ -11,7 +11,8 @@
                         <page string="Main Info">
                             <group colspan="4" col="4">
                                 <field name="product_id" required="1"
-                                    context="{'default_is_medicament': 1, 'search_default_is_medicament': 1,'search_default_type': 'service','default_type': 'service'}" />
+                                    context="{'default_is_medicament': 1, 'search_default_is_medicament': 1, 'search_default_type': 'service', 'default_type': 'service', 'default_categ_id': categ_id_medicine}" />
+                                <field name="categ_id_medicine" invisible="0" />
                                 <field name="therapeutic_action" />
                                 <field name="active_component" />
                                 <field name="price" />
