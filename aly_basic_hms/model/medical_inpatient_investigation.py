@@ -13,7 +13,7 @@ class MedicalInpatientInvestigation(models.Model):
             prod_cat_obj_id = prod_cat_obj[0].id
         else:
             prod_cat_obj_id = prod_cat_obj.id
-        return [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', 1), ('type', '=', 'service')]
+        return [('categ_id', '=', prod_cat_obj_id)]
 
     name = fields.Many2one('medical.inp.update.note', 'Appointment ID')
     inp_update_note_id = fields.Many2one('medical.inp.update.note', 'Update Note ID')
