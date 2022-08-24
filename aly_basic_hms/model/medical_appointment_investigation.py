@@ -13,7 +13,7 @@ class MedicalAppointmentInvestigation(models.Model):
             prod_cat_obj_id = prod_cat_obj[0].id
         else:
             prod_cat_obj_id = prod_cat_obj.id
-        return [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', 1), ('type', '=', 'service')]
+        return [('categ_id', '=', prod_cat_obj_id)]
 
     name = fields.Many2one('medical.appointment', 'Appointment Investigation ID')
     appointment_id = fields.Many2one('medical.appointment', 'Appointment ID')

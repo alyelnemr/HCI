@@ -21,26 +21,7 @@
                                 <field name="indications" colspan="4" />
                             </group>
                         </page>
-                        <page string="Presentation">
-                            <field name="presentation" />
-                        </page>
-                        <page string="Composition">
-                            <field name="composition" />
-                        </page>
-
-                        <page string="Adverse Reactions">
-                            <field name="adverse_reaction" />
-                        </page>
-
-                        <page string="Storage Conditions">
-                            <field name="storage" />
-                        </page>
-
-                        <page string="Extra Info">
-                            <field name="notes" />
-                        </page>
                     </notebook>
-
                 </form>
             </field>
         </record>

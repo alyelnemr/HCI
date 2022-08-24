@@ -16,7 +16,7 @@ class MedicalOperationLine(models.Model):
             prod_cat_obj_id = prod_cat_obj[0].id
         else:
             prod_cat_obj_id = prod_cat_obj.id
-        return [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', 1), ('type', '=', 'service')]
+        return [('categ_id', '=', prod_cat_obj_id)]
 
     operation_id = fields.Many2one('medical.operation','Operation')
     product_id = fields.Many2one('product.product','Service',

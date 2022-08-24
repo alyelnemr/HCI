@@ -23,7 +23,7 @@ class MedicalAppointment(models.Model):
             prod_cat_obj_id = prod_cat_obj[0].id
         else:
             prod_cat_obj_id = prod_cat_obj.id
-        return [('sale_ok', '=', 1), ('type', '=', 'service'), ('categ_id', '=', prod_cat_obj_id)]
+        return [('categ_id', '=', prod_cat_obj_id)]
 
     def _get_insurance_cards_domain(self):
         if self.patient_id.id:
@@ -34,7 +34,7 @@ class MedicalAppointment(models.Model):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('observation.product_category')
         prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
         prod_cat_obj_id = 0
-        if len(prod_cat_obj) >= 2:
+        if len(prod_cat_obj) > 1:
             prod_cat_obj_id = prod_cat_obj[0].id
         else:
             prod_cat_obj_id = prod_cat_obj.id

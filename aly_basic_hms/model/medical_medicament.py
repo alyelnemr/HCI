@@ -27,7 +27,7 @@ class medical_medicament(models.Model):
             prod_cat_obj_id = prod_cat_obj[0].id
         else:
             prod_cat_obj_id = prod_cat_obj.id
-        return [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', 1), ('type', '=', 'product')]
+        return [('categ_id', '=', prod_cat_obj_id)]
 
     @api.depends('price', 'qty_available', 'product_id')
     def get_medicine_product_categ_id(self):

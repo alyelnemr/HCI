@@ -13,7 +13,30 @@ class MedicalInpatientMedication(models.Model):
             if rec.medicine_quantity < 1:
                 raise ValidationError(_('Medicine Qty Must be greater than 1'))
 
-    medical_medicament_id = fields.Many2one('medical.medicament', string='Medicine', required=True)
+    def _get_medicine_product_category_domain(self):
+        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('medicine.product_category')
+        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
+        prod_cat_obj_id = 0
+        if len(prod_cat_obj) > 1:
+            prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
+        return [('categ_id', '=', prod_cat_obj_id)]
+
+    @api.depends('product_id')
+    def get_medicine_product_categ_id(self):
+        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('medicine.product_category')
+        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
+        prod_cat_obj_id = 0
+        if len(prod_cat_obj) > 1:
+            prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
+        self.categ_id_medicine = prod_cat_obj_id
+
+    product_id = fields.Many2one('product.product', string='Medicine',
+                                 domain=lambda self: self._get_medicine_product_category_domain(), required=True)
+    medical_medicament_id = fields.Many2one('medical.medicament', string="Medicine (Old Don't use)", readonly=True, required=False)
     medicine_quantity = fields.Integer(string='Quantity', default=1)
     dose = fields.Integer(string='Dose')
     admin_method = fields.Selection([('iv', 'IV'), ('im', 'IM'), ('sc', 'SC'), ('oral', 'Oral'), ('local', 'Local')],
@@ -26,3 +49,5 @@ class MedicalInpatientMedication(models.Model):
     medical_inpatient_registration_id = fields.Many2one('medical.inpatient.registration', string='Medication')
     medical_appointment_id = fields.Many2one('medical.appointment', string='Medications')
     medical_discharge_id = fields.Many2one('medical.appointment', string='Discharge Medication')
+    categ_id_medicine = fields.Integer('Medicine Product Category ID',store=False, compute=get_medicine_product_categ_id)
+

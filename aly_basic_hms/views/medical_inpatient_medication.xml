@@ -7,7 +7,10 @@
                 <form string="Medication History">
                     <group>
                         <group>
-                            <field name="medical_medicament_id" />
+                            <field name="medical_medicament_id" readonly="1" />
+                            <field name="product_id" required="1"
+                                context="{'default_is_medicament': 1, 'search_default_is_medicament': 1, 'search_default_type': 'service', 'default_type': 'service', 'default_categ_id': categ_id_medicine}" />
+                            <field name="categ_id_medicine" invisible="1" />
                             <field name="dose" />
                             <field name="medical_dose_unit_id" />
                         </group>
@@ -32,13 +35,14 @@
             <field name="model">medical.inpatient.medication</field>
             <field name="arch" type="xml">
                 <tree string="Medication">
-                    <field name="medical_medicament_id" />
+                    <field name="product_id" />
                     <field name="medicine_quantity" />
                     <field name="dose" />
                     <field name="medical_dose_unit_id" />
                     <field name="admin_method" />
                     <field name="frequency" />
                     <field name="frequency_unit" />
+                    <field name="medical_medicament_id" readonly="1" />
                 </tree>
             </field>
         </record>
