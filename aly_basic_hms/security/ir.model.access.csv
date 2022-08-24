@@ -117,11 +117,11 @@ access_medical_res_partner_medical_group,medical_insurance_medical_group,model_r
 access_medical_insurance_doctor,medical.insurance.doctor,model_medical_insurance,aly_group_outpatient,1,1,1,0
 access_medical_insurance_medical_group,medical.insurance.medical.group,model_medical_insurance,aly_group_medical_manager,1,1,1,1
 
-access_product_template_doctor,product.template.doctor,product.model_product_template,aly_group_outpatient,1,0,0,0
+access_product_template_doctor,product.template.doctor,product.model_product_template,aly_group_outpatient,1,1,1,0
 access_product_template_medical_grouo,product.template.medical_group,product.model_product_template,aly_group_medical_manager,1,1,1,1
 
 
-access_product_product_doctor,product.product.doctor,product.model_product_product,aly_group_outpatient,1,0,0,0
+access_product_product_doctor,product.product.doctor,product.model_product_product,aly_group_outpatient,1,1,1,0
 access_product_product_medical_group,product.product.medical.group,product.model_product_product,aly_group_medical_manager,1,1,1,1
 
 
