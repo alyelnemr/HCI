@@ -140,9 +140,9 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                         invoice_line_vals = {
                             'name': 'Update Note - Medications' or '',
                             'product_uom_qty': p_line.medicine_quantity,
-                            'product_uom': p_line.medical_medicament_id.product_id.uom_id.id,
-                            'price_unit': p_line.medical_medicament_id.product_id.lst_price,
-                            'product_id': p_line.medical_medicament_id.product_id.id,
+                            'product_uom': p_line.product_id.uom_id.id,
+                            'price_unit': p_line.product_id.lst_price,
+                            'product_id': p_line.product_id.id,
                             'order_id': res.id
                         }
                         res1 = account_invoice_line_obj.create(invoice_line_vals)
@@ -175,9 +175,9 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                             invoice_line_vals = {
                                 'name': 'Inpatient Discharge Medications' or '',
                                 'product_uom_qty': p_line.medicine_quantity,
-                                'product_uom': p_line.medical_medicament_id.product_id.uom_id.id,
-                                'price_unit': p_line.medical_medicament_id.product_id.lst_price,
-                                'product_id': p_line.medical_medicament_id.product_id.id,
+                                'product_uom': p_line.product_id.uom_id.id,
+                                'price_unit': p_line.product_id.lst_price,
+                                'product_id': p_line.product_id.id,
                                 'order_id': res.id
                             }
                             res1 = account_invoice_line_obj.create(invoice_line_vals)
@@ -233,9 +233,9 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                                 invoice_line_vals = {
                                     'name': 'Update Note - Medications' or '',
                                     'product_uom_qty': p_line.medicine_quantity,
-                                    'product_uom': p_line.medical_medicament_id.product_id.uom_id.id,
-                                    'price_unit': p_line.medical_medicament_id.product_id.lst_price,
-                                    'product_id': p_line.medical_medicament_id.product_id.id,
+                                    'product_uom': p_line.product_id.uom_id.id,
+                                    'price_unit': p_line.product_id.lst_price,
+                                    'product_id': p_line.product_id.id,
                                     'order_id': res.id
                                 }
                                 res1 = account_invoice_line_obj.create(invoice_line_vals)
