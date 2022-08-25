@@ -242,7 +242,7 @@
                                     <tr>
                                         <td style="width:100%">
                                             -
-                                            <span t-field="med.medical_medicament_id.product_id.name" />
+                                            <span t-field="med.product_id.name" />
                                             <t t-if="med.dose"> <span t-field="med.dose" /></t>
                                             <t t-if="med.medical_dose_unit_id.name"> <span t-field="med.medical_dose_unit_id.name" /></t>
                                             <t t-if="med.admin_method"> <span t-field="med.admin_method" /></t>
@@ -440,7 +440,7 @@
                                     <tr>
                                         <td style="width:100%">
                                             -
-                                            <span t-field="med.medical_medicament_id.product_id.name" />
+                                            <span t-field="med.product_id.name" />
                                             <t t-if="med.dose"> <span t-field="med.dose" /></t>
                                             <t t-if="med.medical_dose_unit_id.name"> <span t-field="med.medical_dose_unit_id.name" /></t>
                                             <t t-if="med.admin_method"> <span t-field="med.admin_method" /></t>
@@ -667,7 +667,7 @@
                                         <tr>
                                         <td style="width:100%">
                                             -
-                                            <span t-field="med.medical_medicament_id.product_id.name" />
+                                            <span t-field="med.product_id.name" />
                                             <t t-if="med.dose"> <span t-field="med.dose" /></t>
                                             <t t-if="med.medical_dose_unit_id.name"> <span t-field="med.medical_dose_unit_id.name" /></t>
                                             <t t-if="med.admin_method"> <span t-field="med.admin_method" /></t>

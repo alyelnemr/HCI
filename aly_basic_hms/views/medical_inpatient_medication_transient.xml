@@ -7,7 +7,8 @@
                 <form string="Medication History">
                     <group>
                         <group>
-                            <field name="medical_medicament_id" />
+                            <field name="medical_medicament_id" invisible="1" />
+                            <field name="product_id" />
                             <field name="dose" />
                             <field name="medical_dose_unit_id" />
                         </group>
@@ -32,7 +33,8 @@
             <field name="model">medical.inpatient.medication.transient</field>
             <field name="arch" type="xml">
                 <tree string="Medication">
-                    <field name="medical_medicament_id" />
+                    <field name="medical_medicament_id" invisible="1" />
+                    <field name="product_id" />
                     <field name="medicine_quantity" />
                     <field name="dose" />
                     <field name="medical_dose_unit_id" />
