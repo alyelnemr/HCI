@@ -4,7 +4,7 @@ from odoo.exceptions import ValidationError
 
 class MedicalInpatientMedication(models.Model):
     _name = 'medical.inpatient.medication'
-    _rec_name = 'medical_medicament_id'
+    _rec_name = 'product_id'
     _description = 'Medical Inpatient Medication'
 
     @api.constrains('medicine_quantity')
