@@ -39,6 +39,7 @@ class AccountMoveForDiscount(models.Model):
 
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
+    treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',related='patient_id.treating_physician_ids', required=False)
 
     def get_quantity_subtotal(self):
         sql = self.env.cr.execute('select line.product_id, pt.name, categ.name, sum(line.quantity), max(line.price_unit), sum(line.price_subtotal), sum(line.quantity) * max(line.price_unit) from account_move move inner join account_move_line line on move.id = line.move_id inner join product_product p on line.product_id = p.id inner join product_template pt on pt.id = p.product_tmpl_id inner join product_category categ on pt.categ_id = categ.id where move.id = %s group by line.product_id, pt.name, categ.sorting_rank, categ.name order by categ.sorting_rank' % self.id)
@@ -221,6 +222,7 @@ class SaleOrderForDiscount(models.Model):
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
     service_charge_amount = fields.Monetary(compute=compute_amount_all, string="Service Charge %", store=False)
     service_untaxed_amount = fields.Monetary(compute=compute_service_untaxed_amount, string="Untaxed Amount", store=False)
+    treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',related='patient_id.treating_physician_ids', required=False)
 
     def update_prices(self):
         self.ensure_one()
