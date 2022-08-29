@@ -151,7 +151,7 @@
             <field name = "model">sale.order</field>
             <field name = "inherit_id" ref = "sale.view_quotation_tree" />
             <field name = "arch" type = "xml">
-                <xpath expr="//button[@name='partner_id']" position="after">
+                <xpath expr="//field[@name='create_date']" position="after">
                     <field name="patient_id.treating_physician_ids" widget="many2many_tags" />
                 </xpath>
             </field>
