@@ -146,6 +146,18 @@
         </record>
 
 
+        <record id = "aly_view_quotation_tree" model = "ir.ui.view">
+            <field name = "name">alyview_quotation_tree</field>
+            <field name = "model">sale.order</field>
+            <field name = "inherit_id" ref = "sale.view_quotation_tree" />
+            <field name = "arch" type = "xml">
+                <xpath expr="//button[@name='create_date']" position="after">
+                    <field name="patient_id.treating_physician_ids" widget="many2many_tags" />
+                </xpath>
+            </field>
+        </record>
+
+
         <record id = "aly_basic_hms.sale_order_invoice_form_inherit" model = "ir.ui.view">
             <field name = "name">aly_basic_hms.sale_order_invoice_for_discount</field>
             <field name = "model">sale.advance.payment.inv</field>
