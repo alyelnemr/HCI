@@ -38,8 +38,8 @@
             </field>
         </record>
 
-        <record id="aly_account.view_invoice_tree" model="ir.ui.view">
-            <field name="name">aly_account.view_invoice_tree</field>
+        <record id="view_invoice_tree" model="ir.ui.view">
+            <field name="name">view_invoice_tree</field>
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.account.view_invoice_tree" />
             <field name="arch" type="xml">
