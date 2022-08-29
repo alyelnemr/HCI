@@ -38,5 +38,16 @@
             </field>
         </record>
 
+        <record id="view_invoice_tree" model="ir.ui.view">
+            <field name="name">view_invoice_tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_date']" position="after">
+                    <field name="treating_physician_ids" widget="many2many_tags" />
+                </xpath>
+            </field>
+        </record>
+
 </odoo>
 
