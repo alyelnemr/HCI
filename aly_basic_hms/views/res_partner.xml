@@ -153,6 +153,7 @@
             <field name = "arch" type = "xml">
                 <xpath expr="//field[@name='create_date']" position="after">
                     <field name="patient_id.treating_physician_ids" widget="many2many_tags" />
+
                 </xpath>
             </field>
         </record>
