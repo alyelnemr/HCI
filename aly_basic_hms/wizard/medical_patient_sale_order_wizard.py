@@ -141,7 +141,7 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                             'name': 'Update Note - Medications' or '',
                             'product_uom_qty': p_line.medicine_quantity,
                             'product_uom': p_line.product_id.uom_id.id,
-                            'price_unit': p_line.product_id.lst_price,
+                            'price_unit': 0,
                             'product_id': p_line.product_id.id,
                             'order_id': res.id
                         }
@@ -176,7 +176,7 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                                 'name': 'Inpatient Discharge Medications' or '',
                                 'product_uom_qty': p_line.medicine_quantity,
                                 'product_uom': p_line.product_id.uom_id.id,
-                                'price_unit': p_line.product_id.lst_price,
+                                'price_unit': 0,
                                 'product_id': p_line.product_id.id,
                                 'order_id': res.id
                             }
@@ -234,7 +234,7 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                                     'name': 'Update Note - Medications' or '',
                                     'product_uom_qty': p_line.medicine_quantity,
                                     'product_uom': p_line.product_id.uom_id.id,
-                                    'price_unit': p_line.product_id.lst_price,
+                                    'price_unit': 0,
                                     'product_id': p_line.product_id.id,
                                     'order_id': res.id
                                 }
