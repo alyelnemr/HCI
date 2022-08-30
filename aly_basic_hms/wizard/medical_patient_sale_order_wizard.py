@@ -280,8 +280,6 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                 res.update_prices()
                 for item in res.order_line:
                     if item.product_id.categ_id and item.product_id.categ_id.name == 'Medicines':
-                        print('prdouct id: ', item.product_id.name)
-                        print('prdouct price: ', item.price_unit)
                         item.price_unit = 0
                 medical_patient_obj.order_id = res
                 medical_patient_obj.order_id = res
