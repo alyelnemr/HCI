@@ -18,6 +18,7 @@
         'security/product_categories_data.xml',
         'security/ir.model.access.csv',
         'data/ir_sequence_data.xml', 'views/assets.xml',
+        'views/medical_external_service.xml',
         'wizard/medical_external_service.xml',
         'wizard/medical_patient_invoice_wizard.xml',
         'wizard/medical_patient_sale_order_wizard.xml',
