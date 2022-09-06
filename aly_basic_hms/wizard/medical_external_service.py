@@ -54,7 +54,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
             'team_id': False,
             'invoice_date': vals['service_date'],
             'company_id': self.env.user.company_id,
-            'ref': partner_id,
+            'ref': partner_id.id,
         }
         res = account_invoice_obj.create(invoice_vals)
         list_of_vals = []
