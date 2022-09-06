@@ -34,7 +34,8 @@ class MedicalExternalServiceWizard(models.TransientModel):
     company_id = fields.Many2one('res.company', required=True, string='Branch', readonly=True,
                                  default=lambda self: self.env.user.company_id)
 
-    def action_confirm(self, vals):
+    @api.model
+    def create(self, vals):
         res_return = super(MedicalExternalServiceWizard, self).create(vals)
         account_invoice_obj = self.env['account.move']
         medical_external_service_obj = self.env['medical.external.service']
@@ -116,3 +117,6 @@ class MedicalExternalServiceWizard(models.TransientModel):
             'company_id': res_return.company_id.id,
         })
         return res_return
+
+    def action_confirm(self):
+        return True
