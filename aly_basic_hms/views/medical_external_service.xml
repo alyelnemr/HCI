@@ -20,7 +20,6 @@
                 </tree>
             </field>
         </record>
-
         <record id="action_medical_external_service" model="ir.actions.act_window">
             <field name="name">External Services Orders List</field>
             <field name="res_model">medical.external.service</field>
