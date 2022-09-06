@@ -1,46 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-        <record id="medical_external_service_view" model="ir.ui.view">
-            <field name="name">medical.external.service.view</field>
-            <field name="model">medical.external.service</field>
+
+        <record id="medical_external_services_tree_view" model="ir.ui.view">
+            <field name="name">medical.patients.tree.view</field>
+            <field name="model">medical.patient</field>
             <field name="arch" type="xml">
-                <form string="Create Invoice">
-                    <sheet>
-                        <group string="Patient Data">
-                            <group>
-                                <field name="patient_name" />
-                                <field name="nationality_id" />
-                                <field name="service_date"/>
-                                <field name="company_id" force_save="1"/>
-                                <field name="clinic_id"/>
-                            </group>
-                            <group>
-                                <field name="date_of_birth" />
-                                <field name="treating_physician_id" />
-                            </group>
-                        </group>
-                        <group string="Service Data">
-                            <group>
-                                <field name="product_id"/>
-                                <field name="service_amount" />
-                                <field name="currency_id"/>
-                            </group>
-                            <group>
-                                <field name="quantity" invisible="1"/>
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
+                <tree string="Patient Information">
+                    <field name="patient_name" />
+                    <field name="nationality_id" />
+                    <field name="service_date"/>
+                    <field name="company_id" force_save="1"/>
+                    <field name="clinic_id"/>
+                    <field name="date_of_birth" />
+                    <field name="treating_physician_id" />
+                    <field name="product_id"/>
+                    <field name="service_amount" />
+                    <field name="currency_id"/>
+                    <field name="quantity" />
+                </tree>
             </field>
         </record>
 
         <record id="action_medical_external_service" model="ir.actions.act_window">
-            <field name="name">External Services Order</field>
+            <field name="name">External Services Orders List</field>
             <field name="res_model">medical.external.service</field>
-            <field name="binding_view_types">form</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="medical_external_service_view" />
-            <field name="target">new</field>
+            <field name="binding_view_types">list</field>
+            <field name="view_mode">list</field>
+            <field name="view_id" ref="medical_external_services_tree_view" />
         </record>
 
 </odoo>
