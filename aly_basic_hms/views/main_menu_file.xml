@@ -16,12 +16,12 @@
             />
 
 
-        <menuitem id="menu_external_service" name='External Services' action="action_medical_external_service_wizard"
+        <menuitem id="menu_external_service_wizard" name='External Services' action="action_medical_external_service_wizard"
             parent="main_menu_hospital_management" sequence="4" />
 
 
 
-        <menuitem id="menu_external_service" name='External Services List' action="action_medical_external_service"
+        <menuitem id="menu_external_service_list" name='External Services List' action="action_medical_external_service"
             parent="main_menu_hospital_management" sequence="5"
                    groups="base.group_no_one"/>
 
