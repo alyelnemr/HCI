@@ -31,8 +31,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
                                 domain=lambda self: self._get_clinic_domain())
     treating_physician_id = fields.Many2one('medical.physician',string='Treating Physician',required=True)
     service_date = fields.Datetime('Service Date',required=True,default=fields.Datetime.now)
-    product_id = fields.Many2one('product.product', 'Service',
-                                 domain=lambda self: self._get_investigation_product_category_domain(), required=True)
+    product_id = fields.Many2one('product.product', 'Service', required=True)
     quantity = fields.Integer('Quantity', default=1, required=True)
     service_amount = fields.Monetary(string="Service Price")
     currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
