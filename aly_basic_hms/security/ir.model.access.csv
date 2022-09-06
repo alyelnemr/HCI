@@ -167,5 +167,7 @@ access_medical_medicament_doctor,access_medical_medicament_doctor,model_medical_
 access_medical_patient_invoice_wizard,medical.patient.invoice.wizard,model_medical_patient_invoice_wizard,,1,1,1,1
 access_medical_inpatient_discharge_wizard,medical.inpatient.discharge.wizard,model_medical_inpatient_discharge_wizard,,1,1,1,1
 access_medical_patient_sale_order_wizard,medical.patient.sale.order.wizard,model_medical_patient_sale_order_wizard,,1,1,1,1
+access_medical_external_service_wizard,medical.external.service.wizard,model_medical_external_service_wizard,,1,1,1,1
+access_medical_external_service,medical.external.service,model_medical_external_service,,1,1,1,1
 
 access_medical_clinic,medical.clinic,model_medical_clinic,,1,1,1,1

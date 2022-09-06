@@ -11,9 +11,14 @@
          <menuitem name="Configuration"
             id="main_menu_configuration"
             parent = "main_menu_hospital_management"
-            sequence = "4"
+            sequence = "5"
                    groups="aly_basic_hms.aly_group_medical_manager"
             />
+
+
+        <menuitem id="menu_external_service" name='External Services' action="action_medical_external_service_wizard"
+            parent="main_menu_hospital_management" sequence="4"
+                   groups="aly_basic_hms.aly_group_medical_manager"/>
 
 
         <menuitem id="menu_patients" name='Patients' action="action_medical_patient"

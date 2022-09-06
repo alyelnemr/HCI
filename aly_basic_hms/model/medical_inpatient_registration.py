@@ -27,10 +27,10 @@ class MedicalInpatientRegistration(models.Model):
 
     def _get_inpatient_domain(self):
         patients = []
-        current_inpatient = self.env['medical.inpatient.registration'].search([('state', '=', 'discharged')])
+        current_inpatient = self.env['medical.inpatient.registration'].search([('state', '!=', 'discharged')])
         for rec in current_inpatient:
             patients.append(rec.patient_id.id)
-        current_inpatient = self.env['medical.patient'].search([('inpatient_ids', '=', False)])
+        current_inpatient = self.env['medical.patient'].search([('id', 'not in', patients)])
         for rec in current_inpatient:
             patients.append(rec.id)
         return [('id', 'in', patients)]

@@ -4,3 +4,4 @@
 from . import medical_patient_invoice_wizard
 from . import medical_patient_sale_order_wizard
 from . import medical_inpatient_discharge_wizard
+from . import medical_external_service
