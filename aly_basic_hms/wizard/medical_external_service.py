@@ -11,6 +11,16 @@ class MedicalExternalServiceWizard(models.TransientModel):
     _description = 'Medical External Service Wizard'
 
 
+    def _get_external_services_product_category_domain(self):
+        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('external_service.product_category')
+        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
+        prod_cat_obj_id = 0
+        if len(prod_cat_obj) > 1:
+            prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
+        return [('categ_id', '=', prod_cat_obj_id)]
+
     def _get_clinic_domain(self):
         current_clinics = self.env['res.users'].browse(self.env.user.id)
         return [('id', 'in', current_clinics.allowed_clinic_ids)]
@@ -19,7 +29,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
         current_clinics = self.env['res.users'].browse(self.env.user.id)
         return current_clinics.default_clinic_id
 
-    patient_name = fields.Char(string='Patient Name')
+    patient_name = fields.Char(string='Patient Name', required=True)
     date_of_birth = fields.Date(string="Date of Birth", required=True)
     nationality_id = fields.Many2one("res.country", "Nationality", required=True)
     clinic_id = fields.Many2one('medical.clinic', required=True, string='Facility', readonly=True,
@@ -27,16 +37,17 @@ class MedicalExternalServiceWizard(models.TransientModel):
                                 domain=lambda self: self._get_clinic_domain())
     treating_physician_id = fields.Many2one('medical.physician',string='Treating Physician',required=True)
     service_date = fields.Datetime('Service Date',required=True,default=fields.Datetime.now)
-    product_id = fields.Many2one('product.product', 'Service', required=True)
+    product_id = fields.Many2one('product.product', 'Service',
+                                 domain=lambda self: self._get_external_services_product_category_domain(), required=True)
     quantity = fields.Integer('Quantity', default=1, required=True)
     service_amount = fields.Monetary(string="Service Price")
     currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
     company_id = fields.Many2one('res.company', required=True, string='Branch', readonly=True,
                                  default=lambda self: self.env.user.company_id)
+    invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
 
     @api.model
     def create(self, vals):
-        res_return = super(MedicalExternalServiceWizard, self).create(vals)
         account_invoice_obj = self.env['account.move']
         medical_external_service_obj = self.env['medical.external.service']
         product_product_obj = self.env['product.product'].browse(vals['product_id'])
@@ -79,10 +90,11 @@ class MedicalExternalServiceWizard(models.TransientModel):
             'product_id': product_product_obj.id,
         }
         list_of_vals.append((0, 0, invoice_line_vals))
-        print(partner_id)
+
         res1 = res.write({'invoice_line_ids': list_of_vals})
         res.action_post()
-        print("it's OK")
+        vals['invoice_id'] = res.id
+        res_return = super(MedicalExternalServiceWizard, self).create(vals)
         journal_id = self.env['account.journal'].search([
             ('type', '=', 'cash'),
             ('company_id', '=', self.env.user.company_id.id),
@@ -115,6 +127,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
             'service_amount': res_return.service_amount,
             'currency_id': res_return.currency_id.id,
             'company_id': res_return.company_id.id,
+            'invoice_id': res.id
         })
         return res_return
 

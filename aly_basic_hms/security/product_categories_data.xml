@@ -1,4 +1,34 @@
 <odoo>
+    <data noupdate="0">
+        <record id="record_external_services_product_category" model="product.category">
+            <field name="name">External Services</field>
+        </record>
+
+        <record id="record_external_medication_product_template" model="product.template">
+            <field name="name">Medication</field>
+            <field name="categ_id" ref="aly_basic_hms.record_external_services_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record id="record_external_investigation_product_template" model="product.template">
+            <field name="name">Investigation</field>
+            <field name="categ_id" ref="aly_basic_hms.record_external_services_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record id="record_external_guest_case_product_template" model="product.template">
+            <field name="name">Egypt Guest Case</field>
+            <field name="categ_id" ref="aly_basic_hms.record_external_services_product_category" />
+            <field name="type">service</field>
+        </record>
+
+        <record id="external_service_product_category" model="ir.config_parameter">
+            <field name="key">external_service.product_category</field>
+            <field name="value">External Services</field>
+        </record>
+
+    </data>
+
     <data noupdate="1">
         <record id="record_transportation_product_category" model="product.category">
             <field name="name">Transportation</field>

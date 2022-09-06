@@ -37,3 +37,4 @@ class MedicalExternalServiceWizard(models.TransientModel):
     currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
     company_id = fields.Many2one('res.company', required=True, string='Branch', readonly=True,
                                  default=lambda self: self.env.user.company_id)
+    invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
