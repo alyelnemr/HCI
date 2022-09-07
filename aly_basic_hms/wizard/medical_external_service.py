@@ -10,6 +10,23 @@ class MedicalExternalServiceWizard(models.TransientModel):
     _name = "medical.external.service.wizard"
     _description = 'Medical External Service Wizard'
 
+    @api.depends('company_id')
+    def _compute_journal_id(self):
+        for wizard in self:
+            wizard.journal_id = self.env['account.journal'].search([
+                ('type', 'in', ('bank', 'cash')),
+                ('company_id', '=', wizard.company_id.id),
+            ], limit=1)
+
+    @api.depends('journal_id')
+    def _compute_payment_method_fields(self):
+        for wizard in self:
+            if wizard.can_edit_wizard:
+                wizard.available_payment_method_ids = wizard.journal_id.inbound_payment_method_ids._origin
+                wizard.hide_payment_method = len(wizard.available_payment_method_ids) == 1 and wizard.available_payment_method_ids.code == 'manual'
+            else:
+                wizard.available_payment_method_ids = None
+                wizard.hide_payment_method = False
 
     def _get_external_services_product_category_domain(self):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('external_service.product_category')
@@ -45,6 +62,15 @@ class MedicalExternalServiceWizard(models.TransientModel):
     company_id = fields.Many2one('res.company', required=True, string='Branch', readonly=True,
                                  default=lambda self: self.env.user.company_id)
     invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
+    journal_id = fields.Many2one('account.journal', store=True, readonly=False, compute='_compute_journal_id',
+                                 domain="[('company_id', '=', company_id), ('type', 'in', ('bank', 'cash'))]")
+
+    # == Payment methods fields ==
+    payment_method_id = fields.Many2one('account.payment.method', string='Payment Method', readonly=False, store=True,
+                                        compute='_compute_payment_method_id',
+                                        domain="[('id', 'in', available_payment_method_ids)]")
+    available_payment_method_ids = fields.Many2many('account.payment.method', compute='_compute_payment_method_fields')
+    hide_payment_method = fields.Boolean(compute='_compute_payment_method_fields')
 
     @api.model
     def create(self, vals):
@@ -95,10 +121,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
         res.action_post()
         vals['invoice_id'] = res.id
         res_return = super(MedicalExternalServiceWizard, self).create(vals)
-        journal_id = self.env['account.journal'].search([
-            ('type', '=', 'cash'),
-            ('company_id', '=', self.env.user.company_id.id),
-        ], limit=1)
+        journal_id = self.env['account.journal'].browse(vals['journal_id'])
         payment_vals = {
             'date': vals['service_date'],
             'amount': vals['service_amount'],
@@ -114,6 +137,19 @@ class MedicalExternalServiceWizard(models.TransientModel):
         }
         payments = self.env['account.payment'].create(payment_vals)
         payments.action_post()
+        domain = [
+            ('parent_state', '=', 'posted'),
+            ('account_internal_type', 'in', ('receivable', 'payable')),
+            ('reconciled', '=', False),
+        ]
+        payment_lines = payments.line_ids.filtered_domain(domain)
+        lines = res.line_ids
+
+        for account in payment_lines.account_id:
+            (payment_lines + lines) \
+                .filtered_domain([('account_id', '=', account.id), ('reconciled', '=', False)]) \
+                .reconcile()
+
         res_patient = self.env['medical.external.service'].create({
             'partner_id': partner_id.id,
             'patient_name': res_return.patient_name,

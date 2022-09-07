@@ -24,6 +24,7 @@
                                 <field name="product_id" options="{'no_create_edit': True, 'no_create': True}"/>
                                 <field name="service_amount" />
                                 <field name="currency_id"/>
+                                <field name="journal_id"/>
                             </group>
                             <group>
                                 <field name="quantity" invisible="1"/>
