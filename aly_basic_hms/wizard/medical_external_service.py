@@ -19,6 +19,11 @@ class MedicalExternalServiceWizard(models.TransientModel):
             ], limit=1)
 
     @api.depends('journal_id')
+    def _compute_payment_method_id(self):
+        for wizard in self:
+            wizard.payment_method_id = wizard.journal_id.inbound_payment_method_ids._origin[:1]
+
+    @api.depends('journal_id')
     def _compute_payment_method_fields(self):
         for wizard in self:
             if wizard.can_edit_wizard:
