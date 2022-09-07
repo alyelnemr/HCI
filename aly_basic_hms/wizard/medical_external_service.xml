@@ -33,7 +33,6 @@
                     <footer>
                         <button name="action_confirm" string="Save"
                             type="object" class="oe_highlight" />
-                        or
                         <button string="Cancel" type="object"
                             special="cancel" />
                     </footer>
