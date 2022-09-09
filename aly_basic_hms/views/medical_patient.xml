@@ -173,6 +173,7 @@
                 <search string="Search for Patients">
                     <separator orientation="vertical" />
                     <field name="name" />
+                    <filter name="filter_is_insurance" string="Insurance Patients" domain="[('is_insurance', '=', True)]" />
                 </search>
             </field>
         </record>

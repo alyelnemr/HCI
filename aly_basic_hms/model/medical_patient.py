@@ -164,7 +164,7 @@ class MedicalPatient(models.Model):
                     vals.update({
                         'patient_code': patient_id,
                     })
-            if record.is_insurance or vals.get('is_insurance'):
+            if record.is_insurance and 'is_insurance' in vals and not vals.get('is_insurance', False):
                 has_insurance_group = self.env.user.has_group('aly_basic_hms.aly_group_insurance')
                 if record.is_insurance and not vals.get('is_insurance') and not has_insurance_group:
                     raise UserError(_('You don''t have permission to remove insurance from patient!'))
@@ -176,7 +176,7 @@ class MedicalPatient(models.Model):
                     raise UserError(_('You don''t have permission to remove insurance invoice from patient'))
                 if record.is_insurance and record.invoice_id and record.invoice_id != vals.get('invoice_id') and not has_insurance_group:
                     raise UserError(_('You don''t have permission to change insurance invoice from patient'))
-            if vals.get('is_insurance'):
+            if vals.get('is_insurance') or record.is_insurance:
                 insurance = self.env.user.company_id.default_account_rec_insurance_id
                 if insurance:
                     vals['property_account_receivable_id'] = insurance
