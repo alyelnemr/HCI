@@ -142,7 +142,7 @@
             <field name="name">medical.patients.tree.view</field>
             <field name="model">medical.patient</field>
             <field name="arch" type="xml">
-                <tree string="Patient Information">
+                <tree string="Patient Information" default_order="create_date desc">
                     <field name="patient_code" />
                     <field name="name" />
                     <field name="treating_physician_ids" widget="many2many_tags" />
