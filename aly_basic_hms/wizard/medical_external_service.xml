@@ -21,10 +21,10 @@
                         </group>
                         <group string="Service Data">
                             <group>
-                                <field name="product_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                                <field name="product_id" options="{'no_create_edit': True, 'no_create': True,'no_open': True, 'no_quick_create':True}"/>
                                 <field name="service_amount" />
-                                <field name="currency_id" options="{'no_create_edit': True, 'no_create': True}"/>
-                                <field name="journal_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                                <field name="currency_id" options="{'no_create_edit': True, 'no_create': True,'no_open': True, 'no_quick_create':True}"/>
+                                <field name="journal_id" options="{'no_create_edit': True, 'no_create': True,'no_open': True, 'no_quick_create':True}"/>
                             </group>
                             <group>
                                 <field name="quantity" invisible="1"/>
