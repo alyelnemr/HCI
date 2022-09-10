@@ -49,7 +49,13 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
             partner_id = medical_patient_obj.insurance_company_id.id if medical_patient_obj.is_insurance else medical_patient_obj.partner_id.id or False
             customer_ref = medical_patient_obj.id
             price_list_id = medical_patient_obj.insurance_company_id.property_product_pricelist.id if medical_patient_obj.is_insurance else medical_patient_obj.partner_id.property_product_pricelist.id or False
-            warehouse_id = self.env['stock.warehouse'].search([('company_id','in',[medical_patient_obj.company_id.id, False])])[0].id
+            warehouse_obj = self.env['stock.warehouse'].search([('company_id', '=', medical_patient_obj.company_id.id)])
+            if not warehouse_obj:
+                warehouse_id = self.env['stock.warehouse'].sudo().search([])[0].id
+            else:
+                for w in warehouse_obj:
+                    warehouse_id = w.id
+                    break
 
             if medical_patient_obj.is_insurance:
                 partner_id = medical_patient_obj.insurance_company_id.id

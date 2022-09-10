@@ -10,7 +10,6 @@
     "description": """
     'Aly El Nemr' upgraded a module developed by BrowseInfo, was deployed on Odoo 14 third-party apps.
 """,
-
     "depends": ["base", "sale_management", "stock", "account"],
     # "depends": ["base", "sale_management", "stock", "account_accountant"],
     "data": [
@@ -18,6 +17,8 @@
         'security/product_categories_data.xml',
         'security/ir.model.access.csv',
         'data/ir_sequence_data.xml', 'views/assets.xml',
+        'views/medical_external_service.xml',
+        'wizard/medical_external_service.xml',
         'wizard/medical_patient_invoice_wizard.xml',
         'wizard/medical_patient_sale_order_wizard.xml',
         'wizard/medical_inpatient_discharge_wizard.xml',
