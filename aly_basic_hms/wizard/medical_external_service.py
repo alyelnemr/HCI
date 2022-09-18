@@ -85,7 +85,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
         ir_property_obj = self.env['ir.property']
         partner_id = self.env['res.partner'].create({'name': vals['patient_name']})
         invoice_vals = {
-            'name': self.env['ir.sequence'].next_by_code('medical_patient_inv_seq'),
+            'name': '/',
             'invoice_origin': partner_id.name or '',
             'move_type': 'out_invoice',
             'partner_id': partner_id or False,
