@@ -21,8 +21,7 @@ class SaleAdvancePaymentInvMedical(models.TransientModel):
             patient = self.env['medical.patient'].browse(order.patient_id.id)
             for inv in order.invoice_ids:
                 if inv.state != 'cancel':
-                    invoice = self.env['account.move'].browse(inv.id)
                     patient.invoice_id = inv.id
-                    invoice.patient_id = patient.id
+                    inv.patient_id = patient.id
                     break
         return result
