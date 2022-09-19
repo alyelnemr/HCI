@@ -123,7 +123,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
         list_of_vals.append((0, 0, invoice_line_vals))
 
         res1 = res.write({'invoice_line_ids': list_of_vals})
-        res.action_post()
+        res.sudo().action_post()
         vals['invoice_id'] = res.id
         res_return = super(MedicalExternalServiceWizard, self).create(vals)
         journal_id = self.env['account.journal'].browse(vals['journal_id'])
@@ -141,7 +141,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
             'destination_account_id': partner_id.property_account_receivable_id.id
         }
         payments = self.env['account.payment'].create(payment_vals)
-        payments.action_post()
+        payments.sudo().action_post()
         domain = [
             ('parent_state', '=', 'posted'),
             ('account_internal_type', 'in', ('receivable', 'payable')),
