@@ -23,5 +23,6 @@ class SaleAdvancePaymentInvMedical(models.TransientModel):
                 if inv.state != 'cancel':
                     patient.invoice_id = inv.id
                     inv.patient_id = patient.id
+                    inv.action_post()
                     break
         return result
