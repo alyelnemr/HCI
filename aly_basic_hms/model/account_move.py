@@ -18,6 +18,13 @@ class AccountMoveForDiscount(models.Model):
         read_group = self.env.cr.fetchall()
         return read_group
 
+    def unlink_force(self):
+        for move in self:
+            if move.posted_before and not self._context.get('force_delete'):
+                raise UserError(_("You cannot delete an entry which has been posted once."))
+        self.line_ids.unlink()
+        return super(AccountMoveForDiscount, self).unlink()
+
     @api.model
     def _search_default_journal(self, journal_types):
         company_id = self._context.get('default_company_id', self.env.company.id)
