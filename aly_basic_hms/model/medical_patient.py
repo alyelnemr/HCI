@@ -77,7 +77,7 @@ class MedicalPatient(models.Model):
     is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
     is_invoiced = fields.Boolean(string='Is Invoiced', default=False, required=False)
     invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
-    order_id = fields.Many2one('sale.order', string='Draft Invoice')
+    order_id = fields.Many2one('sale.order', string='Sales Order Invoice')
     is_insurance = fields.Boolean(string='Insurance', default=False, required=False)
     our_reference = fields.Char(string='Our Reference', required=False)
     insurance_reference = fields.Char(string='Insurance Reference')
