@@ -85,7 +85,6 @@
                         <div class="text-left">
                             <strong>Vital Data</strong>
                         </div>
-                        <br/>
                         <table style="width:100%">
                             <tbody class="sale_tbody">
                                 <tr>
@@ -125,7 +124,6 @@
                             <div class="text-left">
                                 <strong>Physical Examination</strong>
                             </div>
-                            <br/>
                             <table style="width:100%">
                                 <tbody class="sale_tbody">
                                     <tr>
@@ -222,7 +220,6 @@
                             <div class="text-left">
                                 <strong>Management</strong>
                             </div>
-                            <br/>
                             <div class="text-left">
                                 <span>
                                     The patient admitted in <strong><span t-field="my_list_obj['obj_id'].admission_type" /></strong>
@@ -421,7 +418,6 @@
                             <div class="text-left">
                                 <strong>Management</strong>
                             </div>
-                            <br/>
                             <div class="text-left">
                                 <span>
                                     The patient <span t-field="my_list_obj['obj_id'].admission_status" /> <strong><span t-field="my_list_obj['obj_id'].admission_type" /></strong>
