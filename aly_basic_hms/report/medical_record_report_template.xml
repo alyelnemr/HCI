@@ -255,10 +255,10 @@
                             <br/>
                         </t>
                         <t t-if="my_list_obj['obj_id'].recommendation">
+                            <br/>
                             <div class="text-left">
                                 <strong>Recommendations</strong>
                             </div>
-                            <br/>
                             <table style="width:100%">
                                 <tbody class="sale_tbody">
                                     <tr>
@@ -457,11 +457,9 @@
                         </t>
                         <t t-if="my_list_obj['obj_id'].recommendation">
                             <br/>
-                            <br/>
                             <div class="text-left">
                                 <strong>Recommendations</strong>
                             </div>
-                            <br/>
                             <table style="width:100%">
                                 <tbody class="sale_tbody">
                                     <tr>
@@ -648,70 +646,69 @@
                         </t>
                     <br/>
                 </t>
-
             </t>
             <t t-if="is_discharged" >
                 <br/>
                 <div>
                     <h4 class="text-center"><strong>Discharge Note</strong></h4>
                 </div>
-                        <div class="text-left">At <span t-esc="doc.my_format_date(discharge_datetime)" />,
-                            the patient was discharged on much improvement basis, transported by
-                            <span t-esc="docs.inpatient_ids.transportation" />
-                            <t t-if="docs.inpatient_ids.discharge_medication_ids">and received the following medication:</t>
-                        </div>
-                        <t t-if="docs.inpatient_ids.discharge_medication_ids">
-                            <table width="100%">
-                                <tbody class="sale_tbody" width="100%">
-                                    <t t-foreach="docs.inpatient_ids.discharge_medication_ids" t-as="med">
-                                        <tr>
-                                        <td style="width:100%">
-                                            -
-                                            <span t-field="med.product_id.name" />
-                                            <t t-if="med.dose"> <span t-field="med.dose" /></t>
-                                            <t t-if="med.medical_dose_unit_id.name"> <span t-field="med.medical_dose_unit_id.name" /></t>
-                                            <t t-if="med.admin_method"> <span t-field="med.admin_method" /></t>
-                                            <t t-if="med.frequency"> / <span t-field="med.frequency" />hr</t>
-                                        </td>
-                                        </tr>
-                    <br/>
-                                    </t>
-                                </tbody>
-                            </table>
-                        </t>
-                <br/>
-                    <t t-if="docs.inpatient_ids.recommendation">
-                            <div class="text-left">
-                                <strong>Recommendations</strong>
-                            </div>
-                            <br/>
-                            <table style="width:100%">
-                                <tbody class="sale_tbody">
-                                    <tr>
-                                        <td style="width:100%">
-                                            <span t-field="docs.inpatient_ids.recommendation" />
-                                        </td>
-                                    </tr>
-                              </tbody>
-                            </table>
-                    </t>
-                        <br/>
-                        <br/>
-                        <br/>
-                    <t t-if="docs.inpatient_ids.doctor_id">
-                        <table style="width:100%">
-                            <tbody class="sale_tbody">
+                <div class="text-left">At <span t-esc="doc.my_format_date(discharge_datetime)" />,
+                    the patient was discharged on much improvement basis, transported by
+                    <span t-esc="docs.inpatient_ids.transportation" />
+                    <t t-if="docs.inpatient_ids.discharge_medication_ids">and received the following medication:</t>
+                </div>
+                <t t-if="docs.inpatient_ids.discharge_medication_ids">
+                    <table width="100%">
+                        <tbody class="sale_tbody" width="100%">
+                            <t t-foreach="docs.inpatient_ids.discharge_medication_ids" t-as="med">
                                 <tr>
-                                    <td style="width:30%">Treating Physician:</td>
-                                </tr>
-                                <tr>
-                                    <td style="width:70%;">
-                                        <span t-field="docs.inpatient_ids.doctor_id.partner_id.name" style="font-family: Verdana, sans-serif;font-weight: bold;"/>
+                                    <td style="width:100%">
+                                        -
+                                        <span t-field="med.product_id.name" />
+                                        <t t-if="med.dose"> <span t-field="med.dose" /></t>
+                                        <t t-if="med.medical_dose_unit_id.name"> <span t-field="med.medical_dose_unit_id.name" /></t>
+                                        <t t-if="med.admin_method"> <span t-field="med.admin_method" /></t>
+                                        <t t-if="med.frequency"> / <span t-field="med.frequency" />hr</t>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </t>
+                                <br/>
+                            </t>
+                        </tbody>
+                    </table>
+                </t>
+                <br/>
+                <t t-if="docs.inpatient_ids.recommendation">
+                    <br/>
+                    <div class="text-left">
+                        <strong>Recommendations</strong>
+                    </div>
+                    <table style="width:100%">
+                        <tbody class="sale_tbody">
+                            <tr>
+                                <td style="width:100%">
+                                    <span t-field="docs.inpatient_ids.recommendation" />
+                                </td>
+                            </tr>
+                      </tbody>
+                    </table>
+                </t>
+                <br/>
+                <br/>
+                <br/>
+                <t t-if="docs.inpatient_ids.doctor_id">
+                    <table style="width:100%">
+                        <tbody class="sale_tbody">
+                            <tr>
+                                <td style="width:30%">Treating Physician:</td>
+                            </tr>
+                            <tr>
+                                <td style="width:70%;">
+                                    <span t-field="docs.inpatient_ids.doctor_id.partner_id.name" style="font-family: Verdana, sans-serif;font-weight: bold;"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
             </t>
             <br/>
             <br/>
