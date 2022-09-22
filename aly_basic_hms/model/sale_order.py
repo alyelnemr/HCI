@@ -59,6 +59,11 @@ class SaleOrderForDiscount(models.Model):
     service_untaxed_amount = fields.Monetary(compute=compute_service_untaxed_amount, string="Untaxed Amount", store=False)
     treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',related='patient_id.treating_physician_ids', required=False)
 
+    def _prepare_invoice(self):
+        invoice_vals = super(SaleOrderForDiscount, self)._prepare_invoice()
+        invoice_vals['patient_id'] = self.patient_id.id
+        return invoice_vals
+
     def update_prices(self):
         self.ensure_one()
         aly_enable_service_charge = self.company_id.aly_enable_service_charge
