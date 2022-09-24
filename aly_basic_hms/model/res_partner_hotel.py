@@ -4,7 +4,7 @@
 from odoo import api, fields, models, _
 
 class res_partner(models.Model):
-    _inherit = 'res.partner.hotel'
+    _name = 'res.partner.hotel'
 
     hotel_id = fields.Many2one('res.partner', string='Hotel')
     occupancy_rate = fields.Integer('Occupancy Rate')
