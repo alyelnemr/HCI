@@ -16,8 +16,8 @@
                     <field name="occupancy_rate" attrs="{'invisible': [('is_hotel', '=', False)]}"/>
                     <field name="relative_partner_id" attrs="{'invisible': [('is_hotel', '=', True)]}"/>
                 </field>
-                <notebook attrs="{'invisible': [('is_hotel', '=', True)]}">
-                    <page string="Medical">
+                <notebook>
+                    <page string="Medical" attrs="{'invisible': [('is_hotel', '=', True)]}">
                         <group colspan="6" col="6">
                             <field name="is_patient" />
                             <field name="is_doctor" />
