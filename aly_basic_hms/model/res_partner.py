@@ -24,7 +24,7 @@ class res_partner(models.Model):
     is_institution = fields.Boolean('Institution')
     company_insurance_ids = fields.One2many('medical.insurance','insurance_company_id','Insurance')
     reference = fields.Char('ID Number')
-    # occupancy_rate = fields.Char('Occupancy Rate')
+    occupancy_rate = fields.Char('Occupancy Rate')
 
     @api.model
     def create(self,val):
