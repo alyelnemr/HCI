@@ -8,15 +8,15 @@
                 <xpath expr="//field[@name='function']/parent::group" position="attributes">
                     <attribute name="attrs">{'invisible': [('is_hotel', '=', True)]}</attribute>
                 </xpath>
-                <field name="function" position="after">
-                    <field name="relationship" />
-                    <field name="relative_partner_id" />
-                </field>
+                <xpath expr="//field[@name='function']" position="after">
+                    <field name="relationship" attrs="{'invisible': [('is_hotel', '=', True)]}"/>
+                    <field name="relative_partner_id" attrs="{'invisible': [('is_hotel', '=', True)]}"/>
+                </xpath>
                 <field name="type" position="after">
-                    <field name="occupancy_rate" />
-                    <field name="relative_partner_id" />
+                    <field name="occupancy_rate" attrs="{'invisible': [('is_hotel', '=', False)]}"/>
+                    <field name="relative_partner_id" attrs="{'invisible': [('is_hotel', '=', True)]}"/>
                 </field>
-                <notebook>
+                <notebook attrs="{'invisible': [('is_hotel', '=', True)]}">
                     <page string="Medical">
                         <group colspan="6" col="6">
                             <field name="is_patient" />
