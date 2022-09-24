@@ -73,7 +73,7 @@
             <field name="inherit_id" ref="account.view_invoice_tree" />
             <field name="arch" type="xml">
                 <header>
-                    <button name="unlink_force" string="Force Delete" context="{'force_delete': True}" groups="base.group_no_one" type="object"/>
+                    <button name="unlink_force" string="Force Delete" context="{'force_delete': True}" groups="base.group_user" type="object"/>
                 </header>
 
                 <xpath expr="//field[@name='invoice_date']" position="after">
