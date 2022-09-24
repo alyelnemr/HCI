@@ -13,7 +13,10 @@
                     <field name="relative_partner_id" attrs="{'invisible': [('is_hotel', '=', True)]}"/>
                 </xpath>
                 <field name="type" position="after">
-                    <field name="occupancy_rate" attrs="{'invisible': [('is_hotel', '=', False)]}"/>
+                    <field name="occupancy_rate" attrs="{'invisible': [('is_hotel', '=', False)]}">
+                        <field name="occupancy_rate" />
+                        <field name="occupancy_rate_date" />
+                    </field>
                     <field name="relative_partner_id" attrs="{'invisible': [('is_hotel', '=', True)]}"/>
                 </field>
                 <notebook>
