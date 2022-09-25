@@ -20,7 +20,7 @@
                             </group>
                         </page>
                         <page string="Scientific certificates">
-                                <field name="certificates" />
+                                <field name="certificates" string="Scientific certificates" />
                         </page>
                     </notebook>
                 </form>
