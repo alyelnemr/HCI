@@ -24,6 +24,9 @@
                 <xpath expr="//field[@name='vat']" position="attributes">
                     <attribute name="attrs">{'invisible': [('is_hotel', '=', True)]}</attribute>
                 </xpath>
+                <xpath expr="//field[@name='company_type']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_hotel', '=', True)]}</attribute>
+                </xpath>
                 <xpath expr="//notebook" position="attributes">
                     <attribute name="attrs">{'invisible': [('is_hotel', '=', True)]}</attribute>
                 </xpath>
