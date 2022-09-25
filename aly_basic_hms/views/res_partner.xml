@@ -59,7 +59,7 @@
             <field eval="8" name="priority"/>
             <field name="arch" type="xml">
                 <tree string="Contacts" sample="1" multi_edit="1">
-                    <field name="display_name" string="Name"/>
+                    <field name="display_name" string="Hotel Name"/>
                 </tree>
             </field>
         </record>

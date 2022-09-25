@@ -10,5 +10,16 @@ class medical_physician(models.Model):
 
     partner_id = fields.Many2one('res.partner', 'Physician', required=True)
     institution_partner_id = fields.Many2one('res.partner', domain=[('is_institution', '=', True)], string='Institution')
-    code = fields.Char('Id')
-    info = fields.Text('Extra Info')
+    mobile = fields.Char('Mobile Phone')
+    email = fields.Char('Email')
+    qualification = fields.Char('Qualification')
+    graduation_year = fields.Integer('Graduation Year')
+    languages = fields.Many2many('medical.physician.languages', string='Languages')
+    certificates = fields.Text('Scientific certificates')
+
+
+class MedicalPhyicianLanguages(models.Model):
+    _name = "medical.physician.languages"
+    _description = 'Medical Physician Languages'
+
+    language = fields.Char('Languages')

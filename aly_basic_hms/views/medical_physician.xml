@@ -12,11 +12,15 @@
                                     context="{'default_is_doctor': 1, 'search_default_is_doctor': 1}" />
                                 <field name="institution_partner_id"
                                     context="{'default_is_institution': 1, 'search_default_is_institution': 1}" />
-                                <field name="code" />
+                                <field name="mobile" />
+                                <field name="email" />
+                                <field name="qualification" />
+                                <field name="graduation_year" />
+                                <field name="languages" widget="many2many_tags" />
                             </group>
                         </page>
-                        <page string="Extra Info">
-                            <field name="info" />
+                        <page string="Scientific certificates">
+                                <field name="certificates" />
                         </page>
                     </notebook>
                 </form>
@@ -47,7 +51,8 @@
             <field name="arch" type="xml">
                 <tree string="Physician Information">
                     <field name="partner_id" />
-                    <field name="code" />
+                    <field name="mobile" />
+                    <field name="email" />
                     <field name="institution_partner_id" />
                 </tree>
             </field>
