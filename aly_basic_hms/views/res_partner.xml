@@ -14,7 +14,7 @@
                 </xpath>
                 <field name="type" position="after">
                     <field name="occupancy_rate" attrs="{'invisible': [('is_hotel', '=', False)]}">
-                        <tree>
+                        <tree editable="bottom">
                             <field name="occupancy_rate" />
                             <field name="occupancy_rate_date" />
                         </tree>
