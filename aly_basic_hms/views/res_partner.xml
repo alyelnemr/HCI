@@ -21,6 +21,9 @@
                     </field>
                     <field name="relative_partner_id" attrs="{'invisible': [('is_hotel', '=', True)]}"/>
                 </field>
+                <xpath expr="//field[@name='vat']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_hotel', '=', True)]}</attribute>
+                </xpath>
                 <xpath expr="//notebook" position="attributes">
                     <attribute name="attrs">{'invisible': [('is_hotel', '=', True)]}</attribute>
                 </xpath>
@@ -50,6 +53,16 @@
             </field>
         </record>
 
+        <record id="aly_hotel_view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field eval="8" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Contacts" sample="1" multi_edit="1">
+                    <field name="display_name" string="Name"/>
+                </tree>
+            </field>
+        </record>
         <!-- Search View -->
         <record id="medical_res_partner_travel_agency_view" model="ir.ui.view">
             <field name="name">medical.travel.agency.search.view</field>
@@ -92,6 +105,7 @@
             <field name="res_model">res.partner</field>
             <field name="binding_view_types">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="aly_basic_hms.aly_hotel_view_partner_tree" />
             <field name="domain">[('is_hotel','=',1)]</field>
             <field name="context">{'default_is_hotel': 1,'default_company_type': 'company','search_default_is_hotel': 1}
             </field>
