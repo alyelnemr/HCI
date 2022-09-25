@@ -13,7 +13,12 @@
                     <field name="relative_partner_id" attrs="{'invisible': [('is_hotel', '=', True)]}"/>
                 </xpath>
                 <field name="type" position="after">
-                    <field name="occupancy_rate" attrs="{'invisible': [('is_hotel', '=', False)]}" widget="one2many_list" />
+                    <field name="occupancy_rate" attrs="{'invisible': [('is_hotel', '=', False)]}">
+                        <tree>
+                            <field name="occupancy_rate" />
+                            <field name="occupancy_rate_date" />
+                        </tree>
+                    </field>
                     <field name="relative_partner_id" attrs="{'invisible': [('is_hotel', '=', True)]}"/>
                 </field>
                 <xpath expr="//notebook" position="attributes">
