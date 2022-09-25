@@ -34,7 +34,7 @@
                 <search string="Search Physician">
                     <separator orientation="vertical" />
                     <field name="partner_id" select="1" />
-                    <field name="code" select="1" />
+                    <field name="mobile" select="1" />
                     <field name="institution_partner_id" select="1" />
                     <newline />                    
                     <group expand="1" string="Group By">
