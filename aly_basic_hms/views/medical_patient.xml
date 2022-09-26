@@ -112,7 +112,7 @@
                                         <field name="hotel" context="{'default_is_hotel': True,'default_company_type': 'company'}"/>
                                         <field name="date_of_arrival" />
                                         <field name="date_of_departure" />
-                                        <field name="room_number" />
+                                        <field name="room_number" options="{'format': 0}" />
                                     </group>
                                     <group>
                                         <field name="travel_agency" context="{'default_is_travel_agency': True,'default_company_type': 'company'}"/>

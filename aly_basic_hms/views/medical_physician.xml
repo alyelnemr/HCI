@@ -15,7 +15,7 @@
                                 <field name="mobile" />
                                 <field name="email" />
                                 <field name="qualification" />
-                                <field name="graduation_year" widget="char"/>
+                                <field name="graduation_year" options="{'format': 0}"/>
                                 <field name="languages" widget="many2many_tags" />
                             </group>
                         </page>
