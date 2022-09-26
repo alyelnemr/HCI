@@ -22,5 +22,6 @@ class MedicalPhyicianLanguages(models.Model):
     _name = "medical.physician.languages"
     _description = 'Medical Physician Languages'
     _rec_name = 'language'
+    _order = 'language ASC'
 
     language = fields.Char('Languages')
