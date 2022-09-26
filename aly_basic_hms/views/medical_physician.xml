@@ -16,7 +16,7 @@
                                 <field name="email" />
                                 <field name="qualification" />
                                 <field name="graduation_year" options="{'format': 0}"/>
-                                <field name="languages" widget="many2many_tags" />
+                                <field name="languages" widget="many2many_tags" options="{'no_create_edit': True, 'no_create': True, 'no_edit': True}" />
                             </group>
                         </page>
                         <page string="Scientific certificates">

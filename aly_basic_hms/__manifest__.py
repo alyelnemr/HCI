@@ -15,6 +15,7 @@
     "data": [
         'security/hospital_groups.xml',
         'security/product_categories_data.xml',
+        'security/languages_data.xml',
         'security/ir.model.access.csv',
         'data/ir_sequence_data.xml', 'views/assets.xml',
         'views/medical_external_service.xml',

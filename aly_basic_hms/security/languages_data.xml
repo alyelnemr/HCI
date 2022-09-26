@@ -1,0 +1,50 @@
+<odoo>
+    <data noupdate="0">
+        <record id="record_language_english" model="medical.physician.languages">
+            <field name="language">English</field>
+        </record>
+        <record id="record_language_chinese" model="medical.physician.languages">
+            <field name="language">Chinese</field>
+        </record>
+        <record id="record_language_spanish" model="medical.physician.languages">
+            <field name="language">Spanish</field>
+        </record>
+        <record id="record_language_german" model="medical.physician.languages">
+            <field name="language">German</field>
+        </record>
+        <record id="record_language_french" model="medical.physician.languages">
+            <field name="language">French</field>
+        </record>
+        <record id="record_language_arabic" model="medical.physician.languages">
+            <field name="language">Arabic</field>
+        </record>
+        <record id="record_language_russian" model="medical.physician.languages">
+            <field name="language">Russian</field>
+        </record>
+        <record id="record_language_portuguese" model="medical.physician.languages">
+            <field name="language">Portuguese</field>
+        </record>
+        <record id="record_language_japanese" model="medical.physician.languages">
+            <field name="language">Japanese</field>
+        </record>
+        <record id="record_language_hindi" model="medical.physician.languages">
+            <field name="language">Hindi</field>
+        </record>
+        <record id="record_language_italian" model="medical.physician.languages">
+            <field name="language">Italian</field>
+        </record>
+        <record id="record_language_indonesian" model="medical.physician.languages">
+            <field name="language">Indonesian</field>
+        </record>
+        <record id="record_language_urdu" model="medical.physician.languages">
+            <field name="language">Urdu</field>
+        </record>
+        <record id="record_language_turkish" model="medical.physician.languages">
+            <field name="language">Turkish</field>
+        </record>
+        <record id="record_language_korean" model="medical.physician.languages">
+            <field name="language">Korean</field>
+        </record>
+    </data>
+
+</odoo>
