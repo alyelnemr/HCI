@@ -21,5 +21,6 @@ class medical_physician(models.Model):
 class MedicalPhyicianLanguages(models.Model):
     _name = "medical.physician.languages"
     _description = 'Medical Physician Languages'
+    _rec_name = 'language'
 
     language = fields.Char('Languages')

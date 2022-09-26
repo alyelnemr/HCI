@@ -49,8 +49,6 @@
                         </group>
                         <field name="company_insurance_ids" colspan="4"
                             widget="one2many_list" />
-                        <!--<field name="patient_insurance_ids" colspan="4"-->
-                            <!--widget="one2many_list" />-->
                     </page>
                 </notebook>
             </field>
