@@ -20,6 +20,8 @@ class SaleOrderForDiscount(models.Model):
     @api.depends('order_line.price_total', 'amount_total', 'amount_untaxed', 'discount_total', 'order_line')
     def compute_amount_all(self):
         for rec in self:
+            if rec.patient_id.is_insurance and not self.env.user.has_group('aly_basic_hms.aly_group_inpatient'):
+                raise UserError(_("You don't have permission to access insurance invoice from patient"))
             aly_enable_service_charge = rec.company_id.aly_enable_service_charge
             if aly_enable_service_charge and rec.amount_total > 0:
                 aly_service_product_id = int(rec.company_id.aly_service_product_id)
