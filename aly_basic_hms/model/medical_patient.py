@@ -117,6 +117,7 @@ class MedicalPatient(models.Model):
                                 default=lambda self: self._get_default_clinic(),
                                 domain=lambda self: self._get_clinic_domain())
     bill_to = fields.Char(string='Bill To', required=False)
+    receipt_no = fields.Char(string='Receipt No.', required=False)
     update_note_ids = fields.One2many('medical.appointment', 'patient_id')
     inpatient_ids = fields.One2many('medical.inpatient.registration', 'patient_id')
     operation_ids = fields.One2many('medical.operation', 'patient_id')
@@ -139,11 +140,6 @@ class MedicalPatient(models.Model):
         if patient_id:
             val.update({
                         'patient_code': patient_id,
-                       })
-        if val.get('is_insurance'):
-            insurance = self.env.user.company_id.default_account_rec_insurance_id
-            val.update({
-                        'property_account_receivable_id': insurance,
                        })
         if val.get('is_insurance'):
             insurance = self.env.user.company_id.default_account_rec_insurance_id

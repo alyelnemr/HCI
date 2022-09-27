@@ -47,14 +47,15 @@
                                 <field name="company_id" />
                                 <field name="treating_physician_ids"  widget="many2many_tags" required="1"/>
                                 <field name="clinic_id" />
-                                <!--<field name="order_id" groups="aly_basic_hms.aly_group_insurance" />-->
-                                <field name="order_id" attrs="{'readonly': [('is_insurance', '=', True)]}" />
-                                <!--<field name="invoice_id" groups="aly_basic_hms.aly_group_insurance" />-->
-                                <field name="invoice_id" attrs="{'readonly': [('is_insurance', '=', True)]}"/>
+                                <field name="order_id" groups="aly_basic_hms.aly_group_insurance" />
+                                <!--<field name="order_id" attrs="{'readonly': [('is_insurance', '=', True)]}" />-->
+                                <field name="invoice_id" groups="aly_basic_hms.aly_group_insurance" />
+                                <!--<field name="invoice_id" attrs="{'readonly': [('is_insurance', '=', True)]}"/>-->
                             </group>
                             <group>
                                 <field name="bill_to" required="1" />
                                 <field name="location_of_examination" required="1" />
+                                <field name="receipt_no" required="1" />
                                 <field name="our_reference" />
                                 <field name="referred_by" context="{'default_is_referred_by': True}"/>
                                 <field name="referred_to" context="{'default_is_referred_to': True}"/>
