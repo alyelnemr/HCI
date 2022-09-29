@@ -61,6 +61,12 @@ class SaleOrderForDiscount(models.Model):
                     discount_amount += ((line.price_unit * line.product_uom_qty) * rec.discount_total / 100) if (line.price_unit * line.product_uom_qty) > 0 else 0
                     line.discount = rec.discount_total if line.product_id.categ_id.name not in ['Prosthetics', 'Medicines', 'Disposables', 'Discounts', 'Service Charge Services'] else 0
 
+    @api.onchange('patient_id', 'partner_id', 'amount_tax')
+    def onchange_readonly(self):
+        for rec in self:
+            rec.is_readonly_lines = not self.env.user.has_group('aly_basic_hms.aly_group_medical_manager')
+
+    is_readonly_lines = fields.Boolean(string='Is Readonly Lines', default=False, store=False, compute=onchange_readonly)
     discount_total = fields.Float(string='Total Discount %', default=0.0)
     discount_amount = fields.Monetary(compute=onchange_discount, string="Discount", store=True)
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)

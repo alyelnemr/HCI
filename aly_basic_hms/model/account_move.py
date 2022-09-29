@@ -9,15 +9,13 @@ from collections import defaultdict
 class AccountMoveForDiscount(models.Model):
     _inherit = 'account.move'
 
-    @api.model
-    def default_get(self, fields):
-        defaults = super(AccountMoveForDiscount, self).default_get(fields)
+    @api.onchange('patient_id', 'partner_id', 'amount_tax')
+    def onchange_readonly(self):
         for rec in self:
-            if rec.patient_id.is_insurance and not self.env.user.has_group('aly_basic_hms.aly_group_inpatient'):
-                raise UserError(_("You don't have permission to access insurance invoice from patient"))
-        return defaults
+            rec.is_readonly_lines = not self.env.user.has_group('aly_basic_hms.aly_group_medical_manager')
 
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
+    is_readonly_lines = fields.Boolean(string='Is Readonly Lines', default=False, store=False, compute=onchange_readonly)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
     treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',related='patient_id.treating_physician_ids', required=False)
 

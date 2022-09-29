@@ -30,6 +30,12 @@
             <xpath expr="header/button[@context]" position="attributes">
                 <attribute name="context">{'default_advance_payment_method': 'delivered'}</attribute>
             </xpath>
+            <xpath expr="//field[@name='name']" position="after" >
+                <field name="is_readonly_lines" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="replace">
+                <field name="price_unit" string="Unit Price" attrs="{'readonly': [('parent.is_readonly_lines', '=', True)]}" />
+            </xpath>
             <notebook>
                 <page string="Medical">
                     <group colspan="6" col="6">
