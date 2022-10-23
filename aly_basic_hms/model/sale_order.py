@@ -96,7 +96,7 @@ class SaleOrderForDiscount(models.Model):
         ]
         payment_lines = self.order_line.filtered_domain(domain)
         for line in payment_lines:
-            line.price_unit = 0
+            line.price_unit = 0 if not line.price_unit else line.price_unit
         if aly_enable_service_charge:
             aly_service_charge_percentage = float(self.company_id.aly_service_charge_percentage)
             for line in self.order_line:
