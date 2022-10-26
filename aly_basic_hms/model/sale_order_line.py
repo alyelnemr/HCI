@@ -16,7 +16,7 @@ class SaleOrderLine(models.Model):
         """
         for line in self:
             lang = get_lang(self.env, line.order_id.partner_id.lang).code
-            product = self.product_id.with_context(
+            product = line.product_id.with_context(
                 lang=lang,
                 partner=line.order_id.partner_id,
                 quantity=line.product_uom_qty,
