@@ -286,7 +286,7 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                 res.update_prices()
                 for item in res.order_line:
                     if item.product_id.categ_id and item.product_id.categ_id.name == 'Medicines':
-                        item.price_unit = 0
+                        item.price_unit = 0.0
                 medical_patient_obj.order_id = res
                 medical_patient_obj.order_id = res
                 medical_patient_obj.with_context({'come_from_invoice': True}).is_opened_visit = False

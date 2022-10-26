@@ -34,7 +34,7 @@
                 <field name="is_readonly_lines" invisible="1" />
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="replace">
-                <field name="price_unit" string="Unit Price" attrs="{'readonly': [('parent.is_readonly_lines', '=', True)]}" />
+                <field name="price_unit" string="Unit Price" force_save="1" attrs="{'readonly': [('parent.is_readonly_lines', '=', True)]}" />
             </xpath>
             <notebook>
                 <page string="Medical">
