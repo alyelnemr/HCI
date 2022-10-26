@@ -14,24 +14,24 @@ class SaleOrderLine(models.Model):
         """
         Compute the amounts of the SO line.
         """
-        lang = get_lang(self.env, self.order_id.partner_id.lang).code
         for line in self:
+            lang = get_lang(self.env, line.order_id.partner_id.lang).code
             product = self.product_id.with_context(
                 lang=lang,
-                partner=self.order_id.partner_id,
+                partner=line.order_id.partner_id,
                 quantity=line.product_uom_qty,
-                date=self.order_id.date_order,
-                pricelist=self.order_id.pricelist_id.id,
-                uom=self.product_uom.id
+                date=line.order_id.date_order,
+                pricelist=line.order_id.pricelist_id.id,
+                uom=line.product_uom.id
             )
             price_unit = product._get_tax_included_unit_price(
-                self.company_id,
-                self.order_id.currency_id,
-                self.order_id.date_order,
+                line.order_id.company_id,
+                line.order_id.currency_id,
+                line.order_id.date_order,
                 'sale',
-                fiscal_position=self.order_id.fiscal_position_id,
-                product_price_unit=self._get_display_price(product),
-                product_currency=self.order_id.currency_id
+                fiscal_position=line.order_id.fiscal_position_id,
+                product_price_unit=line._get_display_price(product),
+                product_currency=line.order_id.currency_id
             )
             price = price_unit * (1 - (line.discount or 0.0) / 100.0)
             taxes = line.tax_id.compute_all(price, line.order_id.currency_id, line.product_uom_qty, product=line.product_id, partner=line.order_id.partner_shipping_id)
