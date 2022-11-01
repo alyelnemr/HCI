@@ -244,6 +244,7 @@
                                             <t t-if="med.medical_dose_unit_id.name"> <span t-field="med.medical_dose_unit_id.name" /></t>
                                             <t t-if="med.admin_method"> <span t-field="med.admin_method" /></t>
                                             <t t-if="med.frequency"> / <span t-field="med.frequency" />hr</t>
+                                            <t t-if="med.notes"> <span t-field="med.notes" /></t>
                                         </td>
                                     </tr>
                                 </t>
@@ -427,6 +428,7 @@
                             </div>
                         </t>
                         <t t-if="my_list_obj['obj_id'].medication_ids">
+                            <br/>
                             <div class="text-left">
                                 <strong>Medications</strong>
                             </div>
@@ -441,10 +443,8 @@
                                             <t t-if="med.medical_dose_unit_id.name"> <span t-field="med.medical_dose_unit_id.name" /></t>
                                             <t t-if="med.admin_method"> <span t-field="med.admin_method" /></t>
                                             <t t-if="med.frequency"> / <span t-field="med.frequency" />hr</t>
+                                            <t t-if="med.notes"> <span t-field="med.notes" /></t>
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td><br/></td>
                                     </tr>
                                 </t>
                               </tbody>
