@@ -48,4 +48,4 @@ class medical_patient_medication(models.Model):
                                        ('days','Days'),
                                        ('weeks','Weeks'),
                                        ('wr','When Required')],string='Unit')
-    notes =fields.Text(string='Notes')
+    notes = fields.Text(string='Notes')
