@@ -57,7 +57,7 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
             discharge_medication_ids = []
             for line in self.discharge_medication_ids:
                 discharge_medication_ids.append((0, 0, {
-                    'medical_medicament_id': line.medical_medicament_id.id,
+                    'product_id': line.product_id.id,
                     'medicine_quantity': line.medicine_quantity,
                     'dose': line.dose,
                     'admin_method': line.admin_method,
