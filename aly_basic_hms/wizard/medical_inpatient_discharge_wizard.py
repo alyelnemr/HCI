@@ -55,7 +55,7 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
             appointment_obj.admission_days = self.actual_admission_days
             # appointment_obj.discharge_medication_ids = self.discharge_medication_ids
             discharge_medication_ids = []
-            appointment_obj.discharge_medication_ids = discharge_medication_ids
+            appointment_obj.write({'discharge_medication_ids': [(5, 0, 0)]})
             for line in self.discharge_medication_ids:
                 discharge_medication_ids.append((0, 0, {
                     'product_id': line.product_id.id,
