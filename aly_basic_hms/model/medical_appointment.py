@@ -46,11 +46,12 @@ class MedicalAppointment(models.Model):
     doctor_id = fields.Many2one('medical.physician','Physician',required=False)
     consultations_id = fields.Many2one('product.product','Consultation Service',
                                        domain=lambda self: self._get_examination_product_category_domain(), required=True)
-    appointment_procedure_ids = fields.One2many('medical.appointment.procedure', 'appointment_id', string='Procedures', required=True)
+    appointment_procedure_ids = fields.One2many('medical.appointment.procedure', 'appointment_id', string='Procedures',
+                                                required=True, copy=True)
     appointment_consultation_ids = fields.One2many('medical.appointment.consultation.line', 'appointment_id',
-                                                   string='Another Consultations', required=True)
+                                                   string='Another Consultations', required=True, copy=True)
     appointment_investigations_ids = fields.One2many('medical.appointment.investigation', 'appointment_id',
-                                                     string='Investigations', required=True)
+                                                     string='Investigations', required=True, copy=True)
     admission_duration = fields.Integer(string="Observation Duration (per hour)")
     accommodation_id = fields.Many2one('product.product', 'Accommodation Service',
                                        domain=lambda self: self._get_accommodation_product_category_domain(), required=False)
@@ -63,8 +64,8 @@ class MedicalAppointment(models.Model):
     refer_to = fields.Char(string="Refer To")
     transportation = fields.Selection([('car', 'Standard Car'), ('ambulance', 'Ambulance')], string="Transportation")
     recommendation = fields.Text(string="Recommendations")
-    medication_ids = fields.One2many('medical.inpatient.medication', 'medical_appointment_id', string='Medications')
-    discharge_medication_ids = fields.One2many('medical.inpatient.medication', 'medical_discharge_id', string='Home Medications')
+    medication_ids = fields.One2many('medical.inpatient.medication', 'medical_appointment_id', string='Medications', copy=True)
+    discharge_medication_ids = fields.One2many('medical.inpatient.medication', 'medical_discharge_id', string='Home Medications', copy=True)
     state = fields.Selection([('requested', 'Requested'), ('admitted', 'Admitted'),
                               ('discharged', 'Discharged')], string="State", default="requested")
     vital_bp = fields.Char(string='Blood Pressure',required=True)
