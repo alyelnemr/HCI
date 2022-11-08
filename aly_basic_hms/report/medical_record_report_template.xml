@@ -176,7 +176,7 @@
                                             </td>
                                         </tr>
                                     </t>
-                                    <t t-if="my_list_obj['obj_id'].further_examination">
+                                    <t t-if="my_list_obj['obj_id'].assessment">
                                         <tr>
                                             <td><u>Assessment:</u></td>
                                             <td>
@@ -385,7 +385,7 @@
                                             </td>
                                         </tr>
                                     </t>
-                                    <t t-if="my_list_obj['obj_id'].further_examination">
+                                    <t t-if="my_list_obj['obj_id'].assessment">
                                         <tr>
                                             <td><u>Assessment:</u></td>
                                             <td>
