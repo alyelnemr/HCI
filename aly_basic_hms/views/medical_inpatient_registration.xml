@@ -47,6 +47,11 @@
                             <field name="bed_transfers_ids" widget="one2many_list" />
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"
+                               groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
 
             </field>

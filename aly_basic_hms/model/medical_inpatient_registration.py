@@ -11,6 +11,7 @@ class MedicalInpatientRegistration(models.Model):
     _inherit = 'mail.thread'
     _description = 'Medical Inpatient Registration'
     _rec_name = 'patient_id'
+    _order = "name, admission_date desc"
 
     def print_invoice_report(self):
         return self.env.ref('aly_basic_hms.report_print_inpatient_invoice_report').report_action(self)
