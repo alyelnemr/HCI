@@ -54,6 +54,7 @@
                                     <field name="extremities" />
                                     <field name="neurological_examination" />
                                     <field name="further_examination" />
+                                    <field name="assessment" />
                                 </group>
                             </group>
                         </page>

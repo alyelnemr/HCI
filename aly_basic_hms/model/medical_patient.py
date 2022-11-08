@@ -11,6 +11,7 @@ from odoo.exceptions import UserError, ValidationError
 
 class MedicalPatient(models.Model):
     _name = 'medical.patient'
+    _inherit = 'mail.thread'
     _inherits = {'res.partner': 'partner_id'}
     _rec_name = 'partner_id'
     _description = 'Medical Patient'
