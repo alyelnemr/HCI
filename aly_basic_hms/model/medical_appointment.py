@@ -81,6 +81,7 @@ class MedicalAppointment(models.Model):
     extremities = fields.Char('Extremities',required=True)
     neurological_examination = fields.Char('Neurological Examination',required=True)
     further_examination = fields.Char('Further examination',required=False)
+    assessment = fields.Char('Assessment',required=False)
     company_id = fields.Many2one('res.company', required=True, readonly=True, default=lambda self: self.env.user.company_id)
 
     @api.model

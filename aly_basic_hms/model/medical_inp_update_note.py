@@ -29,8 +29,8 @@ class MedicalInpUpdateNote(models.Model):
     refer_to = fields.Char(string="Refer To")
     transportation = fields.Selection([('car', 'Standard Car'), ('ambulance', 'Ambulance')], string="Transportation")
     recommendation = fields.Text(string="Recommendations")
-    medication_ids = fields.One2many('medical.inpatient.medication', 'medical_inp_update_note_id', string='Medication')
-    discharge_medication_ids = fields.One2many('medical.inpatient.medication', 'medical_discharge_id', string='Home Medications')
+    medication_ids = fields.One2many('medical.inpatient.medication', 'medical_inp_update_note_id', string='Medication', copy=True)
+    discharge_medication_ids = fields.One2many('medical.inpatient.medication', 'medical_discharge_id', string='Home Medications', copy=True)
     state = fields.Selection([('requested', 'Requested'), ('admitted', 'Admitted'),
                               ('discharged', 'Discharged')], string="State", default="requested")
     vital_bp = fields.Char(string='Blood Pressure',required=True)

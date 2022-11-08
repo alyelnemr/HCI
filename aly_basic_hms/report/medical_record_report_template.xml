@@ -176,6 +176,14 @@
                                             </td>
                                         </tr>
                                     </t>
+                                    <t t-if="my_list_obj['obj_id'].further_examination">
+                                        <tr>
+                                            <td><u>Assessment:</u></td>
+                                            <td>
+                                                <span t-field="my_list_obj['obj_id'].assessment" />
+                                            </td>
+                                        </tr>
+                                    </t>
                                 </tbody>
                             </table>
                         </div>
@@ -374,6 +382,14 @@
                                             <td>Further Examination:</td>
                                             <td>
                                                 <span t-field="my_list_obj['obj_id'].further_examination" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="my_list_obj['obj_id'].further_examination">
+                                        <tr>
+                                            <td><u>Assessment:</u></td>
+                                            <td>
+                                                <span t-field="my_list_obj['obj_id'].assessment" />
                                             </td>
                                         </tr>
                                     </t>

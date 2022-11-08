@@ -8,6 +8,7 @@ from odoo.exceptions import UserError, ValidationError
 
 class MedicalInpatientRegistration(models.Model):
     _name = 'medical.inpatient.registration'
+    _inherit = 'mail.thread'
     _description = 'Medical Inpatient Registration'
     _rec_name = 'patient_id'
 
@@ -65,7 +66,7 @@ class MedicalInpatientRegistration(models.Model):
     transportation_service2 = fields.Many2one('product.product',
                                             string='Transportation Service2', required=False)
     recommendation = fields.Text(string="Recommendations")
-    doctor_id = fields.Many2one('medical.physician','Physician',required=False)
+    doctor_id = fields.Many2one('medical.physician','Discharge Physician', required=False)
     inpatient_update_note_ids = fields.One2many('medical.inp.update.note', 'inpatient_id', string='Inpatient Update Notes')
     company_id = fields.Many2one('res.company', required=True, readonly=True, default=lambda self: self.env.user.company_id)
 

@@ -49,7 +49,8 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
             appointment_obj.discharge_basis = self.discharge_basis
             appointment_obj.refer_to = self.refer_to
             appointment_obj.transportation = self.transportation
-            appointment_obj.doctor_id = self.doctor_id
+            appointment_obj.doctor_id = False
+            # appointment_obj.doctor_id = self.doctor_id
             appointment_obj.recommendation = self.recommendation
             appointment_obj.state = 'discharged'
             appointment_obj.admission_days = self.actual_admission_days
