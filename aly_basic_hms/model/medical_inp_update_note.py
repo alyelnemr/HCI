@@ -5,6 +5,7 @@ from odoo.exceptions import UserError
 
 class MedicalInpUpdateNote(models.Model):
     _name = "medical.inp.update.note"
+    _inherit = 'mail.thread'
     _description = 'Medical Inpatient Update Notes'
 
     name = fields.Char(string="Inpatient Update Note ID", readonly=True, copy=True)
