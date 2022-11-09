@@ -77,9 +77,9 @@ class MedicalPatient(models.Model):
     referred_to = fields.Many2one('res.partner', domain=[('is_referred_to', '=', True)], required=False, string='Referred To')
     is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
     is_invoiced = fields.Boolean(string='Is Invoiced', default=False, required=False)
-    invoice_id = fields.Many2one('account.move', string='Accounting Invoice', tracking=True)
-    order_id = fields.Many2one('sale.order', string='Sales Order Invoice', tracking=True)
-    is_insurance = fields.Boolean(string='Insurance', default=False, required=False, tracking=True)
+    invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
+    order_id = fields.Many2one('sale.order', string='Sales Order Invoice')
+    is_insurance = fields.Boolean(string='Insurance', default=False, required=False)
     our_reference = fields.Char(string='Our Reference', required=False)
     insurance_reference = fields.Char(string='Insurance Reference')
     insurance_company_id = fields.Many2one('res.partner', domain=[('is_insurance_company', '=', True)],
@@ -125,7 +125,7 @@ class MedicalPatient(models.Model):
     attachment_ids = fields.One2many('medical.patient.attachment', 'patient_id', string="Attachments")
     disposable_ids = fields.One2many('medical.patient.line', 'patient_id', string='Disposables', required=True)
     doctor_id = fields.Many2one('medical.physician','Treating Physician',required=False)
-    treating_physician_ids = fields.Many2many('medical.physician', string='Treating Physicians',required=False)
+    treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',required=False)
 
     @api.model
     def create(self, val):
