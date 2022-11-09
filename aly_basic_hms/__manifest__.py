@@ -4,13 +4,13 @@
 {
 
     "name": "HCI Group",
-    "version": "14.0.0.3",
+    "version": "14.0.0.4",
     "currency": 'EGP',
     "summary": "Healthcare International Group",
     "description": """
     'Aly El Nemr' upgraded a module developed by BrowseInfo, was deployed on Odoo 14 third-party apps.
 """,
-    "depends": ["base", "sale_management", "stock", "account"],
+    "depends": ["base", "sale_management", "stock", "account", "mail"],
     # "depends": ["base", "sale_management", "stock", "account_accountant"],
     "data": [
         'security/hospital_groups.xml',
