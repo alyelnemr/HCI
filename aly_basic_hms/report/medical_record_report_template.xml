@@ -670,7 +670,7 @@
                 </div>
                 <div class="text-left">At <span t-esc="doc.my_format_date(discharge_datetime)" />,
                     the patient was discharged on much improvement basis, transported by
-                    <span t-esc="docs.inpatient_ids.transportation" />
+                    <span t-esc="docs.inpatient_ids[0].transportation" />
                     <t t-if="docs.inpatient_ids.discharge_medication_ids">and received the following medication:</t>
                 </div>
                 <t t-if="docs.inpatient_ids.discharge_medication_ids">
