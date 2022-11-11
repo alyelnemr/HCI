@@ -79,11 +79,11 @@ class MedicalPatient(models.Model):
     is_invoiced = fields.Boolean(string='Is Invoiced', default=False, required=False)
     invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
     order_id = fields.Many2one('sale.order', string='Sales Order Invoice')
-    is_insurance = fields.Boolean(string='Insurance', default=False, required=False)
+    is_insurance = fields.Boolean(string='Insurance', default=False, required=False, tracking=True)
     our_reference = fields.Char(string='Our Reference', required=False)
     insurance_reference = fields.Char(string='Insurance Reference')
     insurance_company_id = fields.Many2one('res.partner', domain=[('is_insurance_company', '=', True)],
-                                           required=False, string='Insurance Company')
+                                           required=False, string='Insurance Company', tracking=True)
     assistance_company = fields.Char(string="Assistance Company")
     policy_number = fields.Char(string='Policy Number', required=False)
     location_of_examination = fields.Char(string="Location of Examination")
