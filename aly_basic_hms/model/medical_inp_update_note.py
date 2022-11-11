@@ -12,7 +12,7 @@ class MedicalInpUpdateNote(models.Model):
     inpatient_id = fields.Many2one('medical.inpatient.registration', domain=[('state', '!=', 'discharged')],
                                    string="Patient", required=True)
     update_note_date = fields.Datetime('Update Note Date',required=True,default=fields.Datetime.now)
-    doctor_id = fields.Many2one('medical.physician','Physician',required=False)
+    doctor_id = fields.Many2one('medical.physician','Physician',required=False, tracking=True)
     inp_update_note_procedure_ids = fields.One2many('medical.inpatient.procedure', 'inp_update_note_id', string='Procedures',
                                                     required=True)
     inp_update_note_consultation_ids = fields.One2many('medical.inp.update.note.consultation.line', 'inp_update_note_id',
@@ -20,7 +20,7 @@ class MedicalInpUpdateNote(models.Model):
     inp_update_note_investigations_ids = fields.One2many('medical.inpatient.investigation', 'inp_update_note_id',
                                                      string='Investigations', required=True)
     admission_type = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU')],
-                                      required=True, default='standard', string="Admission Type")
+                                      required=True, default='standard', string="Admission Type", tracking=True)
     admission_status = fields.Selection([('still', 'is still admitted in'), ('has', 'has been transferred to')],
                                       required=True, default='still', string="Admission Status")
     is_discharged = fields.Boolean(copy=False, default=False)

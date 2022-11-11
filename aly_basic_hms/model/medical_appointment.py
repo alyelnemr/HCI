@@ -43,9 +43,9 @@ class MedicalAppointment(models.Model):
     name = fields.Char(string="Appointment ID", readonly=True, copy=True)
     patient_id = fields.Many2one('medical.patient','Patient',required=True)
     appointment_date = fields.Datetime('Appointment Date',required=True,default=fields.Datetime.now)
-    doctor_id = fields.Many2one('medical.physician','Physician',required=False)
+    doctor_id = fields.Many2one('medical.physician','Physician',required=False, tracking=True)
     consultations_id = fields.Many2one('product.product','Consultation Service',
-                                       domain=lambda self: self._get_examination_product_category_domain(), required=True)
+                                       domain=lambda self: self._get_examination_product_category_domain(), required=True, tracking=True)
     appointment_procedure_ids = fields.One2many('medical.appointment.procedure', 'appointment_id', string='Procedures',
                                                 required=True, copy=True)
     appointment_consultation_ids = fields.One2many('medical.appointment.consultation.line', 'appointment_id',

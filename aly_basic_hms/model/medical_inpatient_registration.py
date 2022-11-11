@@ -41,12 +41,12 @@ class MedicalInpatientRegistration(models.Model):
     patient_id = fields.Many2one('medical.patient', domain=lambda self: self._get_inpatient_domain(),
                                  string="Patient", required=True)
     admission_date = fields.Date(string="Admission date", required=True, default=date.today())
-    discharge_date = fields.Date(string="Expected Discharge date", required=True, default=date.today())
+    discharge_date = fields.Date(string="Expected Discharge date", required=True, default=date.today(), tracking=True)
     # admission_days = fields.Integer(compute=_compute_admission_days, string="Admission Duration", store=True)
     admission_days = fields.Integer(string="Admission Duration", default=1)
     attending_physician_id = fields.Many2one('medical.physician',string="Attending Physician")
     admission_type = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU'), ('care', 'Intermediate Care Unit')],
-                                      required=False, string="Admission Type")
+                                      required=False, string="Admission Type", tracking=True)
     info = fields.Text(string="Notes")
     bed_transfers_ids = fields.One2many('medical.inpatient.acc', 'inpatient_id', string='Accommodations')
     state = fields.Selection([('requested', 'Requested'), ('admitted', 'Admitted'), ('discharged', 'Discharged')],
@@ -55,7 +55,7 @@ class MedicalInpatientRegistration(models.Model):
     discharge_plan = fields.Text(string="Discharge Plan")
     discharge_medication_ids = fields.One2many('medical.inpatient.medication', 'medical_inpatient_registration_id',
                                                string='Medication')
-    is_discharged = fields.Boolean(copy=False, default=False)
+    is_discharged = fields.Boolean(copy=False, default=False, tracking=True)
     discharge_datetime = fields.Datetime(string='Discharge Date Time')
     discharge_basis = fields.Selection([('improve', 'Improvement Basis'), ('against', 'Against Medical Advice'),
                                         ('repatriation', 'Repatriation Basis'),
