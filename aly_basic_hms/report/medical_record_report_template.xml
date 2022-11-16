@@ -677,7 +677,6 @@
                     </span>
                 <t t-if="docs.inpatient_ids.discharge_medication_ids">
                     <table style="width:100%">
-                        <tbody class="sale_tbody">
                             <t t-foreach="docs.inpatient_ids.discharge_medication_ids" t-as="med">
                                 <tr>
                                     <td style="width:100%">
@@ -689,9 +688,8 @@
                                         <t t-if="med.frequency"> / <span t-field="med.frequency" />hr</t>
                                     </td>
                                 </tr>
-                                <br/>
+                                <br/>s
                             </t>
-                        </tbody>
                     </table>
                 </t>
                 </div>
