@@ -671,12 +671,12 @@
                 <div class="text-left">At <span t-esc="doc.my_format_date(discharge_datetime)" />,
                     the patient was discharged on much improvement basis, transported by
                     <span t-esc="docs.inpatient_ids[0].transportation" />
-                    <t t-if="docs.inpatient_ids[0].discharge_medication_ids">and received the following medication:</t>
+                    <t t-if="docs.inpatient_ids.discharge_medication_ids"> and received the following medication:</t>
                 </div>
-                <t t-if="docs.inpatient_ids[0].discharge_medication_ids">
+                <t t-if="docs.inpatient_ids.discharge_medication_ids">
                     <table width="100%">
                         <tbody class="sale_tbody" width="100%">
-                            <t t-foreach="docs.inpatient_ids[0].discharge_medication_ids" t-as="med">
+                            <t t-foreach="docs.inpatient_ids.discharge_medication_ids" t-as="med">
                                 <tr>
                                     <td style="width:100%">
                                         -
