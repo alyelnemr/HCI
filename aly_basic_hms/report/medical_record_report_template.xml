@@ -674,8 +674,11 @@
                     <t t-if="docs.inpatient_ids.discharge_medication_ids"> and received the following medications:</t>
                 </div>
                 <t t-if="docs.inpatient_ids.discharge_medication_ids">
-                    <table width="100%">
-                        <tbody class="sale_tbody" width="100%">
+                    <div class="text-left">
+                        <strong>Medications</strong>
+                    </div>
+                    <table style="width:100%">
+                        <tbody class="sale_tbody">
                             <t t-foreach="docs.inpatient_ids.discharge_medication_ids" t-as="med">
                                 <tr>
                                     <td style="width:100%">
