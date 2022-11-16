@@ -668,15 +668,14 @@
                 <div>
                     <h4 class="text-center"><strong>Discharge Note</strong></h4>
                 </div>
-                <div class="text-left">At <span t-esc="doc.my_format_date(discharge_datetime)" />,
-                    the patient was discharged on much improvement basis, transported by
-                    <span t-esc="docs.inpatient_ids[0].transportation" />
-                    <t t-if="docs.inpatient_ids.discharge_medication_ids"> and received the following medications:</t>
-                </div>
+                <div class="text-left">
+                    <span>
+                        At <span t-esc="doc.my_format_date(discharge_datetime)" />,
+                        the patient was discharged on much improvement basis, transported by
+                        <span t-esc="docs.inpatient_ids[0].transportation" />
+                        <t t-if="docs.inpatient_ids.discharge_medication_ids"> and received the following medications:</t>
+                    </span>
                 <t t-if="docs.inpatient_ids.discharge_medication_ids">
-                    <div class="text-left">
-                        <strong>Medications</strong>
-                    </div>
                     <table style="width:100%">
                         <tbody class="sale_tbody">
                             <t t-foreach="docs.inpatient_ids.discharge_medication_ids" t-as="med">
@@ -695,6 +694,7 @@
                         </tbody>
                     </table>
                 </t>
+                </div>
                 <br/>
                 <t t-if="docs.inpatient_ids[0].recommendation">
                     <br/>
