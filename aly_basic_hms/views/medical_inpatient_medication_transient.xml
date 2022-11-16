@@ -22,7 +22,7 @@
                         </group>
                     </group>
                     <group>
-                        <field name="notes" />
+                        <field name="notes" force_save="1"/>
                     </group>
                 </form>
             </field>

@@ -9,6 +9,36 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
     _name = 'medical.inpatient.discharge.wizard'
     _description = 'description'
 
+    @api.model
+    def default_get(self, fields):
+        result = super(MedicalInpatientInvoiceWizard, self).default_get(fields)
+        if self._context.get('active_id'):
+            inpatient_obj = self.env['medical.inpatient.registration'].browse(self._context['active_id'])
+            if inpatient_obj.discharge_datetime:
+                result['discharge_datetime'] = inpatient_obj.discharge_datetime
+            if inpatient_obj.discharge_basis:
+                result['discharge_basis'] = inpatient_obj.discharge_basis
+            if inpatient_obj.refer_to:
+                result['refer_to'] = inpatient_obj.refer_to
+            if inpatient_obj.transportation:
+                result['transportation'] = inpatient_obj.transportation
+            if inpatient_obj.recommendation:
+                result['recommendation'] = inpatient_obj.recommendation
+            discharge_medication_ids = []
+            for line in inpatient_obj.discharge_medication_ids:
+                discharge_medication_ids.append((0, 0, {
+                    'product_id': line.product_id.id,
+                    'medicine_quantity': line.medicine_quantity,
+                    'dose': line.dose,
+                    'admin_method': line.admin_method,
+                    'medical_dose_unit_id': line.medical_dose_unit_id.id,
+                    'frequency': line.frequency,
+                    'frequency_unit': line.frequency_unit,
+                    'notes': line.notes,
+                }))
+                result['discharge_medication_ids'] = discharge_medication_ids
+        return result
+
     @api.depends('discharge_datetime')
     def _compute_admission_days(self):
         active_ids = self._context.get('active_ids')
@@ -42,7 +72,7 @@ class MedicalInpatientInvoiceWizard(models.TransientModel):
     def discharge_patient(self):
         active_ids = self._context.get('active_ids')
         medical_appointment_obj = self.env['medical.inpatient.registration']
-        for active_id in active_ids: 
+        for active_id in active_ids:
             appointment_obj = medical_appointment_obj.browse(active_id)
             appointment_obj.is_discharged = True
             appointment_obj.discharge_datetime = self.discharge_datetime
