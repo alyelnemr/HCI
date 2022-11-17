@@ -88,6 +88,7 @@ class SaleOrderForDiscount(models.Model):
             for line in self.order_line:
                 if line.product_id.id == aly_service_product_id:
                     line.price_unit = 0
+                    line.discount = 0
         res = super().update_prices()
         medicine_prod_cat = self.env['ir.config_parameter'].sudo().get_param('medicine.product_category')
         prod_cat_obj = self.env['product.category'].search([('name', '=', medicine_prod_cat)])
@@ -102,6 +103,7 @@ class SaleOrderForDiscount(models.Model):
             for line in self.order_line:
                 if line.product_id.id == aly_service_product_id:
                     line.price_unit = aly_service_charge_percentage * self.amount_untaxed / 100
+                    line.discount = 0
         return res
 
     @api.depends('order_line.price_total')
