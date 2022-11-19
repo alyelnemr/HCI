@@ -67,13 +67,13 @@ class SaleOrderForDiscount(models.Model):
             rec.is_readonly_lines = not self.env.user.has_group('aly_basic_hms.aly_group_medical_manager')
 
     is_readonly_lines = fields.Boolean(string='Is Readonly Lines', default=False, store=False, compute=onchange_readonly)
-    discount_total = fields.Float(string='Total Discount %', default=0.0, tracking=True)
-    discount_amount = fields.Monetary(compute=onchange_discount, string="Discount", store=True, tracking=True)
+    discount_total = fields.Float(string='Total Discount %', default=0.0)
+    discount_amount = fields.Monetary(compute=onchange_discount, string="Discount", store=True)
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
-    service_charge_amount = fields.Monetary(compute=compute_amount_all, string="Service Charge %", store=False, tracking=True)
-    service_untaxed_amount = fields.Monetary(compute=compute_service_untaxed_amount, string="Untaxed Amount", store=False, tracking=True)
-    treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',related='patient_id.treating_physician_ids', required=False, tracking=True)
+    service_charge_amount = fields.Monetary(compute=compute_amount_all, string="Service Charge %", store=False)
+    service_untaxed_amount = fields.Monetary(compute=compute_service_untaxed_amount, string="Untaxed Amount", store=False)
+    treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',related='patient_id.treating_physician_ids', required=False)
 
     def _prepare_invoice(self):
         invoice_vals = super(SaleOrderForDiscount, self)._prepare_invoice()
@@ -88,7 +88,6 @@ class SaleOrderForDiscount(models.Model):
             for line in self.order_line:
                 if line.product_id.id == aly_service_product_id:
                     line.price_unit = 0
-                    line.discount = 0
         res = super().update_prices()
         medicine_prod_cat = self.env['ir.config_parameter'].sudo().get_param('medicine.product_category')
         prod_cat_obj = self.env['product.category'].search([('name', '=', medicine_prod_cat)])
@@ -103,7 +102,6 @@ class SaleOrderForDiscount(models.Model):
             for line in self.order_line:
                 if line.product_id.id == aly_service_product_id:
                     line.price_unit = aly_service_charge_percentage * self.amount_untaxed / 100
-                    line.discount = 0
         return res
 
     @api.depends('order_line.price_total')
