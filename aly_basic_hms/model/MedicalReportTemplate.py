@@ -62,29 +62,34 @@ class MedicalReportTemplate(models.AbstractModel):
         model = 'medical.patient'
         active_id = self.env.context.get('active_id')
         docs = self.env[model].sudo().browse(docids)
-        sorted_data = self.get_sorting(docs)
-        user_tz = self.env.user.tz or pytz.utc
+        is_empty = False
+        if len(docs.update_note_ids) <= 0 and len(docs.inpatient_ids) <= 0:
+            is_empty = True
+        else:
+            sorted_data = self.get_sorting(docs)
+            user_tz = self.env.user.tz or pytz.utc
 
-        local = pytz.timezone(user_tz)
-        min_date_str = ''
-        if sorted_data:
-            if sorted_data[0]['obj_type'] == 'app':
-                min_date_str = sorted_data[0]['obj_id'].appointment_date
-            if sorted_data[0]['obj_type'] == 'inp_up':
-                min_date_str = sorted_data[0]['obj_id'].update_note_date
-            if sorted_data[0]['obj_type'] == 'op':
-                min_date_str = sorted_data[0]['obj_id'].time_in
-        min_date = pytz.utc.localize(min_date_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(min_date_str, datetime) else min_date_str.strftime("%d/%m/%Y %H:%M:%S")
-        var_room_number = str(docs.room_number)
-        today_now = datetime.now()
-        min_update_note_date = min_date if min_date else today_now.strftime("%d/%m/%Y %H:%M:%S")
-        is_discharged = docs.inpatient_ids[0].is_discharged if len(docs.inpatient_ids) > 0 else False
-        discharge_datetime = pytz.utc.localize(docs.inpatient_ids[0].discharge_datetime).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if len(docs.inpatient_ids) > 0 and is_discharged else False
+            local = pytz.timezone(user_tz)
+            min_date_str = ''
+            if sorted_data:
+                if sorted_data[0]['obj_type'] == 'app':
+                    min_date_str = sorted_data[0]['obj_id'].appointment_date
+                if sorted_data[0]['obj_type'] == 'inp_up':
+                    min_date_str = sorted_data[0]['obj_id'].update_note_date
+                if sorted_data[0]['obj_type'] == 'op':
+                    min_date_str = sorted_data[0]['obj_id'].time_in
+            min_date = pytz.utc.localize(min_date_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(min_date_str, datetime) else min_date_str.strftime("%d/%m/%Y %H:%M:%S")
+            var_room_number = str(docs.room_number)
+            today_now = datetime.now()
+            min_update_note_date = min_date if min_date else today_now.strftime("%d/%m/%Y %H:%M:%S")
+            is_discharged = docs.inpatient_ids[0].is_discharged if len(docs.inpatient_ids) > 0 else False
+            discharge_datetime = pytz.utc.localize(docs.inpatient_ids[0].discharge_datetime).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if len(docs.inpatient_ids) > 0 and is_discharged else False
         return {
             'data': data,
             'doc_ids': docids,
             'doc_model': model,
             'docs': docs,
+            'is_empty': is_empty,
             'sorted_data': sorted_data,
             'var_room_number': var_room_number,
             'min_update_note_date': min_update_note_date,
@@ -152,29 +157,34 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
         model = 'medical.patient'
         active_id = self.env.context.get('active_id')
         docs = self.env[model].sudo().browse(docids)
-        sorted_data = self.get_sorting(docs)
-        user_tz = self.env.user.tz or pytz.utc
+        is_empty = False
+        if len(docs.update_note_ids) <= 0 and len(docs.inpatient_ids) <= 0:
+            is_empty = True
+        else:
+            sorted_data = self.get_sorting(docs)
+            user_tz = self.env.user.tz or pytz.utc
 
-        local = pytz.timezone(user_tz)
-        min_date_str = ''
-        if sorted_data:
-            if sorted_data[0]['obj_type'] == 'app':
-                min_date_str = sorted_data[0]['obj_id'].appointment_date
-            if sorted_data[0]['obj_type'] == 'inp_up':
-                min_date_str = sorted_data[0]['obj_id'].update_note_date
-            if sorted_data[0]['obj_type'] == 'op':
-                min_date_str = sorted_data[0]['obj_id'].time_in
-        min_date = pytz.utc.localize(min_date_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(min_date_str, datetime) else min_date_str.strftime("%d/%m/%Y %H:%M:%S")
-        var_room_number = str(docs.room_number)
-        today_now = datetime.now()
-        min_update_note_date = min_date if min_date else today_now.strftime("%d/%m/%Y %H:%M:%S")
-        is_discharged = docs.inpatient_ids[0].is_discharged if len(docs.inpatient_ids) > 0 else False
-        discharge_datetime = pytz.utc.localize(docs.inpatient_ids[0].discharge_datetime).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if len(docs.inpatient_ids) > 0 and is_discharged else False
+            local = pytz.timezone(user_tz)
+            min_date_str = ''
+            if sorted_data:
+                if sorted_data[0]['obj_type'] == 'app':
+                    min_date_str = sorted_data[0]['obj_id'].appointment_date
+                if sorted_data[0]['obj_type'] == 'inp_up':
+                    min_date_str = sorted_data[0]['obj_id'].update_note_date
+                if sorted_data[0]['obj_type'] == 'op':
+                    min_date_str = sorted_data[0]['obj_id'].time_in
+            min_date = pytz.utc.localize(min_date_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(min_date_str, datetime) else min_date_str.strftime("%d/%m/%Y %H:%M:%S")
+            var_room_number = str(docs.room_number)
+            today_now = datetime.now()
+            min_update_note_date = min_date if min_date else today_now.strftime("%d/%m/%Y %H:%M:%S")
+            is_discharged = docs.inpatient_ids[0].is_discharged if len(docs.inpatient_ids) > 0 else False
+            discharge_datetime = pytz.utc.localize(docs.inpatient_ids[0].discharge_datetime).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if len(docs.inpatient_ids) > 0 and is_discharged else False
         return {
             'data': data,
             'doc_ids': docids,
             'doc_model': model,
             'docs': docs,
+            'is_empty': is_empty,
             'sorted_data': sorted_data,
             'var_room_number': var_room_number,
             'min_update_note_date': min_update_note_date,
