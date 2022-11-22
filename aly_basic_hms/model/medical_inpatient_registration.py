@@ -62,7 +62,7 @@ class MedicalInpatientRegistration(models.Model):
                                                string='Medication')
     is_discharged = fields.Boolean(copy=False, default=False, tracking=True)
     discharge_datetime = fields.Datetime(string='Discharge Date Time')
-    discharge_basis = fields.Selection(_get_discharge_basis(), string="Discharge Basis")
+    discharge_basis = fields.Selection('_get_discharge_basis', string="Discharge Basis")
     refer_to = fields.Char(string="Refer To")
     transportation = fields.Selection([('car', 'Standard Car'), ('ambulance', 'Ambulance')], string="Transportation")
     transportation_service = fields.Many2one('product.product',
