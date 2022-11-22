@@ -681,7 +681,12 @@
                     <h4 class="text-center"><strong>Discharge Note</strong></h4>
                 </div>
                 <div class="text-left">At <span t-esc="doc.my_format_date(discharge_datetime)" />,
-                    the patient was discharged on <span t-esc="docs.inpatient_ids[0].discharge_basis" />, transported by
+                    the patient was discharged on
+                    <t t-if="docs.inpatient_ids[0].discharge_basis == 'improve'">improvement basis</t>
+                    <t t-if="docs.inpatient_ids[0].discharge_basis == 'against'">against medical advice</t>
+                    <t t-if="docs.inpatient_ids[0].discharge_basis == 'repatriation'">repatriation basis</t>
+                    <t t-if="docs.inpatient_ids[0].discharge_basis == 'referral'">referral basis</t>
+                    , transported by
                     <span t-esc="docs.inpatient_ids[0].transportation" />
                     <t t-if="docs.inpatient_ids.discharge_medication_ids"> and received the following medications:
                     <br/>
