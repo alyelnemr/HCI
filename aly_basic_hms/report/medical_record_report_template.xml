@@ -763,99 +763,101 @@
 	</template>
     <template id="medical_record_report">
                 <t t-call="web.html_container">
-                    <t t-foreach="docs" t-as="doc">
-                        <t t-if="doc.company_id.header">
-                            <div class="header">
-                                <t t-set="company" t-value="doc.company_id"></t>
-                                <div class="row mt32 mb32">
-                                    <div class="col-6">
-                                        <img t-att-src="'data:image/png;base64,%s' % to_text(company.header)"
-                                             />
+                    <t t-if="not is_empty">
+                        <t t-foreach="docs" t-as="doc">
+                            <t t-if="doc.company_id.header">
+                                <div class="header">
+                                    <t t-set="company" t-value="doc.company_id"></t>
+                                    <div class="row mt32 mb32">
+                                        <div class="col-6">
+                                            <img t-att-src="'data:image/png;base64,%s' % to_text(company.header)"
+                                                 />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </t>
-                        <t t-call="web.internal_layout">
-                            <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Date</th>
-                                    <td>
-                                        <span t-esc="min_update_note_date" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Sex</th>
-                                    <td>
-                                        <span t-field="doc.sex" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Patient Name</th>
-                                    <td>
-                                        <b><span t-field="doc.name" class="text-center"/></b>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Date of Birth</th>
-                                    <td>
-                                        <span t-field="doc.date_of_birth" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Nationality</th>
-                                    <td>
-                                        <span t-field="doc.nationality_id.name" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Insurance Company</th>
-                                    <td>
-                                        <span t-field="doc.insurance_company_id.name" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Our Ref#</th>
-                                    <td>
-                                        <span t-field="doc.our_reference" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Insurance Ref#</th>
-                                    <td>
-                                        <span t-field="doc.insurance_reference" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Hotel</th>
-                                    <td>
-                                        <span t-field="doc.hotel.name" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Room</th>
-                                    <td>
-                                        <span t-esc="var_room_number" widget="char" options="{'format': 0}" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Arrival</th>
-                                    <td>
-                                        <span t-field="doc.date_of_arrival" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Departure</th>
-                                    <td>
-                                        <span t-field="doc.date_of_departure" class="text-center"/>
-                                    </td>
-                                </tr>
-                            </table>
-                            <div>
+                            </t>
+                            <t t-call="web.internal_layout">
+                                <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
+                                    <tr>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Date</th>
+                                        <td>
+                                            <span t-esc="min_update_note_date" class="text-center"/>
+                                        </td>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Sex</th>
+                                        <td>
+                                            <span t-field="doc.sex" class="text-center"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Patient Name</th>
+                                        <td>
+                                            <b><span t-field="doc.name" class="text-center"/></b>
+                                        </td>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Date of Birth</th>
+                                        <td>
+                                            <span t-field="doc.date_of_birth" class="text-center"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Nationality</th>
+                                        <td>
+                                            <span t-field="doc.nationality_id.name" class="text-center"/>
+                                        </td>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Insurance Company</th>
+                                        <td>
+                                            <span t-field="doc.insurance_company_id.name" class="text-center"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Our Ref#</th>
+                                        <td>
+                                            <span t-field="doc.our_reference" class="text-center"/>
+                                        </td>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Insurance Ref#</th>
+                                        <td>
+                                            <span t-field="doc.insurance_reference" class="text-center"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Hotel</th>
+                                        <td>
+                                            <span t-field="doc.hotel.name" class="text-center"/>
+                                        </td>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Room</th>
+                                        <td>
+                                            <span t-esc="var_room_number" widget="char" options="{'format': 0}" class="text-center"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Arrival</th>
+                                        <td>
+                                            <span t-field="doc.date_of_arrival" class="text-center"/>
+                                        </td>
+                                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Departure</th>
+                                        <td>
+                                            <span t-field="doc.date_of_departure" class="text-center"/>
+                                        </td>
+                                    </tr>
+                                </table>
                                 <div>
-                                    <h3 class="text-center"><strong>Final Medical Report</strong></h3>
+                                    <div>
+                                        <h3 class="text-center"><strong>Final Medical Report</strong></h3>
+                                    </div>
+                                    <t t-call="aly_basic_hms.medical_report_core">
+                                    </t>
                                 </div>
-                                <t t-call="aly_basic_hms.medical_report_core">
-                                </t>
-                            </div>
-                        </t>
-                        <t t-if="doc.company_id.footer" >
-                            <div class="footer">
-                                <t t-set="company" t-value="doc.company_id"></t>
-                                <div class="row mt32 mb32">
-                                    <div class="col-6">
-                                        <img t-att-src="'data:image/png;base64,%s' % to_text(company.footer)"
-                                             />
+                            </t>
+                            <t t-if="doc.company_id.footer" >
+                                <div class="footer">
+                                    <t t-set="company" t-value="doc.company_id"></t>
+                                    <div class="row mt32 mb32">
+                                        <div class="col-6">
+                                            <img t-att-src="'data:image/png;base64,%s' % to_text(company.footer)"
+                                                 />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </t>
                         </t>
                     </t>
                 </t>

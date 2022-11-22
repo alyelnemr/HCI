@@ -242,6 +242,9 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
         model = 'medical.patient'
         active_id = self.env.context.get('active_id')
         docs = self.env[model].sudo().browse(docids)
+        is_empty = False
+        if len(docs.update_note_ids) <= 0 and len(docs.inpatient_ids) <= 0:
+            is_empty = True
         sorted_data = self.get_sorting(docs)
         user_tz = self.env.user.tz or pytz.utc
 
@@ -265,6 +268,7 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
             'doc_ids': docids,
             'doc_model': model,
             'docs': docs,
+            'is_empty': is_empty,
             'sorted_data': sorted_data,
             'var_room_number': var_room_number,
             'min_update_note_date': min_update_note_date,
