@@ -62,6 +62,7 @@ class MedicalReportTemplate(models.AbstractModel):
         model = 'medical.patient'
         active_id = self.env.context.get('active_id')
         docs = self.env[model].sudo().browse(docids)
+        sorted_data, var_room_number, min_update_note_date, is_discharged, discharge_datetime = False
         is_empty = False
         if len(docs.update_note_ids) <= 0 and len(docs.inpatient_ids) <= 0:
             is_empty = True
@@ -156,6 +157,7 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         model = 'medical.patient'
         active_id = self.env.context.get('active_id')
+        sorted_data, var_room_number, min_update_note_date, is_discharged, discharge_datetime = False
         docs = self.env[model].sudo().browse(docids)
         is_empty = False
         if len(docs.update_note_ids) <= 0 and len(docs.inpatient_ids) <= 0:
@@ -251,6 +253,7 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         model = 'medical.patient'
         active_id = self.env.context.get('active_id')
+        sorted_data, var_room_number, min_update_note_date, is_discharged, discharge_datetime = False
         docs = self.env[model].sudo().browse(docids)
         is_empty = False
         if len(docs.update_note_ids) <= 0 and len(docs.inpatient_ids) <= 0:
