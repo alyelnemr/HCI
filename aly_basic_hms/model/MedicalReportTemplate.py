@@ -62,10 +62,17 @@ class MedicalReportTemplate(models.AbstractModel):
         model = 'medical.patient'
         active_id = self.env.context.get('active_id')
         docs = self.env[model].sudo().browse(docids)
-        sorted_data, var_room_number, min_update_note_date, is_discharged, discharge_datetime = False
         is_empty = False
         if len(docs.update_note_ids) <= 0 and len(docs.inpatient_ids) <= 0:
             is_empty = True
+            return {
+                'data': data,
+                'doc_ids': docids,
+                'doc_model': model,
+                'docs': docs,
+                'is_empty': is_empty,
+                'report_title': 'Final Medical Report'
+            }
         else:
             sorted_data = self.get_sorting(docs)
             user_tz = self.env.user.tz or pytz.utc
@@ -157,11 +164,18 @@ class MedicalReportTemplateUpdate(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         model = 'medical.patient'
         active_id = self.env.context.get('active_id')
-        sorted_data, var_room_number, min_update_note_date, is_discharged, discharge_datetime = False
         docs = self.env[model].sudo().browse(docids)
         is_empty = False
         if len(docs.update_note_ids) <= 0 and len(docs.inpatient_ids) <= 0:
             is_empty = True
+            return {
+                'data': data,
+                'doc_ids': docids,
+                'doc_model': model,
+                'docs': docs,
+                'is_empty': is_empty,
+                'report_title': 'Update Medical Report'
+            }
         else:
             sorted_data = self.get_sorting(docs)
             user_tz = self.env.user.tz or pytz.utc
@@ -253,11 +267,18 @@ class MedicalReportTemplatePrimary(models.AbstractModel):
     def _get_report_values(self, docids, data=None):
         model = 'medical.patient'
         active_id = self.env.context.get('active_id')
-        sorted_data, var_room_number, min_update_note_date, is_discharged, discharge_datetime = False
         docs = self.env[model].sudo().browse(docids)
         is_empty = False
         if len(docs.update_note_ids) <= 0 and len(docs.inpatient_ids) <= 0:
             is_empty = True
+            return {
+                'data': data,
+                'doc_ids': docids,
+                'doc_model': model,
+                'docs': docs,
+                'is_empty': is_empty,
+                'report_title': 'Primary Medical Report'
+            }
         else:
             sorted_data = self.get_sorting(docs)
             user_tz = self.env.user.tz or pytz.utc
