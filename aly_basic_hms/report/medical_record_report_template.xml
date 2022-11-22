@@ -685,8 +685,7 @@
                     <t t-if="docs.inpatient_ids[0].discharge_basis == 'improve'">improvement basis</t>
                     <t t-if="docs.inpatient_ids[0].discharge_basis == 'against'">against medical advice</t>
                     <t t-if="docs.inpatient_ids[0].discharge_basis == 'repatriation'">repatriation basis</t>
-                    <t t-if="docs.inpatient_ids[0].discharge_basis == 'referral'">referral basis</t>
-                    , transported by
+                    <t t-if="docs.inpatient_ids[0].discharge_basis == 'referral'">referral basis</t>, transported by
                     <span t-esc="docs.inpatient_ids[0].transportation" />
                     <t t-if="docs.inpatient_ids.discharge_medication_ids"> and received the following medications:
                     <br/>
