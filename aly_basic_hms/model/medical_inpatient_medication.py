@@ -39,7 +39,7 @@ class MedicalInpatientMedication(models.Model):
     medical_medicament_id = fields.Many2one('medical.medicament', string="Medicine (Old Don't use)", readonly=True, required=False)
     medicine_quantity = fields.Integer(string='Quantity', default=1)
     dose = fields.Integer(string='Dose')
-    admin_method = fields.Selection([('iv', 'IV'), ('im', 'IM'), ('sc', 'SC'), ('oral', 'Oral'), ('local', 'Local')],
+    admin_method = fields.Selection([('iv', 'IV'), ('im', 'IM'), ('sc', 'SC'), ('oral', 'Oral'), ('inhalation', 'Inhalation'), ('local', 'Local')],
                                     string='Administration Method')
     medical_dose_unit_id = fields.Many2one('medical.dose.unit', string='Dose Unit')
     frequency = fields.Integer(string='Frequency')

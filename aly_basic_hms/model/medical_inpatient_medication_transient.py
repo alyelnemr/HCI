@@ -25,7 +25,8 @@ class MedicalInpatientMedicationTransient(models.TransientModel):
                                         ('im','IM'),
                                         ('sc','SC'),
                                         ('oral','Oral'),
-                                        ('local','Local')],string='Administration Method')
+                                     ('inhalation', 'Inhalation'),
+                                     ('local','Local')],string='Administration Method')
     medical_dose_unit_id = fields.Many2one('medical.dose.unit',string='Dose Unit')
     frequency = fields.Integer(string='Frequency')
     frequency_unit = fields.Selection([('hours','hours')], readonly=True, default='hours', string='Frequency Unit')
