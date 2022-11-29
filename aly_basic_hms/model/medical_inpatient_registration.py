@@ -21,10 +21,11 @@ class MedicalInpatientRegistration(models.Model):
         for rec in self:
             d2 = rec.discharge_date
             d1 = rec.admission_date
-            if d1 and d2:
+            rec.admission_days = 1
+            if d1 and d2 and (d1 != d2):
                 rd = d2 - d1
                 rec.admission_days = rd.days
-                if rec.discharge_date < rec.admission_date or rd.days < 0:
+                if rec.is_discharged and rec.discharge_date < rec.admission_date or rd.days < 0:
                     raise UserError(_('Discharge Date Must be greater than or equal Admission Date...'))
 
     def _get_inpatient_domain(self):
