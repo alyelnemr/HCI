@@ -283,6 +283,21 @@
                               </tbody>
                             </table>
                         </t>
+                        <t t-if="my_list_obj['obj_id'].notes">
+                            <br/>
+                            <div class="text-left">
+                                <strong>Notes</strong>
+                            </div>
+                            <table style="width:100%">
+                                <tbody class="sale_tbody">
+                                    <tr>
+                                        <td style="width:100%">
+                                            <span t-field="my_list_obj['obj_id'].notes" />
+                                        </td>
+                                    </tr>
+                              </tbody>
+                            </table>
+                        </t>
                 </t>
 
 
@@ -493,6 +508,21 @@
                                     <tr>
                                         <td style="width:100%">
                                             <span t-field="my_list_obj['obj_id'].recommendation" />
+                                        </td>
+                                    </tr>
+                              </tbody>
+                            </table>
+                        </t>
+                        <t t-if="my_list_obj['obj_id'].notes">
+                            <br/>
+                            <div class="text-left">
+                                <strong>Notes</strong>
+                            </div>
+                            <table style="width:100%">
+                                <tbody class="sale_tbody">
+                                    <tr>
+                                        <td style="width:100%">
+                                            <span t-field="my_list_obj['obj_id'].notes" />
                                         </td>
                                     </tr>
                               </tbody>
