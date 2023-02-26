@@ -111,3 +111,6 @@ class MedicalInpatientRegistration(models.Model):
 
     def patient_discharge(self):
         self.write({'state': 'invoice'})
+
+    def reset_discharge(self):
+        self.write({'state': 'admitted', 'is_discharged': False})
