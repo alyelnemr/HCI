@@ -90,6 +90,11 @@
                                 <field name="recommendation" class="oe_inline" string="Further" />
                             </group>
                         </page>
+                        <page string="Notes">
+                            <group>
+                                <field name="notes" class="oe_inline" string="Notes" />
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">

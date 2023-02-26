@@ -30,6 +30,7 @@ class MedicalInpUpdateNote(models.Model):
     refer_to = fields.Char(string="Refer To")
     transportation = fields.Selection([('car', 'Standard Car'), ('ambulance', 'Ambulance')], string="Transportation")
     recommendation = fields.Text(string="Recommendations")
+    notes = fields.Text(string="Notes")
     medication_ids = fields.One2many('medical.inpatient.medication', 'medical_inp_update_note_id', string='Medication', copy=True)
     discharge_medication_ids = fields.One2many('medical.inpatient.medication', 'medical_discharge_id', string='Home Medications', copy=True)
     state = fields.Selection([('requested', 'Requested'), ('admitted', 'Admitted'),

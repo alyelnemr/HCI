@@ -96,6 +96,11 @@
                                 <field name="recommendation" class="oe_inline" string="Further" />
                             </group>
                         </page>
+                        <page string="Notes">
+                            <group>
+                                <field name="notes" class="oe_inline" string="Notes" />
+                            </group>
+                        </page>
                         <page string="Home Medications" attrs="{'invisible': [('is_discharged','=', False)]}">
                             <group string="Medications">
                                 <field name="discharge_medication_ids" string="Home Medication" widget="one2many_list" />
