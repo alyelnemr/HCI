@@ -5,7 +5,7 @@
         <menuitem 
         	id="main_menu_hospital_management"
         	name="HCI Group"
-            web_icon="aly_basic_hms/static/description/icon.png"
+            web_icon="/static/description/icon.png"
            />
 
          <menuitem name="Configuration"
