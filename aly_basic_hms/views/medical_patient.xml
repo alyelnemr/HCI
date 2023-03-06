@@ -127,6 +127,12 @@
                                 </group>
                             </page>
                             <page string="Attachments">
+                                <field name="has_attachment" invisible="1" />
+                                <button
+                                        name="download_all"
+                                        attrs="{'invisible': [('has_attachment', '=', False)]}"
+                                        string="Download All" type="object" class="oe_highlight"
+                                />
                                 <group>
                                     <field name="attachment_ids" nolabel="1" widget="one2many_list" />
                                 </group>

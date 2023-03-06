@@ -34,6 +34,11 @@ class MedicalPatient(models.Model):
             if rec.is_insurance and not rec.insurance_company_id:
                 raise UserError(_('Please enter Insurance Company or convert to Cash...'))
 
+    @api.depends('attachment_ids')
+    def _has_attachment(self):
+        for rec in self:
+            rec.has_attachment = len(rec.attachment_ids) > 0
+
     @api.depends('date_of_birth')
     def onchange_age(self):
         for rec in self:
@@ -123,6 +128,7 @@ class MedicalPatient(models.Model):
     inpatient_ids = fields.One2many('medical.inpatient.registration', 'patient_id')
     operation_ids = fields.One2many('medical.operation', 'patient_id')
     attachment_ids = fields.One2many('medical.patient.attachment', 'patient_id', string="Attachments")
+    has_attachment = fields.Boolean(compute='_has_attachment', string="Has Attachment", store=False)
     disposable_ids = fields.One2many('medical.patient.line', 'patient_id', string='Disposables', required=True)
     doctor_id = fields.Many2one('medical.physician','Treating Physician',required=False)
     treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',required=False)
@@ -194,3 +200,14 @@ class MedicalPatient(models.Model):
         user_tz = self.env.user.tz or get_localzone() or pytz.utc
         local = pytz.timezone(user_tz)
         return str(user_tz) + ' -- ' + str(local)
+
+    def download_all(self):
+        tab_id = []
+        for attachment in self.attachment_ids:
+            tab_id.append(attachment.patient_id.id)
+            break
+        url = '/web/binary/download_document?tab_id=%s' % tab_id
+        return {
+            'type': 'ir.actions.act_url',
+            'url': url,
+        }
