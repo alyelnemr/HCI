@@ -24,7 +24,7 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    'icon': '/static/description/icon.jpg',
+    'icon': 'static/description/icon.jpg',
     "images": ["static/description/Banner.png"],
     "live_test_url": '',
 
