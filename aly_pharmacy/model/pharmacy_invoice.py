@@ -52,6 +52,8 @@ class MedicalExternalServiceWizard(models.TransientModel):
                                 default=lambda self: self._get_default_clinic(),
                                 domain=lambda self: self._get_clinic_domain())
     service_date = fields.Datetime('Service Date',required=True,default=fields.Datetime.now)
+    item_category = fields.Selection([('medication', 'Medication'), ('cosmetic', 'Cosmetics'), ('accessory', 'Accessories')]
+                                     , required=True, default='medication', string="Item Category")
     product_id = fields.Many2one('product.product', 'Service',
                                  domain=lambda self: self._get_external_services_product_category_domain(), required=True)
     quantity = fields.Integer('Quantity', default=1, required=True)
