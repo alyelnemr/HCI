@@ -24,7 +24,6 @@ class MedicalExternalServiceWizard(models.TransientModel):
     partner_id = fields.Many2one('res.partner', string="Related Partner")
     patient_name = fields.Char(string='Patient Name', related='partner_id.name')
     date_of_birth = fields.Date(string="Date of Birth", required=True)
-    invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
     nationality_id = fields.Many2one("res.country", "Nationality", required=True)
     clinic_id = fields.Many2one('medical.clinic', required=True, string='Facility', readonly=True,
                                 default=lambda self: self._get_default_clinic(),

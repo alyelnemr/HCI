@@ -152,6 +152,7 @@
                     <field name="patient_code" />
                     <field name="name" />
                     <field name="treating_physician_ids" widget="many2many_tags" />
+                    <field name="diagnosis_final" />
                     <field name="create_date" />
                     <field name="sex" />
                     <field name="date_of_birth" />

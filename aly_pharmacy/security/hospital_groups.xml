@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="0">
+        <record id="module_category_medical_app" model="ir.module.category">
+            <field name="name">Pharmacy Application</field>
+            <field name="description">Pharmacy Management System By Aly El Nemr .</field>
+        </record>
+
+        <record id="module_category_pharmacy" model="ir.module.category">
+            <field name="name">Pharmacy</field>
+            <field name="description">Pharmacy System.</field>
+            <field name="parent_id" ref="module_category_medical_app"/>
+        </record>
+
+        <record id="aly_group_pharmacy" model="res.groups">
+            <field name="name">Manage pharmacy invoices</field>
+            <field name="category_id" ref="module_category_pharmacy"/>
+            <field name="comment">Can manage pharmacy invoices.</field>
+        </record>
+
+        <record id="aly_basic_hms.aly_group_medical_manager" model="res.groups">
+            <field name="name">Managers</field>
+            <field name="category_id" ref="aly_basic_hms.module_category_medical_levels"/>
+            <field name="implied_ids" eval="[(4, ref('aly_basic_hms.aly_group_inpatient')), (4, ref('aly_group_pharmacy')), (4, ref('aly_basic_hms.aly_group_insurance'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+            <field name="comment">the user will have access to all data in all the Medical Application.</field>
+        </record>
+    </data>
+</odoo>

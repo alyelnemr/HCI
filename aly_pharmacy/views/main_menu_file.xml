@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+		        
+                  
+        <menuitem 
+        	id="main_menu_pharmacy_management"
+        	name="HCI Pharmacy"
+            groups="aly_group_pharmacy"
+            web_icon="aly_basic_hms/static/description/icon.png"
+           />
+
+
+        <menuitem id="menu_pharmacy_service_wizard" name='Pharmacy'
+                  action="action_pharmacy_service"
+            parent="main_menu_pharmacy_management" sequence="0" />
+
+
+</openerp>

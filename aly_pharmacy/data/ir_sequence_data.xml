@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="inpatient_registration_code_sequence" model="ir.sequence">
+            <field name="name">Medical InPatients Registration Seq</field>
+            <field name="code">medical.inpatient.registration</field>
+            <field name="prefix">INPAT</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="inpatient_update_note_code_sequence" model="ir.sequence">
+            <field name="name">Medical InPatients Update Note Seq</field>
+            <field name="code">medical.inpatient.update.note</field>
+            <field name="prefix">IPNOTE</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_appointment_code_sequence" model="ir.sequence">
+            <field name="name">Medical Patient Appointments Seq</field>
+            <field name="code">medical.appointment.code</field>
+            <field name="prefix">APT</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="patient_registration_sequence" model="ir.sequence">
+            <field name="name">Medical Patient Seq</field>
+            <field name="code">medical.patient.code</field>
+            <field name="prefix">PAT</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_patient_invoice_sequence" model="ir.sequence">
+            <field name="name">Medical Patient Invoice</field>
+            <field name="code">medical_patient_inv_seq</field>
+            <field name="prefix">PAT/INV/</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="medical_operation_sequence" model="ir.sequence">
+            <field name="name">Medical Operation</field>
+            <field name="code">medical_operation_seq</field>
+            <field name="prefix">OP</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>
