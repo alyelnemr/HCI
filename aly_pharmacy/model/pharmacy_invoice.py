@@ -15,7 +15,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
     @api.depends('company_id')
     def _compute_journal_id(self):
         for wizard in self:
-            wizard.journal_id = self.env['account.journal'].search([
+            wizard.journal_id = self.sudo().env['account.journal'].search([
                 ('type', 'in', ('bank', 'cash')),
                 ('company_id', '=', wizard.company_id.id),
             ], limit=1)
