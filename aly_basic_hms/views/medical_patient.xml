@@ -187,6 +187,9 @@
                     <separator orientation="vertical" />
                     <field name="name" />
                     <filter name="filter_is_insurance" string="Insurance Patients" domain="[('is_insurance', '=', True)]" />
+                    <separator orientation="vertical" />
+                        <filter name="filter_patient_age" string="Patients Age >60" domain="[('age_year', '>=', 60)]" />
+                    <separator orientation="vertical" />
                 </search>
             </field>
         </record>

@@ -49,8 +49,10 @@ class MedicalPatient(models.Model):
                 d2 = datetime.today().date()
                 rd = relativedelta(d2, d1)
                 rec.age = str(rd.years) + 'y' + ' ' + str(rd.months) + 'm' + ' ' + str(rd.days) + 'd'
+                rec.age_year = rd.years
             else:
                 rec.age = "No Date Of Birth!!"
+                rec.age_year = 0
 
     @api.constrains('diagnosis_final', 'diagnosis_provisional')
     def diagnosis_constrains(self):
@@ -78,6 +80,7 @@ class MedicalPatient(models.Model):
     date_of_birth = fields.Date(string="Date of Birth", required=True)
     sex = fields.Selection([('m', 'Male'), ('f', 'Female')], default='m', string="Sex", required=True)
     age = fields.Char(compute=onchange_age, string="Patient Age", store=True)
+    age_year = fields.Char(compute=onchange_age, string="Patient Age Year", store=True)
     referred_by = fields.Many2one('res.partner', domain=[('is_referred_by', '=', True)], required=False, string='Referred By')
     referred_to = fields.Many2one('res.partner', domain=[('is_referred_to', '=', True)], required=False, string='Referred To')
     is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
@@ -194,7 +197,6 @@ class MedicalPatient(models.Model):
         user_tz = self.env.user.tz or get_localzone() or pytz.utc
         local = pytz.timezone(user_tz)
         return pytz.utc.localize(var_datetime_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(var_datetime_str, datetime) else var_datetime_str#.strftime("%d/%m/%Y %H:%M:%S")
-
 
     def my_format_date2(self):
         user_tz = self.env.user.tz or get_localzone() or pytz.utc
