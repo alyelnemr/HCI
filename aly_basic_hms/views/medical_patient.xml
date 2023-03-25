@@ -190,6 +190,7 @@
                     <separator orientation="vertical" />
                         <filter name="filter_patient_age" string="Patients Age >60" domain="[('age_year', '>=', 60)]" />
                     <separator orientation="vertical" />
+                <filter string="Patient Age" name="group_by_age_year" domain="[]" context="{'group_by': 'age_year'}"/>
                 </search>
             </field>
         </record>
