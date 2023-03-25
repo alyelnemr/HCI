@@ -80,7 +80,7 @@ class MedicalPatient(models.Model):
     date_of_birth = fields.Date(string="Date of Birth", required=True)
     sex = fields.Selection([('m', 'Male'), ('f', 'Female')], default='m', string="Sex", required=True)
     age = fields.Char(compute=onchange_age, string="Patient Age", store=True)
-    age_year = fields.Integer(compute=onchange_age, string="Patient Age Year", store=True)
+    age_year = fields.Integer(compute=onchange_age, string="Patient Age Year", store=False)
     referred_by = fields.Many2one('res.partner', domain=[('is_referred_by', '=', True)], required=False, string='Referred By')
     referred_to = fields.Many2one('res.partner', domain=[('is_referred_to', '=', True)], required=False, string='Referred To')
     is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
