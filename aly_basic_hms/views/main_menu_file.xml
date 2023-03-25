@@ -59,7 +59,7 @@
             sequence="0" parent="menu_travel_hotel" />
 
         <menuitem id="menu_hotel2" action="act_res_partner_hotel"
-            sequence="5" parent="main_menu_configuration" />
+            sequence="5" parent="main_menu_hospital_management" />
 
         <menuitem id="menu_inpatient_administration_admission"
             parent="menu_inpatient_administration" action="action_medical_inpatient_registration"
