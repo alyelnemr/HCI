@@ -37,6 +37,17 @@ class MedicalExternalServiceWizard(models.TransientModel):
         prod_cat_obj_id = prod_cat_obj.id
         return [('categ_id', '=', prod_cat_obj.id)] if prod_cat_obj else []
 
+
+    @api.depends('product_id')
+    def get_pharmacy_product_categ_id(self):
+        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('pharmacy_service.product_category')
+        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
+        if len(prod_cat_obj) > 1:
+            prod_cat_obj_id = prod_cat_obj[0].id
+        else:
+            prod_cat_obj_id = prod_cat_obj.id
+        self.categ_id_pharmacy = prod_cat_obj_id
+
     def _get_clinic_domain(self):
         current_clinics = self.env['res.users'].browse(self.env.user.id)
         return [('id', 'in', current_clinics.allowed_clinic_ids)]
@@ -56,6 +67,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
                                      , required=True, default='medication', string="Item Category")
     product_id = fields.Many2one('product.product', 'Service',
                                  domain=lambda self: self._get_external_services_product_category_domain(), required=True)
+    categ_id_pharmacy = fields.Integer('Medicine Product Category ID', store=False, compute=get_pharmacy_product_categ_id)
     item_name = fields.Char(string='Item Name', required=True)
     quantity = fields.Integer('Quantity', default=1, required=True)
     service_amount = fields.Monetary(string="Service Price")
