@@ -56,6 +56,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
                                      , required=True, default='medication', string="Item Category")
     product_id = fields.Many2one('product.product', 'Service',
                                  domain=lambda self: self._get_external_services_product_category_domain(), required=True)
+    item_name = fields.Char(string='Item Name', required=True)
     quantity = fields.Integer('Quantity', default=1, required=True)
     service_amount = fields.Monetary(string="Service Price")
     currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
