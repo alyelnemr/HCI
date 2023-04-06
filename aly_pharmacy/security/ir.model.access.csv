@@ -1,3 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 access_pharmacy_invoice,access_pharmacy_invoice,model_pharmacy_invoice,,1,1,1,1
+
+access_pharamcy_template_doctor,product.template.doctor,product.model_product_template,,1,0,1,0
+access_pharamcy_template_medical_group,product.template.medical_group,product.model_product_template,,1,0,1,0

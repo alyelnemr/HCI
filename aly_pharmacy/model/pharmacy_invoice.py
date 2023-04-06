@@ -59,7 +59,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
     partner_id = fields.Many2one('res.partner', string="Related Partner")
     patient_name = fields.Char(string='Patient Name', required=True)
     nationality_id = fields.Many2one("res.country", "Nationality", required=True)
-    clinic_id = fields.Many2one('medical.clinic', required=True, string='Facility', readonly=True,
+    clinic_id = fields.Many2one('medical.clinic', required=False, string='Facility', readonly=True,
                                 default=lambda self: self._get_default_clinic(),
                                 domain=lambda self: self._get_clinic_domain())
     service_date = fields.Datetime('Service Date',required=True,default=fields.Datetime.now)
