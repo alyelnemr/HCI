@@ -31,21 +31,15 @@ class MedicalExternalServiceWizard(models.TransientModel):
             wizard.available_payment_method_ids = None
             wizard.hide_payment_method = False
 
-    def _get_external_services_product_category_domain(self):
-        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('pharmacy_service.product_category')
-        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)], limit=1)
-        prod_cat_obj_id = prod_cat_obj.id
-        return [('categ_id', '=', prod_cat_obj.id)] if prod_cat_obj else []
-
+    def _get_pharmacy_services(self):
+        prod_cat_obj = self.env['product.product'].search([('name', '=', 'Pharmacy Item')], limit=1)
+        return prod_cat_obj.id
 
     @api.depends('product_id')
     def get_pharmacy_product_categ_id(self):
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('pharmacy_service.product_category')
-        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)])
-        if len(prod_cat_obj) > 1:
-            prod_cat_obj_id = prod_cat_obj[0].id
-        else:
-            prod_cat_obj_id = prod_cat_obj.id
+        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)], limit=1)
+        prod_cat_obj_id = prod_cat_obj.id
         self.categ_id_pharmacy = prod_cat_obj_id
 
     def _get_clinic_domain(self):
@@ -66,9 +60,9 @@ class MedicalExternalServiceWizard(models.TransientModel):
     item_category = fields.Selection([('medication', 'Medication'), ('cosmetic', 'Cosmetics'), ('accessory', 'Accessories')]
                                      , required=True, default='medication', string="Item Category")
     product_id = fields.Many2one('product.product', 'Service',
-                                 domain=lambda self: self._get_external_services_product_category_domain(), required=True)
+                                 default=lambda self: self._get_pharmacy_services(), required=False)
     categ_id_pharmacy = fields.Integer('Medicine Product Category ID', store=False, compute=get_pharmacy_product_categ_id)
-    item_name = fields.Char(string='Item Name', required=False)
+    item_name = fields.Char(string='Service', required=False)
     quantity = fields.Integer('Quantity', default=1, required=True)
     service_amount = fields.Monetary(string="Service Price")
     currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
@@ -89,9 +83,17 @@ class MedicalExternalServiceWizard(models.TransientModel):
     def create(self, vals):
         account_invoice_obj = self.env['account.move']
         medical_external_service_obj = self.env['pharmacy.invoice']
-        product_product_obj = self.env['product.product'].browse(vals['product_id'])
+        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('pharmacy_service.product_category')
+        prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)], limit=1)
+        cat = prod_cat_obj.id
+
+        product_product_obj = self.env['product.product'].sudo().create({
+            'name': vals['item_name'],
+            'type': 'service',
+            'categ_id': cat
+        })
         ir_property_obj = self.env['ir.property']
-        partner_id = self.env['res.partner'].create({'name': vals['patient_name'], 'is_pharmacy': True})
+        partner_id = self.env['res.partner'].sudo().create({'name': vals['patient_name'], 'is_pharmacy': True})
         invoice_vals = {
             'name': '/',
             'invoice_origin': partner_id.name or '',

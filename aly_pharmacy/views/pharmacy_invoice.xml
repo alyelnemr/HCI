@@ -21,7 +21,8 @@
                         <group>
                             <field name="item_category" />
                             <field name="categ_id_pharmacy" invisible="1" />
-                            <field name="product_id" context="{'search_default_type': 'service', 'default_type': 'service', 'default_categ_id': categ_id_pharmacy}" />
+<!--                            <field name="product_id" context="{'search_default_type': 'service', 'default_type': 'service', 'default_categ_id': categ_id_pharmacy}" />-->
+                            <field name="item_name" />
                             <field name="service_amount" />
                             <field name="currency_id" options="{'no_create_edit': True, 'no_create': True,'no_open': True, 'no_quick_create':True}"/>
                             <field name="journal_id" options="{'no_create_edit': True, 'no_create': True,'no_open': True, 'no_quick_create':True}"/>
