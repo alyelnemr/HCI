@@ -139,7 +139,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
             # 'name': appointment.consultations_id.name or '',
             'name': product_product_obj.name or '',
             'account_id': invoice_line_account_id,
-            'price_unit': vals['service_amount'],
+            'price_unit': vals['service_amount'] + vals['bank_fees_amount'],
             'product_uom_id': product_product_obj.uom_id.id,
             'quantity': 1,
             'product_id': product_product_obj.id,
