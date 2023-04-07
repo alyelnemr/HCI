@@ -78,7 +78,13 @@ class MedicalExternalServiceWizard(models.TransientModel):
     invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
     journal_id = fields.Many2one('account.journal', store=True, readonly=False,
                                  domain="[('company_id', '=', company_id), ('type', 'in', ('bank', 'cash'))]")
-    journal_id_type = fields.Char(related='journal_id.type', string='Journal Type')
+    journal_id_type = fields.Selection([
+            ('sale', 'Sales'),
+            ('purchase', 'Purchase'),
+            ('cash', 'Cash'),
+            ('bank', 'Bank'),
+            ('general', 'Miscellaneous'),
+        ],related='journal_id.type', string='Journal Type')
 
     # == Payment methods fields ==
     payment_method_id = fields.Many2one('account.payment.method', string='Payment Method', readonly=False, store=True,
