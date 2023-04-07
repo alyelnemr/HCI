@@ -42,6 +42,12 @@ class MedicalExternalServiceWizard(models.TransientModel):
         prod_cat_obj_id = prod_cat_obj.id
         self.categ_id_pharmacy = prod_cat_obj_id
 
+    @api.depends('product_id', 'service_amount')
+    def compute_bank_fees(self):
+        self.bank_fees_amount = 0
+        if self.service_amount and self.product_id:
+            self.bank_fees_amount = self.service_amount * .05
+
     def _get_clinic_domain(self):
         current_clinics = self.env['res.users'].browse(self.env.user.id)
         return [('id', 'in', current_clinics.allowed_clinic_ids)]
@@ -65,12 +71,14 @@ class MedicalExternalServiceWizard(models.TransientModel):
     item_name = fields.Char(string='Service', required=False)
     quantity = fields.Integer('Quantity', default=1, required=True)
     service_amount = fields.Monetary(string="Service Price")
+    bank_fees_amount = fields.Monetary(string="Bank Fees", compute=compute_bank_fees)
     currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
     company_id = fields.Many2one('res.company', required=True, string='Branch', readonly=True,
                                  default=lambda self: self.env.user.company_id)
     invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
     journal_id = fields.Many2one('account.journal', store=True, readonly=False,
                                  domain="[('company_id', '=', company_id), ('type', 'in', ('bank', 'cash'))]")
+    journal_id_type = fields.Char(related='journal_id.type', string='Journal Type')
 
     # == Payment methods fields ==
     payment_method_id = fields.Many2one('account.payment.method', string='Payment Method', readonly=False, store=True,
