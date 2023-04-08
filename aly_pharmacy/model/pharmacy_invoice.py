@@ -135,11 +135,16 @@ class MedicalExternalServiceWizard(models.TransientModel):
             raise UserError(
                 _('There is no income account defined for this product: "%s". You may have to install a chart of account from Accounting app, settings menu.') %
                 (product_product_obj.name,))
+        service_amount = 0
+        if 'service_amount' in vals:
+            service_amount = vals['service_amount']
+        if 'bank_fees_amount' in vals:
+            service_amount = service_amount + vals['bank_fees_amount']
         invoice_line_vals = {
             # 'name': appointment.consultations_id.name or '',
             'name': product_product_obj.name or '',
             'account_id': invoice_line_account_id,
-            'price_unit': vals['service_amount'] + vals['bank_fees_amount'],
+            'price_unit': service_amount,
             'product_uom_id': product_product_obj.uom_id.id,
             'quantity': 1,
             'product_id': product_product_obj.id,
