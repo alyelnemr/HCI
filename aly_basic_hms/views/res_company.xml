@@ -43,6 +43,7 @@
                     </page>
                     <page string="Default Accounts">
                         <group >
+                            <field name="aly_bank_fees_product_id"/>
                             <field name="default_account_rec_cash_id"/>
                             <field name="default_account_rec_insurance_id"/>
                         </group>

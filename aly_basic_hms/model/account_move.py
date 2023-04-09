@@ -14,11 +14,11 @@ class AccountMoveForDiscount(models.Model):
         for rec in self:
             rec.is_readonly_lines = not self.env.user.has_group('aly_basic_hms.aly_group_medical_manager')
 
-    @api.depends('product_id', 'service_amount')
+    @api.depends('amount_total')
     def compute_bank_fees(self):
         self.bank_fees_amount = 0
-        if self.service_amount and self.product_id:
-            self.bank_fees_amount = self.service_amount * .05
+        if self.amount_total and self.company_id.aly_bank_fees_product_id:
+            self.bank_fees_amount = self.amount_total * .05
 
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     is_readonly_lines = fields.Boolean(string='Is Readonly Lines', default=False, store=False, compute=onchange_readonly)
