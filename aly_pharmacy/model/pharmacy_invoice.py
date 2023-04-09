@@ -42,6 +42,12 @@ class MedicalExternalServiceWizard(models.TransientModel):
         prod_cat_obj_id = prod_cat_obj.id
         self.categ_id_pharmacy = prod_cat_obj_id
 
+    @api.depends('product_id', 'service_amount')
+    def compute_bank_fees(self):
+        self.bank_fees_amount = 0
+        if self.service_amount and self.product_id:
+            self.bank_fees_amount = self.service_amount * .05
+
     def _get_clinic_domain(self):
         current_clinics = self.env['res.users'].browse(self.env.user.id)
         return [('id', 'in', current_clinics.allowed_clinic_ids)]

@@ -74,6 +74,16 @@
             <field name="name">Service Charge Services</field>
         </record>
 
+        <record id="record_bank_fees_product_category" model="product.category">
+            <field name="name">Bank Fees Services</field>
+        </record>
+
+        <record id="record_bank_fees_product_template" model="product.template">
+            <field name="name">Bank Fees Service</field>
+            <field name="categ_id" ref="aly_basic_hms.record_bank_fees_product_category" />
+            <field name="type">service</field>
+        </record>
+
         <record id="record_discounts_product_category" model="product.category">
             <field name="name">Discounts</field>
         </record>

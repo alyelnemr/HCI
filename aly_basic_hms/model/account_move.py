@@ -14,10 +14,19 @@ class AccountMoveForDiscount(models.Model):
         for rec in self:
             rec.is_readonly_lines = not self.env.user.has_group('aly_basic_hms.aly_group_medical_manager')
 
+    @api.depends('product_id', 'service_amount')
+    def compute_bank_fees(self):
+        self.bank_fees_amount = 0
+        if self.service_amount and self.product_id:
+            self.bank_fees_amount = self.service_amount * .05
+
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     is_readonly_lines = fields.Boolean(string='Is Readonly Lines', default=False, store=False, compute=onchange_readonly)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
     treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',related='patient_id.treating_physician_ids', required=False)
+    bank_fees_amount = fields.Monetary(string="Bank Fees", compute=compute_bank_fees)
+    payment_method_fees = fields.Selection([('bank', 'Bank'), ('cash', 'Cash')],
+                                      required=True, default='cash', string="Payment Method")
 
     def _move_autocomplete_invoice_lines_values(self):
         ''' This method recomputes dynamic lines on the current journal entry that include taxes, cash rounding
@@ -62,6 +71,30 @@ class AccountMoveForDiscount(models.Model):
         values = self._convert_to_write(self._cache)
         values.pop('invoice_line_ids', None)
         return values
+
+    @api.depends('payment_method_fees')
+    def bank_fees(self):
+        for line in self.line_ids.filtered(lambda l: l.product_id.id == self.company_id.aly_bank_fees_product_id):
+            if self.payment_method_fees == 'cash':
+                line.unlink()
+                return
+            if self.payment_method_fees == 'bank':
+                return
+        if self.payment_method_fees == 'bank':
+            product_product_obj = self.env['product.product'].sudo().browse(self.company_id.aly_bank_fees_product_id.id)
+            invoice_line_account_id = product_product_obj.property_account_income_id.id \
+                                      or product_product_obj.categ_id.property_account_income_categ_id.id \
+                                      or False
+            invoice_line_vals = {
+                # 'name': appointment.consultations_id.name or '',
+                'name': product_product_obj.name or '',
+                'account_id': invoice_line_account_id,
+                'price_unit': self.amount_total * .05,
+                'product_uom_id': self.company_id.aly_bank_fees_product_id.uom_id.id,
+                'quantity': 1,
+                'product_id': self.company_id.aly_bank_fees_product_id.id,
+            }
+            self.line_ids.append((0, 0, invoice_line_vals))
 
     def get_quantity_subtotal(self):
         sql = self.env.cr.execute('select line.product_id, pt.name, categ.name, sum(line.quantity), max(line.price_unit), sum(line.price_subtotal), sum(line.quantity) * max(line.price_unit) from account_move move inner join account_move_line line on move.id = line.move_id inner join product_product p on line.product_id = p.id inner join product_template pt on pt.id = p.product_tmpl_id inner join product_category categ on pt.categ_id = categ.id where move.id = %s group by line.product_id, pt.name, categ.sorting_rank, categ.name order by categ.sorting_rank' % self.id)
