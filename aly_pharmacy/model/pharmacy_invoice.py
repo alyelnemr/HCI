@@ -42,12 +42,6 @@ class MedicalExternalServiceWizard(models.TransientModel):
         prod_cat_obj_id = prod_cat_obj.id
         self.categ_id_pharmacy = prod_cat_obj_id
 
-    @api.depends('product_id', 'service_amount')
-    def compute_bank_fees(self):
-        self.bank_fees_amount = 0
-        if self.service_amount and self.product_id:
-            self.bank_fees_amount = self.service_amount * .05
-
     def _get_clinic_domain(self):
         current_clinics = self.env['res.users'].browse(self.env.user.id)
         return [('id', 'in', current_clinics.allowed_clinic_ids)]
@@ -71,7 +65,6 @@ class MedicalExternalServiceWizard(models.TransientModel):
     item_name = fields.Char(string='Service', required=False)
     quantity = fields.Integer('Quantity', default=1, required=True)
     service_amount = fields.Monetary(string="Service Price")
-    bank_fees_amount = fields.Monetary(string="Bank Fees", compute=compute_bank_fees)
     currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
     company_id = fields.Many2one('res.company', required=True, string='Branch', readonly=True,
                                  default=lambda self: self.env.user.company_id)
@@ -138,8 +131,6 @@ class MedicalExternalServiceWizard(models.TransientModel):
         service_amount = 0
         if 'service_amount' in vals:
             service_amount = vals['service_amount']
-        if 'bank_fees_amount' in vals:
-            service_amount = service_amount + vals['bank_fees_amount']
         invoice_line_vals = {
             # 'name': appointment.consultations_id.name or '',
             'name': product_product_obj.name or '',
