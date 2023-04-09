@@ -14,17 +14,17 @@ class AccountMoveForDiscount(models.Model):
         for rec in self:
             rec.is_readonly_lines = not self.env.user.has_group('aly_basic_hms.aly_group_medical_manager')
 
-    @api.depends('amount_total')
+    @api.depends('amount_total', 'payment_method_fees')
     def compute_bank_fees(self):
         self.bank_fees_amount = 0
-        if self.amount_total and self.company_id.aly_bank_fees_product_id:
+        if self.amount_total:
             self.bank_fees_amount = self.amount_total * .05
 
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     is_readonly_lines = fields.Boolean(string='Is Readonly Lines', default=False, store=False, compute=onchange_readonly)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
     treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',related='patient_id.treating_physician_ids', required=False)
-    bank_fees_amount = fields.Monetary(string="Bank Fees", compute=compute_bank_fees)
+    bank_fees_amount = fields.Monetary(string="Bank Fees", compute=compute_bank_fees, store=False)
     payment_method_fees = fields.Selection([('bank', 'Bank'), ('cash', 'Cash')],
                                       required=True, default='cash', string="Payment Method")
 
@@ -72,9 +72,9 @@ class AccountMoveForDiscount(models.Model):
         values.pop('invoice_line_ids', None)
         return values
 
-    @api.depends('payment_method_fees')
+    @api.onchange('payment_method_fees')
     def bank_fees(self):
-        for line in self.line_ids.filtered(lambda l: l.product_id.id == self.company_id.aly_bank_fees_product_id):
+        for line in self.invoice_line_ids.filtered(lambda l: l.product_id.id == self.company_id.aly_bank_fees_product_id.id):
             if self.payment_method_fees == 'cash':
                 line.unlink()
                 return
@@ -85,6 +85,8 @@ class AccountMoveForDiscount(models.Model):
             invoice_line_account_id = product_product_obj.property_account_income_id.id \
                                       or product_product_obj.categ_id.property_account_income_categ_id.id \
                                       or False
+            if not invoice_line_account_id and self.invoice_line_ids:
+                invoice_line_account_id = self.invoice_line_ids[0].account_id.id
             invoice_line_vals = {
                 # 'name': appointment.consultations_id.name or '',
                 'name': product_product_obj.name or '',
@@ -94,7 +96,7 @@ class AccountMoveForDiscount(models.Model):
                 'quantity': 1,
                 'product_id': self.company_id.aly_bank_fees_product_id.id,
             }
-            self.line_ids.append((0, 0, invoice_line_vals))
+            self.invoice_line_ids = [(0, 0, invoice_line_vals)]
 
     def get_quantity_subtotal(self):
         sql = self.env.cr.execute('select line.product_id, pt.name, categ.name, sum(line.quantity), max(line.price_unit), sum(line.price_subtotal), sum(line.quantity) * max(line.price_unit) from account_move move inner join account_move_line line on move.id = line.move_id inner join product_product p on line.product_id = p.id inner join product_template pt on pt.id = p.product_tmpl_id inner join product_category categ on pt.categ_id = categ.id where move.id = %s group by line.product_id, pt.name, categ.sorting_rank, categ.name order by categ.sorting_rank' % self.id)

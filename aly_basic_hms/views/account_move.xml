@@ -45,7 +45,8 @@
                     <field name="is_readonly_lines" invisible="1" />
                 </field>
                 <field name="payment_reference" position="after" >
-                    <field name="payment_method_fees" invisible="1" />
+                    <field name="payment_method_fees"  />
+                    <field name="bank_fees_amount" attrs="{'invisible': [('payment_method_fees', '!=', 'bank')]}" />
                 </field>
                 <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_unit']" position="replace">
                     <field name="price_unit" string="Price" attrs="{'readonly': [('parent.is_readonly_lines', '=', True)]}" />
