@@ -26,5 +26,19 @@
             <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
             <field name="comment">the user will have access to all data in all the Medical Application.</field>
         </record>
+
+        <record id="medical_pharmacy_rule" model="ir.rule">
+            <field name="name">Personal Pharmacy Records</field>
+            <field ref="model_pharmacy_invoice" name="model_id"/>
+            <field name="domain_force">[('create_uid','=',user.id)]</field>
+            <field name="groups" eval="[(4, ref('aly_pharmacy.aly_group_pharmacy'))]"/>
+        </record>
+
+        <record id="medical_all_pharmacy_rule" model="ir.rule">
+            <field name="name">All Pharmacy for Managers</field>
+            <field ref="model_pharmacy_invoice" name="model_id"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('aly_pharmacy.aly_group_medical_manager'))]"/>
+        </record>
     </data>
 </odoo>
