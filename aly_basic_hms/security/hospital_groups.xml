@@ -225,8 +225,6 @@
         </record>
 
 
-
-
         <record id="medical_inpatient_multi_company_rule" model="ir.rule">
             <field name="name">Medical Inpatient filtered by Company</field>
             <field name="model_id" ref="model_medical_inpatient_registration" />
