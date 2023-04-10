@@ -6,7 +6,7 @@ from odoo.exceptions import Warning,UserError
 from datetime import date,datetime
 
 
-class MedicalExternalServiceWizard(models.TransientModel):
+class MedicalExternalServiceWizard(models.Model):
     _name = 'pharmacy.invoice'
     _inherits = {'res.partner': 'partner_id'}
     _rec_name = 'partner_id'

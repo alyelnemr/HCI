@@ -1,4 +1,3 @@
-
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError, AccessError
 from odoo.tools.misc import formatLang, format_date, get_lang
@@ -17,16 +16,18 @@ class AccountMoveForDiscount(models.Model):
     @api.depends('amount_total', 'payment_method_fees')
     def compute_bank_fees(self):
         self.bank_fees_amount = 0
-        if self.amount_total:
+        if self.amount_total and self.payment_method_fees == 'bank':
             self.bank_fees_amount = self.amount_total * .05
 
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
-    is_readonly_lines = fields.Boolean(string='Is Readonly Lines', default=False, store=False, compute=onchange_readonly)
+    is_readonly_lines = fields.Boolean(string='Is Readonly Lines', default=False, store=False,
+                                       compute=onchange_readonly)
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
-    treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',related='patient_id.treating_physician_ids', required=False)
+    treating_physician_ids = fields.Many2many('medical.physician', string='Treating Physicians',
+                                              related='patient_id.treating_physician_ids', required=False)
     bank_fees_amount = fields.Monetary(string="Bank Fees", compute=compute_bank_fees, store=False)
     payment_method_fees = fields.Selection([('bank', 'Bank'), ('cash', 'Cash')],
-                                      required=True, default='cash', string="Payment Method")
+                                           required=True, default='cash', string="Payment Method")
 
     def _move_autocomplete_invoice_lines_values(self):
         ''' This method recomputes dynamic lines on the current journal entry that include taxes, cash rounding
@@ -74,12 +75,10 @@ class AccountMoveForDiscount(models.Model):
 
     @api.onchange('payment_method_fees')
     def bank_fees(self):
-        for line in self.invoice_line_ids.filtered(lambda l: l.product_id.id == self.company_id.aly_bank_fees_product_id.id):
-            if self.payment_method_fees == 'cash':
-                line.unlink()
-                return
-            if self.payment_method_fees == 'bank':
-                return
+        if self.payment_method_fees == 'cash':
+            lines = self.invoice_line_ids.filtered(
+                lambda l: l.product_id.id == self.company_id.aly_bank_fees_product_id.id)
+            lines.unlink()
         if self.payment_method_fees == 'bank':
             product_product_obj = self.env['product.product'].sudo().browse(self.company_id.aly_bank_fees_product_id.id)
             invoice_line_account_id = product_product_obj.property_account_income_id.id \
@@ -87,57 +86,120 @@ class AccountMoveForDiscount(models.Model):
                                       or False
             if not invoice_line_account_id and self.invoice_line_ids:
                 invoice_line_account_id = self.invoice_line_ids[0].account_id.id
-            invoice_line_vals = {
-                # 'name': appointment.consultations_id.name or '',
+            sign = 1
+            price_unit = self.amount_total * .05
+            balance = sign * 1 * price_unit
+            receivable1 = self.line_ids.filtered(lambda l: l.account_id.internal_type == 'receivable')
+            # res = self.invoice_line_ids = [(0, 0,
+            #
+            #                                 {
+            #                                     'name': product_product_obj.name or '',
+            #                                     'account_id': self.env['account.account'].search([
+            #                                         ('user_type_id', '=',
+            #                                          self.env.ref('account.data_account_type_revenue').id),
+            #                                         ('company_id', '=', self.company_id.id)
+            #                                     ], limit=1).id,
+            #                                     'price_unit': price_unit,
+            #                                     'amount_currency': -price_unit,
+            #                                     'product_uom_id': product_product_obj.uom_id.id,
+            #                                     'debit': 0.0,
+            #                                     'credit': balance,
+            #                                     'quantity': 1,
+            #                                     'product_id': product_product_obj.id,
+            #                                     'partner_id': self.partner_id.id,
+            #                                     'exclude_from_invoice_tab': False,
+            #                                     'currency_id': self.currency_id.id,
+            #                                 },
+            #                                 {
+            #                                     'name': product_product_obj.name or '',
+            #                                     'account_id': receivable1.account_id.id,
+            #                                     'price_unit': price_unit,
+            #                                     'amount_currency': price_unit,
+            #                                     'product_uom_id': product_product_obj.uom_id.id,
+            #                                     'debit': balance,
+            #                                     'credit': 0.0,
+            #                                     'quantity': 1,
+            #                                     'product_id': product_product_obj.id,
+            #                                     'partner_id': self.partner_id.id,
+            #                                     'exclude_from_invoice_tab': False,
+            #                                     'currency_id': self.currency_id.id,
+            #                                 }
+            #                                 )]
+
+            res = self.env['account.move.line'].create({
                 'name': product_product_obj.name or '',
-                'account_id': invoice_line_account_id,
-                'price_unit': self.amount_total * .05,
-                'product_uom_id': self.company_id.aly_bank_fees_product_id.uom_id.id,
+                'account_id': self.journal_id.default_account_id.id,
+                'price_unit': price_unit,
+                'product_uom_id': product_product_obj.uom_id.id,
                 'quantity': 1,
-                'product_id': self.company_id.aly_bank_fees_product_id.id,
-            }
-            self.invoice_line_ids = [(0, 0, invoice_line_vals)]
-
-    def get_quantity_subtotal(self):
-        sql = self.env.cr.execute('select line.product_id, pt.name, categ.name, sum(line.quantity), max(line.price_unit), sum(line.price_subtotal), sum(line.quantity) * max(line.price_unit) from account_move move inner join account_move_line line on move.id = line.move_id inner join product_product p on line.product_id = p.id inner join product_template pt on pt.id = p.product_tmpl_id inner join product_category categ on pt.categ_id = categ.id where move.id = %s group by line.product_id, pt.name, categ.sorting_rank, categ.name order by categ.sorting_rank' % self.id)
-        read_group = self.env.cr.fetchall()
-        return read_group
-
-    def unlink_force(self):
-        for move in self:
-            if move.posted_before and not self._context.get('force_delete'):
-                raise UserError(_("You cannot delete an entry which has been posted once."))
-        self.line_ids.unlink()
-        return super(AccountMoveForDiscount, self).unlink()
-
-    @api.model
-    def _search_default_journal(self, journal_types):
-        company_id = self._context.get('default_company_id', self.env.company.id)
-        domain = [('company_id', '=', company_id), ('type', 'in', journal_types)]
-
-        journal = None
-        if self._context.get('default_currency_id'):
-            currency_domain = domain + [('currency_id', '=', self._context['default_currency_id'])]
-            journal = self.env['account.journal'].search(currency_domain, limit=1)
-
-        if not journal:
-            if self._context.get('active_model') == 'sale.order':
-                sale_order = self.env['sale.order'].browse(self._context.get('active_id'))
-                if sale_order.patient_id and sale_order.patient_id.is_insurance:
-                    domain_insurance = [('company_id', '=', company_id), ('type', 'in', journal_types), ('is_insurance_journal', '=', True)]
-                    journal = self.env['account.journal'].search(domain_insurance, limit=1)
-
-        if not journal:
-            journal = self.env['account.journal'].search(domain, limit=1)
-
-        if not journal:
-            company = self.env['res.company'].browse(company_id)
-
-            error_msg = _(
-                "No journal could be found in company %(company_name)s for any of those types: %(journal_types)s",
-                company_name=company.display_name,
-                journal_types=', '.join(journal_types),
+                'product_id': product_product_obj.id,
+                'partner_id': self.partner_id.id,
+                'currency_id': self.currency_id.id,
+                'amount_currency': price_unit,
+                'exclude_from_invoice_tab': False,
+                'move_id': self.ids[0],
+            },
+                {
+                    'name': product_product_obj.name or '',
+                    'account_id': self.journal_id.default_account_id.id,
+                    'price_unit': price_unit,
+                    'product_uom_id': product_product_obj.uom_id.id,
+                    'quantity': 1,
+                    'product_id': product_product_obj.id,
+                    'partner_id': self.partner_id.id,
+                    'currency_id': self.currency_id.id,
+                    'amount_currency': price_unit,
+                    'exclude_from_invoice_tab': False,
+                    'move_id': self.ids[0],
+                }
             )
-            raise UserError(error_msg)
+            self.line_ids._onchange_price_subtotal()
 
-        return journal
+
+def get_quantity_subtotal(self):
+    sql = self.env.cr.execute(
+        'select line.product_id, pt.name, categ.name, sum(line.quantity), max(line.price_unit), sum(line.price_subtotal), sum(line.quantity) * max(line.price_unit) from account_move move inner join account_move_line line on move.id = line.move_id inner join product_product p on line.product_id = p.id inner join product_template pt on pt.id = p.product_tmpl_id inner join product_category categ on pt.categ_id = categ.id where move.id = %s group by line.product_id, pt.name, categ.sorting_rank, categ.name order by categ.sorting_rank' % self.id)
+    read_group = self.env.cr.fetchall()
+    return read_group
+
+
+def unlink_force(self):
+    for move in self:
+        if move.posted_before and not self._context.get('force_delete'):
+            raise UserError(_("You cannot delete an entry which has been posted once."))
+    self.line_ids.unlink()
+    return super(AccountMoveForDiscount, self).unlink()
+
+
+@api.model
+def _search_default_journal(self, journal_types):
+    company_id = self._context.get('default_company_id', self.env.company.id)
+    domain = [('company_id', '=', company_id), ('type', 'in', journal_types)]
+
+    journal = None
+    if self._context.get('default_currency_id'):
+        currency_domain = domain + [('currency_id', '=', self._context['default_currency_id'])]
+        journal = self.env['account.journal'].search(currency_domain, limit=1)
+
+    if not journal:
+        if self._context.get('active_model') == 'sale.order':
+            sale_order = self.env['sale.order'].browse(self._context.get('active_id'))
+            if sale_order.patient_id and sale_order.patient_id.is_insurance:
+                domain_insurance = [('company_id', '=', company_id), ('type', 'in', journal_types),
+                                    ('is_insurance_journal', '=', True)]
+                journal = self.env['account.journal'].search(domain_insurance, limit=1)
+
+    if not journal:
+        journal = self.env['account.journal'].search(domain, limit=1)
+
+    if not journal:
+        company = self.env['res.company'].browse(company_id)
+
+        error_msg = _(
+            "No journal could be found in company %(company_name)s for any of those types: %(journal_types)s",
+            company_name=company.display_name,
+            journal_types=', '.join(journal_types),
+        )
+        raise UserError(error_msg)
+
+    return journal
