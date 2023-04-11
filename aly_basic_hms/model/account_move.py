@@ -135,6 +135,7 @@ class AccountMoveForDiscount(models.Model):
                 'move_id': self.ids[0],
             },
             )
+            self.line_ids._compute_amount_residual()
             self.line_ids._onchange_price_subtotal()
             self.bank_fees_amount = price_unit
 
