@@ -13,11 +13,6 @@ class AccountMoveForDiscount(models.Model):
         for rec in self:
             rec.is_readonly_lines = not self.env.user.has_group('aly_basic_hms.aly_group_medical_manager')
 
-    @api.depends('amount_total', 'payment_method_fees')
-    def compute_bank_fees(self):
-        self.bank_fees_amount = 0
-        if self.amount_total and self.payment_method_fees == 'bank':
-            self.bank_fees_amount = self.amount_total * .05
 
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     is_readonly_lines = fields.Boolean(string='Is Readonly Lines', default=False, store=False,
@@ -25,7 +20,7 @@ class AccountMoveForDiscount(models.Model):
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
     treating_physician_ids = fields.Many2many('medical.physician', string='Treating Physicians',
                                               related='patient_id.treating_physician_ids', required=False)
-    bank_fees_amount = fields.Monetary(string="Bank Fees", compute=compute_bank_fees, store=False)
+    bank_fees_amount = fields.Monetary(string="Bank Fees")
     payment_method_fees = fields.Selection([('bank', 'Bank'), ('cash', 'Cash')],
                                            required=True, default='cash', string="Payment Method")
 
@@ -79,7 +74,7 @@ class AccountMoveForDiscount(models.Model):
             lines = self.invoice_line_ids.filtered(
                 lambda l: l.product_id.id == self.company_id.aly_bank_fees_product_id.id)
             lines.unlink()
-        if self.payment_method_fees == 'bank':
+        elif self.payment_method_fees == 'bank':
             product_product_obj = self.env['product.product'].sudo().browse(self.company_id.aly_bank_fees_product_id.id)
             invoice_line_account_id = product_product_obj.property_account_income_id.id \
                                       or product_product_obj.categ_id.property_account_income_categ_id.id \
@@ -139,21 +134,9 @@ class AccountMoveForDiscount(models.Model):
                 'exclude_from_invoice_tab': False,
                 'move_id': self.ids[0],
             },
-                {
-                    'name': product_product_obj.name or '',
-                    'account_id': self.journal_id.default_account_id.id,
-                    'price_unit': price_unit,
-                    'product_uom_id': product_product_obj.uom_id.id,
-                    'quantity': 1,
-                    'product_id': product_product_obj.id,
-                    'partner_id': self.partner_id.id,
-                    'currency_id': self.currency_id.id,
-                    'amount_currency': price_unit,
-                    'exclude_from_invoice_tab': False,
-                    'move_id': self.ids[0],
-                }
             )
             self.line_ids._onchange_price_subtotal()
+            self.bank_fees_amount = price_unit
 
     def get_quantity_subtotal(self):
         sql = self.env.cr.execute(
