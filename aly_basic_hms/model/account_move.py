@@ -155,51 +155,48 @@ class AccountMoveForDiscount(models.Model):
             )
             self.line_ids._onchange_price_subtotal()
 
+    def get_quantity_subtotal(self):
+        sql = self.env.cr.execute(
+            'select line.product_id, pt.name, categ.name, sum(line.quantity), max(line.price_unit), sum(line.price_subtotal), sum(line.quantity) * max(line.price_unit) from account_move move inner join account_move_line line on move.id = line.move_id inner join product_product p on line.product_id = p.id inner join product_template pt on pt.id = p.product_tmpl_id inner join product_category categ on pt.categ_id = categ.id where move.id = %s group by line.product_id, pt.name, categ.sorting_rank, categ.name order by categ.sorting_rank' % self.id)
+        read_group = self.env.cr.fetchall()
+        return read_group
 
-def get_quantity_subtotal(self):
-    sql = self.env.cr.execute(
-        'select line.product_id, pt.name, categ.name, sum(line.quantity), max(line.price_unit), sum(line.price_subtotal), sum(line.quantity) * max(line.price_unit) from account_move move inner join account_move_line line on move.id = line.move_id inner join product_product p on line.product_id = p.id inner join product_template pt on pt.id = p.product_tmpl_id inner join product_category categ on pt.categ_id = categ.id where move.id = %s group by line.product_id, pt.name, categ.sorting_rank, categ.name order by categ.sorting_rank' % self.id)
-    read_group = self.env.cr.fetchall()
-    return read_group
+    def unlink_force(self):
+        for move in self:
+            if move.posted_before and not self._context.get('force_delete'):
+                raise UserError(_("You cannot delete an entry which has been posted once."))
+        self.line_ids.unlink()
+        return super(AccountMoveForDiscount, self).unlink()
 
+    @api.model
+    def _search_default_journal(self, journal_types):
+        company_id = self._context.get('default_company_id', self.env.company.id)
+        domain = [('company_id', '=', company_id), ('type', 'in', journal_types)]
 
-def unlink_force(self):
-    for move in self:
-        if move.posted_before and not self._context.get('force_delete'):
-            raise UserError(_("You cannot delete an entry which has been posted once."))
-    self.line_ids.unlink()
-    return super(AccountMoveForDiscount, self).unlink()
+        journal = None
+        if self._context.get('default_currency_id'):
+            currency_domain = domain + [('currency_id', '=', self._context['default_currency_id'])]
+            journal = self.env['account.journal'].search(currency_domain, limit=1)
 
+        if not journal:
+            if self._context.get('active_model') == 'sale.order':
+                sale_order = self.env['sale.order'].browse(self._context.get('active_id'))
+                if sale_order.patient_id and sale_order.patient_id.is_insurance:
+                    domain_insurance = [('company_id', '=', company_id), ('type', 'in', journal_types),
+                                        ('is_insurance_journal', '=', True)]
+                    journal = self.env['account.journal'].search(domain_insurance, limit=1)
 
-@api.model
-def _search_default_journal(self, journal_types):
-    company_id = self._context.get('default_company_id', self.env.company.id)
-    domain = [('company_id', '=', company_id), ('type', 'in', journal_types)]
+        if not journal:
+            journal = self.env['account.journal'].search(domain, limit=1)
 
-    journal = None
-    if self._context.get('default_currency_id'):
-        currency_domain = domain + [('currency_id', '=', self._context['default_currency_id'])]
-        journal = self.env['account.journal'].search(currency_domain, limit=1)
+        if not journal:
+            company = self.env['res.company'].browse(company_id)
 
-    if not journal:
-        if self._context.get('active_model') == 'sale.order':
-            sale_order = self.env['sale.order'].browse(self._context.get('active_id'))
-            if sale_order.patient_id and sale_order.patient_id.is_insurance:
-                domain_insurance = [('company_id', '=', company_id), ('type', 'in', journal_types),
-                                    ('is_insurance_journal', '=', True)]
-                journal = self.env['account.journal'].search(domain_insurance, limit=1)
+            error_msg = _(
+                "No journal could be found in company %(company_name)s for any of those types: %(journal_types)s",
+                company_name=company.display_name,
+                journal_types=', '.join(journal_types),
+            )
+            raise UserError(error_msg)
 
-    if not journal:
-        journal = self.env['account.journal'].search(domain, limit=1)
-
-    if not journal:
-        company = self.env['res.company'].browse(company_id)
-
-        error_msg = _(
-            "No journal could be found in company %(company_name)s for any of those types: %(journal_types)s",
-            company_name=company.display_name,
-            journal_types=', '.join(journal_types),
-        )
-        raise UserError(error_msg)
-
-    return journal
+        return journal
