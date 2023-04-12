@@ -7,7 +7,7 @@ from datetime import date,datetime
 
 
 class PharmacyInvoice(models.Model):
-    _name = 'pharmacy.invoice'
+    _name = 'pharmacy.invoices'
     _inherits = {'res.partner': 'partner_id'}
     _rec_name = 'partner_id'
     _description = 'Pharmacy Invoice'

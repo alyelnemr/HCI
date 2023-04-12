@@ -74,8 +74,8 @@ class AccountMoveForDiscount(models.Model):
             lines = self.invoice_line_ids.filtered(
                 lambda l: l.product_id.id == self.company_id.aly_bank_fees_product_id.id)
             lines.unlink()
-            self.line_ids._onchange_price_subtotal()
-            self.line_ids._compute_amount_residual()
+            # self.line_ids._onchange_price_subtotal()
+            # self.line_ids._compute_amount_residual()
         elif self.payment_method_fees == 'bank':
             product_product_obj = self.env['product.product'].sudo().browse(self.company_id.aly_bank_fees_product_id.id)
             invoice_line_account_id = product_product_obj.property_account_income_id.id \
@@ -137,10 +137,11 @@ class AccountMoveForDiscount(models.Model):
                 'move_id': self.ids[0],
             },
             )
-            self.line_ids._get_computed_name()
+            res.name = res._get_computed_name()
+            self.bank_fees_amount = price_unit
             self.line_ids._onchange_price_subtotal()
             self.line_ids._compute_amount_residual()
-            self.bank_fees_amount = price_unit
+            self._compute_amount()
 
     def get_quantity_subtotal(self):
         sql = self.env.cr.execute(

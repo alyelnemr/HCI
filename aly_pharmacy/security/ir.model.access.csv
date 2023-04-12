@@ -1,7 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
-access_pharmacy_invoice,access_pharmacy_invoice,model_pharmacy_invoice,,1,1,1,0
-access_pharmacy_invoice_medical_group,access_pharmacy_invoice_medical_group,model_pharmacy_invoice,aly_basic_hms.aly_group_medical_manager,1,1,1,1
+access_pharmacy_invoices,access_pharmacy_invoices,model_pharmacy_invoices,,1,1,1,0
+access_pharmacy_invoices_medical_group,access_pharmacy_invoices_medical_group,model_pharmacy_invoices,aly_basic_hms.aly_group_medical_manager,1,1,1,1
 
 access_pharamcy_template_doctor,product.template.doctor,product.model_product_template,,1,0,1,0
 access_pharamcy_template_medical_group,product.template.medical_group,product.model_product_template,,1,0,1,0
