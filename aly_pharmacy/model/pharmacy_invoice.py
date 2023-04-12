@@ -150,7 +150,7 @@ class PharmacyInvoice(models.Model):
         res.sudo().action_post()
         vals['invoice_id'] = res.id
         vals['partner_id'] = partner_id.id
-        res_return = super(MedicalExternalServiceWizard, self).create(vals)
+        res_return = super(PharmacyInvoice, self).create(vals)
         journal_id = self.env['account.journal'].sudo().browse(vals['journal_id'])
         payment_vals = {
             'date': vals['service_date'],
