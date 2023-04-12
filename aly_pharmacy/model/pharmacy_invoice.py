@@ -94,7 +94,6 @@ class PharmacyInvoice(models.Model):
     @api.model
     def create(self, vals):
         account_invoice_obj = self.env['account.move']
-        medical_external_service_obj = self.env['pharmacy.invoice']
         accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('pharmacy_service.product_category')
         prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)], limit=1)
         cat = prod_cat_obj.id
