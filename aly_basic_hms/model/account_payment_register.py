@@ -8,6 +8,24 @@ from odoo.exceptions import UserError
 class AccountPaymentRegister(models.TransientModel):
     _inherit = 'account.payment.register'
 
+    @api.depends('amount_total', 'payment_method_fees')
+    def compute_bank_fees(self):
+        self.bank_fees_amount = 0
+        if self.amount_total and self.journal_id_type == 'bank':
+            self.bank_fees_amount = self.amount_total * .05
+
+    bank_fees_amount = fields.Monetary(string="Bank Fees", compute='_compute_bank_fees')
+    payment_method_fees = fields.Selection([('bank', 'Bank'), ('cash', 'Cash')],
+                                           required=True, default='cash', string="Payment Method")
+    journal_id_type = fields.Selection([
+            ('sale', 'Sales'),
+            ('purchase', 'Purchase'),
+            ('cash', 'Cash'),
+            ('bank', 'Bank'),
+            ('general', 'Miscellaneous'),
+        ], related="journal_id.type")
+
+
     def _post_payments(self, to_process, edit_mode=False):
         """ Post the newly created payments.
 
@@ -49,6 +67,28 @@ class AccountPaymentRegister(models.TransientModel):
 
     def _create_payments(self):
         self.ensure_one()
+
+        payment_vals = {
+            'date': self.payment_date,
+            'amount': self.bank_fees_amount,
+            'payment_type': 'inbound',
+            'partner_type': 'customer',
+            'ref': 'pay',
+            'journal_id': self.journal_id.id,
+            'currency_id': self.currency_id.id,
+            'partner_id': self.partner_id.id,
+            'partner_bank_id': False,
+            'payment_method_id': self.journal_id.inbound_payment_method_ids._origin.id,
+            'destination_account_id': self.partner_id.property_account_receivable_id.id
+        }
+        payments = self.env['account.payment'].create(payment_vals)
+
+
+
+
+
+
+
         batches = self._get_batches()
         edit_mode = self.can_edit_wizard and (len(batches[0]['lines']) == 1 or self.group_payment)
         to_process = []
