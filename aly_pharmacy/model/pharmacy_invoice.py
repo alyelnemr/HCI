@@ -5,7 +5,6 @@ from odoo import api, fields, models, _
 from odoo.exceptions import Warning,UserError
 from datetime import date,datetime
 
-
 class PharmacyInvoice(models.Model):
     _name = 'pharmacy.invoices'
     _inherits = {'res.partner': 'partner_id'}
@@ -183,3 +182,11 @@ class PharmacyInvoice(models.Model):
                 .reconcile()
 
         return res_return
+
+
+
+class PharmacyInvoice(models.Model):
+    _name = 'pharmacy.invoice'
+
+    partner_id = fields.Many2one('res.partner', string="Related Partner")
+    patient_name = fields.Char(string='Patient Name', required=True)
