@@ -11,8 +11,8 @@ class AccountPaymentRegister(models.TransientModel):
     @api.depends('amount_total', 'payment_method_fees')
     def compute_bank_fees(self):
         self.bank_fees_amount = 0
-        if self.amount_total and self.journal_id_type == 'bank':
-            self.bank_fees_amount = self.amount_total * .05
+        if self.amount and self.journal_id_type == 'bank':
+            self.bank_fees_amount = self.amount * .05
 
     bank_fees_amount = fields.Monetary(string="Bank Fees", compute='_compute_bank_fees')
     payment_method_fees = fields.Selection([('bank', 'Bank'), ('cash', 'Cash')],
