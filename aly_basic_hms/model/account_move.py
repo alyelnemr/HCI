@@ -13,7 +13,6 @@ class AccountMoveForDiscount(models.Model):
         for rec in self:
             rec.is_readonly_lines = not self.env.user.has_group('aly_basic_hms.aly_group_medical_manager')
 
-
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     is_readonly_lines = fields.Boolean(string='Is Readonly Lines', default=False, store=False,
                                        compute=onchange_readonly)
@@ -67,81 +66,6 @@ class AccountMoveForDiscount(models.Model):
         values = self._convert_to_write(self._cache)
         values.pop('invoice_line_ids', None)
         return values
-
-    @api.onchange('payment_method_fees')
-    def bank_fees(self):
-        if self.payment_method_fees == 'cash':
-            lines = self.invoice_line_ids.filtered(
-                lambda l: l.product_id.id == self.company_id.aly_bank_fees_product_id.id)
-            lines.unlink()
-            # self.line_ids._onchange_price_subtotal()
-            # self.line_ids._compute_amount_residual()
-        elif self.payment_method_fees == 'bank':
-            product_product_obj = self.env['product.product'].sudo().browse(self.company_id.aly_bank_fees_product_id.id)
-            invoice_line_account_id = product_product_obj.property_account_income_id.id \
-                                      or product_product_obj.categ_id.property_account_income_categ_id.id \
-                                      or False
-            if not invoice_line_account_id and self.invoice_line_ids:
-                invoice_line_account_id = self.invoice_line_ids[0].account_id.id
-            sign = 1
-            price_unit = self.amount_total * .05
-            balance = sign * 1 * price_unit
-            receivable1 = self.line_ids.filtered(lambda l: l.account_id.internal_type == 'receivable')
-            # res = self.invoice_line_ids = [(0, 0,
-            #
-            #                                 {
-            #                                     'name': product_product_obj.name or '',
-            #                                     'account_id': self.env['account.account'].search([
-            #                                         ('user_type_id', '=',
-            #                                          self.env.ref('account.data_account_type_revenue').id),
-            #                                         ('company_id', '=', self.company_id.id)
-            #                                     ], limit=1).id,
-            #                                     'price_unit': price_unit,
-            #                                     'amount_currency': -price_unit,
-            #                                     'product_uom_id': product_product_obj.uom_id.id,
-            #                                     'debit': 0.0,
-            #                                     'credit': balance,
-            #                                     'quantity': 1,
-            #                                     'product_id': product_product_obj.id,
-            #                                     'partner_id': self.partner_id.id,
-            #                                     'exclude_from_invoice_tab': False,
-            #                                     'currency_id': self.currency_id.id,
-            #                                 },
-            #                                 {
-            #                                     'name': product_product_obj.name or '',
-            #                                     'account_id': receivable1.account_id.id,
-            #                                     'price_unit': price_unit,
-            #                                     'amount_currency': price_unit,
-            #                                     'product_uom_id': product_product_obj.uom_id.id,
-            #                                     'debit': balance,
-            #                                     'credit': 0.0,
-            #                                     'quantity': 1,
-            #                                     'product_id': product_product_obj.id,
-            #                                     'partner_id': self.partner_id.id,
-            #                                     'exclude_from_invoice_tab': False,
-            #                                     'currency_id': self.currency_id.id,
-            #                                 }
-            #                                 )]
-
-            res = self.env['account.move.line'].create({
-                'name': product_product_obj.name or '',
-                'account_id': self.journal_id.default_account_id.id,
-                'price_unit': -price_unit,
-                'product_uom_id': product_product_obj.uom_id.id,
-                'quantity': 1,
-                'product_id': product_product_obj.id,
-                'partner_id': self.partner_id.id,
-                'currency_id': self.currency_id.id,
-                'amount_currency': -price_unit,
-                'exclude_from_invoice_tab': False,
-                'move_id': self.ids[0],
-            },
-            )
-            res.name = res._get_computed_name()
-            self.bank_fees_amount = price_unit
-            self.line_ids._onchange_price_subtotal()
-            self.line_ids._compute_amount_residual()
-            self._compute_amount()
 
     def get_quantity_subtotal(self):
         sql = self.env.cr.execute(

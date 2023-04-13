@@ -77,8 +77,10 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         var_amount_total = 0
         var_subtotal_taxed = 0
         var_taxed_amount = 0
-        var_service_charge = 0
-        var_service_untaxed_amount = 0
+        var_bank_fees_amount = 0
+        var_bank_fees = self.env['account.payment'].search([('patient_id', '=', docs.patient_id.id), ('is_bank_fees', '=', True)], limit=1)
+        if var_bank_fees:
+            var_bank_fees_amount = var_bank_fees.amount
         var_amount_total_taxed = 0
         for line in docs.invoice_line_ids:
             var_subtotal_with_discount += (line.quantity * line.price_unit)
@@ -99,7 +101,7 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         var_discount = round(var_subtotal_with_discount - docs.amount_untaxed, 2)
         var_subtotal += var_discount
         var_amount_total = docs.amount_total + var_discount
-        var_amount_total_taxed = var_subtotal + var_taxed_amount + var_disposable + var_prosthetics + var_medicine
+        var_amount_total_taxed = var_subtotal + var_taxed_amount + var_disposable + var_prosthetics + var_medicine + var_bank_fees_amount
         discount_total = sale_order.discount_total
         var_discount_percent = discount_total if discount_total and var_subtotal > 0 else 0
         return {
@@ -119,6 +121,7 @@ class MedicalInvoiceTemplate(models.AbstractModel):
             'var_subtotal_taxed': var_subtotal_taxed,
             'var_amount_total': var_amount_total,
             'var_service_charge': var_service_charge,
+            'var_bank_fees_amount': var_bank_fees_amount,
             'aly_service_charge_percentage': aly_service_charge_percentage,
             'var_service_untaxed_amount': var_service_untaxed_amount,
             'var_amount_total_taxed': var_amount_total_taxed,

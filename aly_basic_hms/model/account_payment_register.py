@@ -65,21 +65,31 @@ class AccountPaymentRegister(models.TransientModel):
                     .filtered_domain([('account_id', '=', account.id), ('reconciled', '=', False)])\
                     .sudo().reconcile()
 
+    def _create_payment_vals_from_wizard(self):
+        # OVERRIDE
+        payment_vals = super()._create_payment_vals_from_wizard()
+        account_move = self.env[self._context['active_model']].browse(self._context['active_id'])
+        payment_vals['patient_id'] = account_move.patient_id.id
+        return payment_vals
+
     def _create_payments(self):
         self.ensure_one()
+        account_move = self.env[self._context['active_model']].browse(self._context['active_id'])
 
         payment_vals = {
             'date': self.payment_date,
             'amount': self.bank_fees_amount,
             'payment_type': 'inbound',
             'partner_type': 'customer',
-            'ref': 'pay',
+            'ref': 'bank_fees',
+            'is_bank_fees': True,
             'journal_id': self.journal_id.id,
             'currency_id': self.currency_id.id,
             'partner_id': self.partner_id.id,
-            'partner_bank_id': False,
-            'payment_method_id': self.journal_id.inbound_payment_method_ids._origin.id,
-            'destination_account_id': self.partner_id.property_account_receivable_id.id
+            'patient_id': account_move.patient_id.id,
+            'partner_bank_id': self.partner_bank_id.id,
+            'payment_method_id': self.payment_method_id.id,
+            'destination_account_id': self.line_ids[0].account_id.id
         }
         payments = self.env['account.payment'].create(payment_vals)
 
