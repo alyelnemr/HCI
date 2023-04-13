@@ -11,10 +11,13 @@ class AccountPaymentRegister(models.TransientModel):
     @api.onchange('amount','journal_id_type', 'payment_method_fees', 'journal_id', 'payment_date')
     def _compute_bank_fees(self):
         self.bank_fees_amount = 0
+        self.total_amount_with_fees = self.amount
         if self.amount and self.journal_id_type == 'bank':
             self.bank_fees_amount = self.amount * .05
+            self.total_amount_with_fees = self.amount + self.bank_fees_amount
 
     bank_fees_amount = fields.Monetary(string="Bank Fees", compute='_compute_bank_fees', store=False)
+    total_amount_with_fees = fields.Monetary(string="Amount", compute='_compute_bank_fees', store=False)
     payment_method_fees = fields.Selection([('bank', 'Bank'), ('cash', 'Cash')],
                                            required=True, default='cash', string="Payment Method")
     journal_id_type = fields.Selection([
