@@ -12,6 +12,18 @@
                                 string="Create Services Order" type="action" class="oe_highlight"
                                 groups="aly_basic_hms.aly_group_outpatient"
                         />
+                        <button
+                                name="action_important"
+                                string="Mark as Important" attrs="{'invisible': [('is_important', '=', True)]}"
+                                type="object" class="oe_highlight"
+                                groups="aly_basic_hms.aly_group_outpatient"
+                        />
+                        <button
+                                name="action_not_important"
+                                string="Reset Important" attrs="{'invisible': [('is_important', '=', False)]}"
+                                type="object" class="oe_highlight"
+                                groups="aly_basic_hms.aly_group_outpatient"
+                        />
                     </header>
                     <sheet>
                         <div class="oe_right">

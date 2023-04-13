@@ -67,6 +67,12 @@ class MedicalPatient(models.Model):
             patients.append(rec.patient_id.id)
         return ['&', ('id', 'not in', patients), ('is_patient', '=', True)]
 
+    def action_not_important(self):
+        self.is_important = False
+
+    def action_important(self):
+        self.is_important = True
+
     def _get_clinic_domain(self):
         current_clinics = self.env['res.users'].browse(self.env.user.id)
         return [('id', 'in', current_clinics.allowed_clinic_ids)]
@@ -84,6 +90,7 @@ class MedicalPatient(models.Model):
     referred_by = fields.Many2one('res.partner', domain=[('is_referred_by', '=', True)], required=False, string='Referred By')
     referred_to = fields.Many2one('res.partner', domain=[('is_referred_to', '=', True)], required=False, string='Referred To')
     is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
+    is_important = fields.Boolean(string='Is Important', default=False, required=False)
     is_invoiced = fields.Boolean(string='Is Invoiced', default=False, required=False)
     invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
     order_id = fields.Many2one('sale.order', string='Sales Order Invoice')
