@@ -74,24 +74,27 @@ class AccountPaymentRegister(models.TransientModel):
 
     def _create_payments(self):
         self.ensure_one()
-        account_move = self.env[self._context['active_model']].browse(self._context['active_id'])
+        self.bank_fees_amount = 0
+        if self.amount and self.journal_id_type == 'bank':
+            self.bank_fees_amount = self.amount * .05
+            account_move = self.env[self._context['active_model']].browse(self._context['active_id'])
 
-        payment_vals = {
-            'date': self.payment_date,
-            'amount': self.bank_fees_amount,
-            'payment_type': 'inbound',
-            'partner_type': 'customer',
-            'ref': 'bank_fees',
-            'is_bank_fees': True,
-            'journal_id': self.journal_id.id,
-            'currency_id': self.currency_id.id,
-            'partner_id': self.partner_id.id,
-            'patient_id': account_move.patient_id.id,
-            'partner_bank_id': self.partner_bank_id.id,
-            'payment_method_id': self.payment_method_id.id,
-            'destination_account_id': self.line_ids[0].account_id.id
-        }
-        payments = self.env['account.payment'].create(payment_vals)
+            payment_vals = {
+                'date': self.payment_date,
+                'amount': self.bank_fees_amount,
+                'payment_type': 'inbound',
+                'partner_type': 'customer',
+                'ref': 'bank_fees',
+                'is_bank_fees': True,
+                'journal_id': self.journal_id.id,
+                'currency_id': self.currency_id.id,
+                'partner_id': self.partner_id.id,
+                'patient_id': account_move.patient_id.id,
+                'partner_bank_id': self.partner_bank_id.id,
+                'payment_method_id': self.payment_method_id.id,
+                'destination_account_id': self.line_ids[0].account_id.id
+            }
+            payments = self.env['account.payment'].create(payment_vals)
 
 
 

@@ -22,7 +22,7 @@
                         <button
                                 name="action_not_important"
                                 string="Reset Important" attrs="{'invisible': [('is_important', '=', False)]}"
-                                type="object" class="oe_highlight"
+                                type="object"
                                 groups="aly_basic_hms.aly_group_outpatient"
                         />
                     </header>
