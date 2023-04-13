@@ -8,7 +8,7 @@ from odoo.exceptions import UserError
 class AccountPaymentRegister(models.TransientModel):
     _inherit = 'account.payment.register'
 
-    @api.depends('amount', 'payment_method_fees', 'journal_id', 'payment_date')
+    @api.onchange('amount','journal_id_type', 'payment_method_fees', 'journal_id', 'payment_date')
     def _compute_bank_fees(self):
         self.bank_fees_amount = 0
         if self.amount and self.journal_id_type == 'bank':
