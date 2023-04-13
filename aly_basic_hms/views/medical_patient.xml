@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <form string="Patient">
                     <header>
+                                <field name="is_important " invisible="1" />
                         <button
                                 name="%(action_medical_patient_sale_order_wizard)d"
                                 string="Create Services Order" type="action" class="oe_highlight"
