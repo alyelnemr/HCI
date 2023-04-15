@@ -86,25 +86,25 @@
             </field>
         </record>
 
-        <record id="aly_view_account_payment_register_form_inherit_payment" model="ir.ui.view">
-            <field name="name">account.payment.register.form.inherit.payment</field>
-            <field name="model">account.payment.register</field>
-            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
-            <field name="arch" type="xml">
-                <field name="journal_id" position="after">
-                    <field name="journal_id_type" invisible="1"/>
-<!--                    <field name="payment_method_fees" />-->
-                    <field name="bank_fees_amount" force_save="1" attrs="{'readonly': True, 'invisible': [('journal_id_type', '!=', 'bank')]}" />
-                </field>
-                <field name="amount" position="replace">
-                    <field name="total_amount_with_fees" readonly="0" force_save="1" />
-                </field>
-                <xpath expr="//label[@for='amount']" position="replace">
-                    <label for="total_amount_with_fees"
-                           attrs="{'invisible': ['|', ('can_edit_wizard', '=', False), '&amp;', ('can_group_payments', '=', True), ('group_payment', '=', False)]}"/>
-                </xpath>
-            </field>
-        </record>
+<!--        <record id="aly_view_account_payment_register_form_inherit_payment" model="ir.ui.view">-->
+<!--            <field name="name">account.payment.register.form.inherit.payment</field>-->
+<!--            <field name="model">account.payment.register</field>-->
+<!--            <field name="inherit_id" ref="account.view_account_payment_register_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <field name="journal_id" position="after">-->
+<!--                    <field name="journal_id_type" invisible="1"/>-->
+<!--&lt;!&ndash;                    <field name="payment_method_fees" />&ndash;&gt;-->
+<!--                    <field name="bank_fees_amount" force_save="1" attrs="{'readonly': True, 'invisible': [('journal_id_type', '!=', 'bank')]}" />-->
+<!--                </field>-->
+<!--                <field name="amount" position="replace">-->
+<!--                    <field name="total_amount_with_fees" readonly="0" force_save="1" />-->
+<!--                </field>-->
+<!--                <xpath expr="//label[@for='amount']" position="replace">-->
+<!--                    <label for="total_amount_with_fees"-->
+<!--                           attrs="{'invisible': ['|', ('can_edit_wizard', '=', False), '&amp;', ('can_group_payments', '=', True), ('group_payment', '=', False)]}"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
 
     </data>
 </odoo>
