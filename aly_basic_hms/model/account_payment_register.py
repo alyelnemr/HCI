@@ -69,10 +69,28 @@ class AccountPaymentRegister(models.TransientModel):
                     .sudo().reconcile()
 
     def _create_payment_vals_from_wizard(self):
-        # OVERRIDE
-        payment_vals = super()._create_payment_vals_from_wizard()
         account_move = self.env[self._context['active_model']].browse(self._context['active_id'])
-        payment_vals['patient_id'] = account_move.patient_id.id
+        payment_vals = {
+            'date': self.payment_date,
+            'amount': self.total_amount_with_fees,
+            'payment_type': self.payment_type,
+            'partner_type': self.partner_type,
+            'ref': self.communication,
+            'journal_id': self.journal_id.id,
+            'currency_id': self.currency_id.id,
+            'partner_id': self.partner_id.id,
+            'patient_id':  account_move.patient_id.id,
+            'partner_bank_id': self.partner_bank_id.id,
+            'payment_method_id': self.payment_method_id.id,
+            'destination_account_id': self.line_ids[0].account_id.id
+        }
+
+        if not self.currency_id.is_zero(self.payment_difference) and self.payment_difference_handling == 'reconcile':
+            payment_vals['write_off_line_vals'] = {
+                'name': self.writeoff_label,
+                'amount': self.payment_difference,
+                'account_id': self.writeoff_account_id.id,
+            }
         return payment_vals
 
     def _create_payments(self):
