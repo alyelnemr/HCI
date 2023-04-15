@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="pharmacy_service_form_view" model="ir.ui.view">
+    <record id="pharmacy_invoices_service_form_view" model="ir.ui.view">
         <field name="name">pharmacy.invoices.form.view</field>
         <field name="model">pharmacy.invoices</field>
         <field name="arch" type="xml">
@@ -38,7 +38,7 @@
         </field>
     </record>
 
-    <record id="pharmacy_invoice_tree_view" model="ir.ui.view">
+    <record id="pharmacy_invoices_tree_view" model="ir.ui.view">
         <field name="name">pharmacy.invoices.tree.view</field>
         <field name="model">pharmacy.invoices</field>
         <field name="arch" type="xml">
@@ -58,12 +58,12 @@
         </field>
     </record>
 
-    <record id="action_pharmacy_service" model="ir.actions.act_window">
+    <record id="action_pharmacy_invoices_service" model="ir.actions.act_window">
         <field name="name">Pharmacy</field>
         <field name="res_model">pharmacy.invoices</field>
         <field name="binding_view_types">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="pharmacy_invoice_tree_view" />
+        <field name="view_id" ref="pharmacy_invoices_tree_view" />
     </record>
 
 </odoo>

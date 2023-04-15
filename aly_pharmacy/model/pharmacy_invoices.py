@@ -6,7 +6,7 @@ from odoo.exceptions import Warning,UserError
 from datetime import date,datetime
 
 
-class PharmacyInvoice(models.Model):
+class PharmacyInvoices(models.Model):
     _name = 'pharmacy.invoices'
     _inherits = {'res.partner': 'partner_id'}
     _rec_name = 'partner_id'
@@ -151,7 +151,8 @@ class PharmacyInvoice(models.Model):
         res.sudo().action_post()
         vals['invoice_id'] = res.id
         vals['partner_id'] = partner_id.id
-        res_return = super(PharmacyInvoice, self).create(vals)
+        vals['product_id'] = product_product_obj.id
+        res_return = super(PharmacyInvoices, self).create(vals)
         journal_id = self.env['account.journal'].sudo().browse(vals['journal_id'])
         payment_vals = {
             'date': vals['service_date'],

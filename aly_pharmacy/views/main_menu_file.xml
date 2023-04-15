@@ -10,8 +10,8 @@
            />
 
 
-        <menuitem id="menu_pharmacy_service_wizard" name='Pharmacy'
-                  action="action_pharmacy_service"
+        <menuitem id="menu_pharmacy_invoices_service_wizard" name='Pharmacy'
+                  action="action_pharmacy_invoices_service"
             parent="main_menu_pharmacy_management" sequence="0" />
 
 
