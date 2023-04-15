@@ -5,6 +5,7 @@ from odoo import api, fields, models, _
 from odoo.exceptions import Warning,UserError
 from datetime import date,datetime
 
+
 class PharmacyInvoice(models.Model):
     _name = 'pharmacy.invoices'
     _inherits = {'res.partner': 'partner_id'}
