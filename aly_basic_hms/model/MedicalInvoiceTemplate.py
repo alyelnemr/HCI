@@ -78,7 +78,9 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         var_subtotal_taxed = 0
         var_taxed_amount = 0
         var_bank_fees_amount = 0
-        var_bank_fees = self.env['account.payment'].search([('patient_id', '=', docs.patient_id.id), ('is_bank_fees', '=', True)], limit=1)
+        var_bank_fees = self.env['account.payment'].search([('patient_id', '=', docs.patient_id.id),
+                                                            ('is_bank_fees', '=', True),
+                                                            ('ref', '=', 'bank_fees_' + str(active_id))], limit=1)
         if var_bank_fees:
             var_bank_fees_amount = var_bank_fees.amount
         var_amount_total_taxed = 0

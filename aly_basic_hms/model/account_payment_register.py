@@ -105,7 +105,7 @@ class AccountPaymentRegister(models.TransientModel):
                 'amount': self.bank_fees_amount,
                 'payment_type': 'inbound',
                 'partner_type': 'customer',
-                'ref': 'bank_fees',
+                'ref': 'bank_fees_' + str(self._context['active_id']),
                 'is_bank_fees': True,
                 'journal_id': self.journal_id.id,
                 'currency_id': self.currency_id.id,
