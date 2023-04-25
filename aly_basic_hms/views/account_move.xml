@@ -95,6 +95,7 @@
 <!--                    <field name="journal_id_type" invisible="1"/>-->
 <!--&lt;!&ndash;                    <field name="payment_method_fees" />&ndash;&gt;-->
 <!--                    <field name="bank_fees_amount" force_save="1" attrs="{'readonly': True, 'invisible': [('journal_id_type', '!=', 'bank')]}" />-->
+<!--                    <field name="total_amount_with_fees" readonly="0" force_save="1" />-->
 <!--                </field>-->
 <!--                <field name="amount" position="replace">-->
 <!--                    <field name="total_amount_with_fees" readonly="0" force_save="1" />-->

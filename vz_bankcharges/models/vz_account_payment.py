@@ -4,6 +4,7 @@ from odoo.exceptions import UserError
 
 class AccountPayment(models.Model):
     _inherit = "account.payment"
+
     vz_bank_charge = fields.Monetary(currency_field='currency_id')
     enable_charge = fields.Boolean(default=False)
 

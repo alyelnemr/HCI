@@ -28,6 +28,13 @@ class MedicalPatient(models.Model):
             if rec.order_id.state == 'sale' or rec.order_id.state == 'done' or rec.invoice_id == 'posted' and not con:
                 raise UserError(_('Cannot close Visit which has a confirmed invoice...'))
 
+    def copy(self, default=None):
+        default = dict(default or {})
+        default['order_id'] = False
+        default['is_opened_visit'] = True
+        default['invoice_id'] = False
+        return super(MedicalPatient, self).copy(default)
+
     @api.constrains('is_insurance', 'insurance_company_id')
     def onchange_is_insurance(self):
         for rec in self:
@@ -92,8 +99,8 @@ class MedicalPatient(models.Model):
     is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
     is_important = fields.Boolean(string='Is Important', default=False, required=False)
     is_invoiced = fields.Boolean(string='Is Invoiced', default=False, required=False)
-    invoice_id = fields.Many2one('account.move', string='Accounting Invoice')
-    order_id = fields.Many2one('sale.order', string='Sales Order Invoice')
+    invoice_id = fields.Many2one('account.move', string='Accounting Invoice', copy=False)
+    order_id = fields.Many2one('sale.order', string='Sales Order Invoice', copy=False)
     is_insurance = fields.Boolean(string='Insurance', default=False, required=False, tracking=True)
     our_reference = fields.Char(string='Our Reference', required=False)
     insurance_reference = fields.Char(string='Insurance Reference')
@@ -134,12 +141,12 @@ class MedicalPatient(models.Model):
                                 domain=lambda self: self._get_clinic_domain())
     bill_to = fields.Char(string='Bill To', required=False)
     receipt_no = fields.Char(string='Receipt No.', required=False)
-    update_note_ids = fields.One2many('medical.appointment', 'patient_id')
-    inpatient_ids = fields.One2many('medical.inpatient.registration', 'patient_id')
-    operation_ids = fields.One2many('medical.operation', 'patient_id')
-    attachment_ids = fields.One2many('medical.patient.attachment', 'patient_id', string="Attachments")
+    update_note_ids = fields.One2many('medical.appointment', 'patient_id', copy=True)
+    inpatient_ids = fields.One2many('medical.inpatient.registration', 'patient_id', copy=True)
+    operation_ids = fields.One2many('medical.operation', 'patient_id', copy=True)
+    attachment_ids = fields.One2many('medical.patient.attachment', 'patient_id', string="Attachments", copy=True)
     has_attachment = fields.Boolean(compute='_has_attachment', string="Has Attachment", store=False)
-    disposable_ids = fields.One2many('medical.patient.line', 'patient_id', string='Disposables', required=True)
+    disposable_ids = fields.One2many('medical.patient.line', 'patient_id', string='Disposables', required=True, copy=True)
     doctor_id = fields.Many2one('medical.physician','Treating Physician',required=False)
     treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',required=False)
 

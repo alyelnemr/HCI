@@ -1,0 +1,13 @@
+<odoo>
+    <record id="aly_matching_account_payment_bank_charges_form" model="ir.ui.view">
+        <field name="name">account.payment.bank.charge</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='amount_div']" position="after">
+                <field name="is_bank_fees" invisible="1"/>
+                <field name="bank_fees_amount" string="Bank Fees Amount" attrs="{'readonly': True, 'invisible':[('is_bank_fees','=',False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

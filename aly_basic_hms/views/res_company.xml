@@ -41,9 +41,32 @@
                             </div>
                         </group>
                     </page>
+                    <page string="Bank Fees">
+                        <group>
+                            <div class="o_setting_left_pane">
+                                <field name="aly_enable_bank_fees"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="aly_enable_bank_fees"/>
+                                <div class="text-muted">
+                                    Allow Bank Fees on Bank Payments
+                                </div>
+                                <div class="content-group " attrs="{'invisible':[('aly_enable_bank_fees','=',False)]}">
+                                    <div class="row mt16">
+                                        <label for="aly_bank_fees_account" class="col-lg-3 o_light_label"/>
+                                        <field name="aly_bank_fees_account"
+                                               attrs="{'required':[('aly_enable_bank_fees','=',True)]}"/>
+                                    </div>
+                                    <div class="row">
+                                        <label for="aly_bank_fees_percentage" class="col-lg-3 o_light_label"/>
+                                        <field name="aly_bank_fees_percentage"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </group>
+                    </page>
                     <page string="Default Accounts">
                         <group >
-                            <field name="aly_bank_fees_product_id"/>
                             <field name="default_account_rec_cash_id"/>
                             <field name="default_account_rec_insurance_id"/>
                         </group>

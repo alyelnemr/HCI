@@ -50,13 +50,13 @@ class MedicalInpatientRegistration(models.Model):
     admission_type = fields.Selection([('standard', 'Standard Room'), ('icu', 'ICU'), ('care', 'Intermediate Care Unit')],
                                       required=False, string="Admission Type", tracking=True)
     info = fields.Text(string="Notes")
-    bed_transfers_ids = fields.One2many('medical.inpatient.acc', 'inpatient_id', string='Accommodations')
+    bed_transfers_ids = fields.One2many('medical.inpatient.acc', 'inpatient_id', string='Accommodations', copy=True)
     state = fields.Selection([('requested', 'Requested'), ('admitted', 'Admitted'), ('discharged', 'Discharged')],
                              string="State", default="requested")
     nursing_plan = fields.Text(string="Nursing Plan")
     discharge_plan = fields.Text(string="Discharge Plan")
     discharge_medication_ids = fields.One2many('medical.inpatient.medication', 'medical_inpatient_registration_id',
-                                               string='Medication')
+                                               string='Medication', copy=True)
     is_discharged = fields.Boolean(copy=False, default=False, tracking=True)
     discharge_datetime = fields.Datetime(string='Discharge Date Time')
     discharge_basis = fields.Selection([('improve', 'Improvement Basis'), ('against', 'Against Medical Advice'),
@@ -70,7 +70,7 @@ class MedicalInpatientRegistration(models.Model):
                                             string='Transportation Service2', required=False)
     recommendation = fields.Text(string="Recommendations")
     doctor_id = fields.Many2one('medical.physician','Discharge Physician', required=False)
-    inpatient_update_note_ids = fields.One2many('medical.inp.update.note', 'inpatient_id', string='Inpatient Update Notes')
+    inpatient_update_note_ids = fields.One2many('medical.inp.update.note', 'inpatient_id', string='Inpatient Update Notes', copy=True)
     company_id = fields.Many2one('res.company', required=True, readonly=True, default=lambda self: self.env.user.company_id)
 
     @api.constrains('discharge_date', 'admission_date')

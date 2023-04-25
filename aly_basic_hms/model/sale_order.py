@@ -24,7 +24,7 @@ class SaleOrderForDiscount(models.Model):
                 raise UserError(_("You don't have permission to access insurance invoice from patient"))
             aly_enable_service_charge = rec.company_id.sudo().aly_enable_service_charge
             if aly_enable_service_charge and rec.amount_total > 0:
-                aly_service_product_id = int(rec.company_id.aly_service_product_id)
+                aly_service_product_id = int(rec.company_id.aly_service_product_id.id)
                 amount_untaxed = 0.0
                 for line in rec.order_line:
                     if line.product_id.id == aly_service_product_id:
@@ -73,7 +73,7 @@ class SaleOrderForDiscount(models.Model):
     patient_id = fields.Many2one('medical.patient', 'Patient', default=False, required=False)
     service_charge_amount = fields.Monetary(compute=compute_amount_all, string="Service Charge %", store=False)
     service_untaxed_amount = fields.Monetary(compute=compute_service_untaxed_amount, string="Untaxed Amount", store=False)
-    treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',related='patient_id.treating_physician_ids', required=False)
+    treating_physician_ids = fields.Many2many('medical.physician', string='Treating Physicians',related='patient_id.treating_physician_ids', required=False)
 
     def _prepare_invoice(self):
         invoice_vals = super(SaleOrderForDiscount, self)._prepare_invoice()

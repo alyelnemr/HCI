@@ -24,6 +24,8 @@
         'wizard/medical_patient_sale_order_wizard.xml',
         'wizard/medical_inpatient_discharge_wizard.xml',
         'views/account_move.xml',
+        'views/account_payment_register.xml',
+        'views/account_payment.xml',
         'views/sale_order.xml',
         'views/product_category.xml',
         'views/medical_clinic.xml',

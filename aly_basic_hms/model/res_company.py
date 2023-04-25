@@ -12,14 +12,6 @@ class ResCompany(models.Model):
             domain = [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', True), ('type', '=', 'service')]
         return domain
 
-    def _get_bank_fees_domain(self):
-        accom_prod_cat = self.env['ir.config_parameter'].sudo().get_param('service_charge.product_category')
-        prod_cat_obj = self.env['product.category'].search([('name', '=', 'Bank Fees Services')], limit=1)
-        prod_cat_obj_id = prod_cat_obj.id
-        if not self.aly_service_product_id:
-            domain = [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', True), ('type', '=', 'service')]
-        return domain
-
     header = fields.Binary(string='Medical Report Header')
     footer = fields.Binary(string='Medical Report Footer')
     bank_details = fields.Text(string='Banks Accounts Details')
@@ -27,8 +19,9 @@ class ResCompany(models.Model):
     aly_service_charge_percentage = fields.Float(string="Service Charge Percentage", default=12.5)
     aly_service_product_id = fields.Many2one('product.product', string='Service Charge Product',
                                  domain=lambda self: self._get_service_charge_domain())
-    aly_bank_fees_product_id = fields.Many2one('product.product', string='Bank Fees Product',
-                                 domain=lambda self: self._get_bank_fees_domain())
+    aly_enable_bank_fees = fields.Boolean(string='Enable Bank Fees', default=True)
+    aly_bank_fees_percentage = fields.Float(string="Bank Fees Percentage", default=.05)
+    aly_bank_fees_account = fields.Many2one('account.account', string='Bank Fees default Account')
     default_account_rec_cash_id = fields.Many2one('account.account',
                                                   domain="[('internal_type', '=', 'receivable'), ('deprecated', '=', False), ('company_id', '=', current_company_id)]",
                                                   string="Account Receivable (Cash)")

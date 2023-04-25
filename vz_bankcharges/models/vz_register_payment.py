@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError
 
 class PaymentRegisterInherit(models.TransientModel):
     _inherit = 'account.payment.register'
+
     vz_bank_charge = fields.Monetary(currency_field='currency_id')
     is_bank = fields.Boolean(default=False)
 
