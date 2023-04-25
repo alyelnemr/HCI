@@ -106,13 +106,29 @@ class AccountPayment(models.Model):
 
         if self.payment_type == 'inbound':
             # Receive money.
-            liquidity_amount_currency = self.amount
+            liquidity_amount_currency = self.bank_fees_amount
         elif self.payment_type == 'outbound':
             # Send money.
-            liquidity_amount_currency = -self.amount
+            liquidity_amount_currency = -self.bank_fees_amount
             write_off_amount_currency *= -1
         else:
             liquidity_amount_currency = write_off_amount_currency = 0.0
+
+        write_off_balance = self.currency_id._convert(
+            write_off_amount_currency,
+            self.company_id.currency_id,
+            self.company_id,
+            self.date,
+        )
+        liquidity_balance = self.currency_id._convert(
+            liquidity_amount_currency,
+            self.company_id.currency_id,
+            self.company_id,
+            self.date,
+        )
+        counterpart_amount_currency = -liquidity_amount_currency - write_off_amount_currency
+        counterpart_balance = -liquidity_balance - write_off_balance
+        currency_id = self.currency_id.id
 
         payment_display_name = self._prepare_payment_display_name()
 
@@ -129,9 +145,9 @@ class AccountPayment(models.Model):
         debit = {
             'name': default_line_name,
             'date_maturity': self.date,
-            'amount_currency': self.bank_fees_amount,
+            'amount_currency': liquidity_amount_currency,
             'currency_id': currency_id,
-            'debit': self.bank_fees_amount,
+            'debit': liquidity_balance,
             'credit': 0,
             'partner_id': self.partner_id.id,
             # 'account_id':  self.outstanding_account_id.id,
@@ -140,10 +156,10 @@ class AccountPayment(models.Model):
         credit = {
             'name': default_line_name,
             'date_maturity': self.date,
-            'amount_currency': self.bank_fees_amount,
+            'amount_currency': -liquidity_amount_currency,
             'currency_id': currency_id,
             'debit': 0,
-            'credit': self.bank_fees_amount,
+            'credit': liquidity_balance,
             'partner_id': self.partner_id.id,
             'account_id': self.env.company.aly_bank_fees_account.id,
             # 'account_id': self.journal_id.default_account_id.id,
