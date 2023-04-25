@@ -29,6 +29,15 @@
                                 string="Register Payment"
                                 groups="base.group_user"/>
                 </xpath>
+                <field name="payment_reference" position="after" >
+                    <field name="payment_method_fees" widget="selection" attrs="{'readonly': ['|', ('state', '!=', 'draft'), ('is_insurance_patient', '=', True)]}" />
+                    <field name="bank_fees_amount" force_save="1" attrs="{'readonly': True, 'invisible': [('is_bank_fees', '=', False)]}" />
+                    <field name="is_bank_fees" invisible="1" />
+                    <field name="is_insurance_patient" invisible="1" />
+                </field>
+                <field name="invoice_payments_widget" position="before" >
+                    <field name="bank_fees_amount_paid" class="oe_subtotal_footer_separator" attrs="{'invisible': ['|', ('bank_fees_amount_paid', '=', False), ('bank_fees_amount_paid', '=', 0)]}"/>
+                </field>
                 <xpath expr="//button[@name='action_invoice_sent']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
