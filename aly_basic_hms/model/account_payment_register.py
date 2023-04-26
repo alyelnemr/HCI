@@ -62,7 +62,28 @@ class AccountPaymentRegister(models.TransientModel):
                 raise ValidationError(_("You are not allowed to select a negative value"))
             if rec.bank_fees_amount > 0 and not rec.env.company.aly_bank_fees_account:
                 raise ValidationError(_("Please set bank charge account in company screen."))
-        return super(AccountPaymentRegister, self).with_user(SUPERUSER_ID).action_create_payments()
+        payments = self.with_user(SUPERUSER_ID)._create_payments()
+
+        if self._context.get('dont_redirect_to_payments'):
+            return True
+
+        action = {
+            'name': _('Payments'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.payment',
+            'context': {'create': False},
+        }
+        if len(payments) == 1:
+            action.update({
+                'view_mode': 'form',
+                'res_id': payments.id,
+            })
+        else:
+            action.update({
+                'view_mode': 'tree,form',
+                'domain': [('id', 'in', payments.ids)],
+            })
+        return action
 
     @api.model
     def default_get(self, fields_list):
