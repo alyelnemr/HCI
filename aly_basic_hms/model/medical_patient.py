@@ -100,6 +100,8 @@ class MedicalPatient(models.Model):
     is_important = fields.Boolean(string='Is Important', default=False, required=False)
     is_invoiced = fields.Boolean(string='Is Invoiced', default=False, required=False)
     invoice_id = fields.Many2one('account.move', string='Accounting Invoice', copy=False)
+    invoice_amount = fields.Monetary(string='Invoice Amount', readonly=True, tracking=True,
+        related='invoice_id.amount_untaxed')
     order_id = fields.Many2one('sale.order', string='Sales Order Invoice', copy=False)
     is_insurance = fields.Boolean(string='Insurance', default=False, required=False, tracking=True)
     our_reference = fields.Char(string='Our Reference', required=False)

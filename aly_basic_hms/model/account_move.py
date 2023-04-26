@@ -138,6 +138,7 @@ class AccountMoveForDiscount(models.Model):
             raise UserError(error_msg)
 
         return journal
+
     def _get_reconciled_info_JSON_values(self):
         self.ensure_one()
 
@@ -165,4 +166,3 @@ class AccountMoveForDiscount(models.Model):
                 'ref': reconciliation_ref,
             })
         return reconciled_vals
-
