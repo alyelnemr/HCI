@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from lxml import etree
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, _, SUPERUSER_ID
 from odoo.exceptions import ValidationError, UserError
 
 
@@ -62,7 +62,7 @@ class AccountPaymentRegister(models.TransientModel):
                 raise ValidationError(_("You are not allowed to select a negative value"))
             if rec.bank_fees_amount > 0 and not rec.env.company.aly_bank_fees_account:
                 raise ValidationError(_("Please set bank charge account in company screen."))
-        return super(AccountPaymentRegister, self).action_create_payments()
+        return super(AccountPaymentRegister, self).with_user(SUPERUSER_ID).action_create_payments()
 
     @api.model
     def default_get(self, fields_list):
