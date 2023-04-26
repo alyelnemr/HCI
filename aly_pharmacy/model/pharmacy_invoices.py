@@ -99,12 +99,13 @@ class PharmacyInvoices(models.Model):
         prod_cat_obj = self.env['product.category'].search([('name', '=', accom_prod_cat)], limit=1)
         cat = prod_cat_obj.id
 
-        product_product_obj = self.env['product.product'].sudo().browse(self.product_id.id)
-        # product_product_obj = self.env['product.product'].sudo().create({
-        #     'name': vals['item_name'],
-        #     'type': 'service',
-        #     'categ_id': cat
-        # })
+        product_product_obj = self.env['product.product'].search([('name', '=', 'Pharmacy Item')], limit=1)
+        if not product_product_obj:
+            product_product_obj = self.env['product.product'].sudo().create({
+                'name': vals['item_name'],
+                'type': 'service',
+                'categ_id': cat
+            })
         ir_property_obj = self.env['ir.property']
         partner_id = self.env['res.partner'].sudo().create({'name': vals['patient_name'], 'is_pharmacy': True})
         invoice_vals = {
