@@ -78,9 +78,9 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         var_subtotal_taxed = 0
         var_taxed_amount = 0
         var_bank_fees_amount = 0
-        var_payment_data = docs.sudo()._get_reconciled_info_JSON_values()[0]
-        if var_payment_data:
-            var_bank_fees_amount = float(var_payment_data['bank_fees_amount'])
+        var_payment_data = docs.sudo()._get_reconciled_info_JSON_values()
+        if var_payment_data and var_payment_data[0]:
+            var_bank_fees_amount = float(var_payment_data[0]['bank_fees_amount'])
         var_amount_total_taxed = 0
         for line in docs.invoice_line_ids:
             var_subtotal_with_discount += (line.quantity * line.price_unit)
