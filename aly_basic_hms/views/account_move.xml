@@ -30,7 +30,7 @@
                                 groups="base.group_user"/>
                 </xpath>
                 <field name="payment_reference" position="after" >
-                    <field name="payment_method_fees" widget="selection" attrs="{'readonly': ['|', ('bank_fees_amount_paid', '>', 0), ('is_insurance_patient', '=', True)]}" />
+                    <field name="payment_method_fees" widget="selection" attrs="{'invisible': True, 'readonly': ['|', ('bank_fees_amount_paid', '>', 0), ('is_insurance_patient', '=', True)]}" />
                     <field name="bank_fees_amount" force_save="1" attrs="{'readonly': True, 'invisible': [('is_bank_fees', '=', False)]}" />
                     <field name="is_bank_fees" invisible="1" />
                     <field name="is_insurance_patient" invisible="1" />

@@ -43,6 +43,7 @@ class AccountPaymentRegister(models.TransientModel):
         ('bank', 'Bank'),
         ('general', 'Miscellaneous'),
     ], related="journal_id.type")
+    is_insurance_patient = fields.Boolean(default=False)
 
     def _create_payment_vals_from_wizard(self):
         res = super(AccountPaymentRegister, self)._create_payment_vals_from_wizard()
@@ -98,4 +99,5 @@ class AccountPaymentRegister(models.TransientModel):
                 move_id = lines[0].move_id
 
         res['journal_id_select'] = move_id.payment_method_fees
+        res['is_insurance_patient'] = move_id.is_insurance_patient
         return res
