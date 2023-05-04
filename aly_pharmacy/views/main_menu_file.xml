@@ -6,7 +6,7 @@
         	id="main_menu_pharmacy_management"
         	name="HCI Pharmacy"
             groups="aly_group_pharmacy"
-            web_icon="aly_pharmacy,static/description/icon.jpg"
+            web_icon="aly_pharmacy,static/description/icon.png"
            />
 
 
