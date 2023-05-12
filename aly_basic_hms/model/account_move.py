@@ -105,64 +105,64 @@ class AccountMoveForDiscount(models.Model):
                 raise UserError(_("You cannot delete an entry which has been posted once."))
         self.line_ids.unlink()
         return super(AccountMoveForDiscount, self).unlink()
-
-    @api.model
-    def _search_default_journal(self, journal_types):
-        company_id = self._context.get('default_company_id', self.env.company.id)
-        domain = [('company_id', '=', company_id), ('type', 'in', journal_types)]
-
-        journal = None
-        if self._context.get('default_currency_id'):
-            currency_domain = domain + [('currency_id', '=', self._context['default_currency_id'])]
-            journal = self.env['account.journal'].search(currency_domain, limit=1)
-
-        if not journal:
-            if self._context.get('active_model') == 'sale.order':
-                sale_order = self.env['sale.order'].browse(self._context.get('active_id'))
-                if sale_order.patient_id and sale_order.patient_id.is_insurance:
-                    domain_insurance = [('company_id', '=', company_id), ('type', 'in', journal_types),
-                                        ('is_insurance_journal', '=', True)]
-                    journal = self.env['account.journal'].search(domain_insurance, limit=1)
-
-        if not journal:
-            journal = self.env['account.journal'].search(domain, limit=1)
-
-        if not journal:
-            company = self.env['res.company'].browse(company_id)
-
-            error_msg = _(
-                "No journal could be found in company %(company_name)s for any of those types: %(journal_types)s",
-                company_name=company.display_name,
-                journal_types=', '.join(journal_types),
-            )
-            raise UserError(error_msg)
-
-        return journal
-
-    def _get_reconciled_info_JSON_values(self):
-        self.ensure_one()
-
-        reconciled_vals = []
-        for partial, amount, counterpart_line in self._get_reconciled_invoices_partials():
-            if counterpart_line.move_id.ref:
-                reconciliation_ref = '%s (%s)' % (counterpart_line.move_id.name, counterpart_line.move_id.ref)
-            else:
-                reconciliation_ref = counterpart_line.move_id.name
-
-            reconciled_vals.append({
-                'name': counterpart_line.name,
-                'journal_name': counterpart_line.journal_id.name,
-                'amount': amount,
-                'bank_fees_amount': counterpart_line.payment_id.bank_fees_amount,
-                'currency': self.currency_id.symbol,
-                'digits': [69, self.currency_id.decimal_places],
-                'position': self.currency_id.position,
-                'date': counterpart_line.date,
-                'payment_id': counterpart_line.id,
-                'partial_id': partial.id,
-                'account_payment_id': counterpart_line.payment_id.id,
-                'payment_method_name': counterpart_line.payment_id.payment_method_id.name if counterpart_line.journal_id.type == 'bank' else None,
-                'move_id': counterpart_line.move_id.id,
-                'ref': reconciliation_ref,
-            })
-        return reconciled_vals
+    #
+    # @api.model
+    # def _search_default_journal(self, journal_types):
+    #     company_id = self._context.get('default_company_id', self.env.company.id)
+    #     domain = [('company_id', '=', company_id), ('type', 'in', journal_types)]
+    #
+    #     journal = None
+    #     if self._context.get('default_currency_id'):
+    #         currency_domain = domain + [('currency_id', '=', self._context['default_currency_id'])]
+    #         journal = self.env['account.journal'].search(currency_domain, limit=1)
+    #
+    #     if not journal:
+    #         if self._context.get('active_model') == 'sale.order':
+    #             sale_order = self.env['sale.order'].browse(self._context.get('active_id'))
+    #             if sale_order.patient_id and sale_order.patient_id.is_insurance:
+    #                 domain_insurance = [('company_id', '=', company_id), ('type', 'in', journal_types),
+    #                                     ('is_insurance_journal', '=', True)]
+    #                 journal = self.env['account.journal'].search(domain_insurance, limit=1)
+    #
+    #     if not journal:
+    #         journal = self.env['account.journal'].search(domain, limit=1)
+    #
+    #     if not journal:
+    #         company = self.env['res.company'].browse(company_id)
+    #
+    #         error_msg = _(
+    #             "No journal could be found in company %(company_name)s for any of those types: %(journal_types)s",
+    #             company_name=company.display_name,
+    #             journal_types=', '.join(journal_types),
+    #         )
+    #         raise UserError(error_msg)
+    #
+    #     return journal
+    #
+    # def _get_reconciled_info_JSON_values(self):
+    #     self.ensure_one()
+    #
+    #     reconciled_vals = []
+    #     for partial, amount, counterpart_line in self._get_reconciled_invoices_partials():
+    #         if counterpart_line.move_id.ref:
+    #             reconciliation_ref = '%s (%s)' % (counterpart_line.move_id.name, counterpart_line.move_id.ref)
+    #         else:
+    #             reconciliation_ref = counterpart_line.move_id.name
+    #
+    #         reconciled_vals.append({
+    #             'name': counterpart_line.name,
+    #             'journal_name': counterpart_line.journal_id.name,
+    #             'amount': amount,
+    #             'bank_fees_amount': counterpart_line.payment_id.bank_fees_amount,
+    #             'currency': self.currency_id.symbol,
+    #             'digits': [69, self.currency_id.decimal_places],
+    #             'position': self.currency_id.position,
+    #             'date': counterpart_line.date,
+    #             'payment_id': counterpart_line.id,
+    #             'partial_id': partial.id,
+    #             'account_payment_id': counterpart_line.payment_id.id,
+    #             'payment_method_name': counterpart_line.payment_id.payment_method_id.name if counterpart_line.journal_id.type == 'bank' else None,
+    #             'move_id': counterpart_line.move_id.id,
+    #             'ref': reconciliation_ref,
+    #         })
+    #     return reconciled_vals
