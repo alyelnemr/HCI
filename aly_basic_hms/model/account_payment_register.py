@@ -45,17 +45,17 @@ class AccountPaymentRegister(models.TransientModel):
     ], related="journal_id.type")
     is_insurance_patient = fields.Boolean(default=False)
 
-    def _create_payment_vals_from_wizard(self):
-        res = super(AccountPaymentRegister, self)._create_payment_vals_from_wizard()
-        res['bank_fees_amount'] = self.bank_fees_amount
-        res['is_bank_fees'] = self.is_bank_fees
-        return res
-
-    def _create_payment_vals_from_batch(self, batch_result):
-        res = super(AccountPaymentRegister, self)._create_payment_vals_from_batch(batch_result)
-        res['bank_fees_amount'] = self.bank_fees_amount
-        res['is_bank_fees'] = self.is_bank_fees
-        return res
+    # def _create_payment_vals_from_wizard(self):
+    #     res = super(AccountPaymentRegister, self)._create_payment_vals_from_wizard()
+    #     res['bank_fees_amount'] = self.bank_fees_amount
+    #     res['is_bank_fees'] = self.is_bank_fees
+    #     return res
+    #
+    # def _create_payment_vals_from_batch(self, batch_result):
+    #     res = super(AccountPaymentRegister, self)._create_payment_vals_from_batch(batch_result)
+    #     res['bank_fees_amount'] = self.bank_fees_amount
+    #     res['is_bank_fees'] = self.is_bank_fees
+    #     return res
     #
     # def action_create_payments(self):
     #     for rec in self:
