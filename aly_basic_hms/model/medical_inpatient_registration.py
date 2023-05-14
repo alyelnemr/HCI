@@ -30,14 +30,13 @@ class MedicalInpatientRegistration(models.Model):
                     if rec.is_discharged and rec.discharge_date < rec.admission_date or rd.days < 0:
                         raise UserError(_('Discharge Date Must be greater than or equal Admission Date...'))
 
-    @api.onchange('admission_date')
-    def _compute_admission_days(self):
-        for rec in self:
-            user_tz = self.env.user.tz or pytz.utc
-
-            local = pytz.timezone(user_tz)
-            cur_date = pytz.utc.localize(datetime.now()).astimezone(local)
-            raise UserError(datetime.now(tz=user_tz))
+    def _get_current_date(self):
+        user_tz = pytz.timezone(self.env.user.tz) if self.env.user.tz else None
+        if not user_tz:
+            user_tz = pytz.utc
+        local = pytz.timezone(self.env.user.tz)
+        cur_date = pytz.utc.localize(datetime.now()).astimezone(local)
+        return datetime.now(tz=user_tz)
 
     def _get_inpatient_domain(self):
         patients = []
@@ -52,8 +51,8 @@ class MedicalInpatientRegistration(models.Model):
     name = fields.Char(string="Registration Code", readonly=True)
     patient_id = fields.Many2one('medical.patient', domain=lambda self: self._get_inpatient_domain(),
                                  string="Patient", required=True)
-    admission_date = fields.Date(string="Admission date", required=True, default=date.today())
-    discharge_date = fields.Date(string="Expected Discharge date", required=True, default=date.today(), tracking=True)
+    admission_date = fields.Date(string="Admission date", required=True, default=lambda self: self._get_current_date())
+    discharge_date = fields.Date(string="Expected Discharge date", required=True, default=lambda self: self._get_current_date(), tracking=True)
     # admission_days = fields.Integer(compute=_compute_admission_days, string="Admission Duration", store=True)
     admission_days = fields.Integer(string="Admission Duration", default=1)
     attending_physician_id = fields.Many2one('medical.physician',string="Attending Physician")
