@@ -3,3 +3,4 @@
 
 from . import res_partner
 from . import pharmacy_invoices
+from . import product_template
