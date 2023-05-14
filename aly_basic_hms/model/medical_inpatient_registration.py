@@ -29,6 +29,11 @@ class MedicalInpatientRegistration(models.Model):
                     if rec.is_discharged and rec.discharge_date < rec.admission_date or rd.days < 0:
                         raise UserError(_('Discharge Date Must be greater than or equal Admission Date...'))
 
+    @api.onchange('admission_date')
+    def _compute_admission_days(self):
+        for rec in self:
+            raise UserError(rec.admission_date)
+
     def _get_inpatient_domain(self):
         patients = []
         current_inpatient = self.env['medical.inpatient.registration'].search([('state', '!=', 'discharged')])
@@ -76,10 +81,10 @@ class MedicalInpatientRegistration(models.Model):
     @api.constrains('discharge_date', 'admission_date')
     def date_constrains(self):
         for rec in self:
-            if rec.discharge_date < rec.admission_date or rec.admission_days < 0:
-                raise ValidationError(_('Discharge Date Must be greater than or equal Admission Date...'))
             if rec.admission_date > date.today():
                 raise ValidationError(_('Admission Date Must be lower than or equal Today...'))
+            if rec.discharge_date < rec.admission_date or rec.admission_days < 0:
+                raise ValidationError(_('Discharge Date Must be greater than or equal Admission Date...'))
 
     @api.constrains('admission_days', 'bed_transfers_ids', 'discharge_date', 'admission_date')
     def admission_constrains(self):
