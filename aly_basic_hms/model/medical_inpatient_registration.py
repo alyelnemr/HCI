@@ -2,7 +2,7 @@
 # Part of BrowseInfo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, fields, api, _
-from datetime import date
+from datetime import datetime, date
 from odoo.exceptions import UserError, ValidationError
 import pytz
 
@@ -33,8 +33,11 @@ class MedicalInpatientRegistration(models.Model):
     @api.onchange('admission_date')
     def _compute_admission_days(self):
         for rec in self:
-            cur_date = pytz.utc.localize(rec.admission_date)
-            raise UserError(cur_date)
+            user_tz = self.env.user.tz or pytz.utc
+
+            local = pytz.timezone(user_tz)
+            cur_date = pytz.utc.localize(datetime.now()).astimezone(local)
+            raise UserError(datetime.now(tz=user_tz))
 
     def _get_inpatient_domain(self):
         patients = []
