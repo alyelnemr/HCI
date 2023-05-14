@@ -4,6 +4,7 @@
 from odoo import models, fields, api, _
 from datetime import date
 from odoo.exceptions import UserError, ValidationError
+import pytz
 
 
 class MedicalInpatientRegistration(models.Model):
@@ -32,7 +33,8 @@ class MedicalInpatientRegistration(models.Model):
     @api.onchange('admission_date')
     def _compute_admission_days(self):
         for rec in self:
-            raise UserError(rec.admission_date)
+            cur_date = pytz.utc.localize(rec.admission_date)
+            raise UserError(cur_date)
 
     def _get_inpatient_domain(self):
         patients = []
