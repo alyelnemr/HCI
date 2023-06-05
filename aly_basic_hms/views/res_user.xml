@@ -8,6 +8,7 @@
                 <notebook>
                     <page string="Medical">
                         <group >
+                            <field name="effective_date" />
                             <field name="max_allowed_discount" />
                             <field name="default_clinic_id"  />
                             <field name="allowed_clinic_ids" widget="many2many_tags" />
