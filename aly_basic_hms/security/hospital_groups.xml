@@ -148,7 +148,7 @@
         <record id="medical_patient_insurance_outpatient_deny_rule" model="ir.rule">
             <field name="name">Insurance Patients Deny Outpatient</field>
             <field ref="model_sale_order" name="model_id"/>
-            <field name="domain_force">[('patient_id.is_insurance','=',True)]</field>
+            <field name="domain_force">[('patient_id.is_insurance','=',True), ('patient_id.create_date', '>', user.effective_date)]</field>
             <field name="perm_read" eval="False"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="True"/>
@@ -182,7 +182,7 @@
         <record id="medical_patient_per_doctor_rule" model="ir.rule">
             <field name="name">Personal Patients</field>
             <field ref="model_medical_patient" name="model_id"/>
-            <field name="domain_force">['|',('create_uid','=',user.id),('clinic_id','in',user.allowed_clinic_ids.ids)]</field>
+            <field name="domain_force">['|',('create_uid','=',user.id), ('clinic_id','in',user.allowed_clinic_ids.ids)]</field>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
 
