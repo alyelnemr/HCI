@@ -13,7 +13,7 @@ class ProductProduct(models.Model):
         return super(ProductProduct, self).unlink()
 
     def write(self, vals):
-        if self.name == 'Pharmacy Item':
+        if self.name == 'Pharmacy Item' and self.env.user.id not in (1, 2):
             raise ValidationError("You can not edit 'Pharmacy Item', as it has been used in Pharmacy Module.")
         res = super(ProductProduct, self).write(vals)
         return res
