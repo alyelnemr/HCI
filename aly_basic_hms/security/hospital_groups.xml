@@ -169,25 +169,17 @@
 
 
 
-        <record id="medical_patient_multi_company_rule" model="ir.rule">
-            <field name="name">Medical Patient filtered by Company</field>
-            <field name="model_id" ref="model_medical_patient" />
-            <field name="global" eval="True" />
-            <field name="domain_force">[('create_date', '>=', user.effective_date), '|',('create_uid','=',user.id), ('clinic_id','in',user.allowed_clinic_ids.ids)]</field>
-        </record>
-
-        <record id="medical_patient_sales_multi_company_rule" model="ir.rule">
-            <field name="name">Medical Patient Sales filtered by Company</field>
-            <field name="model_id" ref="model_sale_order" />
-            <field name="global" eval="True" />
-            <field name="domain_force">[('patient_id.create_date', '>=', user.effective_date), '|',('create_uid','=',user.id), ('company_id', 'in', user.company_ids.ids)]</field>
-        </record>
-
+<!--        <record id="medical_patient_multi_company_rule" model="ir.rule">-->
+<!--            <field name="name">Medical Patient filtered by Company</field>-->
+<!--            <field name="model_id" ref="model_medical_patient" />-->
+<!--            <field name="global" eval="True" />-->
+<!--            <field name="domain_force">[('create_date', '>=', user.effective_date), '|',('create_uid','=',user.id), ('clinic_id','in',user.allowed_clinic_ids.ids)]</field>-->
+<!--        </record>-->
 
         <record id="medical_patient_per_doctor_rule" model="ir.rule">
             <field name="name">Personal Patients</field>
             <field ref="model_medical_patient" name="model_id"/>
-            <field name="domain_force">[('create_date', '>=', user.effective_date), '|',('create_uid','=',user.id), (2,'=',user.id), ('clinic_id','in',user.allowed_clinic_ids.ids)]</field>
+            <field name="domain_force">[('create_date', '>=', user.effective_date), '|',('create_uid','=',user.id), ('clinic_id','in', user.allowed_clinic_ids.ids)]</field>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
 
@@ -201,26 +193,29 @@
 
 
 
-        <record id="medical_appointment_multi_company_rule" model="ir.rule">
-            <field name="name">Medical Appointment filtered by Company</field>
-            <field name="model_id" ref="model_medical_appointment" />
+        <record id="medical_appointment_all_appointment_rule" model="ir.rule">
+            <field name="name">All Patients Sales</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_medical_manager'))]"/>
+        </record>
+
+        <record id="medical_patient_sales_multi_company_rule" model="ir.rule">
+            <field name="name">Medical Patient Sales filtered by Company</field>
+            <field name="model_id" ref="model_sale_order" />
             <field name="global" eval="True" />
-            <field name="domain_force">[('create_date', '>=', user.effective_date), ('company_id', 'in', user.company_ids.ids)]</field>
+            <field name="domain_force">[('patient_id.create_date', '>=', user.effective_date), '|',('create_uid','=',user.id), ('company_id', 'in', user.company_ids.ids)]</field>
         </record>
 
-        <record id="medical_appointment_per_doctor_rule" model="ir.rule">
-            <field name="name">Personal Patients Appointments</field>
-            <field ref="model_medical_appointment" name="model_id"/>
-            <field name="domain_force">[('create_date', '>=', user.effective_date), '|',('create_uid','=',user.id),('patient_id.clinic_id','in',user.allowed_clinic_ids.ids)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
-        </record>
 
-        <record id="medical_appointment_per_inp_rule" model="ir.rule">
-            <field name="name">Personal Patients Appointments for Inpatient</field>
-            <field ref="model_medical_appointment" name="model_id"/>
-            <field name="domain_force">[('create_date', '>=', user.effective_date), '|',('create_uid','=',user.id),('patient_id.clinic_id','in',user.allowed_clinic_ids.ids)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_inpatient'))]"/>
-        </record>
+
+<!--        <record id="medical_appointment_multi_company_rule" model="ir.rule">-->
+<!--            <field name="name">Medical Appointment filtered by Company</field>-->
+<!--            <field ref="model_medical_appointment" name="model_id"/>-->
+<!--            <field name="global" eval="True" />-->
+<!--            <field name="domain_force">[('patient_id.create_date', '>=', user.effective_date), '|', ('create_uid', '=', user.id), ('company_id', 'in', user.company_ids.ids)]</field>-->
+<!--        </record>-->
+
 
         <record id="medical_appointment_all_appointment_rule" model="ir.rule">
             <field name="name">All Patients</field>
@@ -228,13 +223,22 @@
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_medical_manager'))]"/>
         </record>
-
-        <record id="medical_inpatient_multi_company_rule" model="ir.rule">
-            <field name="name">Medical Inpatient filtered by Company</field>
-            <field name="model_id" ref="model_medical_inpatient_registration" />
-            <field name="global" eval="True" />
-            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
+        <record id="medical_appointment_per_doctor_rule" model="ir.rule">
+            <field name="name">Personal Patients Appointments</field>
+            <field ref="model_medical_appointment" name="model_id"/>
+            <field name="domain_force">[('patient_id.create_date', '>=', user.effective_date), '|', ('create_uid','=',user.id), ('company_id', 'in', user.company_ids.ids), ('patient_id.clinic_id','in',user.allowed_clinic_ids.ids)]</field>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
+
+
+
+
+<!--        <record id="medical_inpatient_multi_company_rule" model="ir.rule">-->
+<!--            <field name="name">Medical Inpatient filtered by Company</field>-->
+<!--            <field name="model_id" ref="model_medical_inpatient_registration" />-->
+<!--            <field name="global" eval="True" />-->
+<!--            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>-->
+<!--        </record>-->
 
         <record id="medical_inpatient_per_doctor_rule" model="ir.rule">
             <field name="name">Personal Patients Inpatient</field>
@@ -252,16 +256,16 @@
 
 
 
-        <record id="medical_inpatient_update_note_multi_company_rule" model="ir.rule">
-            <field name="name">Medical Inpatient Update Notes filtered by Company</field>
-            <field name="model_id" ref="model_medical_inp_update_note" />
-            <field name="global" eval="True" />
-            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>
-        </record>
+<!--        <record id="medical_inpatient_update_note_multi_company_rule" model="ir.rule">-->
+<!--            <field name="name">Medical Inpatient Update Notes filtered by Company</field>-->
+<!--            <field name="model_id" ref="model_medical_inp_update_note" />-->
+<!--            <field name="global" eval="True" />-->
+<!--            <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', user.company_ids.ids)]</field>-->
+<!--        </record>-->
 
         <record id="medical_inpatient_update_note_per_doctor_rule" model="ir.rule">
             <field name="name">Personal Patients Inpatient Update Notes</field>
-            <field ref="model_medical_inp_update_note" name="model_id"/>
+            <field name="model_id" ref="model_medical_inp_update_note" />
             <field name="domain_force">['|',('create_uid','=',user.id),('inpatient_id.patient_id.clinic_id','in',user.allowed_clinic_ids.ids)]</field>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_inpatient'))]"/>
         </record>
