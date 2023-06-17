@@ -151,7 +151,7 @@ class AccountPayment(models.Model):
             'debit': liquidity_balance,
             'credit': 0,
             'partner_id': self.partner_id.id,
-            'account_id':  self.outstanding_account_id.id,
+            'account_id':  self.partner_id.property_account_receivable_id.id
             # 'account_id': self.env.company.aly_bank_fees_account.id,
         },
         credit = {
