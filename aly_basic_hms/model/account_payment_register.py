@@ -127,12 +127,14 @@ class AccountPaymentRegister(models.TransientModel):
     def _create_payment_vals_from_wizard(self):
         res = super(AccountPaymentRegister, self)._create_payment_vals_from_wizard()
         res['bank_fees_amount'] = self.bank_fees_amount
+        res['total_amount_with_fees'] = self.total_amount_with_fees
         res['is_bank_fees'] = self.is_bank_fees
         return res
 
     def _create_payment_vals_from_batch(self, batch_result):
         res = super(AccountPaymentRegister, self)._create_payment_vals_from_batch(batch_result)
         res['bank_fees_amount'] = self.bank_fees_amount
+        res['total_amount_with_fees'] = self.total_amount_with_fees
         res['is_bank_fees'] = self.is_bank_fees
         return res
 
