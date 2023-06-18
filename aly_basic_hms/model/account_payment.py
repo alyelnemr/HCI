@@ -151,8 +151,8 @@ class AccountPayment(models.Model):
             'debit': liquidity_balance,
             'credit': 0,
             'partner_id': self.partner_id.id,
-            'account_id':  self.partner_id.property_account_receivable_id.id
-            # 'account_id': self.env.company.aly_bank_fees_account.id,
+            # 'account_id':  self.outstanding_account_id.id,
+            'account_id': self.env.company.aly_bank_fees_account.id,
         },
         credit = {
             'name': default_line_name,
@@ -162,8 +162,8 @@ class AccountPayment(models.Model):
             'debit': 0,
             'credit': liquidity_balance,
             'partner_id': self.partner_id.id,
-            # 'account_id': self.env.company.aly_bank_fees_account.id,
-            'account_id': self.journal_id.default_account_id.id,
+            'account_id': self.env.company.aly_bank_fees_account.id,
+            # 'account_id': self.journal_id.default_account_id.id,
 
         },
         if self.is_bank_fees and self.bank_fees_amount:
