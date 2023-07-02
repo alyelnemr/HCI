@@ -18,7 +18,7 @@ class AccountMoveForDiscount(models.Model):
     def default_get(self, vals):
         defaults = super(AccountMoveForDiscount, self).default_get(vals)
         for rec in self:
-            if rec.patient_id.is_insurance and not self.env.user.has_group('aly_basic_hms.aly_group_insurance'):
+            if rec.patient_id and rec.patient_id.is_insurance and not self.env.user.has_group('aly_basic_hms.aly_group_insurance'):
                 raise UserError(_("You don't have permission to access insurance invoice from patient"))
         return defaults
 
