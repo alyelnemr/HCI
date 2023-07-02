@@ -14,6 +14,14 @@ class AccountMoveForDiscount(models.Model):
             if rec.is_insurance_patient:
                 rec.payment_method_fees = 'cash'
 
+    @api.model
+    def default_get(self, vals):
+        defaults = super(AccountMoveForDiscount, self).default_get(vals)
+        for rec in self:
+            if rec.patient_id.is_insurance and not self.env.user.has_group('aly_basic_hms.aly_group_insurance'):
+                raise UserError(_("You don't have permission to access insurance invoice from patient"))
+        return defaults
+
     @api.onchange('patient_id', 'partner_id', 'amount_tax')
     def onchange_readonly(self):
         for rec in self:

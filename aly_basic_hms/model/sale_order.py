@@ -10,8 +10,8 @@ class SaleOrderForDiscount(models.Model):
     _inherit = 'sale.order'
 
     @api.model
-    def default_get(self, fields):
-        defaults = super(SaleOrderForDiscount, self).default_get(fields)
+    def default_get(self, vals):
+        defaults = super(SaleOrderForDiscount, self).default_get(vals)
         for rec in self:
             if rec.patient_id.is_insurance and not self.env.user.has_group('aly_basic_hms.aly_group_insurance'):
                 raise UserError(_("You don't have permission to access insurance invoice from patient"))
