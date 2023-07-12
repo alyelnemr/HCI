@@ -179,10 +179,20 @@
                                     </span>
                                 </div>
                             <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
+<!--                                <tr>-->
+<!--                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">To</th>-->
+<!--                                    <td colspan="3" class="text-center">-->
+<!--                                        <b><span t-field="doc.patient_id.bill_to" class="text-center"/></b>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
                                 <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">To</th>
-                                    <td colspan="3" class="text-center">
-                                        <b><span t-field="doc.patient_id.bill_to" class="text-center"/></b>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">To</th>
+                                    <td>
+                                        <b><span t-field="doc.patient_id.name" class="text-center"/></b>
+                                    </td>
+                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Invoice No#</th>
+                                    <td>
+                                        <span t-field="doc.patient_id.patient_code" class="text-center"/>
                                     </td>
                                 </tr>
                                 <tr>
