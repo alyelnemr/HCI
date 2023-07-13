@@ -64,6 +64,7 @@
                                 <field name="order_id" attrs="{'readonly': [('is_insurance', '=', True)]}" />
                                 <!--<field name="invoice_id" groups="aly_basic_hms.aly_group_insurance" />-->
                                 <field name="invoice_id" attrs="{'readonly': [('is_insurance', '=', True)]}"/>
+                                <field name="ignore_effective_date" />
                             </group>
                             <group>
                                 <field name="bill_to" required="1" />
@@ -80,7 +81,6 @@
                                        context="{'default_is_insurance_company': True,'default_company_type': 'company'}"
                                 />
                                 <field name="assistance_company" attrs="{'invisible': [('is_insurance', '=', False)]}" />
-                                <field name="invoice_id" attrs="{'invisible': True}" />
                                 <field name="is_invoiced" attrs="{'invisible': True}" />
                             </group>
                         </group>
