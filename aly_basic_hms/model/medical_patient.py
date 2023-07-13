@@ -149,8 +149,9 @@ class MedicalPatient(models.Model):
     attachment_ids = fields.One2many('medical.patient.attachment', 'patient_id', string="Attachments", copy=True)
     has_attachment = fields.Boolean(compute='_has_attachment', string="Has Attachment", store=False)
     disposable_ids = fields.One2many('medical.patient.line', 'patient_id', string='Disposables', required=True, copy=True)
-    doctor_id = fields.Many2one('medical.physician','Treating Physician',required=False)
-    treating_physician_ids = fields.Many2many('medical.physician',string='Treating Physicians',required=False)
+    doctor_id = fields.Many2one('medical.physician', 'Treating Physician', required=False)
+    treating_physician_ids = fields.Many2many('medical.physician', string='Treating Physicians',required=False)
+    ignore_effective_date = fields.Boolean(string='Ignore Effective Date', default=False, required=False)
 
     @api.model
     def create(self, val):
