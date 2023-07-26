@@ -38,7 +38,6 @@ class AccountMoveForDiscount(models.Model):
             self.bank_fees_amount = self.amount_total * self.env.company.aly_bank_fees_percentage
 
     def _compute_payment_method(self):
-        self.ensure_one()
         self.payment_method = ''
         for partial, amount, counterpart_line in self._get_reconciled_invoices_partials():
             self.payment_method = counterpart_line.payment_id.journal_id_select
