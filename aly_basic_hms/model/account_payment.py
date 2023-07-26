@@ -12,6 +12,7 @@ class AccountPayment(models.Model):
     is_bank_fees = fields.Boolean(string='Is Bank Fees', default=False, required=False)
     bank_fees_amount = fields.Monetary(string="Bank Fees")
     total_amount_with_fees = fields.Monetary(string="Total Amount with Fees", compute='_compute_bank_fees', store=False)
+    journal_id_select = fields.Char(string="Payment Method", required=False)
 
     # def _synchronize_from_moves(self, changed_fields):
     #     # "overriden original function to add some condition for bank charge payments"

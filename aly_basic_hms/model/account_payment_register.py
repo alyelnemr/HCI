@@ -37,6 +37,8 @@ class AccountPaymentRegister(models.TransientModel):
         ('bank', 'Bank'),
         ('paypal', 'Paypal'),
         ('stripe', 'Stripe'),
+        ('wise', 'Wise Bank'),
+        ('pos', 'Hotel POS'),
     ], string="Journal", default='cash')
     journal_id = fields.Many2one('account.journal', store=True, readonly=False)
     journal_id_type = fields.Selection([
@@ -129,6 +131,7 @@ class AccountPaymentRegister(models.TransientModel):
         res['bank_fees_amount'] = self.bank_fees_amount
         res['total_amount_with_fees'] = self.total_amount_with_fees
         res['is_bank_fees'] = self.is_bank_fees
+        res['journal_id_select'] = self.journal_id_select
         return res
 
     def _create_payment_vals_from_batch(self, batch_result):
