@@ -41,8 +41,9 @@ class AccountMoveForDiscount(models.Model):
         for rec in self:
             rec.payment_method = ''
             for partial, amount, counterpart_line in rec._get_reconciled_invoices_partials():
-                rec.payment_method = counterpart_line.payment_id.journal_id_select
-                break
+                if counterpart_line.payment_id:
+                    rec.payment_method = counterpart_line.payment_id.journal_id_select if counterpart_line.payment_id.journal_id_select else counterpart_line.payment_id.journal_id.name
+                    break
 
     @api.depends('move_type', 'line_ids.amount_residual')
     def _compute_bank_fees_paid(self):
