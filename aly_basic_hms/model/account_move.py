@@ -42,7 +42,7 @@ class AccountMoveForDiscount(models.Model):
             rec.payment_method = ''
             for partial, amount, counterpart_line in rec._get_reconciled_invoices_partials():
                 if counterpart_line.payment_id:
-                    rec.payment_method = counterpart_line.payment_id.journal_id_select if counterpart_line.payment_id.journal_id_select else counterpart_line.payment_id.journal_id.name
+                    rec.payment_method = counterpart_line.payment_id.pay_method_id.name if counterpart_line.payment_id.pay_method_id else counterpart_line.payment_id.journal_id.name
                     break
 
     # @api.depends('move_type', 'line_ids.amount_residual')

@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="account.view_account_payment_register_form"/>
         <field name="arch" type="xml">
             <field name="journal_id" position="replace">
-                <field name="journal_id_select" widget="selection" required="1"/>
+                <field name="pay_method_id" widget="selection" required="1"/>
                 <field name="bank_fees_amount" force_save="1" attrs="{'readonly': True, 'invisible': [('is_bank_fees', '=', False)]}" />
                 <field name="is_bank_fees" invisible="1"/>
                 <field name="journal_id" invisible="1"/>

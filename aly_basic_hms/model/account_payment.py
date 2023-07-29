@@ -13,6 +13,7 @@ class AccountPayment(models.Model):
     bank_fees_amount = fields.Monetary(string="Bank Fees")
     total_amount_with_fees = fields.Monetary(string="Total Amount with Fees", compute='_compute_bank_fees', store=False)
     journal_id_select = fields.Char(string="Payment Method", required=False)
+    pay_method_id = fields.Many2one(comodel_name='payment.method', String='Journal', required=True)
 
     # def _synchronize_from_moves(self, changed_fields):
     #     # "overriden original function to add some condition for bank charge payments"

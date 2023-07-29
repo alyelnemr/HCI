@@ -4,6 +4,7 @@ from . import res_company
 from . import res_users
 from . import res_partner
 from . import res_partner_hotel
+from . import payment_method
 from . import account_move
 from . import account_journal
 from . import account_payment_register
@@ -46,4 +47,3 @@ from . import medical_patient
 from . import medical_patient_attachment
 from . import medical_physician
 from . import medical_external_service
-from . import payment_method

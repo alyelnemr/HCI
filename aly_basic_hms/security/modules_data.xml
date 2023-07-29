@@ -13,22 +13,22 @@
         <record id="record_payment_method_paybal" model="payment.method">
             <field name="name">Paybal</field>
             <field name="is_include_fees">True</field>
-            <field name="fees_percentage">.5</field>
+            <field name="fees_percentage">.05</field>
         </record>
         <record id="record_payment_method_stripe" model="payment.method">
             <field name="name">Stripe</field>
             <field name="is_include_fees">True</field>
-            <field name="fees_percentage">.5</field>
+            <field name="fees_percentage">.03</field>
         </record>
         <record id="record_payment_method_wise_bank" model="payment.method">
             <field name="name">Wise Bank</field>
             <field name="is_include_fees">False</field>
-            <field name="fees_percentage">0.0</field>
+            <field name="fees_percentage">0.05</field>
         </record>
         <record id="record_payment_method_hotel_pos" model="payment.method">
             <field name="name">Hotel POS</field>
             <field name="is_include_fees">True</field>
-            <field name="fees_percentage">.5</field>
+            <field name="fees_percentage">.05</field>
         </record>
 
 

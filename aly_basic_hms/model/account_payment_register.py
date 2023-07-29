@@ -8,7 +8,7 @@ from odoo.exceptions import ValidationError, UserError
 class AccountPaymentRegister(models.TransientModel):
     _inherit = 'account.payment.register'
 
-    @api.onchange('amount', 'journal_id_type', 'journal_id_select', 'payment_date')
+    @api.onchange('amount', 'journal_id_type', 'journal_id_select', 'pay_method_id', 'payment_date')
     def _compute_bank_fees(self):
         self.bank_fees_amount = 0
         self.is_bank_fees = False
@@ -18,9 +18,9 @@ class AccountPaymentRegister(models.TransientModel):
                         ('type', '=', 'cash'),
                         ('company_id', '=', self.company_id.id),
                     ], limit=1)
-        if self.amount and self.journal_id_select in ('paypal', 'stripe'):
+        if self.amount and self.pay_method_id.is_include_fees:
             self.is_bank_fees = True
-            percentage = .03 if self.journal_id_select == 'stripe' else .05
+            percentage = self.pay_method_id.fees_percentage
             self.bank_fees_amount = self.amount * percentage
             self.total_amount_with_fees = self.amount + self.bank_fees_amount
             if not self.journal_id:
@@ -28,26 +28,29 @@ class AccountPaymentRegister(models.TransientModel):
                     ('type', '=', 'bank'),
                     ('company_id', '=', self.company_id.id),
                 ], limit=1)
-
-    @api.model
-    def default_get(self, fields_list):
-        res = super().default_get(fields_list)
-        current = self.env['payment.method'].search([], limit=1)
-        res['journal_id_select'] = current.id
-        return res
+        # if self.amount and self.journal_id_select in ('paypal', 'stripe'):
+        #     self.is_bank_fees = True
+        #     percentage = .03 if self.journal_id_select == 'stripe' else .05
+        #     self.bank_fees_amount = self.amount * percentage
+        #     self.total_amount_with_fees = self.amount + self.bank_fees_amount
+        #     if not self.journal_id:
+        #         self.journal_id = self.env['account.journal'].search([
+        #             ('type', '=', 'bank'),
+        #             ('company_id', '=', self.company_id.id),
+        #         ], limit=1)
 
     is_bank_fees = fields.Boolean(default=False)
     bank_fees_amount = fields.Monetary(string="Bank Fees", compute='_compute_bank_fees', store=False)
     total_amount_with_fees = fields.Monetary(string="Total Amount with Fees", compute='_compute_bank_fees', store=False)
-    journal_id_select = fields.Many2one(comodel_name='payment.method', String='Journal', required=True)
-    # journal_id_select = fields.Selection([
-    #     ('cash', 'Cash'),
-    #     ('bank', 'Bank'),
-    #     ('paypal', 'Paypal'),
-    #     ('stripe', 'Stripe'),
-    #     ('wise', 'Wise Bank'),
-    #     ('pos', 'Hotel POS'),
-    # ], string="Journal", default='cash')
+    pay_method_id = fields.Many2one(comodel_name='payment.method', String='Journal', required=True)
+    journal_id_select = fields.Selection([
+        ('cash', 'Cash'),
+        ('bank', 'Bank'),
+        ('paypal', 'Paypal'),
+        ('stripe', 'Stripe'),
+        ('wise', 'Wise Bank'),
+        ('pos', 'Hotel POS'),
+    ], string="Journal", default='cash')
     journal_id = fields.Many2one('account.journal', store=True, readonly=False)
     journal_id_type = fields.Selection([
         ('sale', 'Sales'),
@@ -140,6 +143,7 @@ class AccountPaymentRegister(models.TransientModel):
         res['total_amount_with_fees'] = self.total_amount_with_fees
         res['is_bank_fees'] = self.is_bank_fees
         res['journal_id_select'] = self.journal_id_select
+        res['pay_method_id'] = self.pay_method_id.id
         return res
 
     def _create_payment_vals_from_batch(self, batch_result):
@@ -190,6 +194,8 @@ class AccountPaymentRegister(models.TransientModel):
             if lines:
                 move_id = lines[0].move_id
 
+        current = self.env['payment.method'].search([], limit=1)
+        res['pay_method_id'] = current
         res['journal_id_select'] = move_id.payment_method_fees
         res['is_insurance_patient'] = move_id.is_insurance_patient
         return res
