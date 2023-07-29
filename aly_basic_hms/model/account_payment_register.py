@@ -31,7 +31,7 @@ class AccountPaymentRegister(models.TransientModel):
 
     def _get_default_journal(self):
         current = self.env['payment.method'].search([], limit=1)
-        return current.id
+        return current
 
     is_bank_fees = fields.Boolean(default=False)
     bank_fees_amount = fields.Monetary(string="Bank Fees", compute='_compute_bank_fees', store=False)
