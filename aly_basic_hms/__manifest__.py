@@ -44,6 +44,7 @@
         'views/medical_appointment_investigation.xml',
         'views/medical_inpatient_investigation.xml',
         'views/medical_patient_line.xml',
+        'views/payment_method.xml',
         'views/medical_patient_attachment.xml',
         'views/medical_appointment_consultation_line.xml',
         'views/medical_inp_update_note_consultation_line.xml',

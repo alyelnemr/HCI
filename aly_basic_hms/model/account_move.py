@@ -29,13 +29,13 @@ class AccountMoveForDiscount(models.Model):
                 rec.payment_method_fees = 'cash'
             rec.is_readonly_lines = not self.env.user.has_group('aly_basic_hms.aly_group_medical_manager')
 
-    @api.onchange('amount_total', 'payment_method_fees')
-    def _compute_bank_fees(self):
-        self.bank_fees_amount = 0
-        self.is_bank_fees = False
-        if self.payment_method_fees == 'bank' and not self.is_insurance_patient and self.env.company.aly_enable_bank_fees:
-            self.is_bank_fees = True
-            self.bank_fees_amount = self.amount_total * self.env.company.aly_bank_fees_percentage
+    # @api.onchange('amount_total', 'payment_method_fees')
+    # def _compute_bank_fees(self):
+    #     self.bank_fees_amount = 0
+    #     self.is_bank_fees = False
+    #     if self.payment_method_fees == 'bank' and not self.is_insurance_patient and self.env.company.aly_enable_bank_fees:
+    #         self.is_bank_fees = True
+    #         self.bank_fees_amount = self.amount_total * self.env.company.aly_bank_fees_percentage
 
     def _compute_payment_method(self):
         for rec in self:
@@ -45,12 +45,12 @@ class AccountMoveForDiscount(models.Model):
                     rec.payment_method = counterpart_line.payment_id.journal_id_select if counterpart_line.payment_id.journal_id_select else counterpart_line.payment_id.journal_id.name
                     break
 
-    @api.depends('move_type', 'line_ids.amount_residual')
-    def _compute_bank_fees_paid(self):
-        self.bank_fees_amount_paid = False
-        recon = self._get_reconciled_info_JSON_values()
-        if recon and recon[0] and recon[0]['bank_fees_amount']:
-            self.bank_fees_amount_paid = recon[0]['bank_fees_amount']
+    # @api.depends('move_type', 'line_ids.amount_residual')
+    # def _compute_bank_fees_paid(self):
+    #     self.bank_fees_amount_paid = False
+    #     recon = self._get_reconciled_info_JSON_values()
+    #     if recon and recon[0] and recon[0]['bank_fees_amount']:
+    #         self.bank_fees_amount_paid = recon[0]['bank_fees_amount']
 
     is_insurance = fields.Boolean(string='Is Insurance', default=False, required=False)
     is_readonly_lines = fields.Boolean(string='Is Readonly Lines', default=False, store=False,
@@ -62,8 +62,8 @@ class AccountMoveForDiscount(models.Model):
                                            required=True, default='cash', string="Payment Method")
     is_bank_fees = fields.Boolean(default=False)
     is_insurance_patient = fields.Boolean(default=False, related='patient_id.is_insurance')
-    bank_fees_amount = fields.Monetary(string="Bank Fees", compute='_compute_bank_fees', store=False)
-    bank_fees_amount_paid = fields.Monetary(string="Bank Fees Amount Paid", compute='_compute_bank_fees_paid', store=False)
+    # bank_fees_amount = fields.Monetary(string="Bank Fees", compute='_compute_bank_fees', store=False)
+    # bank_fees_amount_paid = fields.Monetary(string="Bank Fees Amount Paid", compute='_compute_bank_fees_paid', store=False)
     payment_method = fields.Char(string='Payment Method', compute='_compute_payment_method', store=False)
 
     def _move_autocomplete_invoice_lines_values(self):

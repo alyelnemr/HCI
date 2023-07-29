@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payment_method_tree_view" model="ir.ui.view">
+        <field name="name">payment.method.tree.view</field>
+        <field name="model">payment.method</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="is_include_fees"/>
+                <field name="fees_percentage"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="payment_method_form_view" model="ir.ui.view">
+        <field name="name">payment.method.form.view</field>
+        <field name="model">payment.method</field>
+        <field name="arch" type="xml">
+            <form string="Payment Method">
+                <sheet>
+                    <group string="Main Info">
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="is_include_fees"/>
+                            <field name="fees_percentage"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="action_payment_method_form" model="ir.actions.act_window">
+        <field name="name">Payment Method</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">payment.method</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

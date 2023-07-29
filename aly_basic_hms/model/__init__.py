@@ -46,3 +46,4 @@ from . import medical_patient
 from . import medical_patient_attachment
 from . import medical_physician
 from . import medical_external_service
+from . import payment_method
