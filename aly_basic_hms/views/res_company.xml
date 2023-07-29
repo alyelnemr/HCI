@@ -77,7 +77,7 @@
                                 <div class="content-group ">
                                     <div class="row mt16">
                                         <label for="aly_payment_method_id" class="col-lg-3 o_light_label"/>
-                                        <field name="aly_payment_method_id""/>
+                                        <field name="aly_payment_method_id"/>
                                     </div>
                                 </div>
                             </div>
