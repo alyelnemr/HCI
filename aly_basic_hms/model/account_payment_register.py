@@ -29,17 +29,22 @@ class AccountPaymentRegister(models.TransientModel):
                     ('company_id', '=', self.company_id.id),
                 ], limit=1)
 
+    def _get_default_journal(self):
+        current = self.env['payment.method'].search([], limit=1)
+        return current.id
+
     is_bank_fees = fields.Boolean(default=False)
     bank_fees_amount = fields.Monetary(string="Bank Fees", compute='_compute_bank_fees', store=False)
     total_amount_with_fees = fields.Monetary(string="Total Amount with Fees", compute='_compute_bank_fees', store=False)
-    journal_id_select = fields.Selection([
-        ('cash', 'Cash'),
-        ('bank', 'Bank'),
-        ('paypal', 'Paypal'),
-        ('stripe', 'Stripe'),
-        ('wise', 'Wise Bank'),
-        ('pos', 'Hotel POS'),
-    ], string="Journal", default='cash')
+    journal_id_select = fields.Many2one(comodel_name='payment.method', String='Journal', required=True, default=lambda self: self._get_default_journal())
+    # journal_id_select = fields.Selection([
+    #     ('cash', 'Cash'),
+    #     ('bank', 'Bank'),
+    #     ('paypal', 'Paypal'),
+    #     ('stripe', 'Stripe'),
+    #     ('wise', 'Wise Bank'),
+    #     ('pos', 'Hotel POS'),
+    # ], string="Journal", default='cash')
     journal_id = fields.Many2one('account.journal', store=True, readonly=False)
     journal_id_type = fields.Selection([
         ('sale', 'Sales'),
