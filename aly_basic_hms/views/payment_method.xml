@@ -26,7 +26,7 @@
                         </group>
                         <group>
                             <field name="is_include_fees"/>
-                            <field name="fees_percentage"/>
+                            <field name="fees_percentage" attrs="{'readonly': [('is_include_fees', '=', False)], 'required': [('is_include_fees', '=', True)]}"/>
                         </group>
                     </group>
                 </sheet>

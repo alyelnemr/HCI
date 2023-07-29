@@ -22,7 +22,6 @@ class ResCompany(models.Model):
     aly_enable_bank_fees = fields.Boolean(string='Enable Bank Fees', default=True)
     aly_bank_fees_percentage = fields.Float(string="Bank Fees Percentage", default=.05)
     aly_bank_fees_account = fields.Many2one('account.account', string='Bank Fees default Account')
-    aly_payment_method_id = fields.Many2one('payment.method', string='Payment Method')
     default_account_rec_cash_id = fields.Many2one('account.account',
                                                   domain="[('internal_type', '=', 'receivable'), ('deprecated', '=', False), ('company_id', '=', current_company_id)]",
                                                   string="Account Receivable (Cash)")
