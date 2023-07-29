@@ -36,7 +36,7 @@ class AccountPaymentRegister(models.TransientModel):
     is_bank_fees = fields.Boolean(default=False)
     bank_fees_amount = fields.Monetary(string="Bank Fees", compute='_compute_bank_fees', store=False)
     total_amount_with_fees = fields.Monetary(string="Total Amount with Fees", compute='_compute_bank_fees', store=False)
-    journal_id_select = fields.Many2one(comodel_name='payment.method', String='Journal', required=True, default=_get_default_journal())
+    journal_id_select = fields.Many2one(comodel_name='payment.method', String='Journal', required=True, default='_get_default_journal()')
     # journal_id_select = fields.Selection([
     #     ('cash', 'Cash'),
     #     ('bank', 'Bank'),
