@@ -20,7 +20,7 @@ class AccountPaymentRegister(models.TransientModel):
                     ], limit=1)
         if self.amount and self.pay_method_id.is_include_fees:
             self.is_bank_fees = True
-            percentage = self.pay_method_id.fees_percentage
+            percentage = self.pay_method_id.fees_percentage / 100
             self.bank_fees_amount = self.amount * percentage
             self.total_amount_with_fees = self.amount + self.bank_fees_amount
             if not self.journal_id:
