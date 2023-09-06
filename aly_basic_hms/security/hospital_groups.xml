@@ -151,7 +151,7 @@
             <field name="domain_force">[('patient_id.is_insurance','=',True)]</field>
             <field name="perm_read" eval="False"/>
             <field name="perm_write" eval="False"/>
-            <field name="perm_create" eval="False"/>
+            <field name="perm_create" eval="True"/>
             <field name="perm_unlink" eval="False"/>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
@@ -162,7 +162,7 @@
             <field name="domain_force">[('patient_id.is_insurance','=',True)]</field>
             <field name="perm_read" eval="False"/>
             <field name="perm_write" eval="False"/>
-            <field name="perm_create" eval="False"/>
+            <field name="perm_create" eval="True"/>
             <field name="perm_unlink" eval="False"/>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_inpatient'))]"/>
         </record>
