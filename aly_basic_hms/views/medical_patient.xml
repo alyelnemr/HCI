@@ -155,7 +155,7 @@
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"
-                               groups="base.group_user"/>
+                               groups="aly_basic_hms.aly_group_medical_manager"/>
                         <field name="message_ids" widget="mail_thread"/>
                     </div>
                 </form>
