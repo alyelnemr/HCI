@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-        <!-- Tree view -->
-        <record id="medical_operation_line_tree_view" model="ir.ui.view">
-            <field name="name">medical.operation.line.tree.view</field>
-            <field name="model">medical.operation.line</field>
-            <field name="priority">2</field>
-            <field name="arch" type="xml">
-                <tree string="Post Operation Investigations">
-                    <field name="product_id" />
-                    <field name="quantity" />
-                    <field name="short_comment" />
-                </tree>
-            </field>
-        </record>
+    <!-- Tree view -->
+    <record id="medical_operation_line_tree_view" model="ir.ui.view">
+        <field name="name">medical.operation.line.tree.view</field>
+        <field name="model">medical.operation.line</field>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <tree string="Post Operation Investigations">
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="short_comment"/>
+            </tree>
+        </field>
+    </record>
 
-        <record id="medical_operation_line_form_view" model="ir.ui.view">
-            <field name="name">medical.operation.line.form.view</field>
-            <field name="model">medical.operation.line</field>
-            <field name="arch" type="xml">
-                <form string="Post Operation Investigations">
-                    <group colspan="4" col="4">
-                        <field name="product_id" required="1"  options="{'no_create_edit': True, 'no_create': True}"/>
-                        <field name="quantity" required="1" />
-                        <field name="short_comment" />
-                    </group>
-                </form>
-            </field>
-        </record>
+    <record id="medical_operation_line_form_view" model="ir.ui.view">
+        <field name="name">medical.operation.line.form.view</field>
+        <field name="model">medical.operation.line</field>
+        <field name="arch" type="xml">
+            <form string="Post Operation Investigations">
+                <group colspan="4" col="4">
+                    <field name="product_id" required="1" options="{'no_create_edit': True, 'no_create': True}"/>
+                    <field name="quantity" required="1"/>
+                    <field name="short_comment"/>
+                </group>
+            </form>
+        </field>
+    </record>
 
 </odoo>
