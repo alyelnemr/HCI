@@ -178,7 +178,8 @@
                 <field name="is_important" invisible="1"/>
                 <field name="treating_physician_ids" widget="many2many_tags"/>
                 <field name="diagnosis_final"/>
-                <field name="is_insurance"
+                <field name="is_insurance" invisible="1"/>
+                <field name="cash_or_credit"
                 widget="badge" decoration-success="is_insurance == True"
                         decoration-warning="is_insurance == False"
                 />

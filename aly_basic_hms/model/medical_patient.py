@@ -61,6 +61,11 @@ class MedicalPatient(models.Model):
                 rec.age = "No Date Of Birth!!"
                 rec.age_year = 0
 
+    @api.depends('is_insurance')
+    def onchange_is_insurance(self):
+        for rec in self:
+            rec.cash_or_credit = 'Credit' if rec.is_insurance else 'Cash'
+
     @api.constrains('diagnosis_final', 'diagnosis_provisional')
     def diagnosis_constrains(self):
         for rec in self:
@@ -104,6 +109,7 @@ class MedicalPatient(models.Model):
         related='invoice_id.amount_untaxed')
     order_id = fields.Many2one('sale.order', string='Sales Order Invoice', copy=False)
     is_insurance = fields.Boolean(string='Insurance', default=False, required=False, tracking=True)
+    cash_or_credit = fields.Char(string='Insurance', default='Cash', compute=onchange_is_insurance)
     our_reference = fields.Char(string='Our Reference', required=False)
     insurance_reference = fields.Char(string='Insurance Reference')
     insurance_company_id = fields.Many2one('res.partner', domain=[('is_insurance_company', '=', True)],
