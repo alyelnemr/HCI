@@ -1,61 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<template id="medical_invoice_core">
+    <template id="medical_invoice_core">
         <div>
             <table style="width:100%">
                 <tr>
-                <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
-                    <tr>
-                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Medical Service</th>
-                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Qty</th>
-                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Unit Price</th>
-                        <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Amount</th>
-                    </tr>
-                    <t t-set="line_quantity_subtotal" t-value="doc.get_quantity_subtotal()" />
-                    <t t-foreach="line_quantity_subtotal" t-as="line">
-                        <t t-if="line[2]!='Prosthetics'">
-                            <t t-if="line[2]!='Disposables'">
-                                <t t-if="line[2]!='Discounts'">
-                                    <t t-if="line[2]!='Medicines'">
-                                        <t t-if="line[2]!='Service Charge Services'">
-                                            <tr>
-                                                <td><span t-esc="line[1]" class="text-center"/></td>
-                                                <td><span t-esc="line[3]" class="text-center"/></td>
-                                                <td><span t-esc="line[4]" class="text-center"/></td>
-                                                <td><span t-esc="line[6]" class="text-center"/></td>
-                                            </tr>
+                    <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
+                        <tr>
+                            <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Medical
+                                Service
+                            </th>
+                            <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Qty</th>
+                            <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Unit Price
+                            </th>
+                            <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">Amount</th>
+                        </tr>
+                        <t t-set="line_quantity_subtotal" t-value="doc.get_quantity_subtotal()"/>
+                        <t t-foreach="line_quantity_subtotal" t-as="line">
+                            <t t-if="line[2]!='Prosthetics'">
+                                <t t-if="line[2]!='Disposables'">
+                                    <t t-if="line[2]!='Discounts'">
+                                        <t t-if="line[2]!='Medicines'">
+                                            <t t-if="line[2]!='Service Charge Services'">
+                                                <tr>
+                                                    <td>
+                                                        <span t-esc="line[1]" class="text-center"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="line[3]" class="text-center"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="line[4]" class="text-center"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-esc="line[6]" class="text-center"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
                                         </t>
                                     </t>
                                 </t>
                             </t>
                         </t>
-                    </t>
-                </table>
+                    </table>
                 </tr>
                 <tr style="display: block;" class="pull-left">
-                <div style="display: block;">
+                    <div style="display: block;">
                         <table class="table table-condensed">
                             <tr class="border-black text-center">
                                 <td>
                                     <strong>Subtotal</strong>
                                 </td>
                                 <td class="text-right">
-                                    <span t-esc="var_subtotal" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                    <span t-esc="var_subtotal"
+                                          t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                 </td>
                             </tr>
                             <t t-if="var_service_charge>0">
                                 <tr class="text-center">
-                                    <td>Service Charges <t t-esc="aly_service_charge_percentage" />%</td>
+                                    <td>Service Charges<t t-esc="aly_service_charge_percentage"/>%
+                                    </td>
                                     <td class="text-right">
-                                        <t t-esc="var_service_charge" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                        <t t-esc="var_service_charge"
+                                           t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                     </td>
                                 </tr>
                             </t>
                             <t t-foreach="doc.amount_by_group" t-as="amount_by_group">
                                 <tr class="text-center">
-                                    <td><span t-esc="amount_by_group[0]"/></td>
+                                    <td>
+                                        <span t-esc="amount_by_group[0]"/>
+                                    </td>
                                     <td class="text-right">
-                                        <span t-esc="amount_by_group[1]" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                                        <span t-esc="amount_by_group[1]"
+                                              t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                     </td>
                                 </tr>
                             </t>
@@ -63,7 +80,8 @@
                                 <tr class="text-center">
                                     <td>Disposables and Supplies</td>
                                     <td class="text-right">
-                                        <t t-esc="var_disposable" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                        <t t-esc="var_disposable"
+                                           t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                     </td>
                                 </tr>
                             </t>
@@ -71,7 +89,8 @@
                                 <tr class="text-center">
                                     <td>Prosthetics</td>
                                     <td class="text-right">
-                                        <t t-esc="var_prosthetics" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                        <t t-esc="var_prosthetics"
+                                           t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                     </td>
                                 </tr>
                             </t>
@@ -79,7 +98,8 @@
                                 <tr class="text-center">
                                     <td>Bank Fees</td>
                                     <td class="text-right">
-                                        <t t-esc="var_bank_fees_amount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                        <t t-esc="var_bank_fees_amount"
+                                           t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                     </td>
                                 </tr>
                             </t>
@@ -88,7 +108,8 @@
                                     <strong>Total</strong>
                                 </td>
                                 <td class="text-right">
-                                    <t t-esc="var_amount_total" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                    <t t-esc="var_amount_total"
+                                       t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                     <!--<span t-field="doc.amount_total" />-->
                                 </td>
                             </tr>
@@ -96,7 +117,8 @@
                                 <tr class="border-black text-center">
                                     <td>Discount Amount</td>
                                     <td t-attf-class="text-right">
-                                        <t t-esc="var_discount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                        <t t-esc="var_discount"
+                                           t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                     </td>
                                 </tr>
                             </t>
@@ -107,20 +129,25 @@
                                     <t t-set="is_payment_exist" t-value="False"/>
                                     <tr class="text-center">
                                         <td>
-                                            <i class="oe_form_field text-right oe_payment_label">Amount Paid on <t t-esc="payment_vals['date']"/></i>
+                                            <i class="oe_form_field text-right oe_payment_label">Amount Paid on
+                                                <t t-esc="payment_vals['date']"/>
+                                            </i>
                                         </td>
                                         <td class="text-right">
-                                            <span t-esc="payment_vals['amount']" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                            <span t-esc="payment_vals['amount']"
+                                                  t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                         </td>
                                     </tr>
                                 </t>
                                 <t t-if="var_bank_fees_amount > 0">
                                     <tr class="text-center">
                                         <td>
-                                            <span class="oe_form_field text-right oe_payment_label">Bank Fees Paid</span>
+                                            <span class="oe_form_field text-right oe_payment_label">Bank Fees Paid
+                                            </span>
                                         </td>
                                         <td class="text-right">
-                                            <span t-esc="var_bank_fees_amount" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                            <span t-esc="var_bank_fees_amount"
+                                                  t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                         </td>
                                     </tr>
                                 </t>
@@ -128,124 +155,162 @@
                             <t t-if="not payments_vals">
                                 <tr class="text-center">
                                     <td>
-                                        <i class="oe_form_field text-right oe_payment_label">Amount Paid </i>
+                                        <i class="oe_form_field text-right oe_payment_label">Amount Paid</i>
                                     </td>
                                     <td class="text-right">
                                         <t t-set="zero_payment" t-value="0"/>
-                                        <span t-esc="zero_payment" t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}" />
+                                        <span t-esc="zero_payment"
+                                              t-options="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
                                     </td>
                                 </tr>
                             </t>
                             <tr class="border-black text-center">
-                                <td><strong>Amount Due</strong></td>
+                                <td>
+                                    <strong>Amount Due</strong>
+                                </td>
                                 <td class="text-right">
-                                    <span t-field="doc.amount_residual"/>
+                                    <t t-if="var_service_charge>0">
+                                        <t t-set="amount_residual" t-value="doc.amount_residual + var_service_charge"/>
+                                        <span t-esc="amount_residual"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-field="doc.amount_residual"/>
+                                    </t>
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <div style="display: block;" class="pull-left text-left">
-                        <t t-if="doc.company_id.bank_details" >
+                        <t t-if="doc.company_id.bank_details">
                             <p class="text-left" style="display: block;">
-                                <span t-field="doc.company_id.bank_details" />
+                                <span t-field="doc.company_id.bank_details"/>
                             </p>
                         </t>
                     </div>
                 </tr>
             </table>
         </div>
-	</template>
+    </template>
     <template id="medical_invoice_template">
-                <t t-call="web.html_container">
-                    <t t-foreach="docs" t-as="doc">
-                        <t t-if="doc.company_id.header">
-                            <div class="header">
-                                <t t-set="company" t-value="doc.company_id"></t>
-                                <div class="row mt32 mb32">
-                                    <div class="col-6">
-                                        <img t-att-src="'data:image/png;base64,%s' % to_text(company.header)"
-                                             />
-                                    </div>
-                                </div>
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-if="doc.company_id.header">
+                    <div class="header">
+                        <t t-set="company" t-value="doc.company_id"></t>
+                        <div class="row mt32 mb32">
+                            <div class="col-6">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(company.header)"
+                                />
                             </div>
-                        </t>
-                        <t t-call="web.internal_layout">
-                            <div>
-                                <div>
-                                    <br/><br/>
-                                    <span class="text-center">
-                                        <t t-if="is_draft"><span style="text-decoration: underline;font-weight: bold;"><h2>Estimate Cost</h2></span></t>
-                                        <t t-if="is_draft==False"><span style="text-decoration: underline;font-weight: bold;"><h2>Invoice</h2></span></t>
-                                    </span>
-                                </div>
-                            <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
-<!--                                <tr>-->
-<!--                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">To</th>-->
-<!--                                    <td colspan="3" class="text-center">-->
-<!--                                        <b><span t-field="doc.patient_id.bill_to" class="text-center"/></b>-->
-<!--                                    </td>-->
-<!--                                </tr>-->
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">To</th>
-                                    <td>
-                                        <b><span t-field="doc.patient_id.bill_to" class="text-center"/></b>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Invoice No#</th>
-                                    <td>
-                                        <span t-field="doc.patient_id.patient_code" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Patient Name</th>
-                                    <td>
-                                        <b><span t-field="doc.patient_id.name" class="text-center"/></b>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Date of Birth</th>
-                                    <td>
-                                        <span t-field="doc.patient_id.date_of_birth" class="text-center"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Our Ref#</th>
-                                    <td>
-                                        <span t-field="doc.patient_id.our_reference" class="text-center"/>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Insurance Ref#</th>
-                                    <td>
-                                        <span t-field="doc.patient_id.insurance_reference" class="text-center"/>
-                                    </td>
-                                </tr>
-                                    <tr>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Admission Date</th>
-                                    <td>
-                                        <t t-if="min_admission_date">
-                                            <span t-esc="min_admission_date" class="text-center"/>
-                                        </t>
-                                    </td>
-                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">Discharge Date</th>
-                                    <td>
-                                        <t t-if="min_admission_date">
-                                            <span t-esc="min_discharge_date" class="text-center"/>
-                                        </t>
-                                    </td>
-                                </tr>
-                            </table>
-                                <t t-call="aly_basic_hms.medical_invoice_core">
-                                </t>
-                            </div>
-                        </t>
-                        <t t-if="doc.company_id.footer" >
-                            <div class="footer">
-                                <t t-set="company" t-value="doc.company_id"></t>
-                                <div class="row mt32 mb32">
-                                    <div class="col-6">
-                                        <img t-att-src="'data:image/png;base64,%s' % to_text(company.footer)"
-                                             />
-                                    </div>
-                                </div>
-                            </div>
-                        </t>
-                    </t>
+                        </div>
+                    </div>
                 </t>
-        </template>
+                <t t-call="web.internal_layout">
+                    <div>
+                        <div>
+                            <br/>
+                            <br/>
+                            <span class="text-center">
+                                <t t-if="is_draft">
+                                    <span style="text-decoration: underline;font-weight: bold;">
+                                        <h2>Estimate Cost</h2>
+                                    </span>
+                                </t>
+                                <t t-if="is_draft==False">
+                                    <span style="text-decoration: underline;font-weight: bold;">
+                                        <h2>Invoice</h2>
+                                    </span>
+                                </t>
+                            </span>
+                        </div>
+                        <table class="table table-sm text-center" style="width:100%;border: 1px double black;">
+                            <!--                                <tr>-->
+                            <!--                                    <th style="background-color:MediumSlateBlue !important;color:#FFF !important;">To</th>-->
+                            <!--                                    <td colspan="3" class="text-center">-->
+                            <!--                                        <b><span t-field="doc.patient_id.bill_to" class="text-center"/></b>-->
+                            <!--                                    </td>-->
+                            <!--                                </tr>-->
+                            <tr>
+                                <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">
+                                    To
+                                </th>
+                                <td>
+                                    <b>
+                                        <span t-field="doc.patient_id.bill_to" class="text-center"/>
+                                    </b>
+                                </td>
+                                <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">
+                                    Invoice No#
+                                </th>
+                                <td>
+                                    <span t-field="doc.patient_id.patient_code" class="text-center"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">
+                                    Patient Name
+                                </th>
+                                <td>
+                                    <b>
+                                        <span t-field="doc.patient_id.name" class="text-center"/>
+                                    </b>
+                                </td>
+                                <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">
+                                    Date of Birth
+                                </th>
+                                <td>
+                                    <span t-field="doc.patient_id.date_of_birth" class="text-center"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">
+                                    Our Ref#
+                                </th>
+                                <td>
+                                    <span t-field="doc.patient_id.our_reference" class="text-center"/>
+                                </td>
+                                <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">
+                                    Insurance Ref#
+                                </th>
+                                <td>
+                                    <span t-field="doc.patient_id.insurance_reference" class="text-center"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">
+                                    Admission Date
+                                </th>
+                                <td>
+                                    <t t-if="min_admission_date">
+                                        <span t-esc="min_admission_date" class="text-center"/>
+                                    </t>
+                                </td>
+                                <th style="background-color:MediumSlateBlue !important;color:#FFF !important;width: 20%;">
+                                    Discharge Date
+                                </th>
+                                <td>
+                                    <t t-if="min_admission_date">
+                                        <span t-esc="min_discharge_date" class="text-center"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                        <t t-call="aly_basic_hms.medical_invoice_core">
+                        </t>
+                    </div>
+                </t>
+                <t t-if="doc.company_id.footer">
+                    <div class="footer">
+                        <t t-set="company" t-value="doc.company_id"></t>
+                        <div class="row mt32 mb32">
+                            <div class="col-6">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(company.footer)"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
 </odoo>
