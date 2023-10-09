@@ -73,6 +73,7 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         var_subtotal_with_discount = 0
         var_disposable = 0
         var_medicine = 0
+        var_service_charge = 0
         var_prosthetics = 0
         var_amount_total = 0
         var_subtotal_taxed = 0
@@ -93,7 +94,9 @@ class MedicalInvoiceTemplate(models.AbstractModel):
                 var_disposable += line.price_subtotal
             if line.product_id.categ_id.name == 'Medicines':
                 var_medicine += line.price_subtotal
-        var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine) if (docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine)) >= 1 else 0
+            if line.product_id.categ_id.name == 'Service Charge Services':
+                var_service_charge += line.price_subtotal
+        var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine + var_service_charge) if (docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine)) >= 1 else 0
         var_service_charge = sale_order.service_charge_amount
         aly_service_charge_percentage = float(sale_order.company_id.aly_service_charge_percentage)
         var_service_untaxed_amount = sale_order.service_untaxed_amount
