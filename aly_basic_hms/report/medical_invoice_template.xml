@@ -170,7 +170,7 @@
                                 </td>
                                 <td class="text-right">
                                     <t t-if="var_service_charge>0">
-                                        <t t-set="amount_residual" t-value="doc.amount_residual + var_service_charge"/>
+                                        <t t-set="amount_residual" t-value="doc.amount_residual"/>
                                         <span t-esc="amount_residual"/>
                                     </t>
                                     <t t-else="">
