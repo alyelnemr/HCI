@@ -103,8 +103,9 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         # var_subtotal = var_subtotal - var_service_charge
         var_discount = round(var_subtotal_with_discount - docs.amount_untaxed, 2)
         var_subtotal += var_discount
-        var_amount_total = var_subtotal + var_discount + var_bank_fees_amount + var_service_charge
-        var_amount_total_taxed = var_subtotal + var_taxed_amount + var_disposable + var_prosthetics + var_medicine + var_bank_fees_amount
+        var_amount_total = var_subtotal + var_discount + var_bank_fees_amount + var_service_charge + (var_disposable + var_prosthetics + var_medicine + var_service_charge)
+        # var_amount_total_taxed = var_subtotal + var_taxed_amount + var_disposable + var_prosthetics + var_medicine + var_bank_fees_amount
+        var_amount_total_taxed = var_subtotal + var_taxed_amount
         discount_total = sale_order.discount_total
         var_discount_percent = discount_total if discount_total and var_subtotal > 0 else 0
         return {
