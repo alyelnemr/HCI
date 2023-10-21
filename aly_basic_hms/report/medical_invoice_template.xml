@@ -113,7 +113,7 @@
                                     <!--<span t-field="doc.amount_total" />-->
                                 </td>
                             </tr>
-                            <tr class="border-black text-center">
+                            <tr class="text-center">
                                 <td>
                                     <strong>Total in USD</strong>
                                 </td>
