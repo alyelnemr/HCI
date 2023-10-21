@@ -106,6 +106,8 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         var_amount_total = var_subtotal + var_bank_fees_amount + (var_disposable + var_prosthetics + var_medicine + var_service_charge)
         # var_amount_total_taxed = var_subtotal + var_taxed_amount + var_disposable + var_prosthetics + var_medicine + var_bank_fees_amount
         var_amount_total_taxed = var_subtotal + var_taxed_amount
+        usd_currency_id = self.env['res.currency'].search([('name', '=', 'USD')])
+        var_usd_amount = docs.currency_id.compute(var_amount_total_taxed, usd_currency_id)
         discount_total = sale_order.discount_total
         var_discount_percent = discount_total if discount_total and var_subtotal > 0 else 0
         return {
@@ -118,6 +120,8 @@ class MedicalInvoiceTemplate(models.AbstractModel):
             'is_discharged': is_discharged,
             'report_title': 'Primary Medical Report',
             'is_draft': is_draft,
+            'usd_currency_id': usd_currency_id,
+            'var_usd_amount': var_usd_amount,
             'var_prosthetics': var_prosthetics,
             'var_disposable': var_disposable,
             'var_subtotal': var_subtotal,
