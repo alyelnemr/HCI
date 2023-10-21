@@ -115,7 +115,7 @@
                             </tr>
                             <tr class="text-center">
                                 <td>
-                                    <strong>Total in USD</strong>
+                                    <strong>Balance USD</strong>
                                 </td>
                                 <td class="text-right">
                                     <t t-esc="var_usd_amount"
