@@ -10,7 +10,7 @@ access_account_payment_all,account.payment.all,account.model_account_payment,,1,
 access_account_reconcile_all,account.reconcile.all,account.model_account_full_reconcile,,1,1,1,0
 
 
-access_medical_appointment_doctor,medical.appointment.doctor,model_medical_appointment,aly_group_outpatient,1,1,1,0
+access_medical_appointment_doctor,medical.appointment.doctor,model_medical_appointment,aly_group_outpatient_no_invoice,1,1,1,0
 access_medical_appointment_inpatient,medical.appointment.inpatient,model_medical_appointment,aly_group_inpatient,1,1,1,0
 access_medical_appointment_medical_group,medical.appointment.medical.group,model_medical_appointment,aly_group_medical_manager,1,1,1,1
 
@@ -103,7 +103,7 @@ access_medical_patient_line_doctor,medical.patient.line.doctor,model_medical_pat
 
 
 
-access_medical_physician_doctor,medical.physician.doctor,model_medical_physician,aly_group_outpatient,1,1,1,0
+access_medical_physician_doctor,medical.physician.doctor,model_medical_physician,aly_group_outpatient_no_invoice,1,1,1,0
 access_medical_physician_medical_group,medical.physician.medical.group,model_medical_physician,aly_group_medical_manager,1,1,1,
 
 
@@ -111,31 +111,31 @@ access_medical_physician_medical_group,medical.physician.medical.group,model_med
 
 
 
-access_medical_res_partner_doctor,medical_insurance_doctor,model_res_partner,aly_group_outpatient,1,1,1,0
+access_medical_res_partner_doctor,medical_insurance_doctor,model_res_partner,aly_group_outpatient_no_invoice,1,1,1,0
 access_medical_res_partner_medical_group,medical_insurance_medical_group,model_res_partner,aly_group_medical_manager,1,1,1,1
 
 
 
 
-access_medical_insurance_doctor,medical.insurance.doctor,model_medical_insurance,aly_group_outpatient,1,1,1,0
+access_medical_insurance_doctor,medical.insurance.doctor,model_medical_insurance,aly_group_outpatient_no_invoice,1,1,1,0
 access_medical_insurance_medical_group,medical.insurance.medical.group,model_medical_insurance,aly_group_medical_manager,1,1,1,1
 
-access_product_template_doctor,product.template.doctor,product.model_product_template,aly_group_outpatient,1,1,1,0
+access_product_template_doctor,product.template.doctor,product.model_product_template,aly_group_outpatient_no_invoice,1,1,1,0
 access_product_template_medical_grouo,product.template.medical_group,product.model_product_template,aly_group_medical_manager,1,1,1,1
 
 
-access_product_product_doctor,product.product.doctor,product.model_product_product,aly_group_outpatient,1,1,1,0
+access_product_product_doctor,product.product.doctor,product.model_product_product,aly_group_outpatient_no_invoice,1,1,1,0
 access_product_product_medical_group,product.product.medical.group,product.model_product_product,aly_group_medical_manager,1,1,1,1
 
 
-access_account_payment_term_salesman,account_payment_term salesman,account.model_account_payment_term,aly_group_outpatient,1,1,1,0
-access_account_analytic_tag_sale_salesman,account.analytic.tag.sale.salesman,analytic.model_account_analytic_tag,aly_group_outpatient,1,0,0,0
-access_account_analytic_account_salesman,account_analytic_account_salesman,analytic.model_account_analytic_account,aly_group_outpatient,1,0,0,0
+access_account_payment_term_salesman,account_payment_term salesman,account.model_account_payment_term,aly_group_outpatient_no_invoice,1,1,1,0
+access_account_analytic_tag_sale_salesman,account.analytic.tag.sale.salesman,analytic.model_account_analytic_tag,aly_group_outpatient_no_invoice,1,0,0,0
+access_account_analytic_account_salesman,account_analytic_account_salesman,analytic.model_account_analytic_account,aly_group_outpatient_no_invoice,1,0,0,0
 
-access_medical_dose_unit_doctor,medical_dose_unit.doctor,model_medical_dose_unit,aly_group_outpatient,1,1,1,0
+access_medical_dose_unit_doctor,medical_dose_unit.doctor,model_medical_dose_unit,aly_group_outpatient_no_invoice,1,1,1,0
 access_medical_dose_unit_medical_group,medical_dose_unit.medical_group,model_medical_dose_unit,aly_group_medical_manager,1,1,1,1
 
-access_medical_medication_dosage_doctor,medical.medication.dosage.doctor,model_medical_medication_dosage,aly_group_outpatient,1,1,1,0
+access_medical_medication_dosage_doctor,medical.medication.dosage.doctor,model_medical_medication_dosage,aly_group_outpatient_no_invoice,1,1,1,0
 access_medical_medication_dosage_medical_group,medical.medication.dosage.medical.group,model_medical_medication_dosage,aly_group_medical_manager,1,1,1,1
 
 
@@ -144,20 +144,20 @@ access_medical_inpatient_medication_doctor,access_medical_inpatient_medication_d
 
 
 
-access_sale_order_doctor,sale.order.doctor,sale.model_sale_order,aly_group_outpatient,1,1,1,0
+access_sale_order_doctor,sale.order.doctor,sale.model_sale_order,aly_group_outpatient_no_invoice,1,1,1,0
 access_sale_order_medical_group,sale.order.medical.group,sale.model_sale_order,aly_group_medical_manager,1,1,1,1
-access_sale_order_line_doctor,sale.order.line.doctor,sale.model_sale_order_line,aly_group_outpatient,1,1,1,0
+access_sale_order_line_doctor,sale.order.line.doctor,sale.model_sale_order_line,aly_group_outpatient_no_invoice,1,1,1,0
 access_sale_order_line_medical_group,sale.order.medical.group,sale.model_sale_order_line,aly_group_medical_manager,1,1,1,1
-access_sale_report_doctor,sale.report,sale.model_sale_report,aly_group_outpatient,1,1,1,0
-access_ir_property_sales,ir.property.sales,base.model_ir_property,aly_group_outpatient,1,1,1,1
-access_sale_account_journal,account.journal sale order.user,account.model_account_journal,aly_group_outpatient,1,0,0,0
-access_account_tax_doctor,account.tax.doctor,account.model_account_tax,aly_group_outpatient,1,0,0,0
-access_ir_attachment_doctor,ir.attachment.sales,base.model_ir_attachment,aly_group_outpatient,1,1,1,0
-access_ir_attachment_medical_group,ir.attachment.medical_group,base.model_ir_attachment,aly_group_outpatient,1,1,1,1
-access_product_pricelist_doctor,product.pricelist.sale.doctor,product.model_product_pricelist,aly_group_outpatient,1,0,0,0
-access_product_uom_sale_manager,product.uom salemanager,uom.model_uom_uom,aly_group_outpatient,1,0,0,0
+access_sale_report_doctor,sale.report,sale.model_sale_report,aly_group_outpatient_no_invoice,1,1,1,0
+access_ir_property_sales,ir.property.sales,base.model_ir_property,aly_group_outpatient_no_invoice,1,1,1,1
+access_sale_account_journal,account.journal sale order.user,account.model_account_journal,aly_group_outpatient_no_invoice,1,0,0,0
+access_account_tax_doctor,account.tax.doctor,account.model_account_tax,aly_group_outpatient_no_invoice,1,0,0,0
+access_ir_attachment_doctor,ir.attachment.sales,base.model_ir_attachment,aly_group_outpatient_no_invoice,1,1,1,0
+access_ir_attachment_medical_group,ir.attachment.medical_group,base.model_ir_attachment,aly_group_outpatient_no_invoice,1,1,1,1
+access_product_pricelist_doctor,product.pricelist.sale.doctor,product.model_product_pricelist,aly_group_outpatient_no_invoice,1,0,0,0
+access_product_uom_sale_manager,product.uom salemanager,uom.model_uom_uom,aly_group_outpatient_no_invoice,1,0,0,0
 
-access_product_category_doctor,product.category.doctor,product.model_product_category,aly_group_outpatient,1,0,0,0
+access_product_category_doctor,product.category.doctor,product.model_product_category,aly_group_outpatient_no_invoice,1,0,0,0
 
 
 
@@ -166,7 +166,7 @@ access_medical_inpatient_medication_transient,access_medical_inpatient_medicatio
 access_bed_transfer,access_bed_transfer,model_bed_transfer,,1,1,1,1
 access_medical_drug_route,access_medical_drug_route,model_medical_drug_route,,1,0,0,0
 access_medical_medicament,access_medical_medicament,model_medical_medicament,,1,0,0,0
-access_medical_medicament_doctor,access_medical_medicament_doctor,model_medical_medicament,aly_group_outpatient,1,1,1,
+access_medical_medicament_doctor,access_medical_medicament_doctor,model_medical_medicament,aly_group_outpatient_no_invoice,1,1,1,
 access_medical_patient_invoice_wizard,medical.patient.invoice.wizard,model_medical_patient_invoice_wizard,,1,1,1,1
 access_medical_inpatient_discharge_wizard,medical.inpatient.discharge.wizard,model_medical_inpatient_discharge_wizard,,1,1,1,1
 access_medical_patient_sale_order_wizard,medical.patient.sale.order.wizard,model_medical_patient_sale_order_wizard,,1,1,1,1
