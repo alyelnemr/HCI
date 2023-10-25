@@ -33,10 +33,17 @@
             <field name="comment">Can manage insurance invoices.</field>
         </record>
 
+        <record id="aly_group_outpatient_no_invoice" model="res.groups">
+            <field name="name">Outpatient (no invoice)</field>
+            <field name="category_id" ref="module_category_medical_levels"/>
+            <field name="comment">the user will not have access to the Outpatients' invoices.</field>
+        </record>
+
         <record id="aly_group_outpatient" model="res.groups">
             <field name="name">Outpatient</field>
             <field name="category_id" ref="module_category_medical_levels"/>
-            <field name="comment">the user will have access to his own data in the Outpatient.</field>
+            <field name="implied_ids" eval="[(4, ref('aly_group_outpatient_no_invoice'))]"/>
+            <field name="comment">the user will have access to his own data in Inpatient and also Outpatient.</field>
         </record>
 
         <record id="aly_group_inpatient" model="res.groups">

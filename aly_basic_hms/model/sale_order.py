@@ -15,6 +15,8 @@ class SaleOrderForDiscount(models.Model):
         for rec in self:
             if rec.patient_id and rec.patient_id.is_insurance and not self.env.user.has_group('aly_basic_hms.aly_group_insurance'):
                 raise UserError(_("You don't have permission to access insurance invoice from patient"))
+            if rec.patient_id and not self.env.user.has_group('aly_basic_hms.aly_group_outpatient'):
+                raise UserError(_("You don't have permission to access this invoice"))
         return defaults
 
     @api.depends('order_line.price_total', 'amount_total', 'amount_untaxed', 'discount_total', 'order_line')
