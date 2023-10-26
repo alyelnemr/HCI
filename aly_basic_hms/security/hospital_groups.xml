@@ -160,7 +160,7 @@
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="True"/>
             <field name="perm_unlink" eval="False"/>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient_no_invoice'))]"/>
         </record>
 
         <record id="medical_patient_insurance_inpatient_deny_rule" model="ir.rule">
@@ -187,7 +187,7 @@
             <field name="name">Personal Patients</field>
             <field ref="model_medical_patient" name="model_id"/>
             <field name="domain_force">['|', ('create_date', '>=', user.effective_date), ('ignore_effective_date', '=', True), '|', ('create_uid','=',user.id), ('clinic_id','in', user.allowed_clinic_ids.ids)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient_no_invoice'))]"/>
         </record>
 
         <record id="medical_patient_all_patients_rule" model="ir.rule">
@@ -234,7 +234,7 @@
             <field name="name">Personal Patients Appointments</field>
             <field ref="model_medical_appointment" name="model_id"/>
             <field name="domain_force">['|', ('patient_id.create_date', '>=', user.effective_date), ('patient_id.ignore_effective_date', '=', True), '|', ('create_uid','=',user.id), ('company_id', 'in', user.company_ids.ids), ('patient_id.clinic_id','in',user.allowed_clinic_ids.ids)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient_no_invoice'))]"/>
         </record>
 
 
