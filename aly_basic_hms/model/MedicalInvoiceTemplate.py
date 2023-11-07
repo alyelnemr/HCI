@@ -96,9 +96,8 @@ class MedicalInvoiceTemplate(models.AbstractModel):
                 var_medicine += line.price_subtotal
             if line.product_id.categ_id.name == 'Service Charge Services':
                 var_service_charge += line.price_subtotal
-        if not var_service_charge or var_service_charge == 0:
-            var_service_charge = sale_order.service_charge_amount
         var_subtotal = docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine + var_service_charge) if (docs.amount_untaxed - (var_disposable + var_prosthetics + var_medicine)) >= 1 else 0
+        var_service_charge = sale_order.service_charge_amount
         aly_service_charge_percentage = float(sale_order.company_id.aly_service_charge_percentage)
         # var_service_untaxed_amount = sale_order.service_untaxed_amount
         # var_subtotal = var_subtotal - var_service_charge
