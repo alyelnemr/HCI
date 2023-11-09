@@ -10,7 +10,7 @@ from . import account_journal
 from . import account_payment_register
 from . import account_payment
 from . import sale_order
-# from . import sale_order_line
+from . import sale_order_line
 from . import sale_order_payment
 from . import product_category
 from . import product_template
