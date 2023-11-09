@@ -110,7 +110,7 @@ class MedicalInvoiceTemplate(models.AbstractModel):
         var_usd_amount = docs.currency_id.compute(var_amount_total, usd_currency_id) if usd_currency_id else 0
         discount_total = sale_order.discount_total
         var_discount_percent = discount_total if discount_total and var_subtotal > 0 else 0
-        return {-
+        return {
             'data': data,
             'doc_ids': docids,
             'doc_model': model,
