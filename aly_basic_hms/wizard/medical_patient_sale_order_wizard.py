@@ -27,13 +27,13 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                 raise UserError(_('You don''t have permission to create invoice for insurance patients!'))
             if not medical_patient_obj.is_opened_visit:
                 raise UserError(_('This patient has no open visit'))
-            # if medical_patient_obj.sale_order_id.state == 'posted' or medical_patient_obj.order_id.state == 'sale' or medical_patient_obj.order_id.state == 'done':
-            #     raise UserError(_('This patient''s invoice is posted, you can unpost or cancel the previous invoice and then create invoice'))
+            if medical_patient_obj.sale_order_id.state == 'posted' or medical_patient_obj.order_id.state == 'sale' or medical_patient_obj.order_id.state == 'done':
+                raise UserError(_('This patient''s invoice is posted, you can unpost or cancel the previous invoice and then create invoice'))
 
-            # if medical_patient_obj.sale_order_id:
-            #     medical_patient_obj.sale_order_id.sudo().unlink()
-            # if medical_patient_obj.order_id:
-            #     medical_patient_obj.order_id.sudo().unlink()
+            if medical_patient_obj.sale_order_id:
+                medical_patient_obj.sale_order_id.sudo().unlink()
+            if medical_patient_obj.order_id:
+                medical_patient_obj.order_id.sudo().unlink()
             medical_patient_obj.invoice_id = False
             medical_patient_obj.order_id = False
             list_of_update_notes = medical_appointment_env.search([('patient_id', '=', medical_patient_obj.id)])
@@ -51,7 +51,9 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
             price_list_id = medical_patient_obj.insurance_company_id.property_product_pricelist.id if medical_patient_obj.is_insurance else medical_patient_obj.partner_id.property_product_pricelist.id or False
             warehouse_obj = self.env['stock.warehouse'].search([('company_id', '=', medical_patient_obj.company_id.id)], limit=1)
             if not warehouse_obj:
-                warehouse_obj = self.env['stock.warehouse'].sudo().search([], limit=1).id
+                warehouse_obj = self.env['stock.warehouse'].sudo().search([], limit=1)
+                if warehouse_obj:
+                    warehouse_obj = warehouse_obj.id
 
             if medical_patient_obj.is_insurance:
                 partner_id = medical_patient_obj.insurance_company_id.id
