@@ -1,4 +1,3 @@
-
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError, AccessError
 from odoo.tools.misc import formatLang, format_date, get_lang
@@ -8,6 +7,12 @@ from collections import defaultdict
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
+
+    def unlink(self):
+        for rec in self:
+            if rec.product_id == self.company_id.aly_service_product_id:
+                raise UserError('You cannot remove the service charge.')
+        return super(SaleOrderLine, self).unlink()
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):
@@ -34,14 +39,16 @@ class SaleOrderLine(models.Model):
                 product_currency=line.order_id.currency_id
             )
             price = price_unit * (1 - (line.discount or 0.0) / 100.0)
-            taxes = line.tax_id.compute_all(price, line.order_id.currency_id, line.product_uom_qty, product=line.product_id, partner=line.order_id.partner_shipping_id)
+            taxes = line.tax_id.compute_all(price, line.order_id.currency_id, line.product_uom_qty,
+                                            product=line.product_id, partner=line.order_id.partner_shipping_id)
             line.update({
                 'price_tax': sum(t.get('amount', 0.0) for t in taxes.get('taxes', [])),
                 'price_total': taxes['total_included'],
                 'price_subtotal': taxes['total_excluded'],
                 'price_unit': price_unit
             })
-            if self.env.context.get('import_file', False) and not self.env.user.user_has_groups('account.group_account_manager'):
+            if self.env.context.get('import_file', False) and not self.env.user.user_has_groups(
+                    'account.group_account_manager'):
                 line.tax_id.invalidate_cache(['invoice_repartition_line_ids'], [line.tax_id.id])
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
@@ -51,14 +58,16 @@ class SaleOrderLine(models.Model):
         """
         for line in self:
             price = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
-            taxes = line.tax_id.compute_all(price, line.order_id.currency_id, line.product_uom_qty, product=line.product_id, partner=line.order_id.partner_shipping_id)
+            taxes = line.tax_id.compute_all(price, line.order_id.currency_id, line.product_uom_qty,
+                                            product=line.product_id, partner=line.order_id.partner_shipping_id)
             line.update({
                 'price_tax': sum(t.get('amount', 0.0) for t in taxes.get('taxes', [])),
                 'price_total': taxes['total_included'],
                 'price_subtotal': taxes['total_excluded'],
                 'price_unit': price,
             })
-            if self.env.context.get('import_file', False) and not self.env.user.user_has_groups('account.group_account_manager'):
+            if self.env.context.get('import_file', False) and not self.env.user.user_has_groups(
+                    'account.group_account_manager'):
                 line.tax_id.invalidate_cache(['invoice_repartition_line_ids'], [line.tax_id.id])
 
     @api.onchange('product_id')
