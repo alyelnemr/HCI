@@ -27,11 +27,11 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                 raise UserError(_('You don''t have permission to create invoice for insurance patients!'))
             if not medical_patient_obj.is_opened_visit:
                 raise UserError(_('This patient has no open visit'))
-            if medical_patient_obj.sale_order_id.state == 'posted' or medical_patient_obj.order_id.state == 'sale' or medical_patient_obj.order_id.state == 'done':
+            if medical_patient_obj.invoice_id.state == 'posted' or medical_patient_obj.order_id.state == 'sale' or medical_patient_obj.order_id.state == 'done':
                 raise UserError(_('This patient''s invoice is posted, you can unpost or cancel the previous invoice and then create invoice'))
 
-            if medical_patient_obj.sale_order_id:
-                medical_patient_obj.sale_order_id.sudo().unlink()
+            if medical_patient_obj.invoice_id:
+                medical_patient_obj.invoice_id.sudo().unlink()
             if medical_patient_obj.order_id:
                 medical_patient_obj.order_id.sudo().unlink()
             medical_patient_obj.invoice_id = False
