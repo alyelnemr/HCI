@@ -4,16 +4,16 @@
         <field name="model">account.payment.register</field>
         <field name="inherit_id" ref="account.view_account_payment_register_form"/>
         <field name="arch" type="xml">
-            <field name="journal_id" position="replace">
-                <field name="pay_method_id" widget="selection" required="1"/>
-                <field name="bank_fees_amount" force_save="1" attrs="{'readonly': True, 'invisible': [('is_bank_fees', '=', False)]}" />
-                <field name="is_bank_fees" invisible="1"/>
-                <field name="journal_id" invisible="1"/>
-                <field name="is_insurance_patient" invisible="1"/>
-            </field>
-            <field name="payment_date" position="before">
-                <field name="total_amount_with_fees" force_save="1" attrs="{'readonly': True, 'invisible': [('is_bank_fees', '=', False)]}" />
-            </field>
+<!--            <field name="journal_id" position="replace">-->
+<!--                <field name="pay_method_id" widget="selection" required="1"/>-->
+<!--                <field name="bank_fees_amount" force_save="1" attrs="{'readonly': True, 'invisible': [('is_bank_fees', '=', False)]}" />-->
+<!--                <field name="is_bank_fees" invisible="1"/>-->
+<!--                <field name="journal_id" invisible="1"/>-->
+<!--                <field name="is_insurance_patient" invisible="1"/>-->
+<!--            </field>-->
+<!--            <field name="payment_date" position="before">-->
+<!--                <field name="total_amount_with_fees" force_save="1" attrs="{'readonly': True, 'invisible': [('is_bank_fees', '=', False)]}" />-->
+<!--            </field>-->
         </field>
     </record>
 </odoo>
