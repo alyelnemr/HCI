@@ -12,6 +12,7 @@ class BankFees(models.Model):
     name = fields.Char('Payment Method Name')
     bank_fees_percentage = fields.Float(string="Bank Fees Percentage", default=.05)
     bank_fees_account = fields.Many2one(comodel_name='account.account', string='Bank Fees default Account')
+    company_id = fields.Many2one(comodel_name='res.company', readonly=True, required=True)
 
     @api.constrains('bank_fees_percentage')
     def _bank_fees(self):
