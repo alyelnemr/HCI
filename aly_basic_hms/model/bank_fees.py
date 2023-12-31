@@ -16,5 +16,6 @@ class BankFees(models.Model):
 
     @api.constrains('bank_fees_percentage')
     def _bank_fees(self):
-        if self.bank_fees_percentage < 0:
-            raise ValidationError(_("You are not allowed to select a negative value"))
+        for rec in self:
+            if rec.bank_fees_percentage < 0:
+                raise ValidationError(_("You are not allowed to select a negative value"))
