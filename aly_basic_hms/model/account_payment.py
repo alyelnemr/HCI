@@ -81,7 +81,7 @@ class AccountPayment(models.Model):
             'debit': 0,
             'credit': liquidity_balance,
             'partner_id': self.partner_id.id,
-            'account_id': self.bank_fees_id.bank_fees_account.id,
+            'account_id': self.destination_account_id.id,
             # 'account_id': self.journal_id.default_account_id.id,
 
         },
