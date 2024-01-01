@@ -71,7 +71,7 @@ class AccountPayment(models.Model):
             'credit': 0,
             'partner_id': self.partner_id.id,
             # 'account_id':  self.outstanding_account_id.id,
-            'account_id': self.bank_fees_id.bank_fees_account.id,
+            'account_id': self.destination_account_id.id,
         },
         credit = {
             'name': default_line_name,
@@ -81,9 +81,9 @@ class AccountPayment(models.Model):
             'debit': 0,
             'credit': liquidity_balance,
             'partner_id': self.partner_id.id,
-            'account_id': self.destination_account_id.id,
+            # 'account_id': self.destination_account_id.id,
             # 'account_id': self.journal_id.default_account_id.id,
-
+            'account_id': self.bank_fees_id.bank_fees_account.id,
         },
         if self.is_bank_fees and self.bank_fees_amount:
             charge_list = []
