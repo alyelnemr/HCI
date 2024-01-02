@@ -196,6 +196,7 @@ class AccountPaymentRegister(models.TransientModel):
 
         current = self.env['payment.method'].search([], limit=1)
         res['pay_method_id'] = current
+        res['journal_id'] = self.env.company.aly_bank_fees_journal_id.id
         res['journal_id_select'] = move_id.payment_method_fees
         res['is_insurance_patient'] = move_id.is_insurance_patient
         return res
