@@ -43,6 +43,7 @@
                     </page>
                     <page string="Bank Fees">
                         <group>
+                            <field name="aly_bank_fees_journal_id" />
                             <div class="o_setting_left_pane">
                                 <field name="aly_enable_bank_fees"/>
                             </div>
