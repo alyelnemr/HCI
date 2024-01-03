@@ -166,8 +166,6 @@ class AccountPayment(models.Model):
                             else:
                                 payment_vals_to_write['partner_type'] = 'supplier'
 
-                        liquidity_amount = liquidity_lines.amount_currency
-
                         for line in liquidity_lines:
                             liquidity_amount = line.amount_currency
 
