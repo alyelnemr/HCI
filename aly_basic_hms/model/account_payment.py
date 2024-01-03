@@ -70,7 +70,7 @@ class AccountPayment(models.Model):
             'debit': liquidity_balance,
             'credit': 0,
             'partner_id': self.partner_id.id,
-            'account_id':  self.outstanding_account_id.id,
+            'account_id':  self.journal_id.payment_credit_account_id.id,
             # 'account_id': self.destination_account_id.id,
             # 'account_id': self.journal_id.default_account_id.id,
             # 'account_id': self.bank_fees_id.bank_fees_account.id,
