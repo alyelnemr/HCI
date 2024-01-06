@@ -1,76 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="res_company_inherit_form_health_center_view" model="ir.ui.view">
-        <field name="name">res.company.inherit.form.health.center.view</field>
-        <field name="model">res.company</field>
-        <field name="inherit_id" ref="base.view_company_form"/>
-        <field name="arch" type="xml">
-            <notebook>
-                <page string="Medical Report">
-                    <group>
-                        <field name="header" widget="image"/>
-                        <field name="footer" widget="image"/>
-                    </group>
-                </page>
-                <page string="Medical Invoice Bank Details">
-                    <group>
-                        <field name="bank_details"/>
-                    </group>
-                </page>
-                <page string="Service Charge">
-                    <group>
-                        <div class="o_setting_left_pane">
-                            <field name="aly_enable_service_charge"/>
-                        </div>
-                        <div class="o_setting_right_pane">
-                            <label for="aly_enable_service_charge"/>
-                            <div class="text-muted">
-                                Allow service charges on orders
+        <record id="res_company_inherit_form_health_center_view" model="ir.ui.view">
+            <field name="name">res.company.inherit.form.health.center.view</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <notebook>
+                    <page string="Medical Reports">
+                        <group >
+                            <field name="header" widget="image" />
+                            <field name="footer" widget="image" />
+                            <field name="header1" widget="image" />
+                            <field name="footer1" widget="image" />
+                        </group>
+                    </page>
+                    <page string="Medical Invoice Bank Details">
+                        <group>
+                            <field name="bank_details"/>
+                        </group>
+                    </page>
+                    <page string="Service Charge">
+                        <group>
+                            <div class="o_setting_left_pane">
+                                <field name="aly_enable_service_charge"/>
                             </div>
-                            <div class="content-group " attrs="{'invisible':[('aly_enable_service_charge','=',False)]}">
-                                <div class="row mt16">
-                                    <label for="aly_service_product_id" class="col-lg-3 o_light_label"/>
-                                    <field name="aly_service_product_id"
-                                           attrs="{'required':[('aly_enable_service_charge','=',True)]}"/>
+                            <div class="o_setting_right_pane">
+                                <label for="aly_enable_service_charge"/>
+                                <div class="text-muted">
+                                    Allow service charges on orders
                                 </div>
-                                <div class="row">
-                                    <label for="aly_service_charge_percentage" class="col-lg-3 o_light_label"/>
-                                    <field name="aly_service_charge_percentage"/>
+                                <div class="content-group " attrs="{'invisible':[('aly_enable_service_charge','=',False)]}">
+                                    <div class="row mt16">
+                                        <label for="aly_service_product_id" class="col-lg-3 o_light_label"/>
+                                        <field name="aly_service_product_id"
+                                               attrs="{'required':[('aly_enable_service_charge','=',True)]}"/>
+                                    </div>
+                                    <div class="row">
+                                        <label for="aly_service_charge_percentage" class="col-lg-3 o_light_label"/>
+                                        <field name="aly_service_charge_percentage"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </group>
-                </page>
-                <page string="Bank Fees">
-                    <group>
-                        <div class="o_setting_left_pane">
-                            <field name="aly_enable_bank_fees"/>
-                        </div>
-                        <div class="o_setting_right_pane">
-                            <label for="aly_enable_bank_fees"/>
-                            <div class="text-muted">
-                                Allow Bank Fees on Bank Payments
-                            </div>
-                            <div class="content-group " attrs="{'invisible':[('aly_enable_bank_fees','=',False)]}">
-                                <field name="bank_fees_ids">
-                                    <tree string="Bank Fees List">
-                                        <field name="name"/>
-                                        <field name="bank_fees_percentage"/>
-                                        <field name="bank_fees_account"/>
-                                    </tree>
-                                </field>
-                            </div>
-                        </div>
-                    </group>
-                </page>
-                <page string="Default Accounts" invisible="1">
-                    <group>
-                        <field name="default_account_rec_cash_id"/>
-                        <field name="default_account_rec_insurance_id"/>
-                    </group>
-                </page>
-            </notebook>
-        </field>
-    </record>
+                        </group>
+                    </page>
+<!--                    <page string="Bank Fees">-->
+<!--                        <group>-->
+<!--                            <field name="aly_bank_fees_journal_id" />-->
+<!--                            <div class="o_setting_left_pane">-->
+<!--                                <field name="aly_enable_bank_fees"/>-->
+<!--                            </div>-->
+<!--                            <div class="o_setting_right_pane">-->
+<!--                                <label for="aly_enable_bank_fees"/>-->
+<!--                                <div class="text-muted">-->
+<!--                                    Allow Bank Fees on Bank Payments-->
+<!--                                </div>-->
+<!--                                <div class="content-group " attrs="{'invisible':[('aly_enable_bank_fees','=',False)]}">-->
+<!--                                    <div class="row mt16">-->
+<!--                                        <label for="aly_bank_fees_account" class="col-lg-3 o_light_label"/>-->
+<!--                                        <field name="aly_bank_fees_account"-->
+<!--                                               attrs="{'required':[('aly_enable_bank_fees','=',True)]}"/>-->
+<!--                                    </div>-->
+<!--                                    <div class="row">-->
+<!--                                        <label for="aly_bank_fees_percentage" class="col-lg-3 o_light_label"/>-->
+<!--                                        <field name="aly_bank_fees_percentage"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </group>-->
+<!--                    </page>-->
+                    <page string="Default Accounts">
+                        <group >
+                            <field name="default_account_rec_cash_id"/>
+                            <field name="default_account_rec_insurance_id"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
 </odoo>
 

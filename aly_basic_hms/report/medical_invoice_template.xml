@@ -206,16 +206,31 @@
     <template id="medical_invoice_template">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
-                <t t-if="doc.company_id.header">
-                    <div class="header">
-                        <t t-set="company" t-value="doc.company_id"></t>
-                        <div class="row mt32 mb32">
-                            <div class="col-6">
-                                <img t-att-src="'data:image/png;base64,%s' % to_text(company.header)"
-                                />
+                <t t-if="doc.patient_id.clinic_id.is_clinic">
+                    <t t-if="doc.company_id.header1">
+                        <div class="header">
+                            <t t-set="company" t-value="doc.company_id"/>
+                            <div class="row mt32 mb32">
+                                <div class="col-6">
+                                    <img t-att-src="'data:image/png;base64,%s' % to_text(company.header1)"
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </t>
+                </t>
+                <t t-else="">
+                    <t t-if="doc.company_id.header">
+                        <div class="header">
+                            <t t-set="company" t-value="doc.company_id"/>
+                            <div class="row mt32 mb32">
+                                <div class="col-6">
+                                    <img t-att-src="'data:image/png;base64,%s' % to_text(company.header)"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
                 </t>
                 <t t-call="web.internal_layout">
                     <div>

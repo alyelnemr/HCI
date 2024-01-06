@@ -10,9 +10,9 @@
 
 
  <!--delete these two rules, as they deny doctors from creating invoices in accouting module-->
-    <delete id="sale.account_invoice_line_rule_see_personal" model="ir.rule" />
+<!--    <delete id="sale.account_invoice_line_rule_see_personal" model="ir.rule" />-->
 
-    <delete id="sale.account_invoice_rule_see_personal" model="ir.rule" />
+<!--    <delete id="sale.account_invoice_rule_see_personal" model="ir.rule" />-->
 
 
         <record id="module_category_insurance_management" model="ir.module.category">

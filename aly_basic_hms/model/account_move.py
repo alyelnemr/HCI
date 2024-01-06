@@ -66,7 +66,7 @@ class AccountMoveForDiscount(models.Model):
     is_insurance_patient = fields.Boolean(default=False, related='patient_id.is_insurance')
     # bank_fees_amount = fields.Monetary(string="Bank Fees", compute='_compute_bank_fees', store=False)
     # bank_fees_amount_paid = fields.Monetary(string="Bank Fees Amount Paid", compute='_compute_bank_fees_paid', store=False)
-    payment_method = fields.Char(string='Payment Method', compute='_compute_payment_method', store=False)
+    # payment_method = fields.Char(string='Payment Method', compute='_compute_payment_method', store=False)
 
     def _move_autocomplete_invoice_lines_values(self):
         ''' This method recomputes dynamic lines on the current journal entry that include taxes, cash rounding

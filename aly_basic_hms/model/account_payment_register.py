@@ -11,29 +11,23 @@ class AccountPaymentRegister(models.TransientModel):
     @api.onchange('amount', 'journal_id_type', 'journal_id', 'bank_fees_id', 'payment_date')
     def _compute_bank_fees(self):
         self.bank_fees_amount = 0
-        self.is_bank_fees = False
         self.total_amount_with_fees = self.amount
-        if self.journal_id_type == 'bank':
-            self.is_bank_fees = True
-        if self.amount and self.bank_fees_id:
-            self.is_bank_fees = True
-            percentage = self.bank_fees_id.bank_fees_percentage / 100
+        if self.amount and self.is_bank_fees:
+            percentage = self.journal_id.bank_fees_percentage / 100
             self.bank_fees_amount = self.amount * percentage
             self.total_amount_with_fees = self.amount + self.bank_fees_amount
 
-    is_bank_fees = fields.Boolean(default=False)
+    def _domain_allowed_bank_fees(self):
+        if self.env.user.allowed_bank_fees_ids:
+            return [('id', 'in', self.env.user.allowed_bank_fees_ids.ids)]
+        return []
+
+    is_bank_fees = fields.Boolean(default=False, related='journal_id.is_bank_fees')
     bank_fees_amount = fields.Monetary(string="Bank Fees Amount", compute='_compute_bank_fees', store=False)
-    bank_fees_id = fields.Many2one(comodel_name='bank.fees', string='Payment Method', domain="[('company_id', '=', company_id)]")
+    bank_fees_id = fields.Many2one(comodel_name='bank.fees', string='Payment Method', domain=lambda self: self._domain_allowed_bank_fees())
     total_amount_with_fees = fields.Monetary(string="Total Amount with Fees", compute='_compute_bank_fees', store=False)
-    pay_method_id = fields.Many2one(comodel_name='payment.method', String='Journal', required=False)
-    journal_id_select = fields.Selection([
-        ('cash', 'Cash'),
-        ('bank', 'Bank'),
-        ('paypal', 'Paypal'),
-        ('stripe', 'Stripe'),
-        ('wise', 'Wise Bank'),
-        ('pos', 'Hotel POS'),
-    ], string="Journal", default='cash')
+    journal_id = fields.Many2one(comodel_name='account.journal', domain=lambda self: self._domain_allowed_bank_fees())
+    # pay_method_id = fields.Many2one(comodel_name='payment.method', String='Journal', required=False)
     journal_id_type = fields.Selection([
         ('sale', 'Sales'),
         ('purchase', 'Purchase'),
@@ -109,7 +103,6 @@ class AccountPaymentRegister(models.TransientModel):
         res['bank_fees_amount'] = self.bank_fees_amount
         res['total_amount_with_fees'] = self.total_amount_with_fees
         res['is_bank_fees'] = self.is_bank_fees
-        res['journal_id_select'] = self.journal_id_select
         res['bank_fees_id'] = self.bank_fees_id.id
         # res['pay_method_id'] = self.pay_method_id.id
         return res
@@ -164,6 +157,5 @@ class AccountPaymentRegister(models.TransientModel):
 
         current = self.env['payment.method'].search([], limit=1)
         # res['pay_method_id'] = current
-        res['journal_id_select'] = move_id.payment_method_fees
         res['is_insurance_patient'] = move_id.is_insurance_patient
         return res

@@ -12,8 +12,10 @@ class ResCompany(models.Model):
             domain = [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', True), ('type', '=', 'service')]
         return domain
 
-    header = fields.Binary(string='Medical Report Header')
-    footer = fields.Binary(string='Medical Report Footer')
+    header = fields.Binary(string='Medical Report Header - Hospital')
+    footer = fields.Binary(string='Medical Report Footer - Hospital')
+    header1 = fields.Binary(string='Medical Report Header - Clinic')
+    footer1 = fields.Binary(string='Medical Report Footer - Clinic')
     bank_details = fields.Text(string='Banks Accounts Details')
     aly_enable_service_charge = fields.Boolean(string='Enable Service Charges', default=True)
     aly_service_charge_percentage = fields.Float(string="Service Charge Percentage", default=12.5)
