@@ -9,6 +9,7 @@
                         <group>
                             <field name="name" />
                             <field name="info" />
+                            <field name="is_clinic" />
                         </group>
                     </sheet>
                 </form>
@@ -22,6 +23,7 @@
                 <tree string="Clinics">
                     <field name="name" />
                     <field name="info" />
+                    <field name="is_clinic" />
                 </tree>
             </field>
         </record>
