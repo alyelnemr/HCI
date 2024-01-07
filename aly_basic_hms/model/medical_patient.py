@@ -158,6 +158,7 @@ class MedicalPatient(models.Model):
     doctor_id = fields.Many2one('medical.physician', 'Treating Physician', required=False)
     treating_physician_ids = fields.Many2many('medical.physician', string='Treating Physicians',required=False)
     ignore_effective_date = fields.Boolean(string='Ignore Effective Date', default=False, required=False)
+    ignore_invoiced_patient = fields.Boolean(string='Ignore Invoiced Patient', default=False, required=False)
 
     @api.model
     def create(self, val):
