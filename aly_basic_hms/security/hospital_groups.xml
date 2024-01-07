@@ -187,7 +187,7 @@
             <field name="name">Personal Patients</field>
             <field ref="model_medical_patient" name="model_id"/>
             <field name="domain_force">[('invoice_id', '=', False), '|', ('create_date', '>=', user.effective_date), ('ignore_effective_date', '=', True), '|', ('create_uid','=',user.id), ('clinic_id','in', user.allowed_clinic_ids.ids)]</field>
-            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient_no_invoice'))]"/>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
 
         <record id="medical_patient_all_patients_rule" model="ir.rule">
@@ -210,8 +210,8 @@
         <record id="medical_patient_sales_multi_company_rule" model="ir.rule">
             <field name="name">Medical Patient Sales filtered by Company</field>
             <field name="model_id" ref="model_sale_order" />
-            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient_no_invoice'))]"/>
-            <field name="domain_force">[('state', '!=', 'sale'), '|', ('patient_id.create_date', '>=', user.effective_date), ('patient_id.ignore_effective_date', '=', True), '|',('create_uid','=',user.id), ('company_id', 'in', user.company_ids.ids)]</field>
+            <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
+            <field name="domain_force">[('patient_id.invoice_id', '=', False), '|', ('patient_id.create_date', '>=', user.effective_date), ('patient_id.ignore_effective_date', '=', True), '|',('create_uid','=',user.id), ('company_id', 'in', user.company_ids.ids)]</field>
         </record>
 
 
