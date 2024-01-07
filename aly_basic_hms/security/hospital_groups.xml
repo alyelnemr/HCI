@@ -186,7 +186,7 @@
         <record id="medical_patient_per_doctor_rule" model="ir.rule">
             <field name="name">Personal Patients</field>
             <field ref="model_medical_patient" name="model_id"/>
-            <field name="domain_force">['|', ('create_date', '>=', user.effective_date), ('ignore_effective_date', '=', True), '|', ('create_uid','=',user.id), ('clinic_id','in', user.allowed_clinic_ids.ids)]</field>
+            <field name="domain_force">[('invoice_id', '=', 'False'), '|', ('create_date', '>=', user.effective_date), ('ignore_effective_date', '=', True), '|', ('create_uid','=',user.id), ('clinic_id','in', user.allowed_clinic_ids.ids)]</field>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient_no_invoice'))]"/>
         </record>
 
