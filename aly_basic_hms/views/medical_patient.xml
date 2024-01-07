@@ -67,6 +67,7 @@
                             <!--<field name="invoice_id" groups="aly_basic_hms.aly_group_insurance" />-->
                             <field name="invoice_id" attrs="{'readonly': [('is_insurance', '=', True)]}"/>
                             <field name="ignore_effective_date" groups="aly_basic_hms.aly_group_medical_manager"/>
+                            <field name="ignore_invoiced_patient" groups="aly_basic_hms.aly_group_medical_manager"/>
                         </group>
                         <group>
                             <field name="bill_to" required="1"/>
