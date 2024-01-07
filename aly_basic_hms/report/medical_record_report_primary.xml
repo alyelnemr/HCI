@@ -119,6 +119,19 @@
                         </t>
                     </div>
                 </t>
+                <t t-if="doc.clinic_id.is_clinic">
+                <t t-if="doc.company_id.footer1">
+                    <div class="footer">
+                        <t t-set="company" t-value="doc.company_id"/>
+                        <div class="row mt32 mb32">
+                            <div class="col-6">
+                                <img t-att-src="'data:image/png;base64,%s' % to_text(company.footer1)"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </t>
+                </t>
                 <t t-if="doc.company_id.footer">
                     <div class="footer">
                         <t t-set="company" t-value="doc.company_id"></t>

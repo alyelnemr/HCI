@@ -25,22 +25,22 @@
 								Inpatient Registration code:
 								<span t-field='doc.name' />
 							</b>
-							<br></br>
+							<br/>
 							<b>Patient Name:</b>
 							<span t-field='doc.patient_id.name' />
-							<br></br>
+							<br/>
 							<b>Gender :</b>
 							<span t-field='doc.patient_id.sex' />
-							<br></br>
+							<br/>
 							<b>Date of Birth :</b>
 							<span t-field='doc.patient_id.date_of_birth' />
-							<br></br>
+							<br/>
 							<b>Hotel:</b>
 							<span t-field='doc.patient_id.hotel' />
-							<br></br>
+							<br/>
 							<h4>Payment Type:</h4>
 							<span t-field='doc.invoice_id.payment_reference' />
-							<br></br>
+							<br/>
 						</div>
 					</tr>
 
