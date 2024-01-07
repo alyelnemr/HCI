@@ -74,7 +74,7 @@ class AccountPayment(models.Model):
             # 'account_id': self.bank_fees_id.bank_fees_account.id,
         },
         credit = {
-            'name': self.move_id.patient_id.hotel.name + ' ' + default_line_name,
+            'name': self.move_id.patient_id.hotel.name + ' ' + default_line_name if self.move_id.patient_id.hotel else default_line_name,
             'date_maturity': self.date,
             'amount_currency': -liquidity_amount_currency,
             'currency_id': currency_id,
