@@ -855,13 +855,13 @@
     <template id="medical_record_report">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
-                <t t-if="doc.clinic_id.is_clinic">
-                    <t t-if="doc.company_id.header1">
+                <t t-if="doc.clinic_id.is_hospital">
+                    <t t-if="doc.company_id.header_hospital">
                         <div class="header">
                             <t t-set="company" t-value="doc.company_id"/>
                             <div class="row mt32 mb32">
                                 <div class="col-6">
-                                    <img t-att-src="'data:image/png;base64,%s' % to_text(company.header1)"
+                                    <img t-att-src="'data:image/png;base64,%s' % to_text(company.header_hospital)"
                                     />
                                 </div>
                             </div>
@@ -967,13 +967,13 @@
                         </t>
                     </div>
                 </t>
-                <t t-if="doc.clinic_id.is_clinic">
-                    <t t-if="doc.company_id.footer1">
+                <t t-if="doc.clinic_id.is_hospital">
+                    <t t-if="doc.company_id.footer_hospital">
                         <div class="footer">
                             <t t-set="company" t-value="doc.company_id"/>
                             <div class="row mt32 mb32">
                                 <div class="col-6">
-                                    <img t-att-src="'data:image/png;base64,%s' % to_text(company.footer1)"
+                                    <img t-att-src="'data:image/png;base64,%s' % to_text(company.footer_hospital)"
                                     />
                                 </div>
                             </div>

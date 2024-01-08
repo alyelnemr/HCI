@@ -10,8 +10,8 @@
                         <group >
                             <field name="header" widget="image" />
                             <field name="footer" widget="image" />
-                            <field name="header1" widget="image" />
-                            <field name="footer1" widget="image" />
+                            <field name="header_hospital" widget="image" />
+                            <field name="footer_hospital" widget="image" />
                         </group>
                     </page>
                     <page string="Medical Invoice Bank Details">
