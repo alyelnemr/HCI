@@ -12,4 +12,3 @@ class ResUsers(models.Model):
     default_clinic_id = fields.Many2one('medical.clinic', string="Default Clinic")
     allowed_clinic_ids = fields.Many2many('medical.clinic', string="Allowed Clinics")
     effective_date = fields.Date(string="Effective Date")
-    current_date = fields.Date(string="Effective Date", default=date.today())
