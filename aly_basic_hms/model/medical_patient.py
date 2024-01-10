@@ -35,6 +35,12 @@ class MedicalPatient(models.Model):
         default['invoice_id'] = False
         return super(MedicalPatient, self).copy(default)
 
+    def _ignore_invoiced(self):
+        for rec in self:
+            rec.ignore_invoiced_patient = True
+            if rec.invoice_id and rec.invoice_id.payment_state in ('paid', 'in_payment') and rec.create_date != date.today():
+                rec.ignore_invoiced_patient = False
+
     @api.constrains('is_insurance', 'insurance_company_id')
     def onchange_is_insurance(self):
         for rec in self:
@@ -99,14 +105,16 @@ class MedicalPatient(models.Model):
     sex = fields.Selection([('m', 'Male'), ('f', 'Female')], default='m', string="Sex", required=True)
     age = fields.Char(compute=onchange_age, string="Patient Age", store=True)
     age_year = fields.Integer(compute=onchange_age, string="Patient Age Year", store=True)
-    referred_by = fields.Many2one('res.partner', domain=[('is_referred_by', '=', True)], required=False, string='Referred By')
-    referred_to = fields.Many2one('res.partner', domain=[('is_referred_to', '=', True)], required=False, string='Referred To')
+    referred_by = fields.Many2one('res.partner', domain=[('is_referred_by', '=', True)], required=False,
+                                  string='Referred By')
+    referred_to = fields.Many2one('res.partner', domain=[('is_referred_to', '=', True)], required=False,
+                                  string='Referred To')
     is_opened_visit = fields.Boolean(string='Open Visit', default=True, required=False)
     is_important = fields.Boolean(string='Is Important', default=False, required=False)
     is_invoiced = fields.Boolean(string='Is Invoiced', default=False, required=False)
     invoice_id = fields.Many2one('account.move', string='Accounting Invoice', copy=False)
     invoice_amount = fields.Monetary(string='Invoice Amount', readonly=True, tracking=True,
-        related='invoice_id.amount_untaxed')
+                                     related='invoice_id.amount_untaxed')
     order_id = fields.Many2one('sale.order', string='Sales Order Invoice', copy=False)
     is_insurance = fields.Boolean(string='Insurance', default=False, required=False, tracking=True)
     cash_or_credit = fields.Char(string='Insurance', default='Cash', compute=onchange_is_insurance)
@@ -125,7 +133,7 @@ class MedicalPatient(models.Model):
     tour_operator = fields.Many2one('res.partner', domain=[('is_tour_operator', '=', True)], string='Tour Operator')
     date_of_arrival = fields.Date(string="Date of Arrival", required=True)
     date_of_departure = fields.Date(string="Date of Departure", required=True)
-    hotel = fields.Many2one('res.partner',domain=[('is_hotel', '=', True)], string='Hotel', required=True)
+    hotel = fields.Many2one('res.partner', domain=[('is_hotel', '=', True)], string='Hotel', required=True)
     room_number = fields.Integer(string='Room Number', required=True)
     social_history_info = fields.Text(string="Patient Social History")
     emergency_contact_name = fields.Char(string='Contact Name')
@@ -154,11 +162,13 @@ class MedicalPatient(models.Model):
     operation_ids = fields.One2many('medical.operation', 'patient_id', copy=True)
     attachment_ids = fields.One2many('medical.patient.attachment', 'patient_id', string="Attachments", copy=True)
     has_attachment = fields.Boolean(compute='_has_attachment', string="Has Attachment", store=False)
-    disposable_ids = fields.One2many('medical.patient.line', 'patient_id', string='Disposables', required=True, copy=True)
+    disposable_ids = fields.One2many('medical.patient.line', 'patient_id', string='Disposables', required=True,
+                                     copy=True)
     doctor_id = fields.Many2one('medical.physician', 'Treating Physician', required=False)
-    treating_physician_ids = fields.Many2many('medical.physician', string='Treating Physicians',required=False)
+    treating_physician_ids = fields.Many2many('medical.physician', string='Treating Physicians', required=False)
     ignore_effective_date = fields.Boolean(string='Ignore Effective Date', default=False, required=False)
-    ignore_invoiced_patient = fields.Boolean(string='Ignore Invoiced Patient', default=False, required=False)
+    ignore_invoiced_patient = fields.Boolean(string='Ignore Invoiced Patient',
+                                             default=True, required=False)
 
     @api.model
     def create(self, val):
@@ -173,8 +183,8 @@ class MedicalPatient(models.Model):
         patient_id = self.env['ir.sequence'].next_by_code('medical.patient.code')
         if patient_id:
             val.update({
-                        'patient_code': patient_id,
-                       })
+                'patient_code': patient_id,
+            })
         if val.get('is_insurance'):
             insurance = self.env.user.company_id.default_account_rec_insurance_id
             if insurance:
@@ -200,11 +210,13 @@ class MedicalPatient(models.Model):
                     raise UserError(_("You don't have permission to remove insurance from patient!"))
                 if record.is_insurance and record.order_id and not vals.get('order_id') and not has_insurance_group:
                     raise UserError(_("You don't have permission to remove insurance invoice from patient"))
-                if record.is_insurance and record.order_id and record.order_id != vals.get('order_id') and not has_insurance_group:
+                if record.is_insurance and record.order_id and record.order_id != vals.get(
+                        'order_id') and not has_insurance_group:
                     raise UserError(_("You don't have permission to change insurance invoice from patient"))
                 if record.is_insurance and record.invoice_id and not vals.get('invoice_id') and not has_insurance_group:
                     raise UserError(_("You don't have permission to remove insurance invoice from patient"))
-                if record.is_insurance and record.invoice_id and record.invoice_id != vals.get('invoice_id') and not has_insurance_group:
+                if record.is_insurance and record.invoice_id and record.invoice_id != vals.get(
+                        'invoice_id') and not has_insurance_group:
                     raise UserError(_("You don't have permission to change insurance invoice from patient"))
             if vals.get('is_insurance') or record.is_insurance:
                 insurance = self.env.user.company_id.default_account_rec_insurance_id
@@ -220,7 +232,8 @@ class MedicalPatient(models.Model):
     def my_format_date(self, var_datetime_str):
         user_tz = self.env.user.tz or get_localzone() or pytz.utc
         local = pytz.timezone(user_tz)
-        return pytz.utc.localize(var_datetime_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(var_datetime_str, datetime) else var_datetime_str#.strftime("%d/%m/%Y %H:%M:%S")
+        return pytz.utc.localize(var_datetime_str).astimezone(local).strftime("%d/%m/%Y %H:%M:%S") if isinstance(
+            var_datetime_str, datetime) else var_datetime_str  # .strftime("%d/%m/%Y %H:%M:%S")
 
     def my_format_date2(self):
         user_tz = self.env.user.tz or get_localzone() or pytz.utc

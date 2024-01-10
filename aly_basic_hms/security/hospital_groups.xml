@@ -10,9 +10,9 @@
 
 
  <!--delete these two rules, as they deny doctors from creating invoices in accouting module-->
-    <delete id="sale.account_invoice_line_rule_see_personal" model="ir.rule" />
+<!--    <delete id="sale.account_invoice_line_rule_see_personal" model="ir.rule" />-->
 
-    <delete id="sale.account_invoice_rule_see_personal" model="ir.rule" />
+<!--    <delete id="sale.account_invoice_rule_see_personal" model="ir.rule" />-->
 
 
         <record id="module_category_insurance_management" model="ir.module.category">
@@ -186,7 +186,7 @@
         <record id="medical_patient_per_doctor_rule" model="ir.rule">
             <field name="name">Personal Patients</field>
             <field ref="model_medical_patient" name="model_id"/>
-            <field name="domain_force">['|', ('invoice_id', '=', False), '|', ('invoice_id.payment_state', 'not in', ('in_payment', 'paid')), ('ignore_invoiced_patient', '=', True), '|', ('create_date', '>=', user.effective_date), ('ignore_effective_date', '=', True), '|', ('create_uid','=',user.id), ('clinic_id','in', user.allowed_clinic_ids.ids)]</field>
+            <field name="domain_force">['|', ('invoice_id', '=', False), ('ignore_invoiced_patient', '=', True), '|', ('create_date', '>=', user.effective_date), ('ignore_effective_date', '=', True), '|', ('create_uid','=',user.id), ('clinic_id','in', user.allowed_clinic_ids.ids)]</field>
             <field name="groups" eval="[(4, ref('aly_basic_hms.aly_group_outpatient'))]"/>
         </record>
 
