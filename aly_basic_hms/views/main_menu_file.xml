@@ -60,7 +60,7 @@
 
         <menuitem id="menu_hotel2" action="action_medical_patient_dashboard"
                    groups="aly_basic_hms.aly_group_medical_manager"
-            sequence="5" parent="main_menu_hospital_management" />
+            sequence="5" parent="menu_patients" />
 
         <menuitem id="menu_inpatient_administration_admission"
             parent="menu_inpatient_administration" action="action_medical_inpatient_registration"
