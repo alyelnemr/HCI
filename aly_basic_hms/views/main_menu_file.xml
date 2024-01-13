@@ -30,7 +30,7 @@
             parent="main_menu_hospital_management" sequence="0" />
 
         <menuitem id="menu_patients_patients" name='Patients' action="action_medical_patient"
-            parent="main_menu_hospital_management" sequence="0" />
+            parent="menu_patients" sequence="0" />
 
         <menuitem id="menu_appointment" action="action_medical_appointment"
             name='Update Notes' parent="main_menu_hospital_management" sequence="1" />
