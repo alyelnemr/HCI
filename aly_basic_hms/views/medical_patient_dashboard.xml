@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="medical_patient_report_view_search" model="ir.ui.view">
+        <field name="name">medical.patients.dashboard.search</field>
+        <field name="model">medical.patient.dashboard.report</field>
+        <field name="arch" type="xml">
+            <search string="Patient Report Analysis">
+                <field name="hotel_name"/>
+                <field name="invoice_date"/>
+                <separator/>
+                <filter name="filter_date_start" date="invoice_date" default_period="this_year"/>
+                <group expand="1" string="Group By">
+                    <filter string="Invoice Date" name="invoice_date_group" context="{'group_by':'invoice_date'}"/>
+                    <filter string="Hotel" name="hotel_group" context="{'group_by':'hotel_name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="medical_patients_dashboard_list_view" model="ir.ui.view">
+        <field name="name">medical.patients.dashboard.list.view</field>
+        <field name="model">medical.patient.dashboard.report</field>
+        <field name="arch" type="xml">
+            <tree string="Patients Dashboard List">
+                <field name="hotel_name"/>
+                <field name="patient_id"/>
+                <field name="invoice_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="medical_patients_dashboard_form_view" model="ir.ui.view">
+        <field name="name">medical.patients.dashboard.form.view</field>
+        <field name="model">medical.patient.dashboard.report</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="hotel_name"/>
+                    <field name="invoice_amount"/>
+                    <field name="patient_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="medical_patients_dashboard_view" model="ir.ui.view">
+        <field name="name">medical.patients.dashboard.view</field>
+        <field name="model">medical.patient.dashboard.report</field>
+        <field name="arch" type="xml">
+            <graph string="Patients Dashboard" sample="1">
+                <field name="hotel_name" type="row"/>
+                <field name="invoice_amount" type="measure"/>
+                <field name="patient_count" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_medical_patient_dashboard" model="ir.actions.act_window">
+        <field name="name">Patients Dashboard</field>
+        <field name="res_model">medical.patient.dashboard.report</field>
+        <field name="usage">menu</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="medical_patients_dashboard_view"/>
+    </record>
+
+</odoo>

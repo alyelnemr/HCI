@@ -176,3 +176,4 @@ access_medical_external_service,medical.external.service,model_medical_external_
 access_medical_clinic,medical.clinic,model_medical_clinic,,1,1,1,1
 access_hotel_occupancy_rate,access_hotel_occupancy_rate,model_res_partner_hotel,,1,1,1,1
 access_medical_physician_languages,access_medical_physician_languages,model_medical_physician_languages,,1,1,1,1
+access_medical_patient_dashboard_report,access_medical_patient_dashboard_report,model_medical_patient_dashboard_report,,1,1,1,1

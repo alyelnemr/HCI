@@ -38,7 +38,8 @@ class MedicalPatient(models.Model):
     def _ignore_invoiced(self):
         for rec in self:
             rec.ignore_invoiced_patient = True
-            if rec.invoice_id and rec.invoice_id.payment_state in ('paid', 'in_payment') and rec.create_date != date.today():
+            if rec.invoice_id and rec.invoice_id.payment_state in (
+            'paid', 'in_payment') and rec.create_date != date.today():
                 rec.ignore_invoiced_patient = False
 
     @api.constrains('is_insurance', 'insurance_company_id')
@@ -46,6 +47,13 @@ class MedicalPatient(models.Model):
         for rec in self:
             if rec.is_insurance and not rec.insurance_company_id:
                 raise UserError(_('Please enter Insurance Company or convert to Cash...'))
+
+    @api.depends('invoice_id', 'invoice_amount')
+    def compute_invoice_amount(self):
+        for rec in self:
+            rec.invoice_amount_measure = 0
+            if rec.invoice_amount:
+                rec.invoice_amount_measure = rec.invoice_amount
 
     @api.depends('attachment_ids')
     def _has_attachment(self):
@@ -115,6 +123,8 @@ class MedicalPatient(models.Model):
     invoice_id = fields.Many2one('account.move', string='Accounting Invoice', copy=False)
     invoice_amount = fields.Monetary(string='Invoice Amount', readonly=True, tracking=True,
                                      related='invoice_id.amount_untaxed')
+    invoice_amount_measure = fields.Monetary(string='Invoice Amount', readonly=True, compute='compute_invoice_amount',
+                                             store=True)
     order_id = fields.Many2one('sale.order', string='Sales Order Invoice', copy=False)
     is_insurance = fields.Boolean(string='Insurance', default=False, required=False, tracking=True)
     cash_or_credit = fields.Char(string='Insurance', default='Cash', compute=onchange_is_insurance)
