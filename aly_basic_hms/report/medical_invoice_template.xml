@@ -326,7 +326,7 @@
                         </t>
                     </div>
                 </t>
-                <t t-if="doc.clinic_id.is_hospital">
+                <t t-if="doc.patient_id.clinic_id.is_hospital">
                 <t t-if="doc.company_id.footer_hospital">
                     <div class="footer">
                         <t t-set="company" t-value="doc.company_id"/>
