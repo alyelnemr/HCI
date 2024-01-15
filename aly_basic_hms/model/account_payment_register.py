@@ -20,7 +20,7 @@ class AccountPaymentRegister(models.TransientModel):
     def _domain_allowed_bank_fees(self):
         if self.env.user.allowed_bank_fees_ids:
             return [('id', 'in', self.env.user.allowed_bank_fees_ids.ids)]
-        return []
+        return [('type', 'in', ('cash', 'bank'))]
 
     is_bank_fees = fields.Boolean(default=False, related='journal_id.is_bank_fees')
     bank_fees_amount = fields.Monetary(string="Bank Fees Amount", compute='_compute_bank_fees', store=False)
