@@ -12,13 +12,15 @@ class ResCompany(models.Model):
             domain = [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', True), ('type', '=', 'service')]
         return domain
 
-    header = fields.Binary(string='Medical Report Header')
-    footer = fields.Binary(string='Medical Report Footer')
+    header = fields.Binary(string='Medical Report Header - Clinic')
+    footer = fields.Binary(string='Medical Report Footer - Clinic')
+    header_hospital = fields.Binary(string='Medical Report Header - Hospital')
+    footer_hospital = fields.Binary(string='Medical Report Footer - Hospital')
     bank_details = fields.Text(string='Banks Accounts Details')
     aly_enable_service_charge = fields.Boolean(string='Enable Service Charges', default=True)
     aly_service_charge_percentage = fields.Float(string="Service Charge Percentage", default=12.5)
     aly_service_product_id = fields.Many2one('product.product', string='Service Charge Product',
-                                 domain=lambda self: self._get_service_charge_domain())
+                                             domain=lambda self: self._get_service_charge_domain())
     aly_enable_bank_fees = fields.Boolean(string='Enable Bank Fees', default=True)
     aly_bank_fees_percentage = fields.Float(string="Bank Fees Percentage", default=.05)
     aly_bank_fees_journal_id = fields.Many2one(comodel_name='account.journal', string='Journal')
@@ -30,6 +32,7 @@ class ResCompany(models.Model):
     default_account_rec_insurance_id = fields.Many2one('account.account',
                                                        domain="[('internal_type', '=', 'receivable'), ('deprecated', '=', False), ('company_id', '=', current_company_id)]",
                                                        string="Account Receivable (Insurance)")
+    bank_fees_ids = fields.One2many(comodel_name='bank.fees', inverse_name='company_id', string='Bank Fees')
 
     @api.onchange('aly_enable_service_charge')
     def set_config_service_charge(self):
@@ -42,7 +45,7 @@ class ResCompany(models.Model):
             else:
                 prod_cat_obj_id = prod_cat_obj.id
             if not self.aly_service_product_id:
-                domain = [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', True),  ('type', '=', 'service')]
+                domain = [('categ_id', '=', prod_cat_obj_id), ('sale_ok', '=', True), ('type', '=', 'service')]
                 self.aly_service_product_id = self.env['product.product'].search(domain, limit=1)
         else:
             self.aly_service_product_id = False

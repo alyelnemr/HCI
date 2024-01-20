@@ -10,3 +10,4 @@ class BedTransfer(models.Model):
 
     name = fields.Char("Clinic Name", required=True)
     info = fields.Text('Extra Info')
+    is_hospital = fields.Boolean(string='Is Hospital', default=False)

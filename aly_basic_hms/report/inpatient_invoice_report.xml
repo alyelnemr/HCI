@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
         <template id="aly_basic_hms.inpatient_invoice_document_report">
 			<t t-call="web.external_layout">
 				<t t-set="doc" t-value="doc.with_context({'lang':doc.patient_id.partner_id.lang})"/>
@@ -25,22 +25,22 @@
 								Inpatient Registration code:
 								<span t-field='doc.name' />
 							</b>
-							<br></br>
+							<br/>
 							<b>Patient Name:</b>
 							<span t-field='doc.patient_id.name' />
-							<br></br>
+							<br/>
 							<b>Gender :</b>
 							<span t-field='doc.patient_id.sex' />
-							<br></br>
+							<br/>
 							<b>Date of Birth :</b>
 							<span t-field='doc.patient_id.date_of_birth' />
-							<br></br>
+							<br/>
 							<b>Hotel:</b>
 							<span t-field='doc.patient_id.hotel' />
-							<br></br>
+							<br/>
 							<h4>Payment Type:</h4>
 							<span t-field='doc.invoice_id.payment_reference' />
-							<br></br>
+							<br/>
 						</div>
 					</tr>
 
@@ -103,4 +103,4 @@
 			</t>
         </template>
 
-</openerp>
+</odoo>

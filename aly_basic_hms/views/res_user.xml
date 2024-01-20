@@ -12,6 +12,8 @@
                             <field name="max_allowed_discount" />
                             <field name="default_clinic_id"  />
                             <field name="allowed_clinic_ids" widget="many2many_tags" />
+                            <field name="allowed_bank_fees_ids" widget="many2many_tags" />
+                            <field name="pricelist_id" />
                         </group>
                     </page>
                 </notebook>

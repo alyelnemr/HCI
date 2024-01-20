@@ -8,50 +8,26 @@ from odoo.exceptions import ValidationError, UserError
 class AccountPaymentRegister(models.TransientModel):
     _inherit = 'account.payment.register'
 
-    @api.onchange('amount', 'journal_id_type', 'journal_id_select', 'pay_method_id', 'payment_date')
+    @api.onchange('amount', 'journal_id_type', 'journal_id', 'bank_fees_id', 'payment_date')
     def _compute_bank_fees(self):
         self.bank_fees_amount = 0
-        self.is_bank_fees = False
         self.total_amount_with_fees = self.amount
-        if not self.journal_id:
-            self.journal_id = self.env['account.journal'].search([
-                        ('type', '=', 'cash'),
-                        ('company_id', '=', self.company_id.id),
-                    ], limit=1)
-        if self.amount and self.pay_method_id.is_include_fees:
-            self.is_bank_fees = True
-            percentage = self.pay_method_id.fees_percentage / 100
+        if self.amount and self.is_bank_fees:
+            percentage = self.journal_id.bank_fees_percentage / 100
             self.bank_fees_amount = self.amount * percentage
             self.total_amount_with_fees = self.amount + self.bank_fees_amount
-            if not self.journal_id:
-                self.journal_id = self.env['account.journal'].search([
-                    ('type', '=', 'bank'),
-                    ('company_id', '=', self.company_id.id),
-                ], limit=1)
-        # if self.amount and self.journal_id_select in ('paypal', 'stripe'):
-        #     self.is_bank_fees = True
-        #     percentage = .03 if self.journal_id_select == 'stripe' else .05
-        #     self.bank_fees_amount = self.amount * percentage
-        #     self.total_amount_with_fees = self.amount + self.bank_fees_amount
-        #     if not self.journal_id:
-        #         self.journal_id = self.env['account.journal'].search([
-        #             ('type', '=', 'bank'),
-        #             ('company_id', '=', self.company_id.id),
-        #         ], limit=1)
 
-    is_bank_fees = fields.Boolean(default=False)
-    bank_fees_amount = fields.Monetary(string="Bank Fees", compute='_compute_bank_fees', store=False)
+    def _domain_allowed_bank_fees(self):
+        if self.env.user.allowed_bank_fees_ids:
+            return [('id', 'in', self.env.user.allowed_bank_fees_ids.ids)]
+        return [('type', 'in', ('cash', 'bank'))]
+
+    is_bank_fees = fields.Boolean(default=False, related='journal_id.is_bank_fees')
+    bank_fees_amount = fields.Monetary(string="Bank Fees Amount", compute='_compute_bank_fees', store=False)
+    bank_fees_id = fields.Many2one(comodel_name='bank.fees', string='Payment Method', domain=lambda self: self._domain_allowed_bank_fees())
     total_amount_with_fees = fields.Monetary(string="Total Amount with Fees", compute='_compute_bank_fees', store=False)
-    pay_method_id = fields.Many2one(comodel_name='payment.method', String='Journal', required=True)
-    journal_id_select = fields.Selection([
-        ('cash', 'Cash'),
-        ('bank', 'Bank'),
-        ('paypal', 'Paypal'),
-        ('stripe', 'Stripe'),
-        ('wise', 'Wise Bank'),
-        ('pos', 'Hotel POS'),
-    ], string="Journal", default='cash')
-    journal_id = fields.Many2one('account.journal', store=True, readonly=False)
+    journal_id = fields.Many2one(comodel_name='account.journal', domain=lambda self: self._domain_allowed_bank_fees())
+    # pay_method_id = fields.Many2one(comodel_name='payment.method', String='Journal', required=False)
     journal_id_type = fields.Selection([
         ('sale', 'Sales'),
         ('purchase', 'Purchase'),
@@ -60,21 +36,6 @@ class AccountPaymentRegister(models.TransientModel):
         ('general', 'Miscellaneous'),
     ], related="journal_id.type")
     is_insurance_patient = fields.Boolean(default=False)
-
-    def _post_payments(self, to_process, edit_mode=False):
-        """ Post the newly created payments.
-
-        :param to_process:  A list of python dictionary, one for each payment to create, containing:
-                            * create_vals:  The values used for the 'create' method.
-                            * to_reconcile: The journal items to perform the reconciliation.
-                            * batch:        A python dict containing everything you want about the source journal items
-                                            to which a payment will be created (see '_get_batches').
-        :param edit_mode:   Is the wizard in edition mode.
-        """
-        payments = self.env['account.payment']
-        for vals in to_process:
-            payments |= vals['payment']
-        payments.sudo().action_post()
 
     def _reconcile_payments(self, to_process, edit_mode=False):
         """ Reconcile the payments.
@@ -142,8 +103,8 @@ class AccountPaymentRegister(models.TransientModel):
         res['bank_fees_amount'] = self.bank_fees_amount
         res['total_amount_with_fees'] = self.total_amount_with_fees
         res['is_bank_fees'] = self.is_bank_fees
-        res['journal_id_select'] = self.journal_id_select
-        res['pay_method_id'] = self.pay_method_id.id
+        res['bank_fees_id'] = self.bank_fees_id.id
+        # res['pay_method_id'] = self.pay_method_id.id
         return res
 
     def _create_payment_vals_from_batch(self, batch_result):
@@ -195,8 +156,6 @@ class AccountPaymentRegister(models.TransientModel):
                 move_id = lines[0].move_id
 
         current = self.env['payment.method'].search([], limit=1)
-        res['pay_method_id'] = current
-        res['journal_id'] = self.env.company.aly_bank_fees_journal_id.id
-        res['journal_id_select'] = move_id.payment_method_fees
+        # res['pay_method_id'] = current
         res['is_insurance_patient'] = move_id.is_insurance_patient
         return res
