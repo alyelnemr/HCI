@@ -127,6 +127,8 @@ class SaleOrderForDiscount(models.Model):
         for order in self:
             amount_untaxed = amount_tax = 0.0
             for line in order.order_line:
+                if line.product_id == self.company_id.aly_service_product_id:
+                    line.discount = 0
                 line._compute_amount()
                 amount_untaxed += line.price_subtotal
                 amount_tax += line.price_tax
