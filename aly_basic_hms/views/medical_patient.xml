@@ -210,6 +210,8 @@
         <field name="type">search</field>
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
+            <field name="patient_code"/>
+            <field name="name"/>
             <search string="Search for Patients">
                 <separator orientation="vertical"/>
                 <field name="name"/>

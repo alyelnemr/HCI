@@ -116,6 +116,7 @@ class SaleOrderForDiscount(models.Model):
             })
         if self.company_id.aly_enable_service_charge and line_service_charge:
             line_service_charge.price_unit = self.company_id.aly_service_charge_percentage * self.amount_untaxed / 100
+            line_service_charge.discount = 0
         return res
 
     @api.depends('order_line.price_total')
