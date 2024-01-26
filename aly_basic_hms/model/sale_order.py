@@ -25,8 +25,8 @@ class SaleOrderForDiscount(models.Model):
             if rec.patient_id and rec.patient_id.is_insurance and not self.env.user.has_group(
                     'aly_basic_hms.aly_group_insurance'):
                 raise UserError(_("You don't have permission to access insurance invoice from patient"))
-            aly_enable_service_charge = rec.company_id.sudo().aly_enable_service_charge
-            if aly_enable_service_charge and rec.amount_total > 0:
+            aly_enable_service_charge = rec.company_id.aly_enable_service_charge
+            if aly_enable_service_charge and rec.amount_total > 0 and rec.patient_id.clinic_id.is_hospital:
                 aly_service_product_id = int(rec.company_id.aly_service_product_id.id)
                 amount_untaxed = 0.0
                 for line in rec.order_line:
@@ -34,7 +34,7 @@ class SaleOrderForDiscount(models.Model):
                         line.price_unit = 0
                     amount_untaxed += (line.price_unit * line.product_uom_qty) if line.product_id.categ_id.name not in [
                         'Prosthetics', 'Medicines', 'Disposables', 'Discounts', 'Service Charge Services'] else 0
-                aly_service_charge_percentage = float(rec.company_id.sudo().aly_service_charge_percentage)
+                aly_service_charge_percentage = float(rec.company_id.aly_service_charge_percentage)
                 rec.service_charge_amount = aly_service_charge_percentage * amount_untaxed / 100
                 rec.service_untaxed_amount = amount_untaxed
                 for line in rec.order_line:
@@ -94,7 +94,7 @@ class SaleOrderForDiscount(models.Model):
 
     def get_service_charge_service(self):
         service_id = False
-        if self.company_id.aly_enable_service_charge:
+        if self.company_id.aly_enable_service_charge and self.patient_id.clinic_id.is_hospital:
             service_id = self.order_line.filtered_domain(
                 [('product_id', '=', self.company_id.aly_service_product_id.id)])
         return service_id
@@ -114,7 +114,7 @@ class SaleOrderForDiscount(models.Model):
             medicines_lines.write({
                 'price_unit': 0
             })
-        if self.company_id.aly_enable_service_charge and line_service_charge:
+        if self.company_id.aly_enable_service_charge and line_service_charge and self.patient_id.clinic_id.is_hospital:
             line_service_charge.price_unit = self.company_id.aly_service_charge_percentage * self.amount_untaxed / 100
         return res
 
