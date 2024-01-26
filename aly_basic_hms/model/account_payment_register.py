@@ -142,20 +142,20 @@ class AccountPaymentRegister(models.TransientModel):
                 'domain': [('id', 'in', payments.ids)],
             })
         return action
-
-    @api.model
-    def default_get(self, fields_list):
-        res = super().default_get(fields_list)
-        move_id = False
-
-        if self._context.get('active_model') == 'account.move':
-            move_id = self.env['account.move'].browse(self._context.get('active_ids', []))
-        elif self._context.get('active_model') == 'account.move.line':
-            lines = self.env['account.move.line'].browse(self._context.get('active_ids', []))
-            if lines:
-                move_id = lines[0].move_id
-
-        current = self.env['payment.method'].search([], limit=1)
-        # res['pay_method_id'] = current
-        res['is_insurance_patient'] = move_id.is_insurance_patient
-        return res
+    #
+    # @api.model
+    # def default_get(self, fields_list):
+    #     res = super().default_get(fields_list)
+    #     move_id = False
+    #
+    #     if self._context.get('active_model') == 'account.move':
+    #         move_id = self.env['account.move'].browse(self._context.get('active_ids', []))
+    #     elif self._context.get('active_model') == 'account.move.line':
+    #         lines = self.env['account.move.line'].browse(self._context.get('active_ids', []))
+    #         if lines:
+    #             move_id = lines[0].move_id
+    #
+    #     current = self.env['payment.method'].search([], limit=1)
+    #     # res['pay_method_id'] = current
+    #     res['is_insurance_patient'] = move_id.is_insurance_patient
+    #     return res
