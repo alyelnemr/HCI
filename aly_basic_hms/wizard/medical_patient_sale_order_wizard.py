@@ -267,7 +267,7 @@ class MedicalPatientSaleOrderWizard(models.TransientModel):
                     })
                     # res1 = sale_order_line_obj.create(invoice_line_vals)
 
-                if medical_patient_obj.company_id.aly_enable_service_charge:
+                if medical_patient_obj.company_id.aly_enable_service_charge and medical_patient_obj.clinic_id.is_hospital:
                     sale_order_lines_list.append({
                         'name': 'Service Charges' or '',
                         'product_uom_qty': 1,
