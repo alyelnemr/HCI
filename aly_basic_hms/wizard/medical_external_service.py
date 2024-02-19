@@ -137,7 +137,7 @@ class MedicalExternalServiceWizard(models.TransientModel):
             'currency_id': vals['currency_id'],
             'partner_id': partner_id.id,
             'partner_bank_id': False,
-            'payment_method_id': journal_id.inbound_payment_method_ids._origin.id,
+            'payment_method_id': journal_id.inbound_payment_method_ids[0]._origin.id if journal_id.inbound_payment_method_ids else False,
             'destination_account_id': partner_id.property_account_receivable_id.id
         }
         payments = self.env['account.payment'].create(payment_vals)
