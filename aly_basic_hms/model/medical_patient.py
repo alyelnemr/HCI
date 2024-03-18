@@ -35,11 +35,11 @@ class MedicalPatient(models.Model):
         default['invoice_id'] = False
         return super(MedicalPatient, self).copy(default)
 
-    def _ignore_invoiced(self):
+    def _compute_ignore_invoiced(self):
         for rec in self:
             rec.ignore_invoiced_patient = True
             if rec.invoice_id and rec.invoice_id.payment_state in (
-            'paid', 'in_payment') and rec.create_date != date.today():
+                    'paid', 'in_payment') and rec.create_date != date.today():
                 rec.ignore_invoiced_patient = False
 
     @api.constrains('is_insurance', 'insurance_company_id')
@@ -177,8 +177,8 @@ class MedicalPatient(models.Model):
     doctor_id = fields.Many2one('medical.physician', 'Treating Physician', required=False)
     treating_physician_ids = fields.Many2many('medical.physician', string='Treating Physicians', required=False)
     ignore_effective_date = fields.Boolean(string='Ignore Effective Date', default=False, required=False)
-    ignore_invoiced_patient = fields.Boolean(string='Ignore Invoiced Patient',
-                                             default=True, required=False)
+    ignore_invoiced_patient = fields.Boolean(string='Ignore Invoiced Patient', store=False,
+                                             compute='_compute_ignore_invoiced', required=False)
 
     @api.model
     def create(self, val):
