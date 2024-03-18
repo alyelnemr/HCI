@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <data noupdate="0">
-
-        <!-- Top menu item -->
-        <menuitem id="sale.sale_menu_root"
-                  groups="aly_group_medical_manager"
-                  name="Sales"
-                  web_icon="sale_management,static/description/icon.png"
-                  active="False"
-                  sequence="7"/>
-
-    </data>
-
     <data noupdate="1">
         <record id="module_category_medical_app" model="ir.module.category">
             <field name="name">Medical Application</field>
