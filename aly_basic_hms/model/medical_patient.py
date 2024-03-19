@@ -34,7 +34,7 @@ class MedicalPatient(models.Model):
         default['is_opened_visit'] = True
         default['invoice_id'] = False
         return super(MedicalPatient, self).copy(default)
-    #
+    # @api.depends('order_id', 'order_id.state')
     # @api.depends('invoice_id', 'invoice_id.payment_state', 'invoice_amount')
     # def _compute_ignore_invoiced(self):
     #     for rec in self:
