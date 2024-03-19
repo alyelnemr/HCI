@@ -34,19 +34,22 @@ class MedicalPatient(models.Model):
         default['is_opened_visit'] = True
         default['invoice_id'] = False
         return super(MedicalPatient, self).copy(default)
-
-    @api.depends('invoice_id', 'invoice_id.payment_state', 'invoice_amount')
-    def _compute_ignore_invoiced(self):
-        for rec in self:
-            rec.ignore_invoiced_patient = True
-            if rec.invoice_id and rec.invoice_id.payment_state in (
-                    'paid', 'in_payment') and rec.create_date != date.today():
-                rec.ignore_invoiced_patient = False
+    #
+    # @api.depends('invoice_id', 'invoice_id.payment_state', 'invoice_amount')
+    # def _compute_ignore_invoiced(self):
+    #     for rec in self:
+    #         rec.ignore_invoiced_patient = True
+    #         if rec.invoice_id and rec.invoice_id.payment_state in (
+    #                 'paid', 'in_payment') and rec.create_date != date.today():
+    #             rec.ignore_invoiced_patient = False
 
     def compute_all_ignore_invoiced(self):
         all = self.env['medical.patient'].search([])
         for rec in all:
-            rec._compute_ignore_invoiced()
+            rec.ignore_invoiced_patient = True
+            if rec.invoice_id and rec.invoice_id.payment_state in (
+                    'paid', 'in_payment') and rec.create_date != date.today():
+                rec.ignore_invoiced_patient = False
 
     @api.constrains('is_insurance', 'insurance_company_id')
     def onchange_is_insurance(self):
@@ -183,8 +186,7 @@ class MedicalPatient(models.Model):
     doctor_id = fields.Many2one('medical.physician', 'Treating Physician', required=False)
     treating_physician_ids = fields.Many2many('medical.physician', string='Treating Physicians', required=False)
     ignore_effective_date = fields.Boolean(string='Ignore Effective Date', default=False, required=False)
-    ignore_invoiced_patient = fields.Boolean(string='Ignore Invoiced Patient', store=True,
-                                             compute='_compute_ignore_invoiced', required=False)
+    ignore_invoiced_patient = fields.Boolean(string='Ignore Invoiced Patient', required=False)
 
     @api.model
     def create(self, val):
