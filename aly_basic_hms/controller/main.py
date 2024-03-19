@@ -22,13 +22,14 @@ class Binary(http.Controller):
         try:
             return base64.decodestring(s)
         except Exception as e:
-            raise ValidationError('Error:', +str(e))
+            raise ValidationError('Error: ' + str(e))
+
     @http.route('/web/binary/download_document', type='http', auth="public")
     def download_document(self, tab_id, **kw):
         new_tab = ast.literal_eval(tab_id)
         patient_id = request.env['medical.patient'].search([('id', 'in', new_tab)], limit=1)
         attachment_ids = request.env['medical.patient.attachment'].search([('patient_id', 'in', new_tab)])
-        zip_filename = patient_id.name # datetime.now()
+        zip_filename = patient_id.name  # datetime.now()
         zip_filename = "%s.zip" % zip_filename
         bitIO = BytesIO()
         zip_file = zipfile.ZipFile(bitIO, "w", zipfile.ZIP_DEFLATED)
@@ -43,4 +44,3 @@ class Binary(http.Controller):
         return request.make_response(bitIO.getvalue(),
                                      headers=[('Content-Type', 'application/x-zip-compressed'),
                                               ('Content-Disposition', content_disposition(zip_filename))])
-
