@@ -43,6 +43,11 @@ class MedicalPatient(models.Model):
                     'paid', 'in_payment') and rec.create_date != date.today():
                 rec.ignore_invoiced_patient = False
 
+    def compute_all_ignore_invoiced(self):
+        all = self.env['medical.patient'].search([])
+        for rec in all:
+            rec._compute_ignore_invoiced()
+
     @api.constrains('is_insurance', 'insurance_company_id')
     def onchange_is_insurance(self):
         for rec in self:
