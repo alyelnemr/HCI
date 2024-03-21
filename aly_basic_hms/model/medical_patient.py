@@ -3,6 +3,7 @@
 
 from odoo import api, fields, models, _
 from datetime import date, datetime
+from datetime import timedelta as tdelta
 import pytz
 from tzlocal import get_localzone
 from dateutil.relativedelta import relativedelta
@@ -48,7 +49,7 @@ class MedicalPatient(models.Model):
         for rec in all:
             rec.ignore_invoiced_patient = True
             if rec.invoice_id and rec.invoice_id.payment_state in (
-                    'paid', 'in_payment') and rec.create_date < date.today() + datetime.timedelta(days=1):
+                    'paid', 'in_payment') and rec.create_date < date.today() + tdelta(days=1):
                 rec.ignore_invoiced_patient = False
 
     @api.constrains('is_insurance', 'insurance_company_id')
